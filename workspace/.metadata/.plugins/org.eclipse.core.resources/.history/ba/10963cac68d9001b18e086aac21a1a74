@@ -1,0 +1,18 @@
+package anitel.model;
+
+public class roomDTO {
+	private int room_num;
+	private String id;
+	private String name;
+	private char pet_type;
+	private String pet_etctype;
+	private String d_fee;
+	private char pet_big;
+	private char util_pool;
+	private char util_ground;
+	private char util_parking;
+	private char paid_bath;
+	private char paid_beauty;
+	private char paid_medi;
+	private char util_ground;
+}

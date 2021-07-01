@@ -1,0 +1,18 @@
+package anitel.model;
+
+public class memberDTO {
+	private String id;
+	private String member_pw;
+	private String member_name;
+	private String member_phone;
+	private String member_email;
+	private String hotel_name;
+	private String hotel_owner;
+	private String hotel_add;
+	private String hotel_phone;
+	private char member_approved;
+	private String hotel_intro;
+	private char member_approved;
+	private String hold_reason;
+	private String reg_num;
+}

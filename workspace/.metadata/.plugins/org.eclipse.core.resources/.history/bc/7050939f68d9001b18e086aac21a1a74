@@ -1,0 +1,13 @@
+package anitel.model;
+
+public class roomDTO {
+	private int room_num;
+	private String id;
+	private String name;
+	private char pet_type;
+	private String pet_etctype;
+	private String pet_etctype;
+	private String id;
+	private String id;
+	private String id;
+}

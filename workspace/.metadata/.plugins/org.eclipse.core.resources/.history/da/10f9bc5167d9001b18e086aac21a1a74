@@ -1,0 +1,8 @@
+package anitel.model;
+
+public class memberDTO {
+	private String id;
+	private String member_pw;
+	
+	
+}

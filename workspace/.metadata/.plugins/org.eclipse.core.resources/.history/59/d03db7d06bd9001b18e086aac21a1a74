@@ -1,0 +1,21 @@
+package anitel.model;
+
+import java.sql.Connection;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+public class MemberDAO {
+	private static MemberDAO instance = new MemberDAO();
+	private MemberDAO() {}
+	public static MemberDAO getInstance() { return instance; }
+	
+	// 커넥션 메서드 : 내부에서만 사용할거라 private 접근 제어자
+	private Connection getConnection() throws Exception {
+		Context ctx = new InitialContext();
+		Context env = (Context)ctx.lookup("java:comp/env");
+		DataSource ds = (DataSource)env.lookup("jdbc/orcl");
+		return ds.getConnection();
+	}
+}
