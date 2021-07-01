@@ -162,15 +162,11 @@ cursor: pointer;
 color: black;
 font-size:18px;
 line-height: 70px;
-}
-
-.memberLogin {
-width: 50%;
 background: #999;
+width: 50%;
 }
 
-.userLogin {
-width: 50%;
+.show {
 background: white;
 }
 

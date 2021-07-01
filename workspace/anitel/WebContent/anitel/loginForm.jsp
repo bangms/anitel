@@ -28,10 +28,10 @@
      <br />
      <div class="login_wrap">
        <div class="sel_wrap">
-         <div class="userLogin login">
+         <div id="userLogin" class="login show" onclick="loginClick()">
            일반 회원
          </div>
-         <div class="memberLogin login">
+         <div id="memberLogin" class="login">
            사업자 회원
          </div>
        </div>
@@ -55,7 +55,10 @@
 		COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
  </div>
  <script>
- 
+ function loginClick() {
+	 var member_btn = document.getElementById('memberLogin');
+	 var user_btn = document.getElementById('userLogin');
+ }
  </script>
 </body>
 </html>
