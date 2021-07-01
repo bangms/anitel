@@ -12,8 +12,8 @@
 <body>
 <div id="container">
 	<div id="header">
-		<div id="logo">
-			<img src="imgs/logo.jpg" width="200px" height="100px">
+		<div id="logo" onclick="window.location='main.jsp'">
+			<img src="imgs/logo.jpg" width="200px" height="100px" alt="logo">
 		</div>
 		<div id="button">
 			<button id="notice">공지사항</button>
@@ -30,7 +30,7 @@
 				아래의 버튼을 눌러 간단히 회원가입 하시고 <br />
 				ANITEL의 편리한 서비스를 자유롭게 이용해보세요!
 				</p>
-				<button class="btn_user_signup" onclick="window.location='users/signInUserForm.jsp'">ANITEL 회원가입</button>
+				<button class="btn_user_signup" onclick="window.location='signInUserForm.jsp'">ANITEL 회원가입</button>
 				<p> 혹시 반려동물을 위한 호텔을 경영하고 계신다면?</p>
 				<button class="btn_mem_signup" onclick="window.location='signInMemberForm.jsp'">사업자 회원가입</button>
 			</div>
