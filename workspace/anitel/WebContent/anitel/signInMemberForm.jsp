@@ -4,10 +4,10 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<link rel="stylesheet" href="../style/style.css">
-	<link rel="stylesheet" href="../style/reset.css">
-	<link rel="stylesheet" href="../style/init.css">
+	<title>사업자회원가입</title>
+  <link rel="stylesheet" href="style/style.css">
+ 	<link rel="stylesheet" href="style/reset.css">
+  <link rel="stylesheet" href="style/init.css">	
 </head>
 <script type="text/javascript">
 function confirmId(inputForm) { // inputForm <- this.form 객체 받음
@@ -23,11 +23,18 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 }
 </script>
 <body>
-<div id="jb-container">
-	<div id="jb-header">
-		<img src="imgs/logo.jpg" alt="로고" class="logo" align="left"/>
-	</div>
-	<div id="jb-content">
+<div id="container">
+	<div id="header">
+		<div id="logo">
+			<img src="imgs/logo.jpg" width="200px" height="100px">
+		</div>
+		<div id="button">
+			<button id="notice">공지사항</button>
+			<button id="signin" onclick="window.location='signIn.jsp'">회원가입</button>
+			<button id="login" onclick="window.location='LoginForm.jsp'">로그인</button>
+		</div>
+	</div>	
+	<div id="section">
 		<h1 align="center">사업자회원가입</h1>
 	
 		<form action="singInMemberPro.jsp" method="post" name="inputForm">
@@ -159,11 +166,15 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 		</form>
 		
 	</div>
-	<div id="jb-footer">
-		<p>Copyright</p>
-	</div>
-</div>
+		<div id="footer">
+			 <img src="imgs/logo2.png" width=100px; height=50px;>
+			 <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
+			 이용약관 | 취소정책 | 1:1문의 <br/>
+				COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
+			</div>
+  </div>
 </body>
+ <%-- 반려동물 종 선택 기타 입력란 나타내는 스크립트 --%>
 <script type="text/javascript">
 function view(value){
 	var pet_type_sel = document.getElementById('pet_type');
