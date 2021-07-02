@@ -1,0 +1,167 @@
+
+/* 메인페이지 height 100% 옵션주기 위한 div */
+.box {
+	height: 140px;
+}
+
+.main_form {
+	width: 80%;
+	display: inline-flex;	
+	position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+
+/* 배경 이미지 */
+.bg_wrap {
+	position: fixed;
+  left: 0;
+  z-index: -1;
+  padding-bottom: -140px;
+  
+}
+
+.bg {
+	background-color: rgba(0,0,0,0.4);
+	width:100%;
+	height:100%;
+	position: fixed;
+  left: 0;
+}
+
+/* 전체 레이아웃 */
+
+#location, #check_out, #pet {
+	margin-right:10px;
+}
+
+#check_in {
+	margin-right:5px;
+}
+
+/* 날짜 입력 input */
+.check_date {
+	padding:0 20px;
+  color: #60666d;
+  font-size: 1em;
+  border: 0;
+  outline: 0;
+  box-shadow: 0 15px 30px -10px rgb(0 0 0 / 10%);
+  cursor: pointer;
+}
+
+
+/* 셀렉트 옵션 */
+	.select-box, .check_date  {
+	  position: relative;
+	  display: block;
+	  width: 50%;
+	  margin: 0 auto;
+	  font-family: "Open Sans", "Helvetica Neue", "Segoe UI", "Calibri", "Arial", sans-serif;
+	  font-size: 18px;
+	  color: #60666d;
+	  border-radius : 6px;
+	}
+	.select-box_current {
+	  position: relative;
+	  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+	  cursor: pointer;
+	  outline: none;
+	}
+	.select-box_current:focus + .select-box_list {
+	  opacity: 1;
+	  -webkit-animation-name: none;
+	          animation-name: none;
+	}
+	.select-box_current:focus + .select-box_list .select-box_option {
+	  cursor: pointer;
+	}
+	.select-box_current:focus .select-box_icon {
+	  transform: translateY(-50%) rotate(180deg);
+	}
+	.select-box_icon {
+	  position: absolute;
+	  top: 50%;
+	  right: 15px;
+	  transform: translateY(-50%);
+	  width: 20px;
+	  opacity: 0.3;
+	  transition: 0.2s ease;
+	}
+	.select-box_value {
+	  display: flex;
+	}
+	.select-box_input {
+	  display: none;
+	}
+	.select-box_input:checked + .select-box_input-text {
+	  display: block;
+	}
+	.select-box_input-text {
+	  display: none;
+	  width: 100%;
+	  margin: 0;
+	  padding: 15px;
+	  background-color: #fff;
+	  border-radius: 6px
+	}
+	.select-box_list {
+	  position: absolute;
+	  width: 100%;
+	  padding: 0;
+	  list-style: none;
+	  opacity: 0;
+	  -webkit-animation-name: HideList;
+	          animation-name: HideList;
+	  -webkit-animation-duration: 0.5s;
+	          animation-duration: 0.5s;
+	  -webkit-animation-delay: 0.5s;
+	          animation-delay: 0.5s;
+	  -webkit-animation-fill-mode: forwards;
+	          animation-fill-mode: forwards;
+	  -webkit-animation-timing-function: step-start;
+	          animation-timing-function: step-start;
+	  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+	}
+	.select-box_option {
+	  display: block;
+	  padding: 15px;
+	  background-color: #fff;
+	}
+	.select-box_option:hover, .select-box_option:focus {
+	  color: #546c84;
+	  background-color: #fbfbfb;
+	}
+	
+	@-webkit-keyframes HideList {
+	  from {
+	    transform: scaleY(1);
+	  }
+	  to {
+	    transform: scaleY(0);
+	  }
+	}
+	
+	@keyframes HideList {
+	  from {
+	    transform: scaleY(1);
+	  }
+	  to {
+	    transform: scaleY(0);
+	  }
+	}
+
+
+
+/* 돋보기 버튼 */
+.search_btn {
+	background-image: url("search.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+
