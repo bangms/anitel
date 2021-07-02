@@ -11,11 +11,59 @@
   <link rel="stylesheet" href="style/init.css">	
   <title>login</title>
 </head>
+<script>
+function classChange(el) {
+	var user = document.getElementById('userLogin'); 
+	var mem = document.getElementById('memberLogin'); 
+	var btn = document.getElementById('btn_login');
+	
+	if(user == el) {
+		el.classList.add('show');
+		mem.classList.remove('show');
+		btn.classList.replace('mem','user');
+	} else {
+		el.classList.add('show');
+		user.classList.remove('show');
+		btn.classList.replace('user', 'mem');
+	}
+	
+}
+window.onload = function() {
+  document.getElementById('userLogin').onclick = function() {
+    classChange(this);
+  };
+  document.getElementById('memberLogin').onclick = function() {
+    classChange(this);
+  };
+} 
+
+ function checkForm(btn) {
+		var btn = document.getElementById('btn_login');
+		if(btn.classList.contains('user')) {
+			//alert("유저");
+			submitForm();
+		} else if(btn.classList.contains('mem')) {
+			//alert("사업자");
+			submitForm();
+		}
+	}
+
+function submitForm() {
+	var btn = document.getElementById('btn_login');
+	if(btn.classList.contains('user')) {
+		document.frm.action = "userLoginPro.jsp";
+		document.frm.submit();
+	} else if(btn.classList.contains('mem')) {
+		document.frm.action = "memberLoginPro.jsp";
+		document.frm.submit();
+	}
+}
+</script>
 <body>
 <div id="container">
 	<div id="header">
-		<div id="logo">
-			<img src="imgs/logo.jpg" width="200px" height="100px">
+		<div id="logo" onclick="window.location='main.jsp'">
+			<img src="imgs/logo.jpg" width="200px" height="100px" alt="logo">
 		</div>
 		<div id="button">
 			<button id="notice">공지사항</button>
@@ -26,12 +74,12 @@
   <div id="section">
      <h1 align="center">로그인</h1>
      <br />
-     <div class="login_wrap">
+     <form class="login_wrap" method="post" id="frm" name="frm">
        <div class="sel_wrap">
-         <div class="userLogin login">
+         <div id="userLogin" class="login show">
            일반 회원
          </div>
-         <div class="memberLogin login">
+         <div id="memberLogin" class="login">
            사업자 회원
          </div>
        </div>
@@ -40,13 +88,13 @@
          <input type="password" placeholder="비밀번호" name="pw" class="pwInput input" />			
        </div>
        <div class="btn_wrap">
-         <button class="btn_login" onclick="window.location='userLoginPro.jsp'">로그인</button>
+         <button id="btn_login" class="btn_login user" onclick="checkForm(this)">로그인</button>
          <button class="btn_memsignIn" onclick="window.location='signInMemberForm.jsp'">사업자 회원가입</button>
          <label for="auto">
            <input type="checkbox" name="auto" value="1" id="auto" />자동 로그인
          </label>
        </div>
-     </div>
+     </form>
    </div>
  	<div id="footer">
 	 <img src="imgs/logo2.png" width=100px; height=50px;>
@@ -54,8 +102,5 @@
 	 이용약관 | 취소정책 | 1:1문의 <br/>
 		COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
  </div>
- <script>
- 
- </script>
 </body>
 </html>

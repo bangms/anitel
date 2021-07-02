@@ -25,8 +25,8 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 <body>
 <div id="container">
 	<div id="header">
-		<div id="logo">
-			<img src="imgs/logo.jpg" width="200px" height="100px">
+		<div id="logo" onclick="window.location='main.jsp'">
+			<img src="imgs/logo.jpg" width="200px" height="100px" alt="logo">
 		</div>
 		<div id="button">
 			<button id="notice">공지사항</button>

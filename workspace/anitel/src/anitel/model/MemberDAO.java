@@ -127,4 +127,34 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	// 아이디 비밀번호 체크
+	public boolean idPwCheck(String id, String pw) {
+		boolean result = false;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();	
+			String sql = "select * from member where id=? and member_pw=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = true;
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try { rs.close(); } catch(Exception e) { e.printStackTrace(); }
+			if(pstmt != null) try { pstmt.close(); } catch(Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
+		}
+		return result;
+	}
 }
