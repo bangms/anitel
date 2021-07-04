@@ -10,10 +10,50 @@
  		<link rel="stylesheet" href="style/search.css">
  		<link rel="stylesheet" href="style/datepicker.min.css">
    	<script src="js/jquery-3.1.1.min.js"></script>
- 		<script type="text/javascript" src="js/main.js"></script>
    	<script src="js/datepicker.min.js"></script>
    	<script src="js/datepicker.ko.js"></script>
+ 		<script type="text/javascript" src="js/search.js"></script>
 </head>
+<script type="text/javascript">
+$(document).ready(function(){
+	//두개짜리 제어 연결된거 만들어주는 함수
+	datePickerSet($("#check_in"), $("#check_out"), true); //다중은 시작하는 달력 먼저, 끝달력 2번째
+	
+});
+</script>
+<style>
+	
+/* 메인페이지 height 100% 옵션주기 위한 div */
+.box {
+	height: 140px;
+}
+
+.main_form {
+	width: 80%;
+	display: inline-flex;	
+	position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 배경 이미지 */
+.bg_wrap {
+	position: fixed;
+  left: 0;
+  z-index: -1;
+  padding-bottom: -140px;
+  
+}
+.bg {
+	background-color: rgba(0,0,0,0.4);
+	width:100%;
+	height:100%;
+	position: fixed;
+  left: 0;
+}
+
+</style>
 <body style="overflow: hidden">
 <div id="container">
 	<div id="header">
@@ -42,7 +82,7 @@
 				<div class="bg"></div>
 	  		<img src="imgs/bg.jpg" width="100%" />
 	  	</div>
-			<form id="main_form" class="main_form" action="hotelList.jsp" >
+			<form id="main_form" class="main_form" action="hotelList.jsp" method="post" name="searchForm" onsubmit="return check()">
 				<div id="location" class="select-box">
 				  <div class="select-box_current" tabindex="1">
 				    <div class="select-box_value">
@@ -146,22 +186,18 @@
 					<input id="check_out" class="check_date" type="text" name="check_out" placeholder="체크아웃 날짜" />
 				</div>
 
-				
-				<!-- <input type="date" name="check_in" value="yyyy-mm-dd" />
-				<input type="date" name="check_out" value="yyyy-mm-dd" /> -->
-								
 				<div id="pet" class="select-box">
 				  <div class="select-box_current" tabindex="1">
 				    <div class="select-box_value">
-				      <input class="select-box_input" type="radio" id="pet_0" value="1" name="pet_type" checked="checked"/>
+				      <input class="select-box_input" type="radio" id="pet_0" value="0" name="pet_type" checked="checked"/>
 				      <p class="select-box_input-text">강아지</p>
 				    </div>
 				    <div class="select-box_value">
-				      <input class="select-box_input" type="radio" id="pet_1" value="2" name="pet_type"/>
+				      <input class="select-box_input" type="radio" id="pet_1" value="1" name="pet_type"/>
 				      <p class="select-box_input-text">고양이</p>
 				    </div>
 				    <div class="select-box_value">
-				      <input class="select-box_input" type="radio" id="pet_2" value="0" name="pet_type"/>
+				      <input class="select-box_input" type="radio" id="pet_2" value="2" name="pet_type"/>
 				      <p class="select-box_input-text">기타</p>
 				    </div><img class="select-box_icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
 				  </div>

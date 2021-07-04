@@ -1,42 +1,11 @@
-
-/* 메인페이지 height 100% 옵션주기 위한 div */
-.box {
-	height: 140px;
-}
-
-.main_form {
-	width: 80%;
-	display: inline-flex;	
-	position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-
-
-
-/* 배경 이미지 */
-.bg_wrap {
-	position: fixed;
-  left: 0;
-  z-index: -1;
-  padding-bottom: -140px;
-  
-}
-
-.bg {
-	background-color: rgba(0,0,0,0.4);
-	width:100%;
-	height:100%;
-	position: fixed;
-  left: 0;
-}
-
 /* 전체 레이아웃 */
 
 #location, #check_out, #pet {
 	margin-right:10px;
+}
+
+.double {
+	display: contents;
 }
 
 #check_in {
@@ -59,7 +28,7 @@
 	.select-box, .check_date  {
 	  position: relative;
 	  display: block;
-	  width: 50%;
+	  width: 25%;
 	  margin: 0 auto;
 	  font-family: "Open Sans", "Helvetica Neue", "Segoe UI", "Calibri", "Arial", sans-serif;
 	  font-size: 18px;
@@ -127,6 +96,12 @@
 	          animation-timing-function: step-start;
 	  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
 	}
+	
+	#location .select-box_list{
+		height: 200px;
+    overflow: scroll;
+	}
+	
 	.select-box_option {
 	  display: block;
 	  padding: 15px;
@@ -159,9 +134,143 @@
 
 /* 돋보기 버튼 */
 .search_btn {
-	background-image: url("search.png");
   background-repeat: no-repeat;
   background-position: center center;
 }
 
+/* 세부검색 */
+.inp_wrap {
+	    position: relative;
+	width: 80%;
+	margin: 0 auto;
+  padding-top: 100px;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
+  color: #223254;
+  display: flex;
+  justify-content: center;
+}
+.inp_wrap input {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.sub {
+	width: 33.33%;
+	padding: 20px;
+}
+.sub p {
+	font-weight: bold;
+	font-size: 18px;
+	margin-bottom: 20px;
+}
+.cbx {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  width:100%;
+  display:block;
+  margin: 10px 0;
+}
+.cbx:not(:last-child) {
+  margin-right: 6px;
+}
+/* .cbx:hover {
+  background: rgba(0,119,255,0.06);
+} */
+.cbx span {
+  float: left;
+  vertical-align: middle;
+  transform: translate3d(0, 0, 0);
+}
+.cbx span:first-child {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  transform: scale(1);
+  border: 1px solid #cccfdb;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 1px rgba(0,16,75,0.05);
+}
+.cbx span:first-child svg {
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 16px;
+  stroke-dashoffset: 16px;
+  transition: all 0.3s ease;
+  transition-delay: 0.1s;
+  transform: translate3d(0, 0, 0);
+}
+.cbx span:last-child {
+  padding-left: 8px;
+  line-height: 18px;
+}
+.cbx:hover span:first-child {
+  border-color: #07f;
+}
+.inp-cbx {
+  position: absolute;
+  visibility: hidden;
+}
+.inp-cbx:checked + .cbx span:first-child {
+  background: #07f;
+  border-color: #07f;
+  animation: wave 0.4s ease;
+}
+.inp-cbx:checked + .cbx span:first-child svg {
+  stroke-dashoffset: 0;
+}
 
+.inline-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  user-select: none;
+}
+@media screen and (max-width: 640px) {
+  .cbx {
+    width: 100%;
+    margin-bottom: 4px;
+    display: inline-block;
+  }
+}
+@-moz-keyframes wave {
+  50% {
+    transform: scale(0.9);
+  }
+}
+@-webkit-keyframes wave {
+  50% {
+    transform: scale(0.9);
+  }
+}
+@-o-keyframes wave {
+  50% {
+    transform: scale(0.9);
+  }
+}
+@keyframes wave {
+  50% {
+    transform: scale(0.9);
+  }
+}
+
+/* 리스트 */
+.hotel_list .empty {
+	font-size:20px;
+	font-weight: bold;
+  text-align: center;
+  padding: 100px;
+}
