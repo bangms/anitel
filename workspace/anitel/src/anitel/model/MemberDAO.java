@@ -38,7 +38,7 @@ public class MemberDAO {
 			pstmt.setString(5, member.getMember_email());
 			pstmt.setString(6, member.getHotel_name());
 			pstmt.setString(7, member.getHotel_owner());
-			pstmt.setString(8, member.getHotel_add());
+			pstmt.setString(8, member.getHotel_area() + " " +member.getHotel_add());
 			pstmt.setString(9, member.getHotel_phone());
 			pstmt.setString(10, member.getHotel_intro());
 			pstmt.setString(11, member.getHotel_area());
@@ -91,43 +91,6 @@ public class MemberDAO {
 		}
 	}
 	
-	// 아이디 중복 확인 
-	public boolean confirmId(String id) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		boolean result = false;
-		
-		try {
-			conn = getConnection();
-			String sql = "select id from users where id=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				result = true;
-			} else {
-				sql = "select id from member where id = ?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, id);
-				rs = pstmt.executeQuery();
-				
-				if(rs.next()) {
-					result = true;
-				}
-			}
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			if(rs != null) try { rs.close(); } catch(Exception e) { e.printStackTrace(); }
-			if(pstmt != null) try { pstmt.close(); } catch(Exception e) { e.printStackTrace(); }
-			if(conn != null) try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
-		}
-		return result;
-	}
-	
 	// 아이디 비밀번호 체크
 	public boolean idPwCheck(String id, String pw) {
 		boolean result = false;
@@ -157,4 +120,155 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	// 노현호 작성 - id 받아서 해당 '사업자 회원' 개인정보 불러오기 (memberMyPage.jsp, memberModifyForm.jsp 에서 사용함)
+		public MemberDTO getMember(String id) {
+			MemberDTO dto = null;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				conn = getConnection();
+				String sql = "select id, member_name, member_phone, member_email from member where id=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					dto = new MemberDTO();
+					dto.setId(rs.getString(1));
+					dto.setMember_name(rs.getString(2));
+					dto.setMember_phone(rs.getString(3));
+					dto.setMember_email(rs.getString(4));
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(rs != null) try { rs.close(); } catch(Exception e) { e.printStackTrace(); }
+				if(pstmt != null) try { pstmt.close(); } catch(Exception e) { e.printStackTrace(); }
+				if(conn != null) try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
+			}
+			return dto;
+		}
+		
+		// 노현호 작성 - id 받아서 해당 '사업자 회원' 호텔정보 불러오기 (memberHInfo.jsp 에서 사용함)
+		public MemberDTO getMemberHotel(String id) {
+			MemberDTO dto = null;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				conn = getConnection();
+				String sql = "select hotel_name, hotel_owner, hotel_area, hotel_add, hotel_phone, reg_num, member_approved, hold_reason, member_name, id from member where id=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					dto = new MemberDTO();
+					dto.setHotel_name(rs.getString(1));
+					dto.setHotel_owner(rs.getString(2));
+					dto.setHotel_area(rs.getString(3));
+					dto.setHotel_add(rs.getString(4));
+					dto.setHotel_phone(rs.getString(5));
+					dto.setReg_num(rs.getString(6));
+					dto.setMember_approved(rs.getInt(7));
+					dto.setHold_reason(rs.getString(8));
+					dto.setMember_name(rs.getString(9));
+					dto.setId(rs.getString(10));
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(rs != null) try { rs.close(); } catch(Exception e) { e.printStackTrace(); }
+				if(pstmt != null) try { pstmt.close(); } catch(Exception e) { e.printStackTrace(); }
+				if(conn != null) try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
+			}
+			return dto;
+		}
+		
+		// 노현호 작성 - id 받아서 해당 '일반 회원' 개인정보 불러오기 (userMyPage.jsp 에서 사용함)
+		public UsersDTO getuser(String id) {
+			UsersDTO dto = null;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				conn = getConnection();
+				String sql = "select id, member_name, member_phone, member_email from users where id=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					dto = new UsersDTO();
+					dto.setId(rs.getString(1));
+					dto.setUser_name(rs.getString(2));
+					dto.setUser_phone(rs.getString(3));
+					dto.setUser_email(rs.getString(4));
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(rs != null) try { rs.close(); } catch(Exception e) { e.printStackTrace(); }
+				if(pstmt != null) try { pstmt.close(); } catch(Exception e) { e.printStackTrace(); }
+				if(conn != null) try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
+			}
+			return dto;
+		}
+		
+		// 노현호 작성 - id, dto 받아서 해당 '사업자 회원' 개인정보 수정하기 (memberModifyPro.jsp 에서 사용함)
+		public int memberModify(String id, MemberDTO dto){
+			int result = -1;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			try {
+				conn = getConnection();
+				String sql = "update member set member_name=?, member_phone=?, member_email=? where id=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, dto.getMember_name());
+				pstmt.setString(2, dto.getMember_phone());
+				pstmt.setString(3, dto.getMember_email());
+				pstmt.setString(4, id);
+				result = pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+				if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+			}
+			return result;
+		}
+		
+		// 노현호 작성 - id pw 받아서 해당 '사업자 회원' 비밀번호 변경하기 (memberModifyPwPro.jsp 에서 사용함)
+			public int memberModifyPw(String id, String pw_now, String pw, String pw2){
+				int result = -1;
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				try {
+					conn = getConnection();
+					String sql = "select id, member_pw from member where id=? and member_pw=?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, id);
+					pstmt.setString(2, pw_now);
+					rs = pstmt.executeQuery();
+					if(rs.next()) {
+						if(pw.equals(pw2)) {
+							sql = "update member set member_pw=? where id=?";
+							pstmt = conn.prepareStatement(sql);
+							pstmt.setString(1, pw);
+							pstmt.setString(2, id);
+							result = pstmt.executeUpdate();
+						}else {
+							result = 0;
+						}
+					}
+				}catch(Exception e) {
+					e.printStackTrace();
+				}finally {
+					if(rs != null) try { rs.close(); } catch(Exception e) { e.printStackTrace(); }
+					if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+					if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+				}
+				// result 값이 -1 : 현재 비밀번호 불일치, 0 : 새 비밀번호간 불일치, 1 : 변경 완료 
+				return result;
+			}
 }
