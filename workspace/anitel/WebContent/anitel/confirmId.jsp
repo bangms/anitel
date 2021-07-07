@@ -1,4 +1,5 @@
 <%@page import="anitel.model.MemberDAO"%>
+<%@page import="anitel.model.UsersDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,8 +12,8 @@
 </head>
 <%
 	String id = request.getParameter("id");
-	MemberDAO dao = MemberDAO.getInstance();
-	boolean result = dao.confirmId(id);
+	UsersDAO user = UsersDAO.getInstance(); 
+	boolean result = user.confirmId(id);
 %>
 <body>
 <% 	if(result) { // 아이디가 존재함 %>

@@ -6,9 +6,9 @@
 	<meta charset="UTF-8">
 	<title>메인</title>
   	<link rel="stylesheet" href="style/style.css">
- 		<link rel="stylesheet" href="style/reset.css">
- 		<link rel="stylesheet" href="style/search.css">
- 		<link rel="stylesheet" href="style/datepicker.min.css">
+	<link rel="stylesheet" href="style/reset.css">
+	<link rel="stylesheet" href="style/search.css">
+	<link rel="stylesheet" href="style/datepicker.min.css">
    	<script src="js/jquery-3.1.1.min.js"></script>
    	<script src="js/datepicker.min.js"></script>
    	<script src="js/datepicker.ko.js"></script>
@@ -61,7 +61,7 @@ $(document).ready(function(){
 			<img src="imgs/logo.jpg" width="200px" height="100px" alt="logo">
 		</div>
 		<div id="button">
-			<button id="notice">공지사항</button>
+			<button id="notice" onclick="window.location='board/list.jsp?categ=0'">공지사항</button>
 <% 	
 	if(session.getAttribute("sid") == null){ 
 %>

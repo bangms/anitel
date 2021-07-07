@@ -38,7 +38,7 @@ public class MemberDAO {
 			pstmt.setString(5, member.getMember_email());
 			pstmt.setString(6, member.getHotel_name());
 			pstmt.setString(7, member.getHotel_owner());
-			pstmt.setString(8, member.getHotel_add());
+			pstmt.setString(8, member.getHotel_area() + " " +member.getHotel_add());
 			pstmt.setString(9, member.getHotel_phone());
 			pstmt.setString(10, member.getHotel_intro());
 			pstmt.setString(11, member.getHotel_area());
@@ -89,43 +89,6 @@ public class MemberDAO {
 			if(pstmt != null) try { pstmt.close(); } catch(Exception e) { e.printStackTrace(); }
 			if(conn != null) try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
 		}
-	}
-	
-	// 아이디 중복 확인 
-	public boolean confirmId(String id) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		boolean result = false;
-		
-		try {
-			conn = getConnection();
-			String sql = "select id from users where id=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				result = true;
-			} else {
-				sql = "select id from member where id = ?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, id);
-				rs = pstmt.executeQuery();
-				
-				if(rs.next()) {
-					result = true;
-				}
-			}
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			if(rs != null) try { rs.close(); } catch(Exception e) { e.printStackTrace(); }
-			if(pstmt != null) try { pstmt.close(); } catch(Exception e) { e.printStackTrace(); }
-			if(conn != null) try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
-		}
-		return result;
 	}
 	
 	// 아이디 비밀번호 체크

@@ -9,8 +9,6 @@
 </head>
 <body>
 <% request.setCharacterEncoding("UTF-8"); 
-
-System.out.println("호텔이름 넘어왔니? " +request.getParameter("name"));
 %>
 
 <jsp:useBean id="member" class="anitel.model.MemberDTO" />

@@ -140,16 +140,17 @@
 
 /* 세부검색 */
 .inp_wrap {
-	    position: relative;
+	z-index: -1;
+	position: relative;
 	width: 80%;
 	margin: 0 auto;
-  padding-top: 100px;
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizelegibility;
-  color: #223254;
-  display: flex;
-  justify-content: center;
+	padding-top: 30px;
+	font-size: 16px;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizelegibility;
+	color: #223254;
+	display: flex;
+	justify-content: center;
 }
 .inp_wrap input {
   position: absolute;
@@ -271,6 +272,12 @@
 .hotel_list .empty {
 	font-size:20px;
 	font-weight: bold;
-  text-align: center;
-  padding: 100px;
+	text-align: center;
+	padding: 100px;
+}
+
+.hotel_list{
+	padding-top: 320px;
+	width: 85%;
+    margin: 0 auto;
 }
