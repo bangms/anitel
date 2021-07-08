@@ -1,4 +1,4 @@
-<%@page import="anitel.model.MemberDAO"%>
+<%@page import="anitel.model.MemberDAO"%> 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,7 +21,7 @@
 	//String id = (String)session.getAttribute("sid");
 	String id = (String)request.getParameter("id");
 	MemberDAO dao = MemberDAO.getInstance();
-	int result = dao.memberHModify(id, dto);
+	int result = dao.memberHModify(id, dto);  
 	System.out.println("memberHModifyPro.jsp - 호텔정보 수정 결과 : " + result + "(1 : 수정 성공, -1 : 수정 실패)");
 %>
 <body>

@@ -221,8 +221,9 @@ $(document).ready(function(){
 				    </li>
 				  </ul>
 				</div>
-	
-				<input type="submit" width="25px" height="25px" class="search_btn"/>
+				<div class="search_btn_wrap">
+					<button class="search_btn"></button>
+				</div>
 			</form>
 		<div class="push"></div>
 	</div>

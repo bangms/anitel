@@ -1,4 +1,4 @@
-<%@page import="anitel.model.ReviewDTO"%> 
+<%@page import="anitel.model.ReviewDTO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="anitel.model.BoardDTO"%>
 <%@page import="anitel.model.AdminDAO"%>
@@ -90,7 +90,7 @@
 
 
 <body>
- <div id="container">
+<div id="container">
 	<div id="header">
 		<div id="logo" onclick="window.location='../main.jsp'">
 			<img src="../imgs/logo.jpg" width="200px" height="100px" alt="logo">
@@ -134,7 +134,6 @@
 	</div>
 	<!-- 여기서부터 콘텐츠 화면 입니다.  -->
 	<div id="section" style="padding-left:15%; margin-left:40px;">
-    
 <%if(count == 0) {%>
 <h3 align="center"> 표시할 내용이 없습니다. </h3>
 <%}else{%>
@@ -200,12 +199,12 @@
 	
 	}%>
 <br />
-<select size="1" name="search">
+<select size="1" name="selected">
 	<option value="id" selected>작성자</option>
 	<option value="hotel_name">호텔명</option>
 </select>
 
-<input type="text" name="text">
+<input type="text" name="search">
 <input type="submit" value="검색" >
 <button type="button" onclick="chkReview()" >삭제</button>
 
@@ -214,14 +213,14 @@
 <%}//count이 0이 아닐때 if문 닫기%>
 		</form>
 	</div>
-</div>
-
-
 	<div id="footer">
-      <img src="imgs/logo2.png" width=100px; height=50px;>
+      <img src="../imgs/logo2.png" width=100px; height=50px;>
       <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
       	이용약관 | 취소정책 | 1:1문의 <br/>
       	COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>  			
     </div>
+</div>
+
+
 </body>
 </html>

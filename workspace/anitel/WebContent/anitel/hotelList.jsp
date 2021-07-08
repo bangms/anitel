@@ -178,6 +178,9 @@ $(document).ready(function(){
 					  <%}%>
 					  </ul>
 					</div>
+					<div class="search_btn_wrap" style="margin-left:10px;">
+						<button class="search_btn"></button>
+					</div>
 				</div>
 				
 	
@@ -253,8 +256,6 @@ $(document).ready(function(){
 						</svg>
 					</div>
 				</div>
-
-				<input type="submit" width="25px" height="25px" class="search_btn"/>
 			</form>
 			<div class="push"></div>
 			

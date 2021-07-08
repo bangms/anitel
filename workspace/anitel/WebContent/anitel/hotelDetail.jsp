@@ -37,13 +37,11 @@
 </style>
 <% request.setCharacterEncoding("UTF-8");
 String id = request.getParameter("memId"); // 사업자아이디
-String hotel_area = request.getParameter("hotel_area");
 String check_in = request.getParameter("check_in");
 String check_out = request.getParameter("check_out");
 int pet_type = Integer.parseInt(request.getParameter("pet_type"));
-System.out.println("지역 : " + hotel_area + " / 체크인 : " + check_in + " / 체크아웃 : " + check_out + " / 동물 종류 : " + pet_type);
+System.out.println("체크인 : " + check_in + " / 체크아웃 : " + check_out + " / 동물 종류 : " + pet_type);
 
-String area[] = {"서울", "부산", "대구", "인천", "경기", "광주", "대전", "울산", "경상도", "전라도", "제주도", "충청도", "강원도"};
 String petType[] = {"강아지", "고양이", "기타"};
 %>
 <script type="text/javascript">
@@ -93,38 +91,13 @@ $(document).ready(function(){
 	  
 	  <div class="search_wrap">
 	    <form id="main_form" class="main_form" action="hotelList.jsp" method="post" name="searchForm" onsubmit="return check();">
-			<div class="search_bar">
-				<div id="location" class="select-box">
-				  <div class="select-box_current" tabindex="1">
-			  	<%
-			  		for (int i = 0; i < area.length; i++) { 
-			  		%>
-			  			<div class="select-box_value">
-			      		<input class="select-box_input" type="radio" id="<%= i %>" value="<%= area[i] %>" name="hotel_area" <% if (area[i].equals(hotel_area)) {
-			  				%>checked="checked"<%	} %> />
-			      		<p class="select-box_input-text"><%= area[i] %></p>
-			    		</div>	
-			  	<%	}
-			  	%>
-			    	<img class="select-box_icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
-				  </div>
-				  <ul class="select-box_list">
-				  <%
-				  	for (int i = 0; i < area.length; i++) { %>
-				  		<li>
-					      <label class="select-box_option" for="<%= i %>" aria-hidden="aria-hidden"><%= area[i] %></label>
-					    </li>
-				  <%	}
-				  %>
-				  </ul>
-				</div>
-				
+			<div class="search_bar" style="width:50%;">				
 				<div class="double">
 					<input id="check_in" class="check_date" type="text" name="check_in" value="<%=check_in %>" />
 					<input id="check_out" class="check_date" type="text" name="check_out" value=<%=check_out %> />
 				</div>
 
-				<div id="pet" class="select-box">
+				<div id="pet" class="select-box" style="width:25%;">
 				  <div class="select-box_current" tabindex="1">
 				    <% for (int i = 0; i < petType.length; i++) { %>
 				  		 <div class="select-box_value">
@@ -143,6 +116,9 @@ $(document).ready(function(){
 				    </li>
 				  <%}%>
 				  </ul>
+				</div>
+				<div class="search_btn_wrap" style="margin-left:10px;">
+					<button class="search_btn"></button>
 				</div>
 			</div>
 		</form>

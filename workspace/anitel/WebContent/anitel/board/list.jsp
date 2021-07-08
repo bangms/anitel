@@ -101,8 +101,10 @@
 			<button id="signin" onclick="window.location='../signIn.jsp'">회원가입</button>
 			<button id="login" onclick="window.location='../loginForm.jsp'">로그인</button>
 			
-<%}else{ %>
-			<button id="mypage" onclick="window.location='../mypage.jsp'">마이페이지</button>
+<%}else{ 
+		if(id.equals("admin")) { %>
+			<button id="mypage" onclick="window.location='../adminMemberForm.jsp'">마이페이지</button>
+	<% } %>
 			<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
 <%}%>
 
