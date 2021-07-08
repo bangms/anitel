@@ -185,12 +185,12 @@
 	
 	}%>
 <br />
-<select size="1" name="search">
+<select size="1" name="selected">
 	<option value="id" selected>작성자</option>
 	<option value="hotel_name">호텔명</option>
 </select>
 
-<input type="text" name="text">
+<input type="text" name="search">
 <input type="submit" value="검색" >
 <button type="button" onclick="chkReview()" >삭제</button>
 

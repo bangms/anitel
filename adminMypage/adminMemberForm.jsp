@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="anitel.model.AdminDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="anitel.model.MemberDTO"%>
@@ -7,49 +8,52 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자 마이페이지</title>
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 
 <% 
 	request.setCharacterEncoding("UTF-8");
 
-		int pageSize = 10; // 한 페이지에 보여줄 정보의 수, 10개 출력할꺼니까 10
+	int pageSize = 10; // 한 페이지에 보여줄 정보의 수, 10개 출력할꺼니까 10
+
+
+
+	//페이지 재호출하면 현재페이지 번호 요청함
+	String pageNum = request.getParameter("pageNum"); 
 	
+	if(pageNum == null){ //adminMemberForm.jsp라고만 요청하여 pageNum 파라미터가 안넘어왔을때.
+		pageNum = "1";
+	}
 	
-	
-		//페이지 재호출하면 현재페이지 번호 요청함
-		String pageNum = request.getParameter("pageNum"); 
-		
-		if(pageNum == null){ //adminMemberForm.jsp라고만 요청하여 pageNum 파라미터가 안넘어왔을때.
-			pageNum = "1";
-		}
-		
-		//현재 페이지에 보여줄 게시글 시작과 끝 등등 정보 세팅
-				int currentPage = Integer.parseInt(pageNum);
-				int startRow = (currentPage -1) * pageSize + 1;
-				int endRow = currentPage * pageSize; 
+	//현재 페이지에 보여줄 게시글 시작과 끝 등등 정보 세팅
+	int currentPage = Integer.parseInt(pageNum);
+	int startRow = (currentPage -1) * pageSize + 1;
+	int endRow = currentPage * pageSize; 
+	int count = 0; 
 				
-				int count = 0; 
-					
-		String selected = request.getParameter("selected");
-		String search = request.getParameter("search");
-		AdminDAO dao = AdminDAO.getInstance();
-		List memberList = null;
+	String selected = request.getParameter("selected");
+	String search = request.getParameter("search");
+	
+	AdminDAO dao = AdminDAO.getInstance();
+	
+	List memberList = dao.getMember(startRow, endRow);
+	
+	if(selected != null && search != null){ // selected와 search가 null(파라미터 없음)이 아니면
 		
-		if(selected != null && search != null){ // selected와 search가 null(파라미터 없음)이 아니면
+		count = dao.getMemberSearchcount(selected, search);//검색조건으로 갯수받아옴
+		if(count > 0){
+			memberList = dao.getSearchMember(startRow, endRow, selected, search);
 			
-			count = dao.getMemberSearchcount(selected, search);//검색조건으로 갯수받아옴
-			if(count > 0){
-				memberList = dao.getSearchMember(startRow, endRow, selected, search);
-			} // 끝번호 시작번호, 검색조건으로 출력
 			
-		}else{//selected와 search가 null이면
-			count = dao.getMembercount(); // 갯수 받아옴
-			if(count > 0){
-				memberList = dao.getMember(startRow, endRow); // 끝번호 시작번호만으로 출력
-			}
+		} // 끝번호 시작번호, 검색조건으로 출력
+		
+	}else{//selected와 search가 null이면
+		count = dao.getMembercount(); // 갯수 받아옴
+		if(count > 0){
+			memberList = dao.getMember(startRow, endRow); // 끝번호 시작번호만으로 출력
 		}
+	}
 
 		
 		
@@ -183,14 +187,14 @@
 	
 	}%>
 <br />
-<select size="1" name="search">
+<select size="1" name="selected">
 	<option value="id" selected>사업자 ID</option>
 	<option value="hotel_name">사업장 명</option>
 	<option value="hotel_owner">대표자 이름</option>
 	<option value="reg_num">사업자 번호</option>
 </select>
 
-<input type="text" name="text">
+<input type="text" name="search">
 <input type="submit" value="검색" >
 <button type="button" onclick="chkMember()" >삭제</button>
 

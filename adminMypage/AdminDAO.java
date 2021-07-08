@@ -150,16 +150,16 @@ public class AdminDAO {
 		try {
 			
 			conn = getConnection();
-			String sql = "select count(*) from member where ? like %?%";
-			
-			pstmt.setString(1, selected);
-			pstmt.setString(2, search);
+			String sql = "select count(*) from member where "+selected+" like '%"+search+"%'";
+
 			pstmt = conn.prepareStatement(sql);
+			//pstmt.setString(1, selected);
+			//pstmt.setString(2, search);
 			rs = pstmt.executeQuery();
 			if(rs.next()) { //결과 있으면
 				result = rs.getInt(1); //컬럼번호로 빼내욤. 어차피 결과 컬럼번호 1에 count(*)로 갯수만 출력되어있음
 			}
-		
+			System.out.println(result);
 		
 		}catch(Exception e){
 			e.printStackTrace();
@@ -183,16 +183,16 @@ public class AdminDAO {
 		
 		try {
 			conn = getConnection();
-	         String sql = "select r, ID, hotel_name, hotel_add, hotel_owner, reg_num, member_approved from (select rownum r, ID, hotel_name, hotel_add, hotel_owner, reg_num, member_approved from (select ID, hotel_name, hotel_add, hotel_owner, reg_num, member_approved from member where ? like '%?%') ORDER BY ID ASC) WHERE r >= ? AND r <= ?";
+	        String sql = "select r, id, hotel_name, hotel_add, hotel_owner, reg_num, member_approved from (select rownum r, ID, hotel_name, hotel_add, hotel_owner, reg_num, member_approved from (select ID, hotel_name, hotel_add, hotel_owner, reg_num, member_approved from member where "+selected+" like '%"+search+"%') ORDER BY ID ASC) WHERE r >= ? AND r <= ?";
 	         
-	         pstmt = conn.prepareStatement(sql);
-	         pstmt.setString(1, selected);
-	         pstmt.setString(2, search);
-	         pstmt.setInt(3, startRow);
-	         pstmt.setInt(4, endRow);
-	         rs = pstmt.executeQuery(); 
+	        pstmt = conn.prepareStatement(sql);
+	        //pstmt.setString(1, selected);
+			//pstmt.setString(2, search);
+	        pstmt.setInt(1, startRow);
+	        pstmt.setInt(2, endRow);
+	        rs = pstmt.executeQuery(); 
 	         
-	         if(rs.next()) {
+	        if(rs.next()) {
 	        	 
 	            MemberList = new ArrayList();  // 결과가 있으면 list 객체생성해서 준비 (나중에 null로 확인하기 위하여)
 	            do { // if문에서 rs.next() 실행되서 커서가 내려가버렸으니 do-while로 먼저 데이터 꺼내게 하기.
@@ -381,12 +381,18 @@ public class AdminDAO {
 		try {
 			
 			conn = getConnection();
+			System.out.println(selected);
+			if(selected.equals("id")){
+				sql = "select count(*) from board where "+selected+" like '%"+search+"%' AND categ = 3";
+				System.out.println("id실행");
+			}
+			else if(selected.equals("hotel_name")){
+				sql = "select count(*) from board b, member m where m."+selected+" like '%"+search+"%' AND b.categ = 3 AND b.reg_num = m.reg_num";
+				System.out.println("호텔실행");
+			}
 			
-			if(selected == "id") {sql = "select count(*) from board where ? like %?% AND categ = '3'";}
-			else if(selected == "hotel_name") {sql = "select count(*) from board b, member m where m.? like '%?%' AND b.categ = '3' AND b.reg_num = m.reg_num";}
-		
-			pstmt.setString(1, selected);
-			pstmt.setString(2, search);
+			//pstmt.setString(1, selected);
+			//pstmt.setString(2, search);
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) { //결과 있으면
@@ -414,16 +420,18 @@ public class AdminDAO {
 		List reviewList = null;
 		String sql = null;
 		
+		System.out.println(selected);
+		
 		try {
 		conn = getConnection();
-		if(selected == "id") {sql = "select r, reg_date, id, hotel_name, subject, comm, board_num from (select rownum r, reg_date, id, hotel_name, subject, comm, board_num from (select b.reg_date, b.id, m.hotel_name, b.subject, b.comm, b.board_num from board b, member m where b.? like '%?%' AND b.categ = '3' AND b.reg_num = m.reg_num) ORDER BY ID ASC) WHERE r >= ? AND r <= ?";}
-		else if(selected == "hotel_name") {sql = "select r, reg_date, id, hotel_name, subject, comm, board_num from (select rownum r, reg_date, id, hotel_name, subject, comm, board_num from (select b.reg_date, b.id, m.hotel_name, b.subject, b.comm, b.board_num from board b, member m where m.? like '%?%' AND b.categ = '3' AND b.reg_num = m.reg_num) ORDER BY ID ASC) WHERE r >= ? AND r <= ?";}
+		if(selected.equals("id")){sql = "select r, reg_date, id, hotel_name, subject, comm, board_num from (select rownum r, reg_date, id, hotel_name, subject, comm, board_num from (select b.reg_date, b.id, m.hotel_name, b.subject, b.comm, b.board_num from board b, member m where b."+selected+" like '%"+search+"%' AND b.categ = 3 AND b.reg_num = m.reg_num) ORDER BY ID ASC) WHERE r >= ? AND r <= ?";}
+		else if(selected.equals("hotel_name")){sql = "select r, reg_date, id, hotel_name, subject, comm, board_num from (select rownum r, reg_date, id, hotel_name, subject, comm, board_num from (select b.reg_date, b.id, m.hotel_name, b.subject, b.comm, b.board_num from board b, member m where m."+selected+" like '%"+search+"%' AND b.categ = 3 AND b.reg_num = m.reg_num) ORDER BY ID ASC) WHERE r >= ? AND r <= ?";}
 		 
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, selected);
-		pstmt.setString(2, search);
-		pstmt.setInt(3, startRow);
-		pstmt.setInt(4, endRow);
+		//pstmt.setString(1, selected);
+		//pstmt.setString(2, search);
+		pstmt.setInt(1, startRow);
+		pstmt.setInt(2, endRow);
 		rs = pstmt.executeQuery(); 
 		 
 		if(rs.next()) {
