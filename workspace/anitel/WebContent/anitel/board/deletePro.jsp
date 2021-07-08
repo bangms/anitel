@@ -24,7 +24,7 @@
 	BoardDAO dao = BoardDAO.getInstance();
 	String img = dao.getPhoto(board_num, categ);
 	System.out.println("imageName:" + img);
-	String path = request.getRealPath("upload");
+	String path = request.getRealPath("save");
 	System.out.println("path:" + path);
 	path += "//" + img;
 	System.out.println("imgpath:" + path);

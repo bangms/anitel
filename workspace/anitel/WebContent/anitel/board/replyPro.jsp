@@ -14,7 +14,7 @@
 
 %>
 
-<jsp:useBean id="article" class="anitel.model.BoardDTO" />
+<jsp:useBean id="article" class="anitel.model.BoardDTO" /> 
 <jsp:setProperty property="*" name="article"/>
 
 <%

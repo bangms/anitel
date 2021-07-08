@@ -68,9 +68,17 @@ $(document).ready(function(){
 			<button id="signin" onclick="window.location='signIn.jsp'">회원가입</button>
 			<button id="login" onclick="window.location='loginForm.jsp'">로그인</button>
 			
-<%}else{ %>
+<%}else{ 
+		if(session.getAttribute("sid").equals("admin")) { %><%-- 관리자 일 때 --%>
+			<button id="mypage" onclick="window.location='adminMypage/adminMemberForm.jsp'">마이페이지</button>
+	<%}
+		if(session.getAttribute("sid").equals("일반회원")) { %><%-- 일반 회원 일 때 --%>
 			<button id="mypage" onclick="window.location='mypage.jsp'">마이페이지</button>
-			<button id="signout" onclick="window.location='logout.jsp'">로그아웃</button>
+	<%}
+		if(session.getAttribute("sid").equals("사업자")) { %><%-- 사업자 일 때 --%>
+			<button id="mypage" onclick="window.location='mypage.jsp'">마이페이지</button>
+	<%}%>	
+		<button id="signout" onclick="window.location='logout.jsp'">로그아웃</button>
 <%}%>
 
 		</div>

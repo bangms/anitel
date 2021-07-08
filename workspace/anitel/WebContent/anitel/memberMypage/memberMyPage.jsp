@@ -8,159 +8,31 @@
     <meta charset="UTF-8">
     <title>마이페이지(사업자회원)</title>
     <style>
-      #container {
-        width: 100%;
-        margin: 0px auto;
-        padding: 20px;
-      }
-      #header {
-     	width:100%;
-        padding: 20px;
-        margin-bottom: 20px;
-        height: 100px;
-      	top:0;
-      	display: flex;
- 		justify-content: space-between;
- 		background-color:white;
- 		position: sticky;
-		top: 0;
-      }
-      #header logo{
-      	width: 300px;
-      	height:100px;
-      }
-      #header section{
-     	width:1100px;
-     	height:100px;
-     	margin-right:100px;
-      }
-      #main{
-      	position:relative;
-      	width:100%;
-      	overflow: auto;
-      	height:500px;
-      }
-      #content {
-        width: 65%;
-       	height:100%;
-        padding: 20px;
-        margin-bottom: 20px;
-        margin-left:300px;
-        margin-right:200px;
-        
-        padding-left:100px;
-        padding-right:100px;
-        float: left;
-		padding-bottom:100px;
-		z-index:3
-      }
-      #sidebar {
-        width: 230px;
-        padding: 20px;
-        float: left;
-        clear:both;
-        background-color:#EBDDCA;
-        margin-right:50px;
-        margin-left:70px;
-        position:fixed;
-      }
-      #footer {
-      	height:80px;
-      	width:100%;
-        clear: both;
-        padding: 20px;
-        margin-left:-50px;
-		padding-left:100px;
-        left:0;
-        bottom:0;
-		background-color:black;
-		color:white;
-		overflow-y:hidden;
-		overflow-x:hidden;
-      }
-      p{
-      	margin-top:10px;
-      	font-size: 13px;
-      	margin-left : 200px;
-      }
-      img {
-      	float:left; 
-      	padding: 20px;
-      	margin-top:-15px;
-      	margin-left:40px;
-      }
-      ul{
-      	font-size:20px
-      }
-      #button button{ 
-      	font-weight:semi-bold;
-      	border: none;
-      	border-radius: 6px;
-      	width: 110px;
-      	height:40px;
-      	font-size: 16px;
-      	margin-top:30px;
-      	position:relative;
-      	
-      }
-       #button button:hover{
+		#my_modal {
+			display: none;
+			width: 500px;
+			padding: 20px 60px 40px 60px;
+			background-color: #fefefe;
+			border: 1px solid #888;
+			border-radius: 3px;
+      	}
+	  	#my_modal .modal_close_btn {
+			position: absolute;
+			bottom: 10px;
+			left : 50%;    
+     	}
+     	#popup_open_btn{
+     		background-color:#FFA742;
+	      	color:white;
+	      	border: none;
+	      	border-radius: 6px;
+	      	width: 180px;
+	      	height:40px;
+      	}
+      	#popup_open_btn:hover{
       	background-color:#FF822B;
       	color:#ffffff;
-      }
-      	
-      #login{
-     	 background-color:#FFA742;
-      	color:white;
-   		float : right;   
-   		margin-right: 5px;    	
-      }
-      #signin{
-     	background-color:#FFA742;
-      	color:white;
-     	float : right;
-     	margin-right: 5px;    	
-      }
-      #notice{
-      	float : right;
-      	margin-right: 5px;    	
-      	background-color:#ffffff;
-      	color:black;
-      }
-      A{
-		text-decoration:none;
-		color: black;
-	  }
-	  li{
-	  	list-style:none;
-	  	margin-bottom:10px;
-	  }
-	  input[type=button] { 
-		background-color:#FFA742;
-      	color:white;
-      	border: none;
-      	border-radius: 6px;
-      	width: 180px;
-      	height:40px;	
-	  }
-	  input:hover{
-      	background-color:#FF822B;
-      	color:#ffffff;
-      }
-      #my_modal {
-                display: none;
-                width: 500px;
-                padding: 20px 60px 40px 60px;
-                background-color: #fefefe;
-                border: 1px solid #888;
-                border-radius: 3px;
-      }
-
-	  #my_modal .modal_close_btn {
-                position: absolute;
-                bottom: 10px;
-                left : 50%;
-                
-      }
+      	}
     </style>
   </head>
   
@@ -170,7 +42,7 @@
 	if(session.getAttribute("sid")!=null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
-			window.location="/anitel/userLoginForm.jsp";
+			window.location="../loginForm.jsp";
 		</script>
 <%	}else{ 
 	// 해줘야 하는것
@@ -181,6 +53,7 @@
 	String id = "test01";													// 테스트용 : 개발 끝나고 지워버려야댐
 	MemberDAO dao = MemberDAO.getInstance();
 	MemberDTO member = dao.getMember(id);
+	System.out.println("member id : " + member.getId());
 %>
 
 <body>
@@ -218,7 +91,7 @@
       <!-- 여기서부터 콘텐츠 화면 입니다.  -->
       <div id="content">
         <h1><%= member.getMember_name() %>님의 회원정보</h1>
-      	<hr align="left" width=700 color="black">
+      	<hr align="left" width=800 color="black">
       	<br/>
       	
       	<table>
@@ -240,8 +113,8 @@
       		</tr>
       	</table>
       	<br/>
-      		<button id="popup_open_btn">승인보류</button>
-			<input type="button" value="회원정보 수정" onclick="window.location='memberModifyForm.jsp?id=<%=member.getId()%>'"/>&emsp;
+      		<%-- <input type="button" id="popup_open_btn" value="회원정보 수정"/>&emsp;--%>
+			<input type="button" value="회원정보 수정" onclick="popupOpen()"/>&emsp;
 			<input type="button" value="비밀번호 변경" onclick="window.location='/anitel/memberMypage/memberModifyPwForm.jsp?id=<%=member.getId()%>'"/>&emsp; 
 		<br/><br/>
       </div>
@@ -256,10 +129,10 @@
       			
       </div>
     </div>
-    <div id="my_modal">
-    	<%= member.getMember_name() %>님의 승인보류사유 <br/>
-		<input type="password" name="member_pw" autofocus/><br/>
-		<button class="modal_close_btn" onclick="submitForm()" id="popup_close_btn">닫기</button><br/>
+    <div id="my_modal" align="center">
+    	<h5>회원정보 변경을 위하여 비밀번호를 입력해주세요</h5>
+		<input type="password" name="member_pw" /><br/>
+		<button class="modal_close_btn" onclick="submitForm(<%=member.getId()%>)" id="popup_close_btn">확인</button><br/>
     </div>
 </body>
 <%	} %>
@@ -316,10 +189,16 @@
 		modal('my_modal');
 	});
 	
-	function submitForm() {
+	function submitForm(id) {
 		var btn = document.getElementById('popup_close_btn');
-		document.modify.action = "/anitel/memberMypage/memberModifyPro.jsp?id=" + member.getId();
+		document.modify.action = "/anitel/memberMypage/memberModifyPro.jsp?id=" + id;
 		document.modify.submit();
-		}
+	}
+	
+	function popupOpen(){
+		var popUrl = "/anitel/popupForm.jsp?pop=7";
+		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";
+		window.open(popUrl,"",popOption);
+	}
 </script>
 </html>

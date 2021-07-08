@@ -206,7 +206,7 @@
 			<% 		if(categ == 0) { /* 공지사항 */
 						if("admin".equals(id)) {%><%-- 관리자만 글쓰기 가능 --%>
 							<tr>
-								<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></td>
+								<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum %>'"> 글쓰기 </button></td>
 							</tr>
 			<%			} %>
 			<%		} else if(categ == 1) { /* 1:1 문의 */

@@ -14,6 +14,8 @@
         padding: 20px;
       }
       #header {
+       height:100px;
+      
      	width:100%;
         padding: 20px;
         margin-bottom: 20px;
@@ -32,7 +34,7 @@
       #header section{
      	width:1100px;
      	height:100px;
-     	margin-right:100px;
+     	margin-right:300px;
       }
       #main{
       	position:relative;
@@ -47,7 +49,6 @@
         margin-bottom: 20px;
         margin-left:300px;
         margin-right:200px;
-        
         padding-left:100px;
         padding-right:100px;
         float: left;
@@ -101,13 +102,21 @@
       	font-size: 16px;
       	margin-top:30px;
       	position:relative;
-      	
       }
        #button button:hover{
       	background-color:#FF822B;
       	color:#ffffff;
       }
-      	
+       #withdraw{ 
+      	border: none;
+      	border-radius: 3px;
+      	width: 55px;
+      	height:20px;
+      	font-size: 8px;
+      	margin-top:15px;
+      	margin-left:100px;
+      	position:relative;
+      }
       #login{
      	 background-color:#FFA742;
       	color:white;
@@ -126,26 +135,66 @@
       	background-color:#ffffff;
       	color:black;
       }
-      A{
-		text-decoration:none;
-		color: black;
-	  }
-	  li{
-	  	list-style:none;
-	  	margin-bottom:10px;
-	  }
-	  input[type=button] { 
-		background-color:#FFA742;
-      	color:white;
-      	border: none;
-      	border-radius: 6px;
-      	width: 110px;
-      	height:40px;	
-	  }
-	  input:hover{
-      	background-color:#FF822B;
-      	color:#ffffff;
-      }
+		A{
+			text-decoration:none;
+			color: black;
+		}
+		li{
+			list-style:none;
+			margin-bottom:10px;
+		}
+		input[type=text] { 
+			border:1px solid black;
+			border-radius:5px;
+			height:30px;
+			text-indent: 1em;
+		 }
+		 input[type=password] { 
+			border:1px solid black;
+			border-radius:5px;
+			height:30px;
+			text-indent: 1em;
+		 }
+		input[type=button] { 
+			background-color:#FFA742;
+	      	color:white;
+	      	border: none;
+	      	border-radius: 6px;
+	      	width: 110px;
+	      	height:40px;	
+		}
+		input[type=button]:hover{
+	      	background-color:#FF822B;
+	      	color:#ffffff;
+	    }
+		input[type=submit] { 
+			background-color:#FFA742;
+	      	color:white;
+	      	border: none;
+	      	border-radius: 6px;
+	      	width: 110px;
+	      	height:40px;	
+		}
+		input[type=submit]:hover{
+	      	background-color:#FF822B;
+	      	color:#ffffff;
+	    }
+	    input[type=checkbox]{
+	      	width:14px;
+	      	height:14px;
+	      	border-radius: 3px;
+	    } 
+	    input[type=radio]{
+	      	width:14px;
+	      	height:14px;
+	    }
+		select, option{
+			width:150px; 
+			height:35px;
+			border:1px solid black;
+			border-radius:5px;
+			text-indent: 1em;
+		}  
     </style>
   </head>
   

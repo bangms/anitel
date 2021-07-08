@@ -14,6 +14,8 @@
         padding: 20px;
       }
       #header {
+       height:100px;
+      
      	width:100%;
         padding: 20px;
         margin-bottom: 20px;
@@ -32,7 +34,7 @@
       #header section{
      	width:1100px;
      	height:100px;
-     	margin-right:100px;
+     	margin-right:300px;
       }
       #main{
       	position:relative;
@@ -47,7 +49,6 @@
         margin-bottom: 20px;
         margin-left:300px;
         margin-right:200px;
-        
         padding-left:100px;
         padding-right:100px;
         float: left;
@@ -101,13 +102,21 @@
       	font-size: 16px;
       	margin-top:30px;
       	position:relative;
-      	
       }
        #button button:hover{
       	background-color:#FF822B;
       	color:#ffffff;
       }
-      	
+       #withdraw{ 
+      	border: none;
+      	border-radius: 3px;
+      	width: 55px;
+      	height:20px;
+      	font-size: 8px;
+      	margin-top:15px;
+      	margin-left:100px;
+      	position:relative;
+      }
       #login{
      	 background-color:#FFA742;
       	color:white;
@@ -126,41 +135,66 @@
       	background-color:#ffffff;
       	color:black;
       }
-      A{
-		text-decoration:none;
-		color: black;
-	  }
-	  li{
-	  	list-style:none;
-	  	margin-bottom:10px;
-	  }
-	  input[type=button] { 
-		background-color:#FFA742;
-      	color:white;
-      	border: none;
-      	border-radius: 6px;
-      	width: 110px;
-      	height:40px;	
-	  }
-	  input:hover{
-      	background-color:#FF822B;
-      	color:#ffffff;
-      }
-      #my_modal {
-                display: none;
-                width: 500px;
-                padding: 20px 60px 40px 60px;
-                background-color: #fefefe;
-                border: 1px solid #888;
-                border-radius: 3px;
-      }
-
-	  #my_modal .modal_close_btn {
-                position: absolute;
-                bottom: 10px;
-                left : 50%;
-                
-      }
+		A{
+			text-decoration:none;
+			color: black;
+		}
+		li{
+			list-style:none;
+			margin-bottom:10px;
+		}
+		input[type=text] { 
+			border:1px solid black;
+			border-radius:5px;
+			height:30px;
+			text-indent: 1em;
+		 }
+		 input[type=password] { 
+			border:1px solid black;
+			border-radius:5px;
+			height:30px;
+			text-indent: 1em;
+		 }
+		input[type=button] { 
+			background-color:#FFA742;
+	      	color:white;
+	      	border: none;
+	      	border-radius: 6px;
+	      	width: 110px;
+	      	height:40px;	
+		}
+		input[type=button]:hover{
+	      	background-color:#FF822B;
+	      	color:#ffffff;
+	    }
+		input[type=submit] { 
+			background-color:#FFA742;
+	      	color:white;
+	      	border: none;
+	      	border-radius: 6px;
+	      	width: 110px;
+	      	height:40px;	
+		}
+		input[type=submit]:hover{
+	      	background-color:#FF822B;
+	      	color:#ffffff;
+	    }
+	    input[type=checkbox]{
+	      	width:14px;
+	      	height:14px;
+	      	border-radius: 3px;
+	    } 
+	    input[type=radio]{
+	      	width:14px;
+	      	height:14px;
+	    }
+		select, option{
+			width:150px; 
+			height:35px;
+			border:1px solid black;
+			border-radius:5px;
+			text-indent: 1em;
+		}  
     </style>
   </head>
   
@@ -212,10 +246,10 @@
       
       <!-- 여기서부터 콘텐츠 화면 입니다.  -->
       <div id="content">
-        <h1><%= member.getMember_name() %>님의 회원정보 수정</h1>
-      	<hr align="left" width=700 color="black">
+        <h1><%= member.getMember_name() %>님의 호텔정보 수정</h1>
+      	<hr align="left" width=800 color="black">
       	<br/>
-      	<form method="post" name="modify" id="modify">
+      	<form action="/anitel/memberMypage/memberModifyPro.jsp?id=<%=member.getId()%>" method="post">
       	<table>
       		<tr height = 50>
       			<td width = 200><h3>아이디</h3></td>
@@ -241,18 +275,12 @@
       		</tr>
       	</table>
       	<br/>
-			<!-- <input type="submit" value="수정내용 저장"/>&emsp; -->
-			<br/><br/>
-			<div id="my_modal">
-	    		<h5 align="center">비밀번호를 입력해주세요</h5> <br/>
-				<input type="password" name="member_pw" autofocus/><br/>
-				<button class="modal_close_btn" id="popup_close_btn" onclick="submitForm(<%=member.getId() %>)">확인</button>
-	    	</div>	
+			<input type="submit" value="수정내용 저장"/>&emsp;
+			<input type="button" value="수정 취소" onclick="window.location='/anitel/memberMypage/memberMyPage.jsp'"/>&emsp; 
+		<br/><br/>	
+	   </form>
      </div>
         
-      <button id="popup_open_btn">승인보류</button>
-			<input type="button" value="변경 취소" onclick="window.location='/anitel/memberMypage/memberMyPage.jsp'"/>&emsp; 
-	   </form>
  
      </div>
       
@@ -268,61 +296,4 @@
     
 </body>
 <%	} %>
-<script>
-	function modal(id) {
-		var zIndex = 9999;
-		var modal = document.getElementById(id);
-		// 모달 div 뒤에 희끄무레한 레이어
-		var bg = document.createElement('div');
-		bg.setStyle({
-			position: 'fixed',
-			zIndex: zIndex,
-			left: '0px',
-			top: '0px',
-			width: '100%',
-			height: '100%',
-			overflow: 'auto',
-			// 레이어 색 변경
-			backgroundColor: 'rgba(0,0,0,0.4)'
-		});
-		document.body.append(bg);
-
-		modal.setStyle({
-			position: 'fixed',
-			display: 'block',
-			boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-
- 			// 시꺼먼 레이어 보다 한칸 위에 보이기
-			zIndex: zIndex + 1,
-
-			// div center 정렬
-			top: '50%',
-			left: '50%',
-			transform: 'translate(-50%, -50%)',
-			msTransform: 'translate(-50%, -50%)',
-			webkitTransform: 'translate(-50%, -50%)'
-		});
-	}
-
-	// Element 에 style 한번에 오브젝트로 설정하는 함수 추가
-	Element.prototype.setStyle = function(styles) {
-		for (var k in styles) this.style[k] = styles[k];
-		return this;
-	};
-
-	document.getElementById('popup_open_btn').addEventListener('click', function() {
-		// 모달창 띄우기
-		modal('my_modal');
-	});
-	
-	function submitForm(id) {
-		var btn = document.getElementById('popup_close_btn');
-		document.modify.action = "../main.jsp";
-		document.modify.submit();
-
-} 
-	
-	// 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
-	
-</script>
 </html>

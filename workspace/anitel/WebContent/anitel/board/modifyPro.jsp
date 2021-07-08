@@ -23,15 +23,60 @@
  
 	String id = (String)session.getAttribute("sid");
 	System.out.println("sid=" + id);	
-
-	String path = request.getRealPath("upload");
-	System.out.println(path);
 	
-	int max = 1024*1024*5; //5m
- 	String enc ="UTF-8";	//인코딩 
+ 	
+	BoardDTO dto = new BoardDTO();
+	 	
+ 	String path = request.getRealPath("save");
+	System.out.println(path);
+	int max = 1024*1024*5;
+	String enc = "UTF-8";
+	DefaultFileRenamePolicy dp = new DefaultFileRenamePolicy();
+	MultipartRequest mr = new MultipartRequest(request, path, max, enc, dp);
+	
+	
+	int board_num = Integer.parseInt(mr.getParameter("board_num"));
+ 	System.out.println("board_num=" + board_num);
+ 	int categ = Integer.parseInt(mr.getParameter("categ"));
+ 	System.out.println("categ=" + categ);
+ 	
+	// update imgMember set email = ? .... where id = ?
+	// modify Form 에서 id 값이 안넘어오니, 세션에서 꺼내서 dto에 추가
+	dto.setBoard_num(board_num);
+	dto.setId(id);
+	dto.setCateg(categ); 
+ 	dto.setSubject(mr.getParameter("subject"));
+ 	dto.setPw(mr.getParameter("pw")); 
+ 	dto.setCtt(mr.getParameter("ctt"));
+ 	dto.setReg_date(new Timestamp(System.currentTimeMillis()));
+ 	dto.setReadcount(0);  
+ 	dto.setComm(0);
+ 	dto.setHidden_content(0);
+	// 일반 파라미터는 그냥 request에서 getparameter 해도 됨
+	// 파일을 꺼내올 때는 mr을 사용해야하니까 통일시킨 것.
+
+
+	if(mr.getFilesystemName("img") != null) {// photo input 태그에 뭔가 담겨서 넘어왔다면
+		// 새로 넘어온 파일의 이름을 dto 에 넣고
+		System.out.println(mr.getFilesystemName("img"));
+		dto.setImg(mr.getFilesystemName("img"));
+		
+		// 기존 파일은 지우기 (기존에 올린 파일이 있다면 지우기(디폴트가 아니라면 / null이 아니라면))
+		
+	} else { // photo input 태그로 사진 지정 안하고 그냥 넘어왔으면 
+		// 기존에 DB에 저장되어있던 이름으로 다시 dto에 추가
+		System.out.println(mr.getParameter("exPhoto"));
+		// 수정할 때 DB상에 값이 없으면, form에 null 값이 전달되어서 -> "null" 문자열로 넘어옴
+		if(mr.getParameter("exPhoto").equals("null") || mr.getParameter("exPhoto").equals("")) {
+			dto.setImg(null); // 실제 null 을 넣어주기 (디폴트이미지 나오도록)
+			// (DB에 만들때부터 default 값으로 디폴트 이미지를 넣어주는 것이 나음)
+		} else {
+			dto.setImg(mr.getParameter("exPhoto"));
+		}
+	}
  	
  
- 	//덮어쓰기 방지 객체 : 중복이름으로 파일 저장시 파일 자동으로 이름 생성 
+ 	/* //덮어쓰기 방지 객체 : 중복이름으로 파일 저장시 파일 자동으로 이름 생성 
  	DefaultFileRenamePolicy dp = new DefaultFileRenamePolicy();
  	// MultipartRequest 객체생성
  	MultipartRequest mr = new MultipartRequest(request, path, max, enc, dp);
@@ -58,35 +103,16 @@
 		String[] ct = contentT.split("/");
 		if(!(ct[0].equals("image"))){
 			File f = new File(sysName);
-			f.delete();
+			f.delete(); */
 		%>
 			<script type="text/javascript">
 				alert("이미지 파일이 아닙니다. 이미지 파일을 업로드해주세요.");
 				history.go(-1);
 			</script>		
-		<%	
-		}
-	}
- 	
- %>
  <%
  	
-	BoardDTO dto = new BoardDTO();
-	dto.setBoard_num(board_num);
-	dto.setId(id);
-	dto.setCateg(categ); 
- 	dto.setSubject(subject);
- 	dto.setPw(pw); 
- 	dto.setCtt(ctt);
- 	dto.setImg(sysName);
- 	dto.setReg_date(new Timestamp(System.currentTimeMillis()));
- 	dto.setReadcount(0);  
- 	dto.setComm(0);
- 	dto.setHidden_content(0);
- 	
-
  	BoardDAO dao = BoardDAO.getInstance();
- 	int result = dao.updateArticle(dto, categ);
+ 	int result = dao.updateArticle(dto, categ); 
  	
  	if(result == 1){
  		response.sendRedirect("content.jsp?board_num=" + dto.getBoard_num() + "&pageNum=" + pageNum + "&categ=" + categ);

@@ -1,6 +1,6 @@
 <%@page import="javax.websocket.SendResult"%>
 <%@page import="anitel.model.BoardDTO"%> 
-<%@page import="java.sql.Timestamp"%>
+<%@page import="java.sql.Timestamp"%> 
 <%@page import="anitel.model.BoardDAO"%> 
 <%@page import="java.io.File"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
@@ -20,7 +20,7 @@
 	String id = (String)session.getAttribute("sid");
 	System.out.println("sid=" + id);	
 
-	String path = request.getRealPath("imgs");
+	String path = request.getRealPath("save");
 	System.out.println(path);
 	
 	int max = 1024*1024*5; //5m

@@ -21,7 +21,7 @@
 	</script>
 <%
 	} else {
-	String pw = request.getParameter("pw");
+	String pw = request.getParameter("pw"); 
 	BoardDAO dao = BoardDAO.getInstance();
 
 	boolean result = dao.checkpw(board_num, pw); 

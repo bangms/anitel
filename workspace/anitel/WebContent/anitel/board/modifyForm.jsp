@@ -1,5 +1,5 @@
 <%@page import="anitel.model.BoardDTO"%> 
-<%@page import="anitel.model.BoardDAO"%>
+<%@page import="anitel.model.BoardDAO"%> 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,9 +7,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>게시판</title>
- 	 <link rel="stylesheet" href="../style/style.css">
- 	<link rel="stylesheet" href="../style/reset.css">
-  	<link rel="stylesheet" href="../style/init.css">	
+	<link rel="stylesheet" href="../style/style.css">
+	<link rel="stylesheet" href="../style/reset.css">
+	<link rel="stylesheet" href="../style/init.css">	
 </head>
 <%
 	String id = (String)session.getAttribute("sid");
@@ -70,13 +70,19 @@
 					</tr>
 					<tr>
 						<td> 
-							<%if(article.getImg() != null){%>
-								<img src="/anitel/upload/<%=article.getImg()%>" />		
+							<%
+							if(article.getImg() != null){%>
+								<img src="<%=request.getContextPath()%>/save/<%=article.getImg()%>" style="max-width: 80%" />		
 							<%}else{ %>
-								<img src="/anitel/upload/default.png"/>
+								<img src="../save/default.png"/>
 							<%} %>	
+							
+							<input type="file" name="img" /> <%-- 수정을 할 수 있는 버튼 --%>
+							<%-- 데이터를 넘겼을 때 수정을 했다라고 하면 photo 값으로 업데이트 하고 
+							수정을 하지 않았다고 하면 exphoto로 기존에 있던 사진을 업데이트해줌 --%>
+							<input type="hidden" name="exPhoto" value="<%= article.getImg() %>" />
+							<%-- null이라는 문자열로 들어가서 기본 이미지가 아닌 엑박이 뜸 --%>
 							<br/>
-							<input type="file" name="img" /> 
 						</td>	
 					</tr>
 					<tr>

@@ -7,145 +7,9 @@
   <head>
     <meta charset="UTF-8">
     <title>마이페이지(사업자회원) - 호텔정보</title>
-    <style>
-      #container {
-        width: 100%;
-        margin: 0px auto;
-        padding: 20px;
-      }
-      #header {
-     	width:100%;
-        padding: 20px;
-        margin-bottom: 20px;
-        height: 100px;
-      	top:0;
-      	display: flex;
- 		justify-content: space-between;
- 		background-color:white;
- 		position: sticky;
-		top: 0;
-      }
-      #header logo{
-      	width: 300px;
-      	height:100px;
-      }
-      #header section{
-     	width:1100px;
-     	height:100px;
-     	margin-right:100px;
-      }
-      #main{
-      	position:relative;
-      	width:100%;
-      	overflow: auto;
-      	height:500px;
-      }
-      #content {
-        width: 65%;
-       	height:100%;
-        padding: 20px;
-        margin-bottom: 20px;
-        margin-left:300px;
-        margin-right:200px;
-        
-        padding-left:100px;
-        padding-right:100px;
-        float: left;
-		padding-bottom:100px;
-		z-index:3
-      }
-      #sidebar {
-        width: 230px;
-        padding: 20px;
-        float: left;
-        clear:both;
-        background-color:#EBDDCA;
-        margin-right:50px;
-        margin-left:70px;
-        position:fixed;
-      }
-      #footer {
-      	height:80px;
-      	width:100%;
-        clear: both;
-        padding: 20px;
-        margin-left:-50px;
-		padding-left:100px;
-        left:0;
-        bottom:0;
-		background-color:black;
-		color:white;
-		overflow-y:hidden;
-		overflow-x:hidden;
-      }
-      p{
-      	margin-top:10px;
-      	font-size: 13px;
-      	margin-left : 200px;
-      }
-      img {
-      	float:left; 
-      	padding: 20px;
-      	margin-top:-15px;
-      	margin-left:40px;
-      }
-      ul{
-      	font-size:20px
-      }
-      #button button{ 
-      	font-weight:semi-bold;
-      	border: none;
-      	border-radius: 6px;
-      	width: 110px;
-      	height:40px;
-      	font-size: 16px;
-      	margin-top:30px;
-      	position:relative;
-      	
-      }
-       #button button:hover{
-      	background-color:#FF822B;
-      	color:#ffffff;
-      }
-      	
-      #login{
-     	 background-color:#FFA742;
-      	color:white;
-   		float : right;   
-   		margin-right: 5px;    	
-      }
-      #signin{
-     	background-color:#FFA742;
-      	color:white;
-     	float : right;
-     	margin-right: 5px;    	
-      }
-      #notice{
-      	float : right;
-      	margin-right: 5px;    	
-      	background-color:#ffffff;
-      	color:black;
-      }
-      A{
-		text-decoration:none;
-		color: black;
-	  }
-	  li{
-	  	list-style:none;
-	  	margin-bottom:10px;
-	  }
-	  input[type=button] { 
-		background-color:#FFA742;
-      	color:white;
-      	border: none;
-      	border-radius: 6px;
-      	width: 180px;
-      	height:40px;	
-	  }
-	  input:hover{
-      	background-color:#FF822B;
-      	color:#ffffff;
-      }
+   	<link rel="stylesheet" href="style/style.css">
+		<link rel="stylesheet" href="style/reset.css">
+    <style> 
 	  #my_modal {
                 display: none;
                 width: 500px;
@@ -160,6 +24,16 @@
                 bottom: 10px;
                 left : 50%;
                 
+      }
+      #popup_open_btn{ 
+      	border: none;
+      	border-radius: 3px;
+      	width: 65px;
+      	height:25px;
+      	font-size: 12px;
+      	margin-top:15px;
+      	margin-left:10px;
+      	position:relative;
       }
     </style>
   </head>
@@ -177,43 +51,45 @@
 	// 1. 세션아이디 꺼내서 사업자 회원 정보 세팅하기
 	// 2. dao에 아이디 집어넣고 아이디, 성명, 연락처, 이메일 집어넣기
 
-
 	//String id = (String)session.getAttribute("sid");
-	String id = "test05";													// 테스트용 : 개발 끝나고 지워버려야댐
+	String id = "test06";													// 테스트용 : 개발 끝나고 지워버려야댐
 	MemberDAO dao = MemberDAO.getInstance();
 	MemberDTO member = dao.getMemberHotel(id);
-	System.out.println("memberMyPage - 사업자등록번호 승인여부 : " + member.getMember_approved() + "(0 : 승인대기, 1 : 승인완료, 2 : 승인보류)");
+	System.out.println("memberHInfo.jsp - " + member.getId() + " 사업자등록번호 승인여부 : " + member.getMember_approved() + "(0 : 승인대기, 1 : 승인완료, 2 : 승인보류)");
 %>
 
 <body>
-	<div id="container">
-    
- <!-- 여기서부터 헤더  입니다.  -->
- 	
-      <div id="header">
-      	<div id="logo">
-       		 <img src="imgs/logo.png" width="200px" height="100px">
-        </div>
- 		<section>
-       		 <div id="button">
-        		<button id="notice">공지사항</button>
-        		<button id="signin">회원가입</button>
-   	     		<button id="login">로그인</button>
-       		 </div>
-        </section>
-      </div>
-      
+<div id="container">
+	<div id="header">
+		<div id="logo" onclick="window.location='../main.jsp'">
+			<img src="../imgs/logo.jpg" width="200px" height="100px" alt="logo">
+		</div>
+		<div id="button">
+			<button id="notice" onclick="window.location='board/list.jsp?categ=0'">공지사항</button>
+<% 	
+	if(session.getAttribute("sid") == null){ 
+%>
+			<button id="signin" onclick="window.location='signIn.jsp'">회원가입</button>
+			<button id="login" onclick="window.location='loginForm.jsp'">로그인</button>
+			
+<%}else{ %>
+			<button id="mypage" onclick="window.location='mypage.jsp'">마이페이지</button>
+			<button id="signout" onclick="window.location='logout.jsp'">로그아웃</button>
+<%}%>
+
+		</div>
+	</div>	
 	<div id="main">
 	
 	<!-- 여기서부터 사이드바 입니다.  -->
       <div id="sidebar">
         <h1>마이페이지</h1>
         <ul>
-          <li><a href="/anitel/memberMypage/memberMyPage.jsp">내 정보</a></li>
-          <li><a href="/anitel/memberMypage/memberHInfo.jsp">호텔 정보</a></li>
-          <li><a href="/anitel/memberMypage/memberBookingModifyForm.jsp">호텔 예약 관리</a></li>
-          <li><a href="/anitel/memberMypage/memberQna.jsp">호텔 QnA 관리</a></li>
-          <li><a href="/anitel/memberMypage/memberReview.jsp">호텔 후기 관리</a></li>
+          <li><a href="memberMyPage.jsp">내 정보</a></li>
+          <li><a href="memberHInfo.jsp">호텔 정보</a></li>
+          <li><a href="memberBookingModifyForm.jsp">호텔 예약 관리</a></li>
+          <li><a href="memberQna.jsp">호텔 QnA 관리</a></li>
+          <li><a href="memberReview.jsp">호텔 후기 관리</a></li>
         </ul>
       </div>
       <!-- 여기서부터 콘텐츠 화면 입니다.  -->
@@ -254,8 +130,9 @@
       		</tr>
       	</table>
       	<br/>
-			<input type="button" value="호텔정보 수정" onclick="window.location='/anitel/memberMypage/memberModifyPwForm.jsp?id=<%=member.getId()%>'"/>&emsp; 
-			<input type="button" value="객실 및 서비스 관리" onclick="window.location='/anitel/memberMypage/memberModifyForm.jsp?id=<%=member.getId()%>'"/>&emsp;
+			<input type="button" value="호텔정보 수정" onclick="popupOpen()"/>&emsp;
+			<!-- window.location='/anitel/memberMypage/memberHModifyForm.jsp?id=<%=member.getId()%> --> 
+			<input type="button" value="객실 및 서비스 관리" onclick="window.location='/anitel/memberMypage/memberRoomModifyForm.jsp?id=<%=member.getId()%>'"/>&emsp;
 		<br/><br/>
        </div>
      </div>
@@ -328,5 +205,12 @@
 		// 모달창 띄우기
 		modal('my_modal');
 	});
+	
+	
+	function popupOpen(){
+		var popUrl = "/anitel/popupForm.jsp?pop=4";
+		var popOption = "width=370, heigth=360, resizable=no, scrollbars=no, status=no;";
+			window.open(popUrl,"",popOption);
+	}
 </script>
 </html>

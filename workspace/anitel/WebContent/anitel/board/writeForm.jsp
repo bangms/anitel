@@ -34,11 +34,10 @@
 <%   
    	String id = (String)session.getAttribute("sid");
 		System.out.println(id);
-	
-   	//현재 페이지 번호
-   	String pageNum = request.getParameter("pageNum"); // 요청시 페이지 번호가 넘어왔으면 꺼내서 담기
-   
-   	// categ 값 꺼내기 
+		
+		String pageNum = request.getParameter("pageNum");
+
+		// categ 값 꺼내기 
    	int categ = Integer.parseInt(request.getParameter("categ"));
    	System.out.println("writeForm.categ=" + categ);
    
@@ -67,10 +66,18 @@
 				<button id="signin" onclick="window.location='../signIn.jsp'">회원가입</button>
 				<button id="login" onclick="window.location='../loginForm.jsp'">로그인</button>
 				
-			<%}else{ %>
-				<button id="mypage" onclick="window.location='../mypage.jsp'">마이페이지</button>
-				<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
-			<%}%>
+			<%}else{ 
+				if(id.equals("admin")) { %><%-- 관리자 일 때 --%>
+					<button id="mypage" onclick="window.location='adminMypage/adminMemberForm.jsp'">마이페이지</button>
+			<%}
+				if(id.equals("일반회원")) { %><%-- 일반 회원 일 때 --%>
+					<button id="mypage" onclick="window.location='mypage.jsp'">마이페이지</button>
+			<%}
+				if(id.equals("사업자")) { %><%-- 사업자 일 때 --%>
+					<button id="mypage" onclick="window.location='mypage.jsp'">마이페이지</button>
+			<%}%>	
+				<button id="signout" onclick="window.location='logout.jsp'">로그아웃</button>
+		<%}%>
 		</div>
 	</div>	
  <div id="section">
@@ -86,7 +93,7 @@
 		<% } %>
  	</div>
  	<div align="center">
-		<form action="writePro.jsp?pageNum=<%=pageNum%>" method="post" enctype="multipart/form-data">
+		<form action="writePro.jsp" method="post" enctype="multipart/form-data">
 			<%-- 글에 대한 속성값 노출 없이 전송 --%>
 			<input type="hidden" name="board_num" value="<%= board_num%>"/>
 			<input type="hidden" name="categ" value="<%= categ%>"/>
@@ -108,8 +115,8 @@
 				</tr> 
 				<tr>
 					<td>
-						<input type="submit" value="등 록" /> 						
-						<input type="button" value="취 소" onclick="window.location='list.jsp?pageNum=<%=pageNum%>&categ=<%=categ %>" />
+						<input type="submit" value="등 록" />
+						<input type="button" value="취 소" onclick="window.location='list.jsp?pageNum=<%=pageNum%>&categ=<%=categ %>'" />
 					</td>
 				</tr>
 			</table>

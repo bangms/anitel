@@ -36,8 +36,6 @@
 	//db 에서 글 고유번호 주고 해당 글에 대한 애용 가져오기
 	BoardDAO dao = BoardDAO.getInstance();
 	BoardDTO article = dao.getArticle(board_num);  
-	
-	
 	 
 	System.out.println("content subject " + article.getSubject());
 	System.out.println("content img name " + article.getImg());
@@ -95,9 +93,9 @@
 			</tr>
 			<tr>
 			<%if(article.getImg() != null){%>
-				<td colspan="2" height="100"><img src="imgs/<%=article.getImg()%>" style="max-width: 80%" /> </td>	
+				<td colspan="2" height="100"><img src="<%=request.getContextPath()%>/save/<%=article.getImg()%>" style="max-width: 80%" /> </td>	
 			<%}else{ %>
-				<td colspan="2" height="100"><img src="imgs/default.png"/></td>
+				<td colspan="2" height="100"><img src="../save/default.png"/></td>
 			<%} %>
 			</tr>
 			<%if(article.getReply_content() != null){ %> 
@@ -111,7 +109,6 @@
 				<td colspan="2">
 				<button onclick="window.location='list.jsp?categ=<%=categ%>'">목록으로</button>
  		<% if (categ == 0 && session.getAttribute("sid").equals("admin")){//공지%> 
-				<button onclick="window.location='writeForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=0'">글쓰기</button>
 				<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=0'">수  정</button>
 				<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=0'">삭  제</button>
 		<%} else if(categ == 1){//1:1%>
@@ -120,7 +117,6 @@
 				<%} 
 				check = dao.userCk(id); 
 				if(check) { %><!-- TODO: 글쓰기, 수정은 고객전용 / 삭제는 고객,관리자 --> 
-					<button onclick="window.location='writeForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=1'">글쓰기</button>
 					<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=1'">수  정</button>
 			<%} 
 				if(check || id.equals("admin")) {%>
@@ -131,7 +127,6 @@
 					<button onclick="window.location='replyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2'">답글쓰기</button>
 			<%} 
 				if(dao.userCk(id)) { %>
-					<button onclick="window.location='writeForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2'">글쓰기</button>
 					<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2'">수  정</button>
 		<%	} 
 				if(check || id.equals("admin")) {%>
@@ -141,7 +136,6 @@
 					check = dao.paymentUserCk(id,"000-000-000001");
 					if(check) { %>
 						<!-- TODO: 글쓰기, 수정은  결제고객만, 삭제는 고객, 관리자만 가능   -->
-						<button onclick="window.location='writeForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=3'">글쓰기</button>
 						<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=3'">수  정</button>
 			<%  }
 					if(check || id.equals("admin")) { %>
