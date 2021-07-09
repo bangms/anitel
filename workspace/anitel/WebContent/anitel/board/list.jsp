@@ -49,6 +49,10 @@
 	//게시판 글가져오기
 	BoardDAO dao = BoardDAO.getInstance(); 
 	
+	// 사업자, 일반회원인지 체크
+	int checkID = dao.idCk(id);
+	System.out.println("아이디 체크 - 사업자면 2, 일반회원이면 1 : " + checkID);
+	
 	List articleList = null;							// 전체(or검색된) 게시글들을 담을 list변수
 	int count = 0;										// DB에 저장되어 있는 전체(or검색된) 글의 개수 보관
 	int number = 0;										// 게시판 목록에 뿌려줄 가상의 글 번호
@@ -104,7 +108,13 @@
 <%}else{ 
 		if(id.equals("admin")) { %>
 			<button id="mypage" onclick="window.location='../adminMemberForm.jsp'">마이페이지</button>
-	<% } %>
+	<% } 
+		if(checkID == 1) {%>
+			<button id="mypage" onclick="window.location='../userMypage/userMyPage.jsp'">마이페이지</button>
+<% } 
+		if(checkID == 2) {%>
+		<button id="mypage" onclick="window.location='../memberMypage/memberMyPage.jsp'">마이페이지</button>
+<% } %>		
 			<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
 <%}%>
 
@@ -142,9 +152,8 @@
 			<tr>
 				<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></td>
 			</tr>
-<%		} else if(categ == 2) { /* 호텔 QNA */
-			check = dao.userCk(id);  
-			if(check) {%><%-- 고객만 글쓰기 가능 / 무슨 호텔인지 보내주기 &reg_num=<%=reg_num%> --%>
+<%		} else if(categ == 2) { /* 호텔 QNA */ 
+			if(checkID == 1) {%><%-- 고객만 글쓰기 가능 / 무슨 호텔인지 보내주기 &reg_num=<%=reg_num%> --%>
 				<tr>
 					<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></td>
 				</tr>
@@ -217,9 +226,8 @@
 							<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></td>
 						</tr>
 					<%	} %>
-			<%		} else if(categ == 2) { /* 호텔 QNA */
-						check = dao.userCk(id);  
-						if(check) {%><%-- 고객만 글쓰기 가능 / 무슨 호텔인지 보내주기 &reg_num=<%=reg_num%> --%>
+			<%		} else if(categ == 2) { /* 호텔 QNA */ 
+						if(checkID == 1) {%><%-- 고객만 글쓰기 가능 / 무슨 호텔인지 보내주기 &reg_num=<%=reg_num%> --%>
 							<tr>
 								<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></td>
 							</tr>

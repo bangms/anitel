@@ -522,8 +522,8 @@ public class BoardDAO {
 	   }
 	   
 	   // 일반 회원인지 아이디 확인 // 윤지 추가
-	   public boolean userCk(String id) {
-		   boolean result = false;
+	   public int idCk(String id) {
+		   int result = -1;
 		   Connection conn = null;
 		   PreparedStatement pstmt = null;
 		   ResultSet rs = null;
@@ -534,10 +534,22 @@ public class BoardDAO {
 		         pstmt.setString(1, id);
 		         rs = pstmt.executeQuery();
 		         if(rs.next()) {
-		        	 String dbid = rs.getString("id");
-		        	 if(dbid.equals(id)) {
-		        		 result = true;
+		        	 String userId = rs.getString("id");
+		        	 if(userId.equals(id)) {
+		        		 // 일반회원이면 1 리턴
+		        		 result = 1;
 		        	 }
+		         } else {
+		        	 sql = "select id from member where id = ?";
+	        		 pstmt = conn.prepareStatement(sql);
+			         pstmt.setString(1, id);
+			         rs = pstmt.executeQuery();
+			         if(rs.next()) {
+			        	 String memId = rs.getString("id");
+			        	 if(memId.equals(id)) {
+			        		 result = 2; // 사업자 회원이면 2 리턴
+			        	 }
+			         }
 		         }
 		      } catch (Exception e) {
 		         e.printStackTrace();
@@ -548,32 +560,5 @@ public class BoardDAO {
 		      }
 		   return result;
 	   }
-	   
-	   // 사업자 회원인지 아이디 확인 // 윤지 추가
-	   public boolean memberCk(String id) {
-		   boolean result = false;
-		   Connection conn = null;
-		   PreparedStatement pstmt = null;
-		   ResultSet rs = null;
-		   try {
-		         conn = getConnection();
-		         String sql = "select id from member where id = ?";
-		         pstmt = conn.prepareStatement(sql);
-		         pstmt.setString(1, id);
-		         rs = pstmt.executeQuery();
-		         if(rs.next()) {
-		        	 String dbid = rs.getString("id");
-		        	 if(dbid.equals(id)) {
-		        		 result = true;
-		        	 }
-		         }
-		      } catch (Exception e) {
-		         e.printStackTrace();
-		      } finally { 
-		         if(rs != null) try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
-		         if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
-		         if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
-		      }
-		   return result;
-	   }
+	  
 }// close

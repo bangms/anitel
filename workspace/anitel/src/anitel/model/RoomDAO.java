@@ -36,7 +36,7 @@ public class RoomDAO {
 			
 			String sql ="select count(*)"
 					+ " FROM member mem, room r, (select C.* from room C left outer join (select A.room_num from (SELECT * FROM booking WHERE check_in <= '"+hotel.getCheck_out()+"' AND check_out >= '"+hotel.getCheck_in()+"') A) B on C.room_num=B.room_num where B.room_num is null) D"
-					+ " where r.room_num = D.room_num and mem.id = r.id and mem.hotel_area like '"+hotel.getHotel_area()+"%' and r.pet_type = '"+hotel.getPet_type()+"'";
+					+ " where r.room_num = D.room_num and mem.id = r.id and mem.hotel_area like '"+hotel.getHotel_area()+"%' and r.pet_type = "+hotel.getPet_type();
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -66,9 +66,9 @@ public class RoomDAO {
 		try {
 			conn = getConnection();
 			
-			String sql ="select mem.id, mem.hotel_name, r.img, r.d_fee, r.util_pool, r.util_ground, r.util_parking, r.paid_bath, r.paid_beauty, r.paid_medi, r.pet_big, mem.hotel_intro"
-					+ " FROM member mem, room r, (select C.* from room C left outer join (select A.room_num from (SELECT * FROM booking WHERE check_in <= '"+selhotel.getCheck_out()+"' AND check_out >= '"+selhotel.getCheck_in()+"') A) B on C.room_num=B.room_num where B.room_num is null) D"
-					+ " where r.room_num = D.room_num and mem.id = r.id and mem.hotel_area like '"+selhotel.getHotel_area()+"%' and r.pet_type = '"+selhotel.getPet_type()+"'";
+			String sql ="select m.id, m.hotel_name, r.img, r.d_fee, m.util_pool, m.util_ground, m.util_parking, m.paid_bath, m.paid_beauty, m.paid_medi, r.pet_big, m.hotel_intro"
+					+ " FROM member m, room r, (select C.* from room C left outer join (select A.room_num from (SELECT * FROM booking WHERE check_in <= '"+selhotel.getCheck_out()+"' AND check_out >= '"+selhotel.getCheck_in()+"') A) B on C.room_num=B.room_num where B.room_num is null) D"
+					+ " where r.room_num = D.room_num and m.id = r.id and m.hotel_area like '"+selhotel.getHotel_area()+"%' and r.pet_type = "+selhotel.getPet_type();
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -114,7 +114,7 @@ public class RoomDAO {
 			
 			String sql ="select count(*)"
 					+ " FROM member mem, room r, (select C.* from room C left outer join (select A.room_num from (SELECT * FROM booking WHERE check_in <= '"+hotel.getCheck_out()+"' AND check_out >= '"+hotel.getCheck_in()+"') A) B on C.room_num=B.room_num where B.room_num is null) D"
-					+ " where r.room_num = D.room_num and mem.id = r.id and mem.hotel_area like '"+hotel.getHotel_area()+"%' and r.pet_type = '"+hotel.getPet_type()+"'";
+					+ " where r.room_num = D.room_num and mem.id = r.id and mem.hotel_area like '"+hotel.getHotel_area()+"%' and r.pet_type = "+hotel.getPet_type();
 			
 			if(subSql != null) {
 				sql += subSql;
@@ -148,9 +148,9 @@ public class RoomDAO {
 		try {
 			conn = getConnection();
 			
-			String sql ="select mem.id, mem.hotel_name, r.img, r.d_fee, r.util_pool, r.util_ground, r.util_parking, r.paid_bath, r.paid_beauty, r.paid_medi, r.pet_big, mem.hotel_intro"
+			String sql ="select mem.id, mem.hotel_name, r.img, r.d_fee, mem.util_pool, mem.util_ground, mem.util_parking, mem.paid_bath, mem.paid_beauty, mem.paid_medi, r.pet_big, mem.hotel_intro"
 					+ " FROM member mem, room r, (select C.* from room C left outer join (select A.room_num from (SELECT * FROM booking WHERE check_in <= '"+selhotel.getCheck_out()+"' AND check_out >= '"+selhotel.getCheck_in()+"') A) B on C.room_num=B.room_num where B.room_num is null) D"
-					+ " where r.room_num = D.room_num and mem.id = r.id and mem.hotel_area like '"+selhotel.getHotel_area()+"%' and r.pet_type = '"+selhotel.getPet_type()+"'";
+					+ " where r.room_num = D.room_num and mem.id = r.id and mem.hotel_area like '"+selhotel.getHotel_area()+"%' and r.pet_type = "+selhotel.getPet_type();
 			
 			if(subSql != null) {
 				sql += subSql;

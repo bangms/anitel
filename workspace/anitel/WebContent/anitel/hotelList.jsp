@@ -71,13 +71,13 @@ int count = 0; // 전체 호텔 개수
 String sub = request.getParameter("sub");
 String subSql = "";
 
-if("1".equals(hotel.getUtil_pool())) {subSql += " and r.util_pool = '1'";}
-if("1".equals(hotel.getUtil_ground())) {subSql += " and r.util_ground = '1'";}
-if("1".equals(hotel.getUtil_parking())) {subSql += " and r.util_parking = '1'";}
-if("1".equals(hotel.getPaid_bath())) {subSql += " and r.paid_bath = '1'";}
-if("1".equals(hotel.getPaid_beauty())) {subSql += " and r.paid_beauty = '1'";}
-if("1".equals(hotel.getPaid_medi())) {subSql += " and r.paid_medi = '1'";}
-if("1".equals(hotel.getPet_big())) {subSql += " and r.pet_big = '1'";}
+if("1".equals(hotel.getUtil_pool())) {subSql += " and mem.util_pool = 1";}
+if("1".equals(hotel.getUtil_ground())) {subSql += " and mem.util_ground = 1";}
+if("1".equals(hotel.getUtil_parking())) {subSql += " and mem.util_parking = 1";}
+if("1".equals(hotel.getPaid_bath())) {subSql += " and mem.paid_bath = 1";}
+if("1".equals(hotel.getPaid_beauty())) {subSql += " and mem.paid_beauty = 1";}
+if("1".equals(hotel.getPaid_medi())) {subSql += " and mem.paid_medi = 1";}
+if("1".equals(hotel.getPet_big())) {subSql += " and r.pet_big = 1";}
 
 
 if(sub != null) { // 검색 한 경우 

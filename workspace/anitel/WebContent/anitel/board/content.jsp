@@ -114,19 +114,18 @@
 		<%} else if(categ == 1){//1:1%>
 				<%if(session.getAttribute("sid").equals("admin")){ %>
 					<button onclick="window.location='replyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=0'">답변입력</button>	 
-				<%} 
-				check = dao.userCk(id); 
-				if(check) { %><!-- TODO: 글쓰기, 수정은 고객전용 / 삭제는 고객,관리자 --> 
+				<%}  
+				if(dao.idCk(id) == 1) { %><!-- TODO: 글쓰기, 수정은 고객전용 / 삭제는 고객,관리자 --> 
 					<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=1'">수  정</button>
 			<%} 
-				if(check || id.equals("admin")) {%>
+				if(dao.idCk(id) == 1 || id.equals("admin")) {%>
 					<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=1'">삭  제</button>
 			<%} %>
 		<%} else if(categ == 2){//호텔QA
-				if(dao.memberCk(id)) { %><!-- TODO: 답변은 사업자만 쓸수 있게 처리/ 글쓰기,수정은 고객전용 / 삭제는 고객 관리자전용  -->
+				if(dao.idCk(id) == 2) { %><!-- TODO: 답변은 사업자만 쓸수 있게 처리/ 글쓰기,수정은 고객전용 / 삭제는 고객 관리자전용  -->
 					<button onclick="window.location='replyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2'">답글쓰기</button>
 			<%} 
-				if(dao.userCk(id)) { %>
+				if(dao.idCk(id) == 1) { %>
 					<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2'">수  정</button>
 		<%	} 
 				if(check || id.equals("admin")) {%>
