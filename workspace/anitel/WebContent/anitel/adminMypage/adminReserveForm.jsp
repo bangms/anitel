@@ -11,6 +11,7 @@
 	<title>adminReserve</title>
 	<link rel="stylesheet" href="../style/style.css">
 	<link rel="stylesheet" href="../style/reset.css">
+	<link rel="stylesheet" href="../style/search.css">
 </head>
 <%
 	// 게시글 10개 노출, 페이징 처리
@@ -117,50 +118,53 @@
 			<h3 align="center">표시할 내용이 없습니다.</h3>
 		<%}else {%>
 		<form action="adminReserveForm.jsp" name="frmUserInfo" method="post">
-			<table>		
-				<tr align="center">
-					<th> </th>
-					<th> 호텔이름 </th>
-					<th> 객실명 </th>
-					<th> 예약날짜 </th>
-					<th> 체크인 날짜 </th>
-					<th> 예약회원명 </th>
-					<th> 예약회원 전화번호 </th>
-					<th> 동물정보 </th>
-					<th> 세부/추가요청사항 </th>
-					<th> 결제완료여부 </th>
-				</tr>			
+		
+			<div class="table_wrap">
+			  <h2>호텔 예약 관리 페이지</h2>
+			  <ul class="responsive-table">
+			    <li class="table-header">
+			      <div class="col col-1" style="flex-basis: 3%;"></div>
+			      <div class="col col-2" style="flex-basis: 10.77%;">호텔이름</div>
+			      <div class="col col-3" style="flex-basis: 10.77%;">객실명</div>
+			      <div class="col col-4" style="flex-basis: 10.77%;">예약날짜</div>
+			      <div class="col col-5" style="flex-basis: 10.77%;">체크인 날짜</div>
+			      <div class="col col-6" style="flex-basis: 10.77%;">예약회원명</div>
+			      <div class="col col-7" style="flex-basis: 10.77%;">예약회원 전화번호</div>
+			      <div class="col col-8" style="flex-basis: 10.77%;">동물정보</div>
+			      <div class="col col-9" style="flex-basis: 10.77%;">세부/추가요청사항</div>
+			      <div class="col col-10" style="flex-basis: 10.77%;">결제완료여부</div>
+			    </li>
+			    
 				<%
 				for(int i = 0; i < bookingList.size(); i++) {
 					BKListDTO hotel = (BKListDTO)bookingList.get(i); 
 				%>
-				<tr>
-					<td align="center">
-						<input type="checkbox" name="info" value="<%=hotel.getBooking_num()%>" />
-					</td>
-					<td> <%=hotel.getHotel_name() %> </td>
-					<td> <%=hotel.getName() %> </td>
-					<td> <%=sdf.format(hotel.getBooking_time()) %> </td>
-					<td> <%=sdf.format(hotel.getCheck_in()) %> </td>
-					<td> <%=hotel.getUser_name() %> </td>
-					<td> <%=hotel.getUser_phone() %> </td>
-					<td> <%=hotel.getPet_name() %> </td>
-					<td> <%=hotel.getRequests() %> </td>
-					<td align="center"> 
-						<%if(hotel.getPayment() == 0) {%>
-						<button>결제중</button>
-						<%}else if(hotel.getPayment() == 1){ %>
-						<button>결제완료</button>
-						<%}else if(hotel.getPayment() == 2){%>
-						<button>결제취소</button>
-						<%} %>
-					</td>				
-				</tr>
+					<li class="table-row">
+			      <div class="col col-1" style="flex-basis: 3%;" data-label="checkbox"><input type="checkbox" name="info" value="<%=hotel.getBooking_num()%>" /></div>
+			      <div class="col col-2" style="flex-basis: 10.77%;" data-label="hotelName"><%=hotel.getHotel_name() %></div>
+			      <div class="col col-3" style="flex-basis: 10.77%;" data-label="roomName"><%=hotel.getName() %></div>
+			      <div class="col col-4" style="flex-basis: 10.77%;" data-label="Booking_time"><%=sdf.format(hotel.getBooking_time()) %></div>
+			      <div class="col col-5" style="flex-basis: 10.77%;" data-label="Check_in"><%=sdf.format(hotel.getCheck_in()) %></div>
+			      <div class="col col-6" style="flex-basis: 10.77%;" data-label="userName"><%=hotel.getUser_name() %></div>
+			      <div class="col col-7" style="flex-basis: 10.77%;" data-label="userPhone"><%=hotel.getUser_phone() %></div>
+			      <div class="col col-8" style="flex-basis: 10.77%;" data-label="petName"><%=hotel.getPet_name() %></div>
+			      <div class="col col-9" style="flex-basis: 10.77%;" data-label="Requests"><%=hotel.getRequests() %></div>
+			      <div class="col col-10"style="flex-basis: 10.77%;"  data-label="payment">
+			      	<%if(hotel.getPayment() == 0) {%>
+								<button>결제중</button>
+							<%}else if(hotel.getPayment() == 1){ %>
+								<button>결제완료</button>
+							<%}else if(hotel.getPayment() == 2){%>
+								<button>결제취소</button>
+							<%} %>
+			      </div>
+			    </li>	
+
 				<%} %>
-			</table>
-			<%} %>
+				</ul>
+			</div>
 			<br />
-			<div>
+			<div class="pageNum">
 				<%
 				int pageBlock = 3;
 				int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
@@ -194,19 +198,36 @@
 					<%}%>
 				<%} %>
 			</div>
-			<br />	
-			<div>		
-				<select name="sel">
-					<option value="user_name">예약자이름</option>
-					<option value="user_phone">연락처</option>		
-				</select>
-				<input type="hidden" name="blank" />
-				<input type="text" name="search" />
-				<input type="submit" value="검색" />
-				<input type="button" value="예약취소" onclick="chkUser();"/>
-			</div>
+			
+			<div class="search_wrap">
+				<div id="sel" class="select-box">
+					  <div class="select-box_current" tabindex="1">
+					    <div class="select-box_value">
+					      <input class="select-box_input" type="radio" id="user_name" value="user_name" name="sel" checked="checked"/>
+					      <p class="select-box_input-text">예약자이름</p>
+					    </div>
+					    <div class="select-box_value">
+					      <input class="select-box_input" type="radio" id="user_phone" value="user_phone" name="sel"/>
+					      <p class="select-box_input-text">연락처</p>
+					    </div>
+					    <img class="select-box_icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
+					  </div>
+					  <ul class="select-box_list" style="height: 100px; overflow: scroll;">
+					    <li>
+					      <label class="select-box_option" for="user_name" aria-hidden="aria-hidden">예약자이름</label>
+					    </li>
+					    <li>
+					      <label class="select-box_option" for="user_phone" aria-hidden="aria-hidden">연락처</label>
+					    </li>
+					  </ul>
+					</div>
+					<input class="hidden" type="hidden" name="blank" />
+					<input class="search" type="text" name="search" />
+					<input class="btn" type="submit" value="검색" />
+					<input class="btn" type="button" value="삭제" onclick="chkUser();"/>
+				</div>
+			<%} %>
 		</form>
-		</div>
 	</div>
 	<div id="footer">
       <img src="../imgs/logo2.png" width=100px; height=50px;>

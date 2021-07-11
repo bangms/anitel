@@ -106,16 +106,17 @@
 			<button id="login" onclick="window.location='../loginForm.jsp'">로그인</button>
 			
 <%}else{ 
-		if(id.equals("admin")) { %>
-			<button id="mypage" onclick="window.location='../adminMemberForm.jsp'">마이페이지</button>
-	<% } 
-		if(checkID == 1) {%>
-			<button id="mypage" onclick="window.location='../userMypage/userMyPage.jsp'">마이페이지</button>
-<% } 
-		if(checkID == 2) {%>
+	if(checkID == 1) { 
+		if(session.getAttribute("sid").equals("admin")) { %><%-- 관리자 일 때 --%>
+			<button id="mypage" onclick="window.location='../adminMypage/adminMemberForm.jsp'">마이페이지</button>
+	<%} else { %>
+		<button id="mypage" onclick="window.location='../userMypage/userMyPage.jsp'">마이페이지</button>
+	<%}
+	}
+	if(checkID == 2) { %><%-- 사업자 일 때 --%>
 		<button id="mypage" onclick="window.location='../memberMypage/memberMyPage.jsp'">마이페이지</button>
-<% } %>		
-			<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
+<%}%>	
+		<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
 <%}%>
 
 		</div>

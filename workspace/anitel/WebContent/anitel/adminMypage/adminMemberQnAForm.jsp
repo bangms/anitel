@@ -11,6 +11,7 @@
 	<title>adminUserQnA</title>
 	<link rel="stylesheet" href="../style/style.css">
 	<link rel="stylesheet" href="../style/reset.css">
+	<link rel="stylesheet" href="../style/search.css">
 </head>
 <%
 	// 게시글 10개 노출, 페이징 처리
@@ -117,45 +118,51 @@
 			<h3 align="center">표시할 내용이 없습니다.</h3>
 		<%}else {%>
 		<form action="adminMemberQnAForm.jsp" name="frmUserInfo" method="post">
-			<table>		
-				<tr align="center">
-					<th> </th>
-					<th> 작성일 </th>
-					<th> 아이디 </th>
-					<th> 제목 </th>
-					<th> 답변일 </th>
-					<th> 답변여부 </th>
-				</tr>			
+		
+			<div class="table_wrap">
+			  <h2>사업자 1:1 문의 페이지</h2>
+			  <ul class="responsive-table">
+			    <li class="table-header">
+			      <div class="col col-1" style="flex-basis: 5%;"></div>
+			      <div class="col col-2" style="flex-basis: 17%;">작성일</div>
+			      <div class="col col-3" style="flex-basis: 17%;">아이디</div>
+			      <div class="col col-4" style="flex-basis: 17%;">제목</div>
+			      <div class="col col-5" style="flex-basis: 17%;">답변일</div>
+			      <div class="col col-6" style="flex-basis: 17%;">답변여부</div>
+			    </li>
+		
 				<%
 				for(int i = 0; i < mbQnaList.size(); i++) {
 					BoardDTO user = (BoardDTO)mbQnaList.get(i);
 				%>
-				<tr>
-					<td align="center">
-						<input type="checkbox" name="info" value="<%=user.getId()%>" />
-					</td>
-					<td> <%=sdf.format(user.getReg_date()) %></td>
-					<td> <%=user.getId() %></td>
-					<td> <%=user.getSubject() %></td>
-					<td align="center"> 
-						<%if(user.getReply_date() != null) {%>
-						<%=sdf.format(user.getReply_date()) %>
-						<%}else{ %>
-						<button>답변중</button>
-						<%} %>
-					</td> 
-					<td align="center"> <%if(user.getComm() == 0) {%>
+				
+					<li class="table-row">
+			      <div class="col col-1" style="flex-basis: 5%;" data-label="checkbox"><input type="checkbox" name="info" value="<%=user.getId()%>" /></div>
+			      <div class="col col-2" style="flex-basis: 17%;" data-label="reg_date"><%=sdf.format(user.getReg_date()) %></div>
+			      <div class="col col-3" style="flex-basis: 17%;" data-label="memberId"><%=user.getId() %></div>
+			      <div class="col col-4" style="flex-basis: 17%;" data-label="subject"><%=user.getSubject() %></div>
+			      <div class="col col-5" style="flex-basis: 17%;" data-label="reply_date">
+			      	<%if(user.getReply_date() != null) {%>
+								<%=sdf.format(user.getReply_date()) %>
+							<%}else{ %>
+								<button>답변중</button>
+							<%} %>
+			      </div>
+			      <div class="col col-6" style="flex-basis: 17%;" data-label="comm">
+			      	<%if(user.getComm() == 0) {%>
 			         	 <button onClick="<%-- 1:1문의게시판답변페이지 --%>" <%if(user.getComm() == 0){}%>>답변하기</button>					
-						<%}else if(user.getComm() == 1) {%>
-			         	 <button>답변완료</button>				
-						<%}%>					
-					</td>
-				</tr>
+							<%}else if(user.getComm() == 1) {%>
+				         	 <button>답변완료</button>				
+							<%}%>
+			      </div>
+			    </li>
+			    
 				<%} %>
-			</table>
+				</ul>
+			</div>
 			<%} %>
 			<br />
-			<div>
+			<div class="pageNum">
 				<%
 				int pageBlock = 3;
 				int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
@@ -189,16 +196,28 @@
 					<%}%>
 				<%} %>
 			</div>
-			<br />	
-			<div>		
-				<select name="sel">
-					<option value="id">회원아이디</option>		
-				</select>
+			
+			<div class="search_wrap">
+				<div id="sel" class="select-box">
+				  <div class="select-box_current" tabindex="1">
+				    <div class="select-box_value">
+				      <input class="select-box_input" type="radio" id="id" value="id" name="sel" checked="checked"/>
+				      <p class="select-box_input-text">사업자아이디</p>
+				    </div>
+				    <img class="select-box_icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
+				  </div>
+				  <ul class="select-box_list" style="height: 100px; overflow: scroll;">
+				    <li>
+				      <label class="select-box_option" for="id" aria-hidden="aria-hidden">사업자아이디</label>
+				    </li>
+					</ul>
+				</div>
 				<input type="hidden" name="blank" />
-				<input type="text" name="search" />
-				<input type="submit" value="검색" />
-				<input type="button" value="삭제" onclick="chkUser();"/>
-			</div>
+				<input class="search" type="text" name="search" />
+				<input class="btn" type="submit" value="검색" />
+				<input class="btn" type="button" value="삭제" onclick="chkUser();"/> <%-- 여기 사업자인데 chkMember 이거 아니고 user 맞나요ㅠ?ㅠ? --%>
+			</div>	
+			
 		</form>
 	</div>
 	<div id="footer">

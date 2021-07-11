@@ -10,6 +10,7 @@
 	<title>adminUser</title>
 	<link rel="stylesheet" href="../style/style.css">
 	<link rel="stylesheet" href="../style/reset.css">
+	<link rel="stylesheet" href="../style/search.css">
 </head>
 <%
 	// 게시글 10개 노출, 페이징 처리
@@ -115,32 +116,34 @@
 			<h3 align="center">표시할 내용이 없습니다.</h3>
 		<%}else {%>
 		<form action="adminUserForm.jsp" name="frmUserInfo" method="post">
-			<table>		
-				<tr align="center">
-					<th> </th>
-					<th> 회원아이디 </th>
-					<th> 회원명 </th>
-					<th> 연락처 </th>
-					<th> 이메일 </th>
-				</tr>			
-				<%
-				for(int i = 0; i < userList.size(); i++) {
-					UsersDTO user = (UsersDTO)userList.get(i);	
-				%>
-				<tr>
-					<td align="center">
-						<input type="checkbox" name="info" value="<%=user.getId()%>" />
-					</td>
-					<td> <%=user.getId() %></td>
-					<td> <%=user.getUser_name() %></td>
-					<td> <%=user.getUser_phone() %></td>
-					<td> <%=user.getUser_email() %></td>
-				</tr>
+		
+			<div class="table_wrap">
+			  <h2>회원 관리 페이지</h2>
+			  <ul class="responsive-table">
+			    <li class="table-header">
+			      <div class="col col-1"></div>
+			      <div class="col col-2">회원아이디</div>
+			      <div class="col col-3">회원명</div>
+			      <div class="col col-4">연락처</div>
+			      <div class="col col-5">이메일</div>
+			    </li>
+<%
+					for(int i = 0; i < userList.size(); i++) {
+						UsersDTO user = (UsersDTO)userList.get(i);	
+%>
+				    <li class="table-row">
+				      <div class="col col-1" data-label="checkbox"><input type="checkbox" name="info" value="<%=user.getId()%>" /></div>
+				      <div class="col col-2" data-label="userID"><%=user.getId() %></div>
+				      <div class="col col-3" data-label="userName"><%=user.getUser_name() %></div>
+				      <div class="col col-4" data-label="userPhone"><%=user.getUser_phone() %></div>
+				      <div class="col col-5" data-label="userEmail"><%=user.getUser_email() %></div>
+				    </li>	
 				<%} %>
-			</table>
+			  </ul>
+			</div>
 			<%} %>
 			<br />
-			<div>
+			<div class="pageNum">
 				<%
 				int pageBlock = 3;
 				int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
@@ -174,26 +177,41 @@
 					<%}%>
 				<%} %>
 			</div>
-			<br />	
-			<div>		
-				<select name="sel">
-					<option value="id">회원아이디</option>
-					<option value="user_phone">연락처</option>		
-				</select>
-				<input type="hidden" name="blank" />
-				<input type="text" name="search" />
-				<input type="submit" value="검색" />
-				<input type="button" value="삭제" onclick="chkUser();"/>
-			</div>
+			<div class="search_wrap">
+				<div id="sel" class="select-box">
+					  <div class="select-box_current" tabindex="1">
+					    <div class="select-box_value">
+					      <input class="select-box_input" type="radio" id="id" value="id" name="sel" checked="checked"/>
+					      <p class="select-box_input-text">회원아이디</p>
+					    </div>
+					    <div class="select-box_value">
+					      <input class="select-box_input" type="radio" id="user_phone" value="user_phone" name="sel"/>
+					      <p class="select-box_input-text">연락처</p>
+					    </div>
+					    <img class="select-box_icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
+					  </div>
+					  <ul class="select-box_list">
+					    <li>
+					      <label class="select-box_option" for="id" aria-hidden="aria-hidden">회원아이디</label>
+					    </li>
+					    <li>
+					      <label class="select-box_option" for="user_phone" aria-hidden="aria-hidden">연락처</label>
+					    </li>
+					  </ul>
+					</div>
+					<input class="hidden" type="hidden" name="blank" />
+					<input class="search" type="text" name="search" />
+					<input class="btn" type="submit" value="검색" />
+					<input class="btn" type="button" value="삭제" onclick="chkUser();"/>
+				</div>
 		</form>
 		</div>
-	</div>
-	<div id="footer">
-      <img src="../imgs/logo2.png" width=100px; height=50px;>
-      <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
-      	이용약관 | 취소정책 | 1:1문의 <br/>
-      	COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>  			
-    </div>
+		<div id="footer">
+     <img src="../imgs/logo2.png" width=100px; height=50px;>
+     <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
+     	이용약관 | 취소정책 | 1:1문의 <br/>
+     	COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>  			
+   </div>
 </div>		
 </body>
 </html>

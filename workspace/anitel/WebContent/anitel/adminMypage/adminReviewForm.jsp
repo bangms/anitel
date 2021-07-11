@@ -13,6 +13,7 @@
 	<title>Insert title here</title>
 	<link rel="stylesheet" href="../style/style.css">
 	<link rel="stylesheet" href="../style/reset.css">
+	<link rel="stylesheet" href="../style/search.css">
 </head>
 
 <% 
@@ -134,83 +135,112 @@
 	</div>
 	<!-- 여기서부터 콘텐츠 화면 입니다.  -->
 	<div id="section" style="padding-left:15%; margin-left:40px;">
-<%if(count == 0) {%>
-<h3 align="center"> 표시할 내용이 없습니다. </h3>
-<%}else{%>
-<form action="adminReviewForm.jsp" name="frmReviewInfo" method="post">
-<table>
-	<tr>
-		<td><%--체크박스용 빈칸--%></td>
-		<td>작성일</td>
-		<td>아이디</td>
-		<td>후기호텔</td>
-		<td>제목</td>
-		<td>상태</td>
-		<td>답변 여부</td>
-	</tr>
-	<% // 반복문으로 게시판처럼 회원의 정보를 출력함. 
-	int i;
-		for(i = 0;i < reviewList.size(); i++){
-			ReviewDTO review = (ReviewDTO)reviewList.get(i);
-	%>
-	<tr>
-		<td><input type="checkbox" name="info" value="<%=review.getBoard_num()%>" /></td>
-		<td><%=sdf.format(review.getReg_date())%></td>
-		<td><%=review.getId()%></td>
-		<td><%=review.getHotel_name()%></td>
-		<td><%=review.getSubject()%></td>
-		<td><%if(review.getComm() == 0){%>답변중
-		<%}else if(review.getComm() == 1){%>답변완료<%}%></td>
-		<td><%if(review.getComm() == 0){%><button>답변완료</button>
-		<%}else if(review.getComm() == 1){%><button onclick="<%-- 답변페이지 --%>">답변하기</button><%}%></td>
-	</tr>
-	<%}//후기 정보 출력리스트반복문 닫기%>
-
-</table>
-
-<% if(count > 10){
-		
-		int pageBlock = 10;
-		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
-		int startPage = (int)((currentPage-1)/pageBlock) * pageBlock + 1;
-		int endPage = startPage * pageBlock -1;
-
-		//전체 페이지수(pageCount)가 위에서 계산한 endPage(10단위씩)보다 작으면
-		//전체 페이지수가  endPage가 된다.
-		if(endPage > pageCount) endPage = pageCount;
-		
-		//왼쪽 꺾쇄 : StartPage가 pageBlock(10)보다 크면
-		if(startPage > pageBlock){ %>
-		<a href="adminReviewForm.jsp?pageNum=<%=startPage-pageBlock %>"> &lt; </a>
-		&nbsp; &nbsp;
-	<% } 
-		
-		//페이지 번호 뿌리기
-		for(i = startPage; i <= endPage; i++){ %>
-			<a href="adminReviewForm.jsp?pageNum=<%=i%>" class="pageNums"><%=i%></a>
-			&nbsp; &nbsp;
-	<%	}
-		
-		//오른쪽 꺾쇄 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막번호)보다 크면
-		if(endPage < pageCount) { %>
-			<a href="adminReviewForm.jsp?pageNum=<%=startPage+pageBlock%>"> &gt; </a>
-		&nbsp; &nbsp; 
-	<% 	}
-	
-	}%>
-<br />
-<select size="1" name="selected">
-	<option value="id" selected>작성자</option>
-	<option value="hotel_name">호텔명</option>
-</select>
-
-<input type="text" name="search">
-<input type="submit" value="검색" >
-<button type="button" onclick="chkReview()" >삭제</button>
-
- 
-
-<%}//count이 0이 아닐때 if문 닫기%>
+		<%if(count == 0) {%>
+			<h3 align="center"> 표시할 내용이 없습니다. </h3>
+		<%}else{%>
+			<form action="adminReviewForm.jsp" name="frmReviewInfo" method="post">
+			
+				<div class="table_wrap">
+			  <h2>호텔 후기 페이지</h2>
+			  <ul class="responsive-table">
+			    <li class="table-header">
+			      <div class="col col-1" style="flex-basis: 5%;"></div>
+			      <div class="col col-2" style="flex-basis: 15.833%;">작성일</div>
+			      <div class="col col-3" style="flex-basis: 15.833%;">아이디</div>
+			      <div class="col col-4" style="flex-basis: 15.833%;">후기호텔</div>
+			      <div class="col col-5" style="flex-basis: 15.833%;">제목</div>
+			      <div class="col col-6" style="flex-basis: 15.833%;">상태</div>
+			      <div class="col col-7" style="flex-basis: 15.833%;">답변 여부</div>
+			    </li>
+			    
+				<% // 반복문으로 게시판처럼 회원의 정보를 출력함. 
+				int i;
+					for(i = 0;i < reviewList.size(); i++){
+						ReviewDTO review = (ReviewDTO)reviewList.get(i);
+				%>
+				
+					<li class="table-row">
+			      <div class="col col-1" style="flex-basis: 5%;" data-label="checkbox"><input type="checkbox" name="info" value="<%=review.getBoard_num()%>" /></div>
+			      <div class="col col-2" style="flex-basis: 15.833%;" data-label="userID"><%=sdf.format(review.getReg_date())%></div>
+			      <div class="col col-3" style="flex-basis: 15.833%;" data-label="userName"><%=review.getId()%></div>
+			      <div class="col col-4" style="flex-basis: 15.833%;" data-label="userPhone"><%=review.getHotel_name()%></div>
+			      <div class="col col-5" style="flex-basis: 15.833%;" data-label="userEmail"><%=review.getSubject()%></div>
+			      <div class="col col-6" style="flex-basis: 15.833%;" data-label="userEmail">
+			      	<%if(review.getComm() == 0){%>답변중
+							<%}else if(review.getComm() == 1){%>답변완료<%}%>
+			      </div>
+			      <div class="col col-7" style="flex-basis: 15.833%;" data-label="userEmail">
+			      	<%if(review.getComm() == 0){%><button>답변완료</button>
+						<%}else if(review.getComm() == 1){%><button onclick="<%-- 답변페이지 --%>">답변하기</button><%}%>
+						</div>
+			    </li>	
+			    
+				<%}//후기 정보 출력리스트반복문 닫기%>
+			  </ul>
+			</div>
+			<br />
+			<div class="pageNum">
+			
+			<% if(count > 10){
+					
+					int pageBlock = 10;
+					int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+					int startPage = (int)((currentPage-1)/pageBlock) * pageBlock + 1;
+					int endPage = startPage * pageBlock -1;
+			
+					//전체 페이지수(pageCount)가 위에서 계산한 endPage(10단위씩)보다 작으면
+					//전체 페이지수가  endPage가 된다.
+					if(endPage > pageCount) endPage = pageCount;
+					
+					//왼쪽 꺾쇄 : StartPage가 pageBlock(10)보다 크면
+					if(startPage > pageBlock){ %>
+					<a href="adminReviewForm.jsp?pageNum=<%=startPage-pageBlock %>"> &lt; </a>
+					&nbsp; &nbsp;
+				<% } 
+					
+					//페이지 번호 뿌리기
+					for(i = startPage; i <= endPage; i++){ %>
+						<a href="adminReviewForm.jsp?pageNum=<%=i%>" class="pageNums"><%=i%></a>
+						&nbsp; &nbsp;
+				<%	}
+					
+					//오른쪽 꺾쇄 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막번호)보다 크면
+					if(endPage < pageCount) { %>
+						<a href="adminReviewForm.jsp?pageNum=<%=startPage+pageBlock%>"> &gt; </a>
+					&nbsp; &nbsp; 
+				<% 	}
+				
+				}%>
+			</div>
+			<div class="search_wrap">
+				<div id="sel" class="select-box">
+				  <div class="select-box_current" tabindex="1">
+				    <div class="select-box_value">
+				      <input class="select-box_input" type="radio" id="id" value="id" name="selected" checked="checked"/>
+				      <p class="select-box_input-text">작성자</p>
+				    </div>
+				    <div class="select-box_value">
+				      <input class="select-box_input" type="radio" id="hotel_name" value="hotel_name" name="selected"/>
+				      <p class="select-box_input-text">호텔명</p>
+				    </div>
+				    <img class="select-box_icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
+				  </div>
+				  <ul class="select-box_list" style="height: 100px; overflow: scroll;">
+				    <li>
+				      <label class="select-box_option" for="id" aria-hidden="aria-hidden">작성자</label>
+				    </li>
+				    <li>
+				      <label class="select-box_option" for="hotel_name" aria-hidden="aria-hidden">호텔명</label>
+				    </li>
+				  </ul>
+				</div>
+				<input class="search" type="text" name="search" />
+				<input class="btn" type="submit" value="검색" />
+				<input class="btn" type="button" value="삭제" onclick="chkReview();"/>
+			</div>
+			 
+			
+			<%}//count이 0이 아닐때 if문 닫기%>
 		</form>
 	</div>
 	<div id="footer">
@@ -220,7 +250,6 @@
       	COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>  			
     </div>
 </div>
-
 
 </body>
 </html>

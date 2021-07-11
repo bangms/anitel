@@ -76,12 +76,13 @@ $(document).ready(function(){
 		int checkID = board.idCk(id);
 		System.out.println("아이디 체크 - 사업자면 2, 일반회원이면 1 : " + checkID);
 		
-		if(session.getAttribute("sid").equals("admin")) { %><%-- 관리자 일 때 --%>
-			<button id="mypage" onclick="window.location='adminMypage/adminMemberForm.jsp'">마이페이지</button>
-	<%}
-		if(checkID == 1) { %><%-- 일반 회원 일 때 --%>
+		if(checkID == 1) { 
+			if(session.getAttribute("sid").equals("admin")) { %><%-- 관리자 일 때 --%>
+				<button id="mypage" onclick="window.location='adminMypage/adminMemberForm.jsp'">마이페이지</button>
+		<%} else { %>
 			<button id="mypage" onclick="window.location='userMypage/userMyPage.jsp'">마이페이지</button>
-	<%}
+		<%}
+		}
 		if(checkID == 2) { %><%-- 사업자 일 때 --%>
 			<button id="mypage" onclick="window.location='memberMypage/memberMyPage.jsp'">마이페이지</button>
 	<%}%>	
