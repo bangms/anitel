@@ -19,6 +19,8 @@ public class HotelDTO {
 	private String pet_big;
 	private String hotel_intro;
 	private String d_fee;
+
+	
 	public String getHotel_area() {
 		return hotel_area;
 	}
@@ -116,4 +118,23 @@ public class HotelDTO {
 		this.d_fee = d_fee;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof HotelDTO) {
+			HotelDTO dto = (HotelDTO) obj;
+			return dto.id.equals(id);
+		} else {
+			return false;
+		}
+	}// (중복값 제거 위함)
+	
+	@Override
+	public int hashCode() {
+		return id.hashCode() + 1;
+	} // hashcode 재정의 (중복값 제거 위함)
+	
+	@Override
+	public String toString() {
+		return "Hotel [id = " + id + ", hotel_name = " + hotel_name + "]";
+	}
 }

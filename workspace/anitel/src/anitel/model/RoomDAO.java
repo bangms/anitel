@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -34,14 +35,15 @@ public class RoomDAO {
 		try {
 			conn = getConnection();
 			/*
-				select count(distinct  e.id) from member m, (select r.id, r.img, r.d_fee from room r, (select C.* from room C left outer join (select A.room_num from
-				(SELECT * FROM booking WHERE check_in <= '2021-07-14' AND check_out >= '2021-07-12') A) B on C.room_num=B.room_num where B.room_num is null) D
-				where r.room_num = D.room_num and r.pet_type = 1) E where m.id = E.id and m.hotel_area like '대구%';
+				select count(distinct e.id) 
+				from member m, (select d.id, d.img, d.d_fee, d.pet_big, d.pet_type from (select C.* from room C left outer join (select A.room_num from
+				(SELECT * FROM booking WHERE check_in <= '2021-07-14' AND check_out >= '2021-07-12' and booking_status = 2) A) B on C.room_num=B.room_num where B.room_num is null) D
+				where d.pet_type = 1) E where m.id = e.id and m.hotel_area like '대구%' and m.member_approved = 1
 			 */
 			String sql = "select count(distinct e.id)"
-					+ " from member m, (select r.id, r.img, r.d_fee from room r, (select C.* from room C left outer join (select A.room_num from"
+					+ " from member m, (select d.id, d.img, d.d_fee, d.pet_big, d.pet_type from (select C.* from room C left outer join (select A.room_num from"
 					+ "	(SELECT * FROM booking WHERE check_in <= '"+hotel.getCheck_out()+"' AND check_out >= '"+hotel.getCheck_in()+"' and booking_status = 2) A) B on C.room_num=B.room_num where B.room_num is null) D"
-					+ " where r.room_num = D.room_num and r.pet_type = "+hotel.getPet_type()+") E where m.id = E.id and m.hotel_area like '"+hotel.getHotel_area()+"%'";
+					+ " where d.pet_type = "+hotel.getPet_type()+") E where m.id = E.id and m.hotel_area like '"+hotel.getHotel_area()+"%' and m.member_approved = 1";
 
 					
 			pstmt = conn.prepareStatement(sql);
@@ -67,14 +69,21 @@ public class RoomDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List hotelList = null;
+		List<HotelDTO> hotelList = null;
 		
 		try {
 			conn = getConnection();
-			String sql = "select f.id, min(f.d_fee) from (select m.id, m.hotel_name, e.img, m.util_pool, m.util_ground, m.util_parking, m.paid_bath, m.paid_beauty, m.paid_medi, m.hotel_intro, e.d_fee, e.pet_big"
+			
+			/*
+			 	select m.id, m.hotel_name, e.img, e.d_fee, m.util_pool, m.util_ground, m.util_parking, m.paid_bath, m.paid_beauty, m.paid_medi, m.hotel_intro, e.pet_big
+				from member m, (select d.id, d.img, d.d_fee, d.pet_big, d.pet_type from (select C.* from room C left outer join (select A.room_num from
+				(SELECT * FROM booking WHERE check_in <= '2021-07-14' AND check_out >= '2021-07-12' and booking_status = 2) A) B on C.room_num=B.room_num where B.room_num is null) D
+				where d.pet_type = 1) E where m.id = e.id and m.hotel_area like '대구%' and m.member_approved = 1; 
+			 */
+			String sql = "select m.id, m.hotel_name, e.img, e.d_fee, m.util_pool, m.util_ground, m.util_parking, m.paid_bath, m.paid_beauty, m.paid_medi, m.hotel_intro, e.pet_big"
 					+ " from member m, (select d.id, d.img, d.d_fee, d.pet_big, d.pet_type from (select C.* from room C left outer join (select A.room_num from"
 					+ " (SELECT * FROM booking WHERE check_in <= '"+selhotel.getCheck_out()+"' AND check_out >= '"+selhotel.getCheck_in()+"' and booking_status = 2) A) B on C.room_num=B.room_num where B.room_num is null) D"
-					+ " where d.pet_type = "+selhotel.getPet_type()+") E where m.id = e.id and m.hotel_area like '"+selhotel.getHotel_area()+"%') F group by f.id";
+					+ " where d.pet_type = "+selhotel.getPet_type()+") E where m.id = e.id and m.hotel_area like '"+selhotel.getHotel_area()+"%' and m.member_approved = 1";
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -85,9 +94,9 @@ public class RoomDAO {
 				do {
 					HotelDTO hotel = new HotelDTO();
 					hotel.setId(rs.getString("id"));
-					hotel.setD_fee(rs.getString("d_fee"));
 					hotel.setHotel_name(rs.getString("hotel_name"));
 					hotel.setImg(rs.getString("img"));
+					hotel.setD_fee(rs.getString("d_fee"));
 					hotel.setUtil_pool(rs.getString("util_pool"));
 					hotel.setUtil_ground(rs.getString("util_ground"));
 					hotel.setUtil_parking(rs.getString("util_parking"));
@@ -106,7 +115,7 @@ public class RoomDAO {
 			if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
 			if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
 		}	
-		return hotelList;
+		return hotelList.stream().distinct().collect(Collectors.toList());
 	}
 	// 세부검색 호텔 개수 가져오기
 	public int getSubHotelCount(HotelDTO hotel, String subSql) {
@@ -119,9 +128,9 @@ public class RoomDAO {
 			conn = getConnection();
 			
 			String sql = "select count(distinct e.id)"
-					+ " from member m, (select r.id, r.img, r.d_fee from room r, (select C.* from room C left outer join (select A.room_num from"
+					+ " from member m, (select d.id, d.img, d.d_fee, d.pet_big, d.pet_type from (select C.* from room C left outer join (select A.room_num from"
 					+ "	(SELECT * FROM booking WHERE check_in <= '"+hotel.getCheck_out()+"' AND check_out >= '"+hotel.getCheck_in()+"' and booking_status = 2) A) B on C.room_num=B.room_num where B.room_num is null) D"
-					+ " where r.room_num = D.room_num and r.pet_type = "+hotel.getPet_type()+") E where m.id = E.id and m.hotel_area like '"+hotel.getHotel_area()+"%'";
+					+ " where d.pet_type = "+hotel.getPet_type()+") E where m.id = E.id and m.hotel_area like '"+hotel.getHotel_area()+"%' and m.member_approved = 1";
 			
 			if(subSql != null) {
 				sql += subSql;
@@ -150,22 +159,16 @@ public class RoomDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List hotelList = null;
+		List<HotelDTO> hotelList = null;
 		
 		try {
 			conn = getConnection();
 			
-			String sql = "select f.id, min(f.d_fee) from (select m.id, m.hotel_name, e.img, m.util_pool, m.util_ground, m.util_parking, m.paid_bath, m.paid_beauty, m.paid_medi, m.hotel_intro, e.d_fee, e.pet_big"
-						+ " from member m, (select d.id, d.img, d.d_fee, d.pet_big, d.pet_type from (select C.* from room C left outer join (select A.room_num from"
-						+ " (SELECT * FROM booking WHERE check_in <= '"+selhotel.getCheck_out()+"' AND check_out >= '"+selhotel.getCheck_in()+"' and booking_status = 2) A) B on C.room_num=B.room_num where B.room_num is null) D"
-						+ " where d.pet_type = "+selhotel.getPet_type()+") E where m.id = e.id and m.hotel_area like '"+selhotel.getHotel_area()+"%') F group by f.id";
+			String sql = "select m.id, m.hotel_name, e.img, e.d_fee, m.util_pool, m.util_ground, m.util_parking, m.paid_bath, m.paid_beauty, m.paid_medi, m.hotel_intro, e.d_fee, e.pet_big, e.pet_type"
+					+ " from member m, (select d.id, d.img, d.d_fee, d.pet_big, d.pet_type from (select C.* from room C left outer join (select A.room_num from"
+					+ " (SELECT * FROM booking WHERE check_in <= '"+selhotel.getCheck_out()+"' AND check_out >= '"+selhotel.getCheck_in()+"' and booking_status = 2) A) B on C.room_num=B.room_num where B.room_num is null) D"
+					+ " where d.pet_type = "+selhotel.getPet_type()+") E where m.id = e.id and m.hotel_area like '"+selhotel.getHotel_area()+"%' and m.member_approved = 1";
 				
-			/*
-			 * 	select f.id, min(f.d_fee) from (select m.id, m.hotel_name, e.img, m.util_pool, m.util_ground, m.util_parking, m.paid_bath, m.paid_beauty, m.paid_medi, m.hotel_intro, e.d_fee, e.pet_big
-				from member m, (select d.id, d.img, d.d_fee, d.pet_big, d.pet_type from (select C.* from room C left outer join (select A.room_num from
-				(SELECT * FROM booking WHERE check_in <= '2021-07-14' AND check_out >= '2021-07-12') A) B on C.room_num=B.room_num where B.room_num is null) D
-				where d.pet_type = 1) E where m.id = e.id and m.hotel_area like '대구%') F group by f.id;
-			 */
 			
 			if(subSql != null) {
 				sql += subSql;
@@ -181,15 +184,15 @@ public class RoomDAO {
 					hotel.setId(rs.getString("id"));
 					hotel.setHotel_name(rs.getString("hotel_name"));
 					hotel.setImg(rs.getString("img"));
+					hotel.setD_fee(rs.getString("d_fee"));
 					hotel.setUtil_pool(rs.getString("util_pool"));
 					hotel.setUtil_ground(rs.getString("util_ground"));
 					hotel.setUtil_parking(rs.getString("util_parking"));
 					hotel.setPaid_bath(rs.getString("paid_bath"));
 					hotel.setPaid_beauty(rs.getString("paid_beauty"));
 					hotel.setPaid_medi(rs.getString("paid_medi"));
-					hotel.setPet_big(rs.getString("pet_big"));
 					hotel.setHotel_intro(rs.getString("hotel_intro"));
-					hotel.setD_fee(rs.getString("d_fee"));
+					hotel.setPet_big(rs.getString("pet_big"));
 					hotelList.add(hotel);
 				} while (rs.next());
 			}
@@ -200,7 +203,7 @@ public class RoomDAO {
 			if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
 			if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
 		}	
-		return hotelList;
+		return hotelList.stream().distinct().collect(Collectors.toList());
 	}
 	
 }

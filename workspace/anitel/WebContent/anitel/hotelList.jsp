@@ -65,19 +65,19 @@ RoomDAO dao = RoomDAO.getInstance();
 // 재검색 했을 때
 
 
-List hotelList = null;
+List<HotelDTO> hotelList = null;
 int count = 0; // 전체 호텔 개수
 
 String sub = request.getParameter("sub");
 String subSql = "";
 
-if("1".equals(hotel.getUtil_pool())) {subSql += " and mem.util_pool = 1";}
-if("1".equals(hotel.getUtil_ground())) {subSql += " and mem.util_ground = 1";}
-if("1".equals(hotel.getUtil_parking())) {subSql += " and mem.util_parking = 1";}
-if("1".equals(hotel.getPaid_bath())) {subSql += " and mem.paid_bath = 1";}
-if("1".equals(hotel.getPaid_beauty())) {subSql += " and mem.paid_beauty = 1";}
-if("1".equals(hotel.getPaid_medi())) {subSql += " and mem.paid_medi = 1";}
-if("1".equals(hotel.getPet_big())) {subSql += " and r.pet_big = 1";}
+if("1".equals(hotel.getUtil_pool())) {subSql += " and m.util_pool = 1";}
+if("1".equals(hotel.getUtil_ground())) {subSql += " and m.util_ground = 1";}
+if("1".equals(hotel.getUtil_parking())) {subSql += " and m.util_parking = 1";}
+if("1".equals(hotel.getPaid_bath())) {subSql += " and m.paid_bath = 1";}
+if("1".equals(hotel.getPaid_beauty())) {subSql += " and m.paid_beauty = 1";}
+if("1".equals(hotel.getPaid_medi())) {subSql += " and m.paid_medi = 1";}
+if("1".equals(hotel.getPet_big())) {subSql += " and e.pet_big = 1";}
 
 
 if(sub != null) { // 검색 한 경우 
@@ -266,7 +266,10 @@ $(document).ready(function(){
 							<p class="empty">조건에 해당하는 호텔이 없습니다.</p>
 				<%} else {
 					for(int i = 0; i < hotelList.size(); i++) {
-						HotelDTO article  = (HotelDTO)hotelList.get(i);
+						HotelDTO article = (HotelDTO)hotelList.get(i);
+						  if (!hotelList.contains(hotelList.get(i))) {
+							  hotelList.add(hotelList.get(i));
+               }
 					%>
 						<li>
 							<div class="img_wrap">
