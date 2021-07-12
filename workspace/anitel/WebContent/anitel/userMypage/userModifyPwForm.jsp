@@ -9,7 +9,7 @@
   <head>
     <meta charset="UTF-8">
     <title>마이페이지(사업자회원) - 비밀번호 변경</title>
-    <style>
+   <style>
       #container {
         width: 100%;
         margin: 0px auto;
@@ -24,10 +24,10 @@
         height: 100px;
       	top:0;
       	display: flex;
- 		justify-content: space-between;
- 		background-color:white;
- 		position: sticky;
-		top: 0;
+ 	justify-content: space-between;
+ 	background-color:white;
+ 	position: sticky;
+	top: 0;
       }
       #header logo{
       	width: 300px;
@@ -43,6 +43,8 @@
       	width:100%;
       	overflow: auto;
       	height:500px;
+   	
+
       }
       #content {
         width: 65%;
@@ -73,18 +75,21 @@
         clear: both;
         padding: 20px;
         margin-left:-50px;
-		padding-left:100px;
+	padding-left:100px;
         left:0;
         bottom:0;
-		background-color:black;
-		color:white;
-		overflow-y:hidden;
-		overflow-x:hidden;
+	background-color:black;
+	color:white;
+	overflow-y:hidden;
+	overflow-x:hidden;
       }
+
+
       p{
       	margin-top:10px;
       	font-size: 13px;
       	margin-left : 200px;
+      	
       }
       img {
       	float:left; 
@@ -112,93 +117,98 @@
        #withdraw{ 
       	border: none;
       	border-radius: 3px;
-      	width: 55px;
-      	height:20px;
-      	font-size: 8px;
+	width: 65px;
+	height:25px;
+	font-size: 12px;
       	margin-top:15px;
-      	margin-left:100px;
       	position:relative;
       }
+
       #login{
-     	 background-color:#FFA742;
+     	background-color:#FFA742;
       	color:white;
-   		float : right;   
-   		margin-right: 5px;    	
+   	float : right;   
+   	margin-right: 5px;    	
+   		
       }
       #signin{
      	background-color:#FFA742;
       	color:white;
      	float : right;
      	margin-right: 5px;    	
+     	
       }
       #notice{
       	float : right;
       	margin-right: 5px;    	
       	background-color:#ffffff;
       	color:black;
+      	
       }
-		A{
-			text-decoration:none;
-			color: black;
-		}
-		li{
-			list-style:none;
-			margin-bottom:10px;
-		}
-		input[type=text] { 
-			border:1px solid black;
-			border-radius:5px;
-			height:30px;
-			text-indent: 1em;
-		 }
-		 input[type=password] { 
-			border:1px solid black;
-			border-radius:5px;
-			height:30px;
-			text-indent: 1em;
-		 }
-		input[type=button] { 
-			background-color:#FFA742;
-	      	color:white;
-	      	border: none;
-	      	border-radius: 6px;
-	      	width: 110px;
-	      	height:40px;	
-		}
-		input[type=button]:hover{
-	      	background-color:#FF822B;
-	      	color:#ffffff;
-	    }
-		input[type=submit] { 
-			background-color:#FFA742;
-	      	color:white;
-	      	border: none;
-	      	border-radius: 6px;
-	      	width: 110px;
-	      	height:40px;	
-		}
-		input[type=submit]:hover{
-	      	background-color:#FF822B;
-	      	color:#ffffff;
-	    }
-	    input[type=checkbox]{
-	      	width:14px;
-	      	height:14px;
-	      	border-radius: 3px;
-	    } 
-	    input[type=radio]{
-	      	width:14px;
-	      	height:14px;
-	    }
-		select, option{
-			width:150px; 
-			height:35px;
-			border:1px solid black;
-			border-radius:5px;
-			text-indent: 1em;
-		}  
+      A{
+	text-decoration:none;
+	color: black;	
+      }   
+      li{
+	list-style:none;
+	margin-bottom:10px;	
+      }
+      input[type=text] { 
+	border:1px solid black;
+	border-radius:5px;
+	height:30px;
+	text-indent: 1em;		
+      }
+      input[type=password] { 
+	border:1px solid black;
+	border-radius:5px;
+	height:30px;
+	text-indent: 1em;
+       }
+      input[type=button] { 
+	background-color:#FFA742;
+	color:white;
+	border: none;
+	border-radius: 6px;
+	width: 180px;
+	height:40px;	
+      }
+      input[type=button]:hover{
+	background-color:#FF822B;
+	color:#ffffff;
+      }
+      input[type=submit] { 
+        background-color:#FFA742;
+	color:white;
+	border: none;
+	border-radius: 6px;
+	width: 180px;
+	height:40px;	
+      }
+      input[type=submit]:hover{
+	background-color:#FF822B;
+	color:#ffffff;
+       }
+      input[type=checkbox]{
+	width:14px;
+	height:14px;
+	border-radius: 3px;
+      }    
+      input[type=radio]{
+	width:14px;
+	height:14px;
+      }   
+      select, option{
+	width:150px; 
+	height:35px;
+	border:1px solid black;
+	border-radius:5px;
+	text-indent: 1em;
+       }  
+	
+      	
     </style>
-  </head>
+ </head>
   
 <%	request.setCharacterEncoding("UTF-8");
 
@@ -251,7 +261,7 @@
         <h1><%= user.getUser_name() %>님의 회원정보 수정</h1>
       	<hr align="left" width=700 color="black">
       	<br/>
-      	<form action="userModifyPwPro.jsp?id=<%=user.getId()%>" method="post">
+      	<form action="/anitel/anitel/userMyPage/userModifyPwPro.jsp?id=<%=user.getId()%>" method="post">
       	<table>
       		<tr height = 50>
       			<td width = 250><h3>현재 사용중인 비밀번호</h3></td>
@@ -274,7 +284,7 @@
       	</table>
       	<br/>
 			<input type="submit" value="비밀번호 변경"/>&emsp;
-			<input type="button" value="변경 취소" onclick="window.location='userMyPage.jsp'"/>&emsp; 
+			<input type="button" value="변경 취소" onclick="window.location='/anitel/anitel/userMyPage/userMyPage.jsp'"/>&emsp; 
 		<br/><br/>
 	   </form>
      </div>
