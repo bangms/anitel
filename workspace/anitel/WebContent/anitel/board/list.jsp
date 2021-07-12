@@ -9,8 +9,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>게시판</title>
-   	<link rel="stylesheet" href="../style/style.css">
+ 	<link rel="stylesheet" href="../style/style.css">
  	<link rel="stylesheet" href="../style/reset.css">
+	<link rel="stylesheet" href="../style/search.css">
 </head>
 
 
@@ -98,25 +99,26 @@
 		</div>
 		<div id="button">
 			<button id="notice" onclick="window.location='list.jsp?categ=0'">공지사항</button>
-		<% 	
-			if(id == null){ 
-		%>
-					<button id="signin" onclick="window.location='../signIn.jsp'">회원가입</button>
-					<button id="login" onclick="window.location='../loginForm.jsp'">로그인</button>
-					
-		<%}else{ 
-				if(checkID == 1) { 
-					if(session.getAttribute("sid").equals("admin")) { %><%-- 관리자 일 때 --%>
-						<button id="mypage" onclick="window.location='../adminMypage/adminMemberForm.jsp'">마이페이지</button>
-				<%} else { %>
-					<button id="mypage" onclick="window.location='../userMypage/userMyPage.jsp'">마이페이지</button>
-				<%}
-				}
-				if(checkID == 2) { %><%-- 사업자 일 때 --%>
-					<button id="mypage" onclick="window.location='../memberMypage/memberMyPage.jsp'">마이페이지</button>
-			<%}%>	
-				<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
-		<%}%>
+<% 	
+	if(id == null){ 
+%>
+			<button id="signin" onclick="window.location='../signIn.jsp'">회원가입</button>
+			<button id="login" onclick="window.location='../loginForm.jsp'">로그인</button>
+			
+<%}else{ 
+	if(checkID == 1) { 
+		if(session.getAttribute("sid").equals("admin")) { %><%-- 관리자 일 때 --%>
+			<button id="mypage" onclick="window.location='../adminMypage/adminMemberForm.jsp'">마이페이지</button>
+	<%} else { %>
+		<button id="mypage" onclick="window.location='../userMypage/userMyPage.jsp'">마이페이지</button>
+	<%}
+	}
+	if(checkID == 2) { %><%-- 사업자 일 때 --%>
+		<button id="mypage" onclick="window.location='../memberMypage/memberMyPage.jsp'">마이페이지</button>
+<%}%>	
+		<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
+<%}%>
+
 		</div>
 	</div>	
 	 <div id="section" align="center">
@@ -137,157 +139,163 @@
  	<%
  	boolean check = false;
  	if(count==0){ %>
-			<div class="table_wrap">
-				<p> 게시글이 없습니다. </p>
-		<% 		if(categ == 0) { /* 공지사항 */
-							if("admin".equals(id)) {%><%-- 관리자만 글쓰기 가능 --%>
-								<div><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></div>
-			<%			} %>
-		<%		} else if(categ == 1) { /* 1:1 문의 */%>
-							<div><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></div>
-		<%		} else if(categ == 2) { /* 호텔 QNA */ 
-							if(checkID == 1) {%><%-- 고객만 글쓰기 가능 / 무슨 호텔인지 보내주기 &reg_num=<%=reg_num%> --%>
-								<div><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></div>
-				<% 		} %>
-		<%		} else if(categ == 3) { /* 호텔 후기 */
-							check = dao.paymentUserCk(id,"000-000-000001");
-							if(check) { %>
-									<div><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></div>
-			<%			} %>
-		<%		} %>
-			 </div>
-	<% }else{ %> 	<!-- 게시글이 있을 때 -->	
+	 <table>
+		<tr>
+			<td align="center"> 게시글이 없습니다. </td>
+		</tr>
+<% 		if(categ == 0) { /* 공지사항 */
+			if("admin".equals(id)) {%><%-- 관리자만 글쓰기 가능 --%>
+				<tr>
+					<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></td>
+				</tr>
+<%			} %>
+<%		} else if(categ == 1) { /* 1:1 문의 */%>
+			<tr>
+				<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></td>
+			</tr>
+<%		} else if(categ == 2) { /* 호텔 QNA */ 
+			if(checkID == 1) {%><%-- 고객만 글쓰기 가능 / 무슨 호텔인지 보내주기 &reg_num=<%=reg_num%> --%>
+				<tr>
+					<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></td>
+				</tr>
+		<%  } %>
+<%		} else if(categ == 3) { /* 호텔 후기 */
+			check = dao.paymentUserCk(id,"000-000-000001");
+			if(check) { %>
+				<tr>
+					<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></td>
+				</tr>
+<%			} %>
+<%		} %>
+	</table>
+	 
+	<% }else{ %> 		
 			<div class="table_wrap">
 				  <ul class="responsive-table">
 				    <li class="table-header">
-				      <div class="col col-1">No.</div>
-				      <div class="col col-2">제목</div>
-				      <div class="col col-3">작성자</div>
-				      <div class="col col-4">날짜</div>
-				      <div class="col col-5">조회수</div>
+				      <div class="col col-1" style="flex-basis: 5%;">No.</div>
+				      <div class="col col-2" style="flex-basis: 45%;">제목</div>
+				      <div class="col col-3" style="flex-basis: 20%;">작성자</div>
+				      <div class="col col-4" style="flex-basis: 20%;">날짜</div>
+				      <div class="col col-5" style="flex-basis: 10%;">조회수</div>
 				    </li>
 		
-		<%			for(int i=0; i< articleList.size(); i++){
-							BoardDTO article = (BoardDTO)articleList.get(i); %>  
-							<script type="text/javascript">
-					         function secret(board_num, pageNum, categ) {
-					            var url = "popCheckPw.jsp?pageNum=" + pageNum + "&board_num=" + board_num + "&categ=" + categ;
-					            window.open(url,"checkPw","toolbar=no, location=no, status=no, menubar=no, scrollbars=no resizeable=no, width=300, height=200");
-					         }
-							</script>
-				       	
-							<li class="table-row">
-						      <div class="col col-1" data-label="number"><%= number--%></div>
-						      
-						<%    if(categ == 0) {%>
-						
-						      	<div class="col col-2" data-label="subject">
-						      		<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>">
-						      			<%=article.getSubject() %>
-						      		</a>
-						      	</div>
-						
-						<%		} else if(categ == 1 || categ == 2 ) { /* 1:1 문의 */%>
-										<% if(hidden_content == 0){%>
-											<div class="col col-2" data-label="subject"><a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%= article.getSubject() %></a></div>
-										<%}else{
-												if("admin".equals(id)) {%>
-													<div class="col col-2" data-label="subject"><a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>">[비밀글]<%= article.getSubject() %></a></div>
-										<%  } else { %>
-													<div class="col col-2" data-label="subject"><a class="list_subject" href="#" onclick="secret(<%=article.getBoard_num()%>, <%=pageNum%>, <%=categ%>); return false;">[비밀글]<%= article.getSubject() %></a></div>
-										<%	} %>
-										<%} %>
-							<%	}
-									if(categ == 3) { /* 호텔 후기 */%><%-- 결제고객 전용 --%>
-										<div class="col col-3" data-label="userName"><a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>">익명</a></div>
-						<%		} else { %>
-						      	<div class="col col-3" data-label="userID"><%= article.getId()%></div>
-					      <%} %>
-						      <div class="col col-4" data-label="userPhone"><%= sdf.format(article.getReg_date()) %></div>
-						      <div class="col col-5" data-label="userEmail"><%= article.getReadcount()%></div>
-					    </li>	
-						<%} %>
-				  </ul>
+		<%for(int i=0; i< articleList.size(); i++){
+			BoardDTO article = (BoardDTO)articleList.get(i); %>  
+
+			<script type="text/javascript">
+	         function secret(board_num, pageNum, categ) {
+	            var url = "popCheckPw.jsp?pageNum=" + pageNum + "&board_num=" + board_num + "&categ=" + categ;
+	            window.open(url,"checkPw","toolbar=no, location=no, status=no, menubar=no, scrollbars=no resizeable=no, width=300, height=200");
+	         }
+			</script>
+       	
+			<li class="table-row">
+				<div class="col col-1" style="flex-basis: 5%;"><%= number--%></div>
+				<div class="col col-2" style="flex-basis: 45%;">
+<% 					if(categ == 0) {%> <%-- 공지사항 --%>
+								<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%=article.getSubject() %></a>
+<%					} else if(categ == 1 || categ == 2) { /* 1:1 문의(1) / 호텔 QNA (2) */ 
+								if(hidden_content == 0) { %> <%-- 비밀글이 아니면 --%>
+									<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%= article.getSubject() %></a>
+<%							} else { // 비밀글이면
+										if("admin".equals(id)) {%> <%-- 관리자는 그냥 볼 수 있게 --%>
+												<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>">[비밀글]<%= article.getSubject() %></a>
+<%									} else { %>
+												<a class="list_subject" href="#" onclick="secret(<%=article.getBoard_num()%>, <%=pageNum%>, <%=categ%>); return false;">[비밀글]<%= article.getSubject() %></a>
+<%									}
+								}
+						} else if(categ == 3) { %> <%-- 호텔 후기--%>
+								<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%= article.getSubject() %></a>
+<%					} %>
+				</div>
+				<div class="col col-3" style="flex-basis: 20%;"><%= article.getId()%></div>
+	      <div class="col col-4" style="flex-basis: 20%;"><%= sdf.format(article.getReg_date()) %></div>
+	      <div class="col col-5" style="flex-basis: 10%;"><%= article.getReadcount()%></div>
+			</li>
+		<%} %>
+		
 				<!-- TODO 페이지랑 연결 후 지울 부분  -->
-			<% 		if(categ == 0) { /* 공지사항 */
-							if("admin".equals(id)) {%><%-- 관리자만 글쓰기 가능 --%>
-								<button onclick="window.location='writeForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum %>'"> 글쓰기 </button>
-			<%			} %>
-			<%		} else if(categ == 1) { /* 1:1 문의 */
-							if(id != null) {%>
-							<button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button>
+		<% 		if(categ == 0) { /* 공지사항 */
+						if("admin".equals(id)) {%><%-- 관리자만 글쓰기 가능 --%>
+							<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum %>'" value="글쓰기">
+		<%			} %>
+		<%		} else if(categ == 1) { /* 1:1 문의 */
+						if(id != null) {%>
+						<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum %>'" value="글쓰기">
 					<%	} %>
 			<%		} else if(categ == 2) { /* 호텔 QNA */ 
-							if(checkID == 1) {%><%-- 고객만 글쓰기 가능 / 무슨 호텔인지 보내주기 &reg_num=<%=reg_num%> --%>
-								<button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button>
+						if(checkID == 1) {%><%-- 고객만 글쓰기 가능 / 무슨 호텔인지 보내주기 &reg_num=<%=reg_num%> --%>
+							<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum %>'" value="글쓰기">
 					<%  } %>
 			<%		} else if(categ == 3) { /* 호텔 후기 결제고객 전용 */
-							check = dao.paymentUserCk(id,"000-000-000001");
-							if(check) { %>
-									<button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button>
+						check = dao.paymentUserCk(id,"000-000-000001");
+						if(check) { %>
+							<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum %>'" value="글쓰기">
 			<%			} %>
 			<%		} %>	
-				<div>  
-					<button onclick="window.location='category.jsp'"> 카테고리</button>
-				</div>
-			</div>		
-	  <%-- 페이지 번호 --%>
-		<div class="pageNum">
-		<%	if(count>0){
-					// 페이지 번호를 몇개까지보여줄 것인지 지정
-					int pageBlock=5;
-					// 총 몇 페이지가 나오는지 계산
-					int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
-					System.out.println("list.jsp - 전체 페이지 수 : " + pageCount);
-					// 현재 페이지에서 보여줄 첫 번째 페이지 번호
-					int startPage = (int)((currentPage-1)/pageBlock) * pageBlock + 1;
-					System.out.println("list.jsp - 시작 페이지 : " + startPage);
-					// 현재 페이지에서 보여줄 마지막 페이지번호( ~10, ~20, ~30)
-					int endPage = startPage + pageBlock - 1;
-					System.out.println("list.jsp - 끝 페이지 : " + endPage);
-					// 마지막에 보여줄 페이지 번호는 페이지 수에 따라 달라질 수 있다.
-					// 전체 페이지 수가 endPage보다 적으면 전체 페이지 수가 endPage로 계산
-					if(endPage > pageCount){
-						endPage = pageCount;
-					}
-				
-					if(sel != null && search != null){
-						// 왼쪽 꺾쇠 : startPage가 pageBlock(5)보다 크면 생성
-						if(startPage > pageBlock){ %>
-							<a href="list.jsp?pageNum=<%= startPage-pageBlock %>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &lt; </a>
-		<%			}
-					
-						// 페이지 번호
-						for(int i = startPage; i <= endPage; i++){ %>
-							<a href="list.jsp?pageNum=<%=i%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
-		<%			}
-					
-						// 오른쪽 꺾쇠 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막 번호) 보다 크면
-						if(endPage < pageCount){%>
-							<a href="list.jsp?pageNum=<%=startPage + pageBlock%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &gt; </a>
-		<%			}
-					}else{
-				
-						// 왼쪽 꺾쇠 : startPage가 pageBlock(5)보다 크면 생성
-						if(startPage > pageBlock){ %>
-							<a href="list.jsp?pageNum=<%= startPage-pageBlock %>&categ=<%=categ%>" class="pageNums"> &lt; </a>
-		<%			}
-					
-						// 페이지 번호
-						for(int i = startPage; i <= endPage; i++){ %>
-							<a href="list.jsp?pageNum=<%=i%>&categ=<%=categ%>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
-		<%			}
-					
-						// 오른쪽 꺾쇠 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막 번호) 보다 크면
-						if(endPage < pageCount){%>
-							<a href="list.jsp?pageNum=<%=startPage + pageBlock%>&categ=<%=categ%>" class="pageNums"> &gt; </a>
-		<%			}
-					}
-				}%>
+				<button onclick="window.location='category.jsp'"> 카테고리</button>
+			</ul>
 		</div>
-	
-		<%-- 아이디 , 글제목 으로 검색 --%>
-		<form action="list.jsp"> 
+		<%} %>
+		
+	  <%-- 페이지 번호 --%>
+		<div align="center">
+		<%	if(count>0){
+				// 페이지 번호를 몇개까지보여줄 것인지 지정
+				int pageBlock=5;
+				// 총 몇 페이지가 나오는지 계산
+				int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+				System.out.println("list.jsp - 전체 페이지 수 : " + pageCount);
+				// 현재 페이지에서 보여줄 첫 번째 페이지 번호
+				int startPage = (int)((currentPage-1)/pageBlock) * pageBlock + 1;
+				System.out.println("list.jsp - 시작 페이지 : " + startPage);
+				// 현재 페이지에서 보여줄 마지막 페이지번호( ~10, ~20, ~30)
+				int endPage = startPage + pageBlock - 1;
+				System.out.println("list.jsp - 끝 페이지 : " + endPage);
+				// 마지막에 보여줄 페이지 번호는 페이지 수에 따라 달라질 수 있다.
+				// 전체 페이지 수가 endPage보다 적으면 전체 페이지 수가 endPage로 계산
+				if(endPage > pageCount){
+					endPage = pageCount;
+				}
+				
+				if(sel != null && search != null){
+					// 왼쪽 꺾쇠 : startPage가 pageBlock(5)보다 크면 생성
+					if(startPage > pageBlock){ %>
+						<a href="list.jsp?pageNum=<%= startPage-pageBlock %>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &lt; </a>
+		<%			}
+				
+					// 페이지 번호
+					for(int i = startPage; i <= endPage; i++){ %>
+						<a href="list.jsp?pageNum=<%=i%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
+		<%			}
+				
+					// 오른쪽 꺾쇠 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막 번호) 보다 크면
+					if(endPage < pageCount){%>
+						<a href="list.jsp?pageNum=<%=startPage + pageBlock%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &gt; </a>
+		<%			}
+				}else{
+			
+					// 왼쪽 꺾쇠 : startPage가 pageBlock(5)보다 크면 생성
+					if(startPage > pageBlock){ %>
+						<a href="list.jsp?pageNum=<%= startPage-pageBlock %>&categ=<%=categ%>" class="pageNums"> &lt; </a>
+		<%			}
+				
+					// 페이지 번호
+					for(int i = startPage; i <= endPage; i++){ %>
+						<a href="list.jsp?pageNum=<%=i%>&categ=<%=categ%>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
+		<%			}
+				
+					// 오른쪽 꺾쇠 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막 번호) 보다 크면
+					if(endPage < pageCount){%>
+						<a href="list.jsp?pageNum=<%=startPage + pageBlock%>&categ=<%=categ%>" class="pageNums"> &gt; </a>
+		<%			}
+				}
+			}%>
+			
+			<%-- 아이디 , 글제목 으로 검색 --%>
+			<form action="list.jsp"> 
+			
 				<input type="hidden" name="categ" value="<%=categ%>"/>
 				<div class="search_wrap">
 					<div id="sel" class="select-box">
@@ -304,10 +312,10 @@
 					  </div>
 					  <ul class="select-box_list">
 					    <li>
-					      <label class="select-box_option" for="id" aria-hidden="aria-hidden">회원아이디</label>
+					      <label class="select-box_option" for="id" aria-hidden="aria-hidden">아이디</label>
 					    </li>
 					    <li>
-					      <label class="select-box_option" for="subject" aria-hidden="aria-hidden">연락처</label>
+					      <label class="select-box_option" for="subject" aria-hidden="aria-hidden">글제목</label>
 					    </li>
 					  </ul>
 					</div>
@@ -316,15 +324,15 @@
 				</div>
 			</form>
 			
-			<h3 style="color:black">현재 페이지 : <%=pageNum%></h3>
-	</div> <%-- section 끝 --%>
+		</div>
+	</div>
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
 		<div id="footer">
 			 <img src="../imgs/logo2.png" width=100px; height=50px;>
 			 <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
 			 이용약관 | 취소정책 | 1:1문의 <br/>
 				COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
-		</div>
-</div>
+			</div>
+  </div>
 </body>
 </html>

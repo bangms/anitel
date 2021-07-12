@@ -43,5 +43,7 @@ table {
 }
 a,button, input[type="button"] {
     cursor: pointer;
+    text-decoration: none;
+    color: black;
 }
 

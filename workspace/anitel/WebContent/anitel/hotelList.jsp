@@ -271,34 +271,73 @@ $(document).ready(function(){
 							  hotelList.add(hotelList.get(i));
                }
 					%>
-						<li>
-							<div class="img_wrap">
-								이미지 
-								<%=article.getImg()%>
-							</div>
-							<div class="hotel_info">
-								<div class="name">
-									<p><%=article.getHotel_name() %></p>
+					
+					<li>
+						<div class="card_wrapper">
+					    <div class="product-img">
+					      <%if(article.getImg() != null){%>
+										<img src="../anitel/save/<%=article.getImg()%>" width="50%"/>
+								<%}else{ %>
+										<img src="../anitel/save/default.png"/>
+								<%} %>
+					    </div>
+					    <div class="hotel_info">
+					      <div class="name">
+					        <h1><%=article.getHotel_name() %></h1>
+					      </div>
+					      <div class="intro">
+									<h2><%=article.getHotel_intro() %></h2>
 								</div>
-								<div class="intro">
-									<p><%=article.getHotel_intro() %></p>
+								<div class="icon_wrap">
+<%									if(article.getUtil_pool().equals("1")) { %>
+											<div class="icon">
+												<img src = "imgs/swim.png" />
+												<span>수영장</span>
+											</div>
+<%									} %>
+<%									if(article.getUtil_ground().equals("1")) { %>
+											<div class="icon">
+												<img src = "imgs/park.png" />
+												<span>운동장</span>
+											</div>
+<%									} %>
+<%									if(article.getUtil_parking().equals("1")) { %>
+											<div class="icon">
+												<img src = "imgs/parking.png" />
+												<span>무료주차</span>
+											</div>
+<%									} %>
+<%									if(article.getPaid_bath().equals("1")) { %>
+											<div class="icon">
+												<img src = "imgs/bath.png" />
+												<span>목욕서비스</span>
+											</div>
+<%									} %>
+<%									if(article.getPaid_beauty().equals("1")) { %>
+											<div class="icon">
+												<img src = "imgs/beauty.png" />
+												<span>미용서비스</span>
+											</div>
+<%									} %>
+<%									if(article.getPaid_medi().equals("1")) { %>
+											<div class="icon">
+												<img src = "imgs/medi.png" />
+												<span>동물병원</span>
+											</div>
+<%									} %>
 								</div>
-								<div class="icon">
-									수영 : <%=article.getUtil_pool() %><br />
-									운동장 : <%=article.getUtil_ground() %><br />
-									무료주차 : <%=article.getUtil_parking() %><br />
-									목욕 : <%=article.getPaid_bath() %><br />
-									미용 : <%=article.getPaid_beauty() %><br />
-									병원 : <%=article.getPaid_medi() %><br />
-									대형견 : <%=article.getPet_big() %><br />
-								</div>
-								<div class="fee">
-									1박 <%=article.getD_fee() %> 원
-								</div>
-								<div class="btn">
+									<%--
+									대형견 : <%=article.getPet_big() %><br /> --%>
+								
+					      <div class="product-price">
+					        <p>1 day <span><%=article.getD_fee() %></span>won</p>
+					      </div>
+				        <div class="btn">
 									<button onclick="window.location='hotelDetail.jsp?memId=<%=article.getId()%>&hotel_area=<%=hotel.getHotel_area()%>&check_in=<%=hotel.getCheck_in()%>&check_out=<%=hotel.getCheck_out()%>&pet_type=<%=hotel.getPet_type()%>'">예약하기</button>
 								</div>
-							</div>
+					    </div>
+					  </div>
+		
 						<%} %>
 						</li>
 				<%	} %>
