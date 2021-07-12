@@ -22,10 +22,10 @@
         height: 100px;
       	top:0;
       	display: flex;
- 		justify-content: space-between;
- 		background-color:white;
- 		position: sticky;
-		top: 0;
+ 	justify-content: space-between;
+ 	background-color:white;
+ 	position: sticky;
+	top: 0;
       }
       #header logo{
       	width: 300px;
@@ -73,13 +73,13 @@
         clear: both;
         padding: 20px;
         margin-left:-50px;
-		padding-left:100px;
+	padding-left:100px;
         left:0;
         bottom:0;
-		background-color:black;
-		color:white;
-		overflow-y:hidden;
-		overflow-x:hidden;
+	background-color:black;
+	color:white;
+	overflow-y:hidden;
+	overflow-x:hidden;
       }
 
 
@@ -115,18 +115,18 @@
        #withdraw{ 
       	border: none;
       	border-radius: 3px;
-		width: 65px;
-		height:25px;
-		font-size: 12px;
+	width: 65px;
+	height:25px;
+	font-size: 12px;
       	margin-top:15px;
       	position:relative;
       }
 
       #login{
-     	 background-color:#FFA742;
+     	background-color:#FFA742;
       	color:white;
-   		float : right;   
-   		margin-right: 5px;    	
+   	float : right;   
+   	margin-right: 5px;    	
    		
       }
       #signin{
