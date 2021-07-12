@@ -19,7 +19,7 @@
 		</script>-->
 <%	//}else{ 
 	//String id = (String)session.getAttribute("sid");
-	String id = "java05";
+	String id = "java04";
 	UsersDAO dao = UsersDAO.getInstance();
 	int result = dao.userModify(id, dto);
 	
@@ -29,7 +29,7 @@
 <%	if(result == 1){%>
 		<script>
 			alert("회원 정보가 수정되었습니다.");
-			window.location.href="userMyPage.jsp";
+			window.location.href="/anitel/anitel/userMyPage/userMyPage.jsp";
 		</script>
 <%	}else{%>
 		<script>
