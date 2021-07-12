@@ -16,7 +16,7 @@
 	if(session.getAttribute("sid")!=null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
-			window.location="/anitel/userLoginForm.jsp";
+			window.location="../loginForm.jsp";
 		</script>
 <%	}else{ 
 	//String id = (String)session.getAttribute("sid");
@@ -34,7 +34,7 @@
 	System.out.println("Form d_fee : " + mr.getParameter("d_fee"));
 	System.out.println("Form pet_big : " + mr.getParameter("pet_big"));
 	System.out.println("Form name : " + mr.getParameter("name"));
-	int result = dao.insertRoom(id, mr);
+	int result = dao.insertRoom(id, mr); 
 	System.out.println("memberRoomModifyPro.jsp - 객실 추가 결과 : " + result + "(1 : 추가 성공, -1 : 추가 실패)");
 %>
 <body>

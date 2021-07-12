@@ -5,133 +5,6 @@
   <head>
     <meta charset="UTF-8">
     <title>마이페이지(사업자회원) - 호텔 리뷰 관리</title>
-    <style>
-      #container {
-        width: 100%;
-        margin: 0px auto;
-        padding: 20px;
-      }
-      #header {
-     	width:100%;
-        padding: 20px;
-        margin-bottom: 20px;
-        height: 100px;
-      	top:0;
-      	position:fixed;
-      	display: flex;
- 		justify-content: space-between;
- 		z-index:1;
- 		background-color:white;
-      }
-      #header logo{
-      	width: 300px;
-      	height:100px;
-      }
-      #header section{
-     	width:1100px;
-     	height:100px;
-     	margin-right:100px;
-      }
-      #main{
-      	position:relative;
-      	width:100%;
-      	overflow: auto;
-      	z-index:2;
-      	overflow-y:hidden;
-		overflow-x:hidden;
-      	
-      }
-      #content {
-        width: 75%;
-       	height:100%;
-        padding: 20px;
-        margin-top:120px;
-        margin-bottom: 20px;
-        margin-left:400px;
-        padding-left:100px;
-        padding-right:100px;
-        float: left;
-		padding-bottom:100px;
-      }
-      #sidebar {
-        width: 230px;
-        padding: 20px;
-        float: left;
-        clear:both;
-        background-color:#EBDDCA;
-        margin-right:50px;
-        margin-left:70px;
-        margin-top:120px;
-        position:fixed;
-      }
-      #footer {
-      	height:80px;
-      	width:100%;
-        clear: both;
-        padding: 20px;
-        margin-left:-50px;
-		padding-left:100px;
-        left:0;
-        bottom:0;
-		background-color:black;
-		color:white;
-		overflow-y:hidden;
-		overflow-x:hidden;
-      }
-
-
-      p{
-      	margin-top:10px;
-      	font-size: 13px;
-      	margin-left : 200px;
-      	
-      }
-      img {
-      	float:left; 
-      	padding: 20px;
-      	margin-top:-15px;
-      	margin-left:40px;
-      }
-      ul{
-      	font-size:20px
-      }
-     #button button{
-      	font-weight:semi-bold;
-      	border: none;
-      	border-radius: 6px;
-      	width: 110px;
-      	height:40px;
-      	font-size: 16px;
-      	margin-top:30px;
-      	position:relative;
-      }
-      #login{
-     	 background-color:#FFA742;
-      	color:white;
-   		float : right;   
-   		margin-right: 5px;    	
-   		
-      }
-      #signin{
-     	background-color:#FFA742;
-      	color:white;
-     	float : right;
-     	margin-right: 5px;    	
-     	
-      }
-      #notice{
-      	float : right;
-      	margin-right: 5px;    	
-      	background-color:#ffffff;
-      	color:black;
-      	
-      }
-      #button button:hover{
-      	background-color:#FF822B;
-      	color:#ffffff;
-      }
-      	
-    </style>
   </head>
 <body>
 	<div id="container">
@@ -140,7 +13,7 @@
  	
       <div id="header">
       	<div id="logo">
-       		 <img src="imgs/logo.png" width="200px" height="100px">
+       		 <img src="../imgs/logo.png" width="200px" height="100px">
         </div>
  		<section>
        		 <div id="button">

@@ -22,10 +22,10 @@
         height: 100px;
       	top:0;
       	display: flex;
- 		justify-content: space-between;
- 		background-color:white;
- 		position: sticky;
-		top: 0;
+ 	justify-content: space-between;
+ 	background-color:white;
+ 	position: sticky;
+	top: 0;
       }
       #header logo{
       	width: 300px;
@@ -42,7 +42,6 @@
       	overflow: auto;
       	height:500px;
    	
-
       }
       #content {
         width: 65%;
@@ -73,16 +72,14 @@
         clear: both;
         padding: 20px;
         margin-left:-50px;
-		padding-left:100px;
+	padding-left:100px;
         left:0;
         bottom:0;
-		background-color:black;
-		color:white;
-		overflow-y:hidden;
-		overflow-x:hidden;
+	background-color:black;
+	color:white;
+	overflow-y:hidden;
+	overflow-x:hidden;
       }
-
-
       p{
       	margin-top:10px;
       	font-size: 13px;
@@ -115,18 +112,17 @@
        #withdraw{ 
       	border: none;
       	border-radius: 3px;
-		width: 65px;
-		height:25px;
-		font-size: 12px;
+	width: 65px;
+	height:25px;
+	font-size: 12px;
       	margin-top:15px;
       	position:relative;
       }
-
       #login{
-     	 background-color:#FFA742;
+     	background-color:#FFA742;
       	color:white;
-   		float : right;   
-   		margin-right: 5px;    	
+   	float : right;   
+   	margin-right: 5px;    	
    		
       }
       #signin{
@@ -208,7 +204,6 @@
     </style>
 </head>
 <%	request.setCharacterEncoding("UTF-8");
-
 	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
 	if(session.getAttribute("sid")!=null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
 		<script>
@@ -219,7 +214,6 @@
 	// 해줘야 하는것
 	// 1. 세션아이디 꺼내서 사업자 회원 정보 세팅하기
 	// 2. dao에 아이디 집어넣고 아이디, 성명, 연락처, 이메일 집어넣기
-
 	//String id = (String)session.getAttribute("sid");
 	String id = "java04";			
 	UsersDAO dao = UsersDAO.getInstance();
@@ -232,7 +226,6 @@ function popupOpen(){
 	var popUrl = "popupForm.jsp?pop=2";	//팝업창에 출력될 페이지 URL
 	var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
 		window.open(popUrl,"",popOption);
-
 	}
 </script>
 

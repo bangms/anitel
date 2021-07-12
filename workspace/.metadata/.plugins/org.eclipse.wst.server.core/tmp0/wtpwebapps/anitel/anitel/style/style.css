@@ -314,6 +314,10 @@
 
 
 /* 게시판 리스트 */
+	#boardName > p {
+	
+	}
+	
 	.list_subject > a{
 		cursor: pointer;
 	}

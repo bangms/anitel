@@ -25,7 +25,7 @@
 	if(result == 1){
 %>
 <script>
-	alert("회원이 삭제되었습니다.");
+	alert("후기가 삭제되었습니다.");
 	opener.parent.location='/anitel/anitel/adminMypage/adminReviewForm.jsp';
 	window.close();
 </script>
