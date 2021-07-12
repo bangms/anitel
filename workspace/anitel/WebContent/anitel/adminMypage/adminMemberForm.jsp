@@ -112,7 +112,6 @@
 	<!-- 여기서부터 사이드바 입니다.  -->
 	<div id="sidebar">
 	  <h1 class="menu_name">관리자 페이지</h1>
-	  <!-- <ul class="sidebar_menu_wrap"> -->
 	  	
 			<div class="sidebar_menu_wrap">
 				<div class="nav-wrap">

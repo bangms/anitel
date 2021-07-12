@@ -1,13 +1,15 @@
-<!doctype html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html lang="ko">
   <head>
-    <meta charset="utf-8">
-    <title>CSS</title>
+    <meta charset="UTF-8">
+    <title>마이페이지(사업자회원) - 호텔 리뷰 관리</title>
     <style>
       #container {
         width: 100%;
-        margin: 0px;
-        padding:10px;
+        margin: 0px auto;
+        padding: 20px;
       }
       #header {
      	width:100%;
@@ -31,6 +33,7 @@
      	margin-right:100px;
       }
       #main{
+      	position:relative;
       	width:100%;
       	overflow: auto;
       	z-index:2;
@@ -39,18 +42,27 @@
       	
       }
       #content {
-        width: 90%;
-       	border:1px solid #111111;        
-       	padding: 30px;
-       	padding-right: 30px;
-        margin-top:130px;
+        width: 75%;
+       	height:100%;
+        padding: 20px;
+        margin-top:120px;
         margin-bottom: 20px;
-        margin-left:100px;
-        margin-right:100px;
+        margin-left:400px;
         padding-left:100px;
+        padding-right:100px;
         float: left;
-		position:relative;   
 		padding-bottom:100px;
+      }
+      #sidebar {
+        width: 230px;
+        padding: 20px;
+        float: left;
+        clear:both;
+        background-color:#EBDDCA;
+        margin-right:50px;
+        margin-left:70px;
+        margin-top:120px;
+        position:fixed;
       }
       #footer {
       	height:80px;
@@ -66,6 +78,7 @@
 		overflow-y:hidden;
 		overflow-x:hidden;
       }
+
 
       p{
       	margin-top:10px;
@@ -90,6 +103,7 @@
       	height:40px;
       	font-size: 16px;
       	margin-top:30px;
+      	position:relative;
       }
       #login{
      	 background-color:#FFA742;
@@ -119,8 +133,8 @@
       	
     </style>
   </head>
-  <body>
-    <div id="container">
+<body>
+	<div id="container">
     
  <!-- 여기서부터 헤더  입니다.  -->
  	
@@ -138,43 +152,24 @@
       </div>
       
 	<div id="main">
-
+	
+	<!-- 여기서부터 사이드바 입니다.  -->
+      <div id="sidebar">
+        <h1>마이페이지</h1>
+        <ul>
+          <li><a href="/anitel/memberMypage/memberMyPage.jsp">내 정보</a></li>
+          <li><a href="/anitel/memberMypage/memberHInfo.jsp">호텔 정보</a></li>
+          <li><a href="/anitel/memberMypage/memberBookingModifyForm.jsp">호텔 예약 관리</a></li>
+          <li><a href="/anitel/memberMypage/memberQna.jsp">호텔 QnA 관리</a></li>
+          <li><a href="/anitel/memberMypage/memberReview.jsp">호텔 후기 관리</a></li>
+        </ul>
+      </div>
       <!-- 여기서부터 콘텐츠 화면 입니다.  -->
       
       <div id="content">
         <h1>나의 정보</h1>
       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
- v
+
        </div>
         
  
@@ -189,5 +184,5 @@
       			
       </div>
     </div>
-  </body>
+</body>
 </html>

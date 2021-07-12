@@ -1,11 +1,16 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="anitel.model.BKListDTO"%>
+<%@page import="anitel.model.MemberDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="anitel.model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>반려동물 추가폼</title>
- <style>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <title>마이페이지(사업자회원) - 호텔 예약 관리</title>
+    <style>
       #container {
         width: 100%;
         margin: 0px auto;
@@ -13,7 +18,6 @@
       }
       #header {
        height:100px;
-      
      	width:100%;
         padding: 20px;
         margin-bottom: 20px;
@@ -79,13 +83,10 @@
 		overflow-y:hidden;
 		overflow-x:hidden;
       }
-
-
       p{
       	margin-top:10px;
       	font-size: 13px;
       	margin-left : 200px;
-      	
       }
       img {
       	float:left; 
@@ -126,7 +127,6 @@
       	color:white;
    		float : right;   
    		margin-right: 5px;    	
-   		
       }
       #signin{
      	background-color:#FFA742;
@@ -145,26 +145,22 @@
 		A{
 			text-decoration:none;
 			color: black;
-	
 		}
 		li{
 			list-style:none;
 			margin-bottom:10px;
-			
 		}
 		input[type=text] { 
 			border:1px solid black;
 			border-radius:5px;
 			height:30px;
 			text-indent: 1em;
-			
 		 }
 		 input[type=password] { 
 			border:1px solid black;
 			border-radius:5px;
 			height:30px;
 			text-indent: 1em;
-			
 		 }
 		input[type=button] { 
 			background-color:#FFA742;
@@ -205,15 +201,52 @@
 			border:1px solid black;
 			border-radius:5px;
 			text-indent: 1em;
-		}  
-	
-      	
+		}
     </style>
-</head>
+  </head>
 
+<%	request.setCharacterEncoding("UTF-8");
+
+	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
+	if(session.getAttribute("sid")!=null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
+		<script>
+			alert("로그인이 필요한 서비스입니다.");
+			window.location="/anitel/userLoginForm.jsp";
+		</script>
+<%	}else{ 
+	//String id = (String)session.getAttribute("sid");
+	String id = "test01";													// 테스트용 : 개발 끝나고 지워버려야댐
+	MemberDAO dao = MemberDAO.getInstance();
+	MemberDTO member = dao.getMemberHotel(id);
+	System.out.println("memberBookingModifyForm - id : " + id);
+	List userList = dao.getBookingList(id);
+	SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+%>
+<script>
+	function chkUser() {
+		obj = document.getElementsByName("info");			
+		var cnt = 0;
+		for(var i = 0; i < obj.length; i++) {
+			if (obj[i].checked) {
+				cnt++;
+			}
+		}
+		if(cnt == 0){
+			alert("선택된 회원 정보가 없습니다.");
+			return;
+		}else{
+			var frm = document.frmUserInfo		
+			var url ="/anitel/memberMypage/memberBookingDeleteForm.jsp";
+			window.open('','userdelete','width=500,height=150,location=no,status=no,scrollbars=yes');
+			
+			frmUserInfo.action = url;
+			frmUserInfo.target = 'userdelete'
+			frmUserInfo.submit();
+		}			
+	}
+</script>
 <body>
-
-    <div id="container">
+	<div id="container">
     
  <!-- 여기서부터 헤더  입니다.  -->
  	
@@ -223,8 +256,8 @@
         </div>
  		<section>
        		 <div id="button">
-        		<button id="notice" onclick="window.location='list.jsp'">공지사항</button>
-        		<button id="signin" onclick="window.location='/anitel/signinUserForm.jsp'">회원가입</button>
+        		<button id="notice">공지사항</button>
+        		<button id="signin">회원가입</button>
    	     		<button id="login" onclick="window.location='/anitel/userLoginForm.jsp'">로그인</button>
        		 </div>
         </section>
@@ -236,76 +269,59 @@
       <div id="sidebar">
         <h1>마이페이지</h1>
         <ul>
-          <a href="/anitel/userMyPage/userMyReserve.jsp"><li>나의 예약현황</li></a>
-          <a href="/anitel/userMyPage/userMyPage.jsp"><li>나의 정보</li></a>
-          <a href="/anitel/userMyPage/userQnA.jsp"><li>나의 Q&A</li></a>
-          <a href="/anitel/userMyPage/userReview.jsp"><li>나의 후기</li></a>
+          <li><a href="/anitel/memberMypage/memberMyPage.jsp">내 정보</a></li>
+          <li><a href="/anitel/memberMypage/memberHInfo.jsp">호텔 정보</a></li>
+          <li><a href="/anitel/memberMypage/memberBookingModifyForm.jsp">호텔 예약 관리</a></li>
+          <li><a href="/anitel/memberMypage/memberQna.jsp">호텔 QnA 관리</a></li>
+          <li><a href="/anitel/memberMypage/memberReview.jsp">호텔 후기 관리</a></li>
         </ul>
       </div>
       <!-- 여기서부터 콘텐츠 화면 입니다.  -->
       
-    <div id="content">
-		 <h1>반려동물 추가</h1>
+      <div id="content">
+        <h1><%= member.getMember_name() %>님의 <%= member.getHotel_name() %> 호텔 예약 관리</h1>
       	<hr align="left" width=800 color="black">
       	<br/>
-			<form action= "petAddPro.jsp" method="get""> 
-				<table>
-					<tr>
-						<td width=150><h3>이름</h3></td>
-						<td><input type="text" name="pet_name" style="width:300px; "/></td>
-					</tr>
-					<tr>
-						<td width=150><h3>종</h3></td>
-						<td>
-							<select id="pet_type" name="pet_type">
-								<option value="" disabled selected>선택	</option>
-								<option value="1">강아지</option>
-								<option value="2">고양이</option>
-								<option value="0">기타동물</option>
-							</select>
-						<input type="text" id="selboxDirect" name="selboxDirect" style="height:30px;" placeholder="기타동물 입력란"/></td>
-						
-					</tr>
-					<tr>	
-						<td width=150><h3>성별</h3></td>
-						<td>
-							<select name="pet_etctype" style="width:305px;">
-								<option value="1">수컷</option>
-								<option value="0">암컷</option>
-							</select>
-						</td>
-					</tr>
-					<tr>	
-						<td width=150><h3>중성화 여부</h3></td>
-						<td>
-							<input type="radio" name="pet_operation" value="1">예 &emsp;&emsp;&emsp;&emsp;
-							<input type="radio" name="pet_operation" value="0">아니오							
-						</td>
-					</tr>
-					<tr>
-						<td width=150><h3>나이</h3></td>
-						<td><input type="text" name="pet_age" style="width:300px; "/></td>
-					</tr>
-					<tr>	
-						<td width=150><h3>대형동물	</h3></td>
-						<td>
-							<input type="checkbox" name="pet_big" value="1"> 20kg 이상일 경우 체크해주세요.
-						</td>
-					</tr>
-				</table>
+      	
+      	<form action="/anitel/memberMypage/memberBookingModifyForm.jsp" name="frmUserInfo" method="post">
+      	예정된 예약 일정
+      	<table border=1>
+      		<tr align="center">
+      			<td>체크</td>
+      			<td>객실명</td>
+      			<td>예약날짜</td>
+      			<td>체크인 날짜</td>
+      			<td>체크아웃 날짜</td>
+      			<td>예약자명</td>
+      			<td>예약자 연락처</td>
+      			<td>반려동물 이름</td>
+      			<td>요청사항</td>
+      		</tr>
+<%			for(int i = 0; i < userList.size(); i++) {
+					BKListDTO dto = (BKListDTO)userList.get(i); %>
+      		<tr align="center">
+      			<td><input type="checkbox" name="info" value="<%= dto.getBooking_num() %>"/></td>
+      			<td><%= dto.getName() %></td>
+      			<td><%= sdf.format(dto.getBooking_time()) %></td>
+      			<td><%= sdf.format(dto.getCheck_in()) %></td>
+      			<td><%= sdf.format(dto.getCheck_out()) %></td>
+      			<td><%= dto.getUser_name() %></td>
+      			<td><%= dto.getUser_phone() %></td>
+      			<td><%= dto.getPet_name() %></td>
+      			<td><%= dto.getRequests() %></td>
+      		</tr>
+<%			} %>
+      	</table>
+      	
+      	<div>
+      		<input type="button" value="삭제" onclick="chkUser();"/>
+      		<input type="button" value="지난 예약 보기" onclick="window.location='/anitel/memberMypage/memberBookingAfterForm.jsp'" />
+      	</div>
 		</form>
-	
-	      <br/>
-	      		<input type="submit" value="추가하기" onclick="window.location='petinfoModifyForm.jsp'"/>&emsp;
-				<input type="button" value="돌아가기" onclick="window.location='petinfoModifyForm.jsp'"/>&emsp;
-				<button id="withdraw">탈퇴하기 </button>
-				
-				<br/><br/>
-				
-	       </div>
-	        
-	 
-	     </div>
+       </div>
+        
+ 
+     </div>
       
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
       <div id="footer">
@@ -316,8 +332,6 @@
       			
       </div>
     </div>
-	
 </body>
-
-
+<%	} %>
 </html>

@@ -1,8 +1,10 @@
-<!doctype html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html lang="ko">
   <head>
-    <meta charset="utf-8">
-    <title>CSS</title>
+    <meta charset="UTF-8">
+    <title>마이페이지(사업자회원) - 호텔 QnA 관리</title>
     <style>
       #container {
         width: 100%;
@@ -131,8 +133,8 @@
       	
     </style>
   </head>
-  <body>
-    <div id="container">
+<body>
+	<div id="container">
     
  <!-- 여기서부터 헤더  입니다.  -->
  	
@@ -155,10 +157,11 @@
       <div id="sidebar">
         <h1>마이페이지</h1>
         <ul>
-          <li>나의 예약 현황</li>
-          <li>나의 정보</li>
-          <li>나의 Q&A</li>
-          <li>나의 후기</li>
+          <li><a href="/anitel/memberMypage/memberMyPage.jsp">내 정보</a></li>
+          <li><a href="/anitel/memberMypage/memberHInfo.jsp">호텔 정보</a></li>
+          <li><a href="/anitel/memberMypage/memberBookingModifyForm.jsp">호텔 예약 관리</a></li>
+          <li><a href="/anitel/memberMypage/memberQna.jsp">호텔 QnA 관리</a></li>
+          <li><a href="/anitel/memberMypage/memberReview.jsp">호텔 후기 관리</a></li>
         </ul>
       </div>
       <!-- 여기서부터 콘텐츠 화면 입니다.  -->
@@ -166,37 +169,7 @@
       <div id="content">
         <h1>나의 정보</h1>
       컨텐츠는 여기에 만들어 주세요!!
-   컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
-       컨텐츠는 여기에 만들어 주세요!!
+
        </div>
         
  
@@ -211,5 +184,5 @@
       			
       </div>
     </div>
-  </body>
+</body>
 </html>
