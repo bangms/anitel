@@ -30,7 +30,7 @@
 <%	if(result == 1){%>
 		<script>
 			alert("비밀번호가 변경되었습니다.");
-			window.location.href="userMyPage.jsp";
+			window.location.href="/anitel/anitel/userMyPage/userMyPage.jsp";
 		</script>
 <%	}else if(result ==0){%>
 		<script>

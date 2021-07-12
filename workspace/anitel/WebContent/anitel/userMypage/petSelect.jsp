@@ -1,13 +1,14 @@
-<%@page import="anitel.model.UsersDAO"%>
-<%@page import="anitel.model.UsersDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="anitel.model.PetDTO"%>
+<%@page import="anitel.model.PetDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>개인정보 수정 폼</title>
-<<<<<<< HEAD
+<title>펫 선택</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <%-- jquery 라이브러리 추가 --%>
  <style>
       #container {
         width: 100%;
@@ -43,6 +44,7 @@
       	overflow: auto;
       	height:500px;
    	
+
       }
       #content {
         width: 65%;
@@ -54,8 +56,8 @@
         padding-left:100px;
         padding-right:100px;
         float: left;
-		padding-bottom:100px;
-		z-index:3
+	padding-bottom:100px;
+	z-index:3
       }
       #sidebar {
         width: 230px;
@@ -81,6 +83,8 @@
 	overflow-y:hidden;
 	overflow-x:hidden;
       }
+
+
       p{
       	margin-top:10px;
       	font-size: 13px;
@@ -110,15 +114,7 @@
       	background-color:#FF822B;
       	color:#ffffff;
       }
-       #withdraw{ 
-      	border: none;
-      	border-radius: 3px;
-	width: 65px;
-	height:25px;
-	font-size: 12px;
-      	margin-top:15px;
-      	position:relative;
-      }
+    
       #login{
      	background-color:#FFA742;
       	color:white;
@@ -140,100 +136,88 @@
       	color:black;
       	
       }
-      A{
-	text-decoration:none;
-	color: black;	
-      }   
-      li{
-	list-style:none;
-	margin-bottom:10px;	
+     A{
+      text-decoration:none;
+      color: black;
       }
-      input[type=text] { 
-	border:1px solid black;
-	border-radius:5px;
-	height:30px;
-	text-indent: 1em;		
+    li{
+      list-style:none;
+      margin-bottom:10px;		
       }
-      input[type=password] { 
-	border:1px solid black;
-	border-radius:5px;
-	height:30px;
-	text-indent: 1em;
-       }
-      input[type=button] { 
-	background-color:#FFA742;
-	color:white;
-	border: none;
-	border-radius: 6px;
-	width: 180px;
-	height:40px;	
-      }
-      input[type=button]:hover{
-	background-color:#FF822B;
-	color:#ffffff;
-      }
-      input[type=submit] { 
-        background-color:#FFA742;
-	color:white;
-	border: none;
-	border-radius: 6px;
-	width: 180px;
-	height:40px;	
-      }
-      input[type=submit]:hover{
-	background-color:#FF822B;
-	color:#ffffff;
-       }
-      input[type=checkbox]{
-	width:14px;
-	height:14px;
-	border-radius: 3px;
-      }    
-      input[type=radio]{
-	width:14px;
-	height:14px;
-      }   
-      select, option{
-	width:150px; 
-	height:35px;
-	border:1px solid black;
-	border-radius:5px;
-	text-indent: 1em;
-       }  
+    #select{
+      background-color:#FFA742;
+      color:white;
+      border: none;
+      border-radius: 6px;
+      width: 70px;
+      height:40px;	
+    }
+    #select:hover{
+      background-color:#FF822B;
+      color:#ffffff;
+    }
+    input[type=text] { 
+      border:1px solid black;
+      border-radius:5px;
+      height:30px;
+      text-indent: 1em;		
+    }
+    input[type=button] { 
+      background-color:#FFA742;
+      color:white;
+      border: none;
+      border-radius: 6px;
+      width: 180px;
+      height:40px;	
+    }
+    input[type=button]:hover{
+      background-color:#FF822B;
+      color:#ffffff;
+    }
+    select, option{
+      width:150px; 
+      height:35px;
+      border:1px solid black;
+      border-radius:5px;
+    }  
 	
       	
     </style>
-=======
-
->>>>>>> 0ddd85b4cae75d3fd95c689a596bce48ea8dd4a7
 </head>
 <%	request.setCharacterEncoding("UTF-8");
+
 	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
-	if(session.getAttribute("sid")!=null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
+	if(session.getAttribute("sid")!=null){// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
-			window.location="/anitel/anitel/userLoginForm.jsp";
+			window.location="/anitel/userLoginForm.jsp";
 		</script>
 <%	}else{ 
 	// 해줘야 하는것
 	// 1. 세션아이디 꺼내서 사업자 회원 정보 세팅하기
 	// 2. dao에 아이디 집어넣고 아이디, 성명, 연락처, 이메일 집어넣기
+
 	//String id = (String)session.getAttribute("sid");
-	String id = "java04";			
-	UsersDAO dao = UsersDAO.getInstance();
-	UsersDTO users = dao.getuser(id);
-	System.out.println(users);
-	System.out.println(users.getUser_name());
+		String id = "java04";			
+		PetDAO dao = PetDAO.getInstance();
+		List Petlist = dao.getPetName(id); //수정하나 : 펫이름들, 펫 고유번호들 
+		PetDTO pet = null;
+		
+		/*
+		//String selected = request.getParameter("selected"); 
+		// 수정 : 해당 페이지 다시 불러올때 Pet_name 받아와서 검색하기 
+			
+		if(selected != null){
+			pet = dao.getSearchPet(id, selected);
+		}else{
+			pet = dao.getPet(id);
+		}
+		System.out.println(pet.getPet_name());
+
+		System.out.println("pet_name");
+		*/
+	
 %>
-<script type="text/javascript">
-function popupOpen(){
-	var popUrl = "popupForm.jsp?pop=2";	//팝업창에 출력될 페이지 URL
-	var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-		window.open(popUrl,"",popOption);
-	}
-</script>
-
-
 <body>
 
     <div id="container">
@@ -247,7 +231,7 @@ function popupOpen(){
  		<section>
        		 <div id="button">
         		<button id="notice" onclick="window.location='list.jsp'">공지사항</button>
-        		<button id="signin" onclick="window.location='signInUserForm.jsp'">회원가입</button>
+        		<button id="signin" onclick="window.location='/anitel/signinUserForm.jsp'">회원가입</button>
    	     		<button id="login" onclick="window.location='/anitel/userLoginForm.jsp'">로그인</button>
        		 </div>
         </section>
@@ -258,7 +242,7 @@ function popupOpen(){
 	<!-- 여기서부터 사이드바 입니다.  -->
       <div id="sidebar">
         <h1>마이페이지</h1>
-       	<ul>
+        <ul>
       	 	<li><a href="/anitel/anitel/userMyPage/userMyReserve.jsp">나의 예약현황</a></li>
           	<li><a href="/anitel/anitel/userMyPage/userMyPage.jsp">나의 정보</a></li>
           	<li><a href="/anitel/anitel/userMyPage/userQnA.jsp">나의 Q&A</a></li>
@@ -267,40 +251,34 @@ function popupOpen(){
       </div>
       <!-- 여기서부터 콘텐츠 화면 입니다.  -->
       
-    <div id="content">
-		    <h1><%= users.getUser_name() %>님의 회원정보</h1>
-      	<hr align="left" width=800 color="black">
-      	<br/>
-      	<form action="/anitel/anitel/userMyPage/userModifyPro.jsp" method="post">
-	   		<table>
-	      			<tr height = 50>
-	      				<td width=150><h3>성명</h3></td>
-						<td width=800>
-							<input type="text" name="user_name" value="<%=users.getUser_name()%>"/>
+     <div id="content">
+	     <h1>내 반려동물의 정보</h1>
+	     <hr align="left" width=800 color="black">
+	     <br/>
+	     <form action= "/anitel/anitel/userMyPage/petinfoModifyPro.jsp" method="post"> 
+				<table>
+					<tr>
+						<td width=150>
+							<h3>이름</h3>
+						</td>
+						<td>
+							<select id="pet_num" name="pet_num" >
+								<%for(int i = 0; i < Petlist.size(); i++){
+								PetDTO petname = (PetDTO)Petlist.get(i);
+								%>
+								<option value="<%=petname.getPet_num()%>"><%=petname.getPet_name()%></option> 
+								<%}%>								
+							</select>
+							<input type="button" id="select" value="선택" onclick="popupOpen()" />&emsp;
 						</td>
 					</tr>
-		      		<tr height = 50>
-		      			<td width=150><h3>전화번호</h3></td>
-		      			<td width=800>
-		      				<input type="text" name="user_phone" value="<%=users.getUser_phone()%>"/>
-						</td>
-					</tr>
-		      		<tr height = 50>
-      					<td><h3>E-Mail</h3></td>
-      					<td>
-      						<input type="text" name="user_email" value="<%= users.getUser_email()%>" />
-      					</td>
-      				</tr>
-      		</table>
-      	<br/>
-			<input type="submit" value="내정보 수정"/>&emsp;
-			<input type="button" value="취소" onclick="window.location='/anitel/anitel/userMyPage/userMyPage.jsp'"/>&emsp; 
-			<button id="withdraw"onclick="popupOpen()">탈퇴하기 </button>
-		<br/><br/>	
-	   </form>
+				</table> <br/>
+				<input type="button" value="추가하기" onclick="window.location='/anitel/anitel/userMyPage/petAddForm.jsp'"/>&emsp;
+				<input type="button" value="뒤로가기" onclick="window.location='/anitel/anitel/userMyPage/userMyPage.jsp'"/>&emsp;
+				<br/><br/>
+		 </form>
      </div>
-			
-     </div>
+         
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
       <div id="footer">
       <img src="imgs/logo2.png" width=100px; height=50px;>
@@ -312,7 +290,15 @@ function popupOpen(){
     </div>
 	
 </body>
+<script type="text/javascript">
+function popupOpen(){
+	var pet_num_sel = $("#pet_num").val();
+	//console.log(pet_num_sel);
+	var popUrl = "popupForm.jsp?pop=9&pet_num=" + pet_num_sel;	//팝업창에 출력될 페이지 URL
+	var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+		window.open(popUrl,"",popOption);
 
+	}
+</script>
 <%} %>
-
 </html>
