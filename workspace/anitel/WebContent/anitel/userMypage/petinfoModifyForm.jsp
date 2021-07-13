@@ -189,7 +189,7 @@
 	if(session.getAttribute("sid")!=null){// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
-			window.location="/anitel/anitel/userLoginForm.jsp";
+			window.location="/anitel/anitel/loginForm.jsp";
 		</script>
 <%	}else{ 
 	// 해줘야 하는것
@@ -241,7 +241,7 @@ function popupOpen(){
        		 <div id="button">
         		<button id="notice" onclick="window.location='/anitel/anitel/list.jsp'">공지사항</button>
         		<button id="signin" onclick="window.location='/anitel/anitel/signinUserForm.jsp'">회원가입</button>
-   	     		<button id="login" onclick="window.location='/anitel/anitel/userLoginForm.jsp'">로그인</button>
+   	     		<button id="login" onclick="window.location='/anitel/anitel/loginForm.jsp'">로그인</button>
        		 </div>
         </section>
       </div>
