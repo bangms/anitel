@@ -17,6 +17,7 @@
 
 <%
 	String id =(String)session.getAttribute("sid");
+
 	// ** 게시글 페이지 관련 정보 세팅 ** 
 	// 한페이지에 보여줄 게시글의 수 
 	
@@ -24,7 +25,6 @@
 	int categ= Integer.parseInt(request.getParameter("categ"));
 	System.out.println("categ.list:" + categ);
 	 
-
  	//categ =2 일때는 1을 들고 올것임 ( 비밀글 안들고 오니까 임의로 지정 ~
  	//int hidden_content = Integer.parseInt(request.getParameter("hidden_content"));
  	 int hidden_content = 0;
@@ -125,13 +125,13 @@
 		<div id = "boardName" style="font-size:20px; font-weight: bold; color:black; padding:10px;">
 		<!-- 게시판 이름 분기처리  -->
  		<% if (categ == 0){ %>
-			<p align="center" > 공지사항 </p>
+			<p align="center" > 공지사항 </h1>
 		<%} else if(categ == 1){ %>
-			<p align="center" > 1:1 문의 </p>
+			<p align="center" > 1:1 문의 </h1>
 		<%} else if(categ == 2){ %>
-			<p align="center" > 호텔Q&A </p>
+			<p align="center" > 호텔Q&A </h1>
 		<%} else if(categ == 3){ %>
-			<p align="center" > 후기 </p>
+			<p align="center" > 후기 </h1>
 		<% } %>
 		</div>
  	 
@@ -156,14 +156,14 @@
 <%		} else if(categ == 2) { /* 호텔 QNA */ 
 			if(checkID == 1) {%><%-- 고객만 글쓰기 가능 / 무슨 호텔인지 보내주기 &reg_num=<%=reg_num%> --%>
 				<tr>
-					<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%> '"> 글쓰기 </button></td>
+					<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></td>
 				</tr>
 		<%  } %>
 <%		} else if(categ == 3) { /* 호텔 후기 */
 			check = dao.paymentUserCk(id,"000-000-000001");
 			if(check) { %>
 				<tr>
-					<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%> '"> 글쓰기 </button></td>
+					<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></td>
 				</tr>
 <%			} %>
 <%		} %>
@@ -209,12 +209,13 @@
 								<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%= article.getSubject() %></a>
 <%					} %>
 				</div>
-				<div class="col col-3" style="flex-basis: 20%;"> <%= article.getId()%>  </div>
+				<div class="col col-3" style="flex-basis: 20%;"><%= article.getId()%></div>
 	      <div class="col col-4" style="flex-basis: 20%;"><%= sdf.format(article.getReg_date()) %></div>
 	      <div class="col col-5" style="flex-basis: 10%;"><%= article.getReadcount()%></div>
 			</li>
 		<%} %>
- <!-- 글쓰기 버튼 분기처리  -->
+		
+				<!-- TODO 페이지랑 연결 후 지울 부분  -->
 		<% 		if(categ == 0) { /* 공지사항 */
 						if("admin".equals(id)) {%><%-- 관리자만 글쓰기 가능 --%>
 							<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum %>'" value="글쓰기">
@@ -228,12 +229,12 @@
 							<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum %>'" value="글쓰기">
 					<%  } %>
 			<%		} else if(categ == 3) { /* 호텔 후기 결제고객 전용 */
-					check = dao.paymentUserCk(id,"000-000-000001");
+						check = dao.paymentUserCk(id,"000-000-000001");
 						if(check) { %>
-							<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum %> '" value="글쓰기">
+							<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum %>'" value="글쓰기">
 			<%			} %>
 			<%		} %>	
-			 
+				<button onclick="window.location='category.jsp'"> 카테고리</button>
 			</ul>
 		</div>
 		<%} %>
