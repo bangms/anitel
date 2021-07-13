@@ -1,5 +1,7 @@
 package anitel.model;
 
+import java.sql.Timestamp;
+
 public class DetailDTO {
 	
 	
@@ -20,13 +22,6 @@ public class DetailDTO {
 		private String hotel_add;
 		
 		// 검색 호텔정보 룸 뿌려줄 
-		 
-		public String getHotel_add() {
-			return hotel_add;
-		}
-		public void setHotel_add(String hotel_add) {
-			this.hotel_add = hotel_add;
-		}
 		private int room_num;
 		private String name;
 		private int pet_type;
@@ -35,17 +30,25 @@ public class DetailDTO {
 		private int pet_big;
 		private String img;
 		
-		
-		
-		private String reg_num;
+ 
 		private String check_in;
 		private String check_out;
 		
 		
 		//게시판 뿌려줄
+		private int board_num;
+		private String reg_num;
 		private int categ;
 		private String subject;
-		private int board_num;
+		private String pw;
+		private String ctt;
+		private Timestamp reg_date;
+		private Timestamp reply_date;
+		private String reply_content;
+		private int readcount;
+		private int comm;
+		private int hidden_content;
+		
 		public String getId() {
 			return id;
 		}
@@ -106,12 +109,17 @@ public class DetailDTO {
 		public void setPaid_medi(String paid_medi) {
 			this.paid_medi = paid_medi;
 		}
-		
 		public String getHotel_img() {
 			return hotel_img;
 		}
 		public void setHotel_img(String hotel_img) {
 			this.hotel_img = hotel_img;
+		}
+		public String getHotel_add() {
+			return hotel_add;
+		}
+		public void setHotel_add(String hotel_add) {
+			this.hotel_add = hotel_add;
 		}
 		public int getRoom_num() {
 			return room_num;
@@ -155,12 +163,6 @@ public class DetailDTO {
 		public void setImg(String img) {
 			this.img = img;
 		}
-		public String getReg_num() {
-			return reg_num;
-		}
-		public void setReg_num(String reg_num) {
-			this.reg_num = reg_num;
-		}
 		public String getCheck_in() {
 			return check_in;
 		}
@@ -172,6 +174,18 @@ public class DetailDTO {
 		}
 		public void setCheck_out(String check_out) {
 			this.check_out = check_out;
+		}
+		public int getBoard_num() {
+			return board_num;
+		}
+		public void setBoard_num(int board_num) {
+			this.board_num = board_num;
+		}
+		public String getReg_num() {
+			return reg_num;
+		}
+		public void setReg_num(String reg_num) {
+			this.reg_num = reg_num;
 		}
 		public int getCateg() {
 			return categ;
@@ -185,11 +199,55 @@ public class DetailDTO {
 		public void setSubject(String subject) {
 			this.subject = subject;
 		}
-		public int getBoard_num() {
-			return board_num;
+		public String getPw() {
+			return pw;
 		}
-		public void setBoard_num(int board_num) {
-			this.board_num = board_num;
+		public void setPw(String pw) {
+			this.pw = pw;
 		}
+		public String getCtt() {
+			return ctt;
+		}
+		public void setCtt(String ctt) {
+			this.ctt = ctt;
+		}
+		public Timestamp getReg_date() {
+			return reg_date;
+		}
+		public void setReg_date(Timestamp reg_date) {
+			this.reg_date = reg_date;
+		}
+		public Timestamp getReply_date() {
+			return reply_date;
+		}
+		public void setReply_date(Timestamp reply_date) {
+			this.reply_date = reply_date;
+		}
+		public String getReply_content() {
+			return reply_content;
+		}
+		public void setReply_content(String reply_content) {
+			this.reply_content = reply_content;
+		}
+		public int getReadcount() {
+			return readcount;
+		}
+		public void setReadcount(int readcount) {
+			this.readcount = readcount;
+		}
+		public int getComm() {
+			return comm;
+		}
+		public void setComm(int comm) {
+			this.comm = comm;
+		}
+		public int getHidden_content() {
+			return hidden_content;
+		}
+		public void setHidden_content(int hidden_content) {
+			this.hidden_content = hidden_content;
+		}
+ 
 		
+
 }
