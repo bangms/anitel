@@ -32,7 +32,7 @@ public class MemberDAO {
 		try {
 			conn = getConnection();
 			// DB에 작성되어있는 순서대로 작성하여야 함 (컬럼명 작성 안했기 때문에)
-			String sql = "insert into member values(?,?,?,?,?,?,?,?,?,0,?,?,?,?)";
+			String sql = "insert into member values(?,?,?,?,?,?,?,?,?,0,?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getId());
 			pstmt.setString(2, member.getMember_pw());
@@ -47,6 +47,13 @@ public class MemberDAO {
 			pstmt.setString(11, member.getHotel_area());
 			pstmt.setString(12, member.getHold_reason());
 			pstmt.setString(13, member.getReg_num());
+			pstmt.setInt(14, member.getUtil_pool());
+			pstmt.setInt(15, member.getUtil_ground());
+			pstmt.setInt(16, member.getUtil_parking());
+			pstmt.setInt(17, member.getPaid_bath());
+			pstmt.setInt(18, member.getPaid_beauty());
+			pstmt.setInt(19, member.getPaid_medi());
+			pstmt.setString(20, member.getHotel_img());
 			
 			int result = pstmt.executeUpdate();
 			System.out.println(result);
@@ -67,21 +74,15 @@ public class MemberDAO {
 		try {
 			conn = getConnection();
 			// DB에 작성되어있는 순서대로 작성하여야 함 (컬럼명 작성 안했기 때문에)
-			String sql = "insert into room values(room_seq.nextVal,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "insert into room values(room_seq.nextVal,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, room.getId());
 			pstmt.setString(2, room.getName());
-			pstmt.setInt(3, room.getPet_type());
-			pstmt.setString(4, room.getPet_etctype());
-			pstmt.setString(5, room.getD_fee());
-			pstmt.setInt(6, room.getPet_big());
-			pstmt.setInt(7, room.getUtil_pool());
-			pstmt.setInt(8, room.getUtil_ground());
-			pstmt.setInt(9, room.getUtil_parking());
-			pstmt.setInt(10, room.getPaid_bath());
-			pstmt.setInt(11, room.getPaid_beauty());
-			pstmt.setInt(12, room.getPaid_medi());
-			pstmt.setString(13, room.getImg());
+			pstmt.setString(3, room.getPet_etctype());
+			pstmt.setString(4, room.getD_fee());
+			pstmt.setString(5, room.getImg());
+			pstmt.setInt(6, room.getPet_type());
+			pstmt.setInt(7, room.getPet_big());
 
 			int result = pstmt.executeUpdate();
 			System.out.println(result);

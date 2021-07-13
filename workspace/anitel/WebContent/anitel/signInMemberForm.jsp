@@ -21,7 +21,7 @@ function check() {
 		return; // 메서드 강제 종료
 	}
 	if(inputForm.member_name.value == "" || !inputForm.member_name.value) {
-		alert("이름을 입력하세요!");
+		alert("사업자 이름을 입력하세요!");
 		return; // 메서드 강제 종료
 	}
 	if(inputForm.member_phone.value == "" || !inputForm.member_phone.value) {
