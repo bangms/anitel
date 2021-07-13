@@ -328,72 +328,85 @@ public class RoomDAO {
 		}
 		
 
-		// hotel detail 해달 게시글 수 구하기 (다희추가 )
-		public int reviewCount(String id, int categ) {
-			int count = 0;
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
+	// hotel detail 해달 게시글 수 구하기 (다희추가 )
+	public int getReviewCount(int categ, String reg_num) {
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
-			try {
-				conn = getConnection();
-				String sql = "select count(*) from member mem, board b where mem.reg_num = b.reg_num and mem.id=? and b.categ=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, id);
-				pstmt.setInt(2, categ);
-
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-		 
-					count = rs.getInt(1); 
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if(rs != null) try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
-				if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
-				if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from board where categ = ? and reg_num = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, categ);
+			pstmt.setString(2, reg_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				// count(*) 은 결과를 숫자로 가져옴. 컬럼명 대신 컬럼번호로 꺼내서 count 변수에 담기
+				count = rs.getInt(1); 
 			}
-			return count;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
+			if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
 		}
-		
-		// hotel detail 게시판 가져오기 (다희추가 )
-		public List getReviews(String id, int categ, int start, int end) {
-			List reviewList = null;
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			try {
-				conn = getConnection();
-				String sql ="select b.*, r "
-						+"from (select a.*, rownum r "
-						+"from (select b.id, b.subject, b.reg_date, b.board_num from member mem, board b where mem.reg_num = b.reg_num and mem.id=? and b.categ=? order by reg_date desc)a order by reg_date desc) b where r >= ? and r <= ?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, id);
-				pstmt.setInt(2, categ);
-				pstmt.setInt(3, start);
-				pstmt.setInt(4, end);
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					reviewList = new ArrayList();
-					do {
-						DetailDTO article = new DetailDTO();
-						article.setId(rs.getString("id"));				
-						article.setSubject(rs.getString("subject"));				
-						article.setBoard_num(rs.getInt("board_num"));				
-						reviewList.add(article); 				
-					}while(rs.next());
-				}
-			}catch(Exception e) {
-				e.printStackTrace();
-			}finally {
-				if(rs!=null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
-				if(pstmt!=null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
-				if(conn!=null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		return count;
+	}
+	 
+	// hotel detail 게시판 가져오기 (다희추가 )
+	public List getReviews (int start, int end, int categ, String reg_num) {
+		List reviewList = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();  
+			//간단버전  
+			String sql = "select b.*, r " 
+					+"from (select A.*, rownum r from "
+					+"(select * from board where categ = ? and reg_num = ? order by reg_date desc) A order by reg_date desc) B where r >= ? and r <= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, categ);
+			pstmt.setString(2, reg_num);
+			pstmt.setInt(3, start);
+			pstmt.setInt(4, end);
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) { // 결과가 있으면
+				
+				reviewList = new ArrayList();
+				do {
+					DetailDTO article = new DetailDTO();
+					article.setBoard_num(rs.getInt("board_num"));
+					article.setId(rs.getString("id"));
+					article.setReg_num(rs.getString("reg_num"));
+					article.setCateg(rs.getInt("categ"));
+					article.setSubject(rs.getString("subject"));
+					article.setPw(rs.getString("pw"));
+					article.setCtt(rs.getString("ctt"));
+					article.setImg(rs.getString("img"));
+					article.setReg_date(rs.getTimestamp("reg_date"));
+					article.setReply_date(rs.getTimestamp("reply_date"));
+					article.setReply_content(rs.getString("reply_content"));
+					article.setReadcount(rs.getInt("readcount"));
+					article.setComm(rs.getInt("comm"));
+					article.setHidden_content(rs.getInt("hidden_content"));				
+					reviewList.add(article); 				
+				}while(rs.next());
 			}
-			return reviewList;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
 		}
+		return reviewList;
+	}
 		
 	   //hotel detail 후기게시판 글쓰기  결제회원 아이디 확인 (다희추가)
 	   public boolean paymentUserCk(String id, String reg_num) { 
