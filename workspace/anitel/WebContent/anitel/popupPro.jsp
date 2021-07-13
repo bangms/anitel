@@ -37,7 +37,7 @@
 		// 비밀번호가 DB와 일치하면 1 출력, 불일치하면 -1 출력
 	}else if(pop.equals("4") || pop.equals("5") || pop.equals("6") || pop.equals("7")){
 		// 사업자회원 영역) 4 : 사업자회원 - 호텔정보 수정, 5 : 사업자회원 - 객실정보 수정, 6 : 사업자회원 - 회원탈퇴, 7 : 사업자회원 - 내 정보 수정
-		result = member.matchMemberPw(id, pw);
+		result = member.matchMemberPw(id, pw); 
 		System.out.println("popupPro.jsp - 비밀번호 확인 결과 : " + result);
 		// 비밀번호가 DB와 일치하면 1 출력, 불일치하면 -1 출력
 	}

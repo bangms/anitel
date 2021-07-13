@@ -39,7 +39,7 @@
 	int endRow = currentPage * pageSize;
 	int count = 0;
 	
-	List userList = dao.getAfterBookingList(id, startRow, endRow);
+	List userList = dao.getAfterBookingList(id, startRow, endRow); 
 	
 	String sel = request.getParameter("sel");
 	String search = request.getParameter("search");

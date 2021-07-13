@@ -41,7 +41,7 @@ public class MemberDAO {
 			pstmt.setString(5, member.getMember_email());
 			pstmt.setString(6, member.getHotel_name());
 			pstmt.setString(7, member.getHotel_owner());
-			pstmt.setString(8, member.getHotel_add());
+			pstmt.setString(8, member.getHotel_area() + " " +member.getHotel_add());
 			pstmt.setString(9, member.getHotel_phone());
 			pstmt.setString(10, member.getHotel_intro());
 			pstmt.setString(11, member.getHotel_area());
@@ -57,6 +57,68 @@ public class MemberDAO {
 			if(pstmt != null) try { pstmt.close(); } catch(Exception e) { e.printStackTrace(); }
 			if(conn != null) try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
 		}
+	}
+	
+	// 회원가입 메서드 (room 테이블에 입력)
+	public void insertRoom(RoomDTO room) {
+		Connection conn = null;
+		PreparedStatement  pstmt = null;
+
+		try {
+			conn = getConnection();
+			// DB에 작성되어있는 순서대로 작성하여야 함 (컬럼명 작성 안했기 때문에)
+			String sql = "insert into room values(room_seq.nextVal,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, room.getId());
+			pstmt.setString(2, room.getName());
+			pstmt.setInt(3, room.getPet_type());
+			pstmt.setString(4, room.getPet_etctype());
+			pstmt.setString(5, room.getD_fee());
+			pstmt.setInt(6, room.getPet_big());
+			pstmt.setInt(7, room.getUtil_pool());
+			pstmt.setInt(8, room.getUtil_ground());
+			pstmt.setInt(9, room.getUtil_parking());
+			pstmt.setInt(10, room.getPaid_bath());
+			pstmt.setInt(11, room.getPaid_beauty());
+			pstmt.setInt(12, room.getPaid_medi());
+			pstmt.setString(13, room.getImg());
+
+			int result = pstmt.executeUpdate();
+			System.out.println(result);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try { pstmt.close(); } catch(Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
+		}
+	}
+	// 아이디 비밀번호 체크
+	public boolean idPwCheck(String id, String pw) {
+		boolean result = false;	
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();	
+			String sql = "select * from member where id=? and member_pw=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = true;	
+			}
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try { rs.close(); } catch(Exception e) { e.printStackTrace(); }
+			if(pstmt != null) try { pstmt.close(); } catch(Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
+		}
+		return result;
 	}
 	// 아이디 중복 확인 
 	public boolean confirmId(String id) {

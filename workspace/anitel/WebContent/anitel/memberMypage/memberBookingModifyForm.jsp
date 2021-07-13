@@ -219,7 +219,7 @@
 	MemberDAO dao = MemberDAO.getInstance();
 	MemberDTO member = dao.getMemberHotel(id);
 	System.out.println("memberBookingModifyForm - id : " + id);
-	List userList = dao.getBookingList(id);
+	List userList = dao.getBookingList(id); 
 	SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 %>
 <script>

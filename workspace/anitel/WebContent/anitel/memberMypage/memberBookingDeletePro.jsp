@@ -14,7 +14,7 @@
 		String num = check[i];
 		System.out.println("booking_num : " + num);
 		MemberDAO dao = MemberDAO.getInstance();
-		result = dao.deleteBooking(num);		
+		result = dao.deleteBooking(num);		 
 	}
 
 	if(result == 1) {%> 
