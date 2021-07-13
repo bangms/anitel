@@ -43,8 +43,9 @@ request.setCharacterEncoding("UTF-8");
 
 String sid =(String)session.getAttribute("sid");
 System.out.println("hotelDetail sid=" + sid);
-String id = request.getParameter("memId"); // 사업자아이디
-System.out.println(id);
+
+String memId = request.getParameter("memId"); // 사업자아이디
+System.out.println(memId);
 String check_in = request.getParameter("check_in");
 String check_out = request.getParameter("check_out");
 int pet_type = Integer.parseInt(request.getParameter("pet_type"));
@@ -54,6 +55,7 @@ int pet_type = Integer.parseInt(request.getParameter("pet_type"));
 <jsp:useBean id="detail" class="anitel.model.DetailDTO" />
 <jsp:setProperty property="*" name="detail"/>
 
+ 
 
 <% 
 
@@ -63,7 +65,7 @@ System.out.println("체크인 : " + check_in + " / 체크아웃 : " + check_out 
 String petType[] = {"강아지", "고양이", "기타"};
 
 //후기, qna 게시판 
-int pageSize = 3;
+int pageSize = 5;
 String pageNum = request.getParameter("pageNum");
 if(pageNum == null) {
 	pageNum = "1";
@@ -72,8 +74,6 @@ int currentPage = Integer.parseInt(pageNum);
 int startRow = (currentPage - 1) * pageSize + 1;
 int endRow = currentPage * pageSize;
 
-
-//게시판
 int categ = 0;
 List reviewList = null;
 int number = 0;
@@ -85,7 +85,7 @@ number = count - (currentPage-1)*pageSize;
 RoomDAO dao = RoomDAO.getInstance();
 
 //상단 호텔 정보 꺼내기 
-DetailDTO dto = dao.getHotelDetail(id);
+DetailDTO dto = dao.getHotelDetail(memId);
 
 String reg_num = dto.getReg_num();
 System.out.println("reg_num=" + reg_num);
@@ -95,10 +95,10 @@ System.out.println("reg_num=" + reg_num);
 List roomList = null;
 int roomCount =0;
 
-roomCount = dao.getRoomCount(detail, id); 
+roomCount = dao.getRoomCount(detail, memId); 
 System.out.println("count 페이지 => 방 개수 : " +roomCount + "\n\n");
 if(roomCount > 0) {
-roomList = dao.getRooms(detail, id);
+roomList = dao.getRooms(detail, memId);
 } 
 	
 %>
@@ -110,18 +110,26 @@ $(document).ready(function(){
 });
 </script>
 <body>
-<div id="container">
+	<div id="container">
 	<div id="header">
 		<div id="logo" onclick="window.location='main.jsp'">
 			<img src="imgs/logo.jpg" width="200px" height="100px" alt="logo">
 		</div>
 		<div id="button">
-			<button id="notice">공지사항</button>
+			<button id="notice" onclick="window.location='board/list.jsp?categ=0'">공지사항</button>
+<% 	
+	if(session.getAttribute("sid") == null){ 
+%>
 			<button id="signin" onclick="window.location='signIn.jsp'">회원가입</button>
 			<button id="login" onclick="window.location='loginForm.jsp'">로그인</button>
+			
+<%}else{ %>
+			<button id="mypage" onclick="window.location='mypage.jsp'">마이페이지</button>
+			<button id="signout" onclick="window.location='logout.jsp'">로그아웃</button>
+<%}%>
 		</div>
 	</div>	
-  <div id="section" class="detail_wrapper">
+  <div id="section">
 	  <p class="hotel_name">
 	    <!-- 호텔이름 -->
 	    <%= dto.getHotel_name() %>
@@ -184,7 +192,7 @@ $(document).ready(function(){
 		<%
 		categ = 3;
 		System.out.println(categ);
-		count = dao.reviewCount(id, categ);
+		count = dao.getReviewCount(categ, reg_num); 
 		System.out.println("hotelaDetail-count : " + count);
 		%>
 		<div>후기</div>
@@ -196,7 +204,7 @@ $(document).ready(function(){
 	      		</tr>
 	    	</table>
  	<%}else{
-		reviewList = dao.getReviews(id, categ, startRow, endRow); %>
+		reviewList = dao.getReviews(startRow, endRow, categ, reg_num); %>
 		  <table class="review">
 	     <% for(int i = 0; i < reviewList.size(); i++) {
 				DetailDTO article = (DetailDTO)reviewList.get(i);
@@ -250,8 +258,8 @@ $(document).ready(function(){
 	  
 	  <div class="search_wrap">
 	    <form id="main_form" class="main_form" action="hotelDetail.jsp" method="post" name="searchForm" onsubmit="return check();">
-	    	<input type="hidden" name="memId" value="<%= id%>" />
-	    	<%System.out.println(id); %>
+	    	<input type="hidden" name="memId" value="<%= memId%>" />
+	    	<%System.out.println(memId); %>
 			<div class="search_bar" style="width:50%;">				
 				<div class="double">
 					<input id="check_in" class="check_date" type="text" name="check_in" value="<%=check_in %>" />
@@ -338,7 +346,7 @@ $(document).ready(function(){
 	boolean check = false;
 	categ= 3; 
 	System.out.println(categ);
-	count= dao.reviewCount(id, categ);   
+	count= dao.getReviewCount(categ, reg_num);   
 	System.out.println("hotelaDetail-count : " + count);
 	%>
 	    <p>후기게시판</p>
@@ -352,7 +360,7 @@ $(document).ready(function(){
 	        	<td colspan="2"><p class="empty"> 후기 게시글이 없습니다.</p></td>
 	      	</tr>        	
 	<%}else{
-		reviewList = dao.getReviews(id, categ, startRow, endRow); %>
+		reviewList = dao.getReviews(startRow, endRow, categ, reg_num); %>
 		 
 	     	<tr>
 	        	<td>작성자</td>
@@ -373,16 +381,20 @@ $(document).ready(function(){
 	    <%check = dao.paymentUserCk(sid,reg_num); 
 	    if(check) {%>
 	    <button onclick="window.location='../anitel/board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=3'">글쓰기</button> 
+	    <button onclick="window.location='hotelDetailQA.jsp?memId=<%=memId%>&reg_num=<%=dto.getReg_num()%>'">전체후기보기</button>
 	    <%} %>
-	    <!-- 테스트용 -->
-	    <button onclick="window.location='../anitel/board/list.jsp?reg_num=<%=dto.getReg_num()%>&categ=3'">전체후기보기</button> 
+	    
+	    <!-- test -->
+	     <button onclick="window.location='hotelDetailQA.jsp?memId=<%=memId%>&amp;reg_num=<%=reg_num%>&hotel_name=<%=dto.getHotel_name()%>'">전체후기보기</button>
+	 	
+	      
 	    
 	  </div>  
 		  <div class="qna_wrap board">
 		 	<%
 		 	categ= 2; 
 		 	System.out.println(categ);
-		 	count= dao.reviewCount(id, categ);   
+		 	count= dao.getReviewCount(categ,reg_num);   
 			System.out.println("hotelaDetail-count : " + count);
 			%>	
 		 	<p>Q&A 게시판</p>
@@ -396,7 +408,7 @@ $(document).ready(function(){
 		        		<td colspan="2"><p class="empty"> Q&A 게시글이 없습니다.</p></td>
 		      		</tr>
      <%}else{
-    	 	reviewList = dao.getReviews(id, categ, startRow, endRow); %>
+    	 	reviewList = dao.getReviews (startRow, endRow, categ, reg_num); %>
 		     		 <tr>
 		        		<td>작성자</td>
 		        		<td>제 목</td>
@@ -416,14 +428,17 @@ $(document).ready(function(){
 		         		<td><%=article.getId() %></td>
 		         		
 		         		<%if(sid == null) { // 팝업 - 로그인이 필요한 페이지 입니다. %> 
-		         		<td><a onclick="secret(<%=article.getBoard_num()%>,<%=pageNum%>,<%=categ%>)">[비밀글] <%=article.getSubject() %></a></td> 
+		         			<td><a onclick="secret(<%=article.getBoard_num()%>,<%=pageNum%>,<%=categ%>)">[비밀글] <%=article.getSubject() %></a></td> 
+		         		
 		         		<!-- 비밀글 // sid 가 사업자거나 어드민인 경우 비번 입력 x  --> 
 		         		<%}else if(session.getAttribute("sid").equals("memId") || (session.getAttribute("sid").equals("admin"))){
-		         			System.out.println("HD sid, memId =" + sid + "," + id);%> 
-		         		<td><a href="../anitel/board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum %>&categ=2">[비밀글]<%= article.getSubject() %></a></td>   
+		         			System.out.println("HD sid, memId =" + sid + "," + memId);%> 
+		         			<td><a href="../anitel/board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum %>&categ=2">[비밀글]<%= article.getSubject() %></a></td>   
+		         		
 		         		<%}else{ %>
-		         		<td><a onclick="secret(<%=article.getBoard_num()%>,<%=pageNum%>,<%=categ%>)">[비밀글] <%=article.getSubject() %></a></td>   
-		      			<%} System.out.println("memId" + "==" + id); %>
+		         			<td><a onclick="secret(<%=article.getBoard_num()%>,<%=pageNum%>,<%=categ%>)">[비밀글] <%=article.getSubject() %></a></td>   
+		      			<%}  
+		      			%>
 		      		</tr>
 		 
  			<%}  	
