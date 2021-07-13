@@ -7,18 +7,17 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>디테일페이지</title>
 	<link rel="stylesheet" href="style/style.css">
  	<link rel="stylesheet" href="style/reset.css">
 	<link rel="stylesheet" href="style/search.css">
 	<link rel="stylesheet" href="style/datepicker.min.css">
 	<script src="js/jquery-3.1.1.min.js"></script>
-	<script src="js/datepicker.min.js"></script>
-	<script src="js/datepicker.ko.js"></script>
+ 	<script src="js/datepicker.min.js"></script>
+ 	<script src="js/datepicker.ko.js"></script>
 	<script type="text/javascript" src="js/search.js"></script>
+	<title> 디테일페이지</title>
 </head>
 <style>
-
 /* 메인페이지 height 100% 옵션주기 위한 div */
 .box {
 	height: 140px;
@@ -39,12 +38,11 @@
 
 </style>
 
-<% 
+<%
+request.setCharacterEncoding("UTF-8");
+
 String sid =(String)session.getAttribute("sid");
 System.out.println("hotelDetail sid=" + sid);
-
-
-request.setCharacterEncoding("UTF-8");
 String id = request.getParameter("memId"); // 사업자아이디
 System.out.println(id);
 String check_in = request.getParameter("check_in");
@@ -88,6 +86,7 @@ RoomDAO dao = RoomDAO.getInstance();
 
 //상단 호텔 정보 꺼내기 
 DetailDTO dto = dao.getHotelDetail(id);
+
 String reg_num = dto.getReg_num();
 System.out.println("reg_num=" + reg_num);
 
@@ -375,6 +374,8 @@ $(document).ready(function(){
 	    if(check) {%>
 	    <button onclick="window.location='../anitel/board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=3'">글쓰기</button> 
 	    <%} %>
+	    <!-- 테스트용 -->
+	    <button onclick="window.location='../anitel/board/list.jsp?reg_num=<%=dto.getReg_num()%>&categ=3'">전체후기보기</button> 
 	    
 	  </div>  
 		  <div class="qna_wrap board">
