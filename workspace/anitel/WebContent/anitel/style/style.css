@@ -316,14 +316,21 @@
 
 
 /* 게시판 리스트 */	
+	.list_wrap {
+    margin-bottom: 100px;
+	}
+
 	.list_subject > a{
 		cursor: pointer;
 	}
 	
+	.hotel_list > li {
+	    margin-bottom: 30px;
+	}
 	.card_wrapper {
 	position:relative;
   height: 300px;
-  width: 80%;
+  width: 85%;
   margin: 10px auto;
   display: inline-flex;
   border-radius: 7px 7px 7px 7px;
@@ -366,7 +373,12 @@
 .product-price p {
   font-family: "Bentham", serif;
 }
-
+.intro {
+	display: inline-block;
+    height: 50px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
 .intro h2 {
   font-size: 0.8em;
   font-family: "Raleway", sans-serif;
@@ -398,6 +410,7 @@
   width: 327px;
   position: absolute;
   right:0;
+  bottom: 35px;
 }
 
 .product-price p {

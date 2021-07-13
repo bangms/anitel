@@ -14,7 +14,7 @@
 	String pw = request.getParameter("user_pw");
 	//String id = (String)session.getAttribute("sid");
 	// String id = "java01";
-	String id = "test01";
+	String id = "java01";
 	
 	System.out.println("popupPro.jsp");
 	

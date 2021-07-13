@@ -10,6 +10,49 @@
   <link rel="stylesheet" href="style/init.css">	
 </head>
 <script type="text/javascript">
+function check() {
+	var inputs = document.inputForm; 
+	if(!inputForm.id.value == "" || !inputForm.id.value) {
+		alert("아이디를 입력하세요!");
+		return;
+	}	
+	if(inputForm.member_pw.value == "" || !inputForm.member_pw.value) {
+		alert("비밀번호를 입력하세요!");
+		return; // 메서드 강제 종료
+	}
+	if(inputForm.member_name.value == "" || !inputForm.member_name.value) {
+		alert("이름을 입력하세요!");
+		return; // 메서드 강제 종료
+	}
+	if(inputForm.member_phone.value == "" || !inputForm.member_phone.value) {
+		alert("연락처를 입력하세요!");
+		return; // 메서드 강제 종료
+	}
+	if(inputForm.member_email.value == "" || !inputForm.member_email.value) {
+		alert("이메일을 입력하세요!");
+		return; // 메서드 강제 종료
+	}
+	if(inputForm.hotel_name.value == "" || !inputForm.hotel_name.value) {
+		alert("호텔 이름을 입력하세요!");
+		return; // 메서드 강제 종료
+	}
+	if(inputForm.hotel_owner.value == "" || !inputForm.hotel_owner.value) {
+		alert("대표자 성명을 입력하세요!");
+		return; // 메서드 강제 종료
+	}
+	if(inputForm.hotel_area.value == "" || !inputForm.hotel_area.value) {
+		alert("호텔 주소를 입력하세요!");
+		return; // 메서드 강제 종료
+	}
+	if(inputForm.hotel_phone.value == "" || !inputForm.hotel_phone.value) {
+		alert("호텔 전화번호를 입력하세요!");
+		return; // 메서드 강제 종료
+	}
+	if(inputForm.reg_num.value == "" || !inputForm.reg_num.value) {
+		alert("사업자등록번호를 입력하세요!");
+		return; // 메서드 강제 종료
+	}
+}
 function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 	if(inputForm.id.value == "" || !inputForm.id.value) {
 		alert("아이디를 입력하세요!");
@@ -37,7 +80,7 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 	<div id="section">
 		<h1 align="center">사업자회원가입</h1>
 	
-		<form action="singInMemberPro.jsp" method="post" name="inputForm">
+		<form action="singInMemberPro.jsp" method="post" name="inputForm" onsubmit="return check()">
 			<h3> 사업자 회원 정보(필수입력)</h3>
 			<table>
 				<tr>

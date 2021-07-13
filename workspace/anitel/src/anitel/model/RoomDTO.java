@@ -8,12 +8,6 @@ public class RoomDTO {
 	private String pet_etctype;
 	private String d_fee;
 	private int pet_big;
-	private int util_pool;
-	private int util_ground;
-	private int util_parking;
-	private int paid_bath;
-	private int paid_beauty;
-	private int paid_medi;
 	private String img;
 	public int getRoom_num() {
 		return room_num;
@@ -56,42 +50,6 @@ public class RoomDTO {
 	}
 	public void setPet_big(int pet_big) {
 		this.pet_big = pet_big;
-	}
-	public int getUtil_pool() {
-		return util_pool;
-	}
-	public void setUtil_pool(int util_pool) {
-		this.util_pool = util_pool;
-	}
-	public int getUtil_ground() {
-		return util_ground;
-	}
-	public void setUtil_ground(int util_ground) {
-		this.util_ground = util_ground;
-	}
-	public int getUtil_parking() {
-		return util_parking;
-	}
-	public void setUtil_parking(int util_parking) {
-		this.util_parking = util_parking;
-	}
-	public int getPaid_bath() {
-		return paid_bath;
-	}
-	public void setPaid_bath(int paid_bath) {
-		this.paid_bath = paid_bath;
-	}
-	public int getPaid_beauty() {
-		return paid_beauty;
-	}
-	public void setPaid_beauty(int paid_beauty) {
-		this.paid_beauty = paid_beauty;
-	}
-	public int getPaid_medi() {
-		return paid_medi;
-	}
-	public void setPaid_medi(int paid_medi) {
-		this.paid_medi = paid_medi;
 	}
 	public String getImg() {
 		return img;

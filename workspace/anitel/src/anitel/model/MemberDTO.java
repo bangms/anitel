@@ -15,6 +15,13 @@ public class MemberDTO {
 	private String hotel_area;
 	private String hold_reason;
 	private String reg_num;
+	private int util_pool;
+	private int util_ground;
+	private int util_parking;
+	private int paid_bath;
+	private int paid_beauty;
+	private int paid_medi;
+	private String hotel_img;
 	public String getId() {
 		return id;
 	}
@@ -99,5 +106,47 @@ public class MemberDTO {
 	public void setReg_num(String reg_num) {
 		this.reg_num = reg_num;
 	}
-	
+	public int getUtil_pool() {
+		return util_pool;
+	}
+	public void setUtil_pool(int util_pool) {
+		this.util_pool = util_pool;
+	}
+	public int getUtil_ground() {
+		return util_ground;
+	}
+	public void setUtil_ground(int util_ground) {
+		this.util_ground = util_ground;
+	}
+	public int getUtil_parking() {
+		return util_parking;
+	}
+	public void setUtil_parking(int util_parking) {
+		this.util_parking = util_parking;
+	}
+	public int getPaid_bath() {
+		return paid_bath;
+	}
+	public void setPaid_bath(int paid_bath) {
+		this.paid_bath = paid_bath;
+	}
+	public int getPaid_beauty() {
+		return paid_beauty;
+	}
+	public void setPaid_beauty(int paid_beauty) {
+		this.paid_beauty = paid_beauty;
+	}
+	public int getPaid_medi() {
+		return paid_medi;
+	}
+	public void setPaid_medi(int paid_medi) {
+		this.paid_medi = paid_medi;
+	}
+	public String getHotel_img() {
+		return hotel_img;
+	}
+	public void setHotel_img(String hotel_img) {
+		this.hotel_img = hotel_img;
+	}
+		
 }
