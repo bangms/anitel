@@ -209,7 +209,7 @@
 								<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%= article.getSubject() %></a>
 <%					} %>
 				</div>
-				<div class="col col-3" style="flex-basis: 20%;"><%= article.getId()%></div>
+				<div class="col col-3" style="flex-basis: 20%;"> 익명 </div>
 	      <div class="col col-4" style="flex-basis: 20%;"><%= sdf.format(article.getReg_date()) %></div>
 	      <div class="col col-5" style="flex-basis: 10%;"><%= article.getReadcount()%></div>
 			</li>
