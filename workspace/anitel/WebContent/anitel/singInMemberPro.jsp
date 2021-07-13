@@ -9,6 +9,7 @@
 </head>
 <body>
 <% request.setCharacterEncoding("UTF-8"); 
+System.out.println(request.getParameter("a"));
 %>
 
 <jsp:useBean id="member" class="anitel.model.MemberDTO" />

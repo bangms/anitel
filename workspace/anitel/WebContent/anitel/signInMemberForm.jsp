@@ -10,49 +10,48 @@
   <link rel="stylesheet" href="style/init.css">	
 </head>
 <script type="text/javascript">
+//유효성 검사 // 체크해서 폼한테 다시 false / true 리턴
 function check() {
-	var inputs = document.inputForm; 
-	if(!inputForm.id.value == "" || !inputForm.id.value) {
+	// id 입력 했는지 
+	var inputs = document.inputForm; // 스크립트로 html의 form요소 가져오기
+	if(!inputs.id.value == "" || !inputs.id.value) {
 		alert("아이디를 입력하세요!");
 		return;
-	}	
-	if(inputForm.member_pw.value == "" || !inputForm.member_pw.value) {
-		alert("비밀번호를 입력하세요!");
-		return; // 메서드 강제 종료
 	}
-	if(inputForm.member_name.value == "" || !inputForm.member_name.value) {
+	if(inputs.member_name.value == "" || !inputs.member_name.value) {
 		alert("사업자 이름을 입력하세요!");
 		return; // 메서드 강제 종료
 	}
-	if(inputForm.member_phone.value == "" || !inputForm.member_phone.value) {
+	if(inputs.member_phone.value == "" || !inputs.member_phone.value) {
 		alert("연락처를 입력하세요!");
 		return; // 메서드 강제 종료
 	}
-	if(inputForm.member_email.value == "" || !inputForm.member_email.value) {
+	if(inputs.member_email.value == "" || !inputs.member_email.value) {
 		alert("이메일을 입력하세요!");
 		return; // 메서드 강제 종료
 	}
-	if(inputForm.hotel_name.value == "" || !inputForm.hotel_name.value) {
+	if(inputs.hotel_name.value == "" || !inputs.hotel_name.value) {
 		alert("호텔 이름을 입력하세요!");
 		return; // 메서드 강제 종료
 	}
-	if(inputForm.hotel_owner.value == "" || !inputForm.hotel_owner.value) {
+	if(inputs.hotel_owner.value == "" || !inputs.hotel_owner.value) {
 		alert("대표자 성명을 입력하세요!");
 		return; // 메서드 강제 종료
 	}
-	if(inputForm.hotel_area.value == "" || !inputForm.hotel_area.value) {
+	if(inputs.hotel_area.value == "" || !inputs.hotel_area.value) {
 		alert("호텔 주소를 입력하세요!");
 		return; // 메서드 강제 종료
 	}
-	if(inputForm.hotel_phone.value == "" || !inputForm.hotel_phone.value) {
+	if(inputs.hotel_phone.value == "" || !inputs.hotel_phone.value) {
 		alert("호텔 전화번호를 입력하세요!");
 		return; // 메서드 강제 종료
 	}
-	if(inputForm.reg_num.value == "" || !inputForm.reg_num.value) {
+	if(inputs.reg_num.value == "" || !inputs.reg_num.value) {
 		alert("사업자등록번호를 입력하세요!");
 		return; // 메서드 강제 종료
 	}
 }
+// 아이디 중복 여부 판단
 function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 	if(inputForm.id.value == "" || !inputForm.id.value) {
 		alert("아이디를 입력하세요!");
@@ -60,8 +59,9 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 	}
 
 	// 팝업
-	var url = "confirmId.jsp?id=" + inputForm.id.value; 
+	var url = "confirmId.jsp?id=" + inputForm.id.value; // confiemId.jsp?pika
 	open(url, "confirmId",  "toolbar=no, location=no, status=no, menubar=no, scrollbars=no resizeable=no, width=300, height=200");
+	
 	
 }
 </script>
@@ -94,8 +94,31 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 				</tr>
 				<tr>
 					<td>비밀번호</td>
+					<script>
+			      function insertPass(){
+			       var a = document.getElementById("a");
+			       var b = document.getElementById("b");
+			       var c = "";
+			       if(a.value.substring(a.value.length-1,a.value.length)=='*'){
+			        b.value = b.value.substring(0,b.value.length-1);
+			       }else if(a.value.substring(a.value.length-1,a.value.length)==""){
+			
+			  	    b.value = b.value.substring(0,b.value.length-1);
+			
+			  	}else{
+			
+			        b.value = b.value + a.value.substring(a.value.length-1,a.value.length);
+			         }
+			       for(i=0;i<a.value.length-1;i++){
+			        c = c+"*";
+			       }
+			       c = c+a.value.substring(a.value.length-1,a.value.length);
+			       a.value = c;
+			      }
+					</script>
 					<td>
-						<input type="password" name="member_pw" />
+				     <input type="text" onkeyup="insertPass();" id="a" />
+				     <input type="hidden" id="b" name="member_pw"/>
 					</td>
 				</tr>
 				<tr>
@@ -206,6 +229,7 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 				<p class="exp_detail_con"> 호텔의 객실과 요금, 부가시설과 추가 서비스, 그리고 대표 이미지 및 소개 이미지는 가입 후 마이 페이지 - 호텔 관리에서 설정하실 수 있습니다.</p>
 			</div>
 			<input type="submit" value="가입하기" />
+			<input type="button" value="취소" onclick="window.location='main.jsp'" />
 		</form>
 		
 	</div>
