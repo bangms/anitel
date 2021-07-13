@@ -18,6 +18,8 @@ public class BookingDTO {
 	private Timestamp check_out;
 	private int booking_status;
 	private int payment;
+	private Timestamp booking_time;
+	
 	public int getBooking_num() {
 		return booking_num;
 	}
@@ -108,6 +110,10 @@ public class BookingDTO {
 	public void setPayment(int payment) {
 		this.payment = payment;
 	}
-
+	public Timestamp getBooking_time() {
+		return booking_time;
+	}
+	public void setBooking_time(Timestamp booking_time) {
+		this.booking_time = booking_time;
+	}
 }
-
