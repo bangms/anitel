@@ -38,7 +38,7 @@
 <%	if(result == 1){%>
 		<script>
 			alert("반려동물 정보가 추가되었습니다.");
-			window.location.href="userMyPage.jsp";
+			window.location.href="/anitel/anitel/userMyPage/userMyPage.jsp";
 		</script>
 <%	}else{%>
 		<script>
