@@ -5,11 +5,11 @@ public class PetDTO {
 	private String id;
 	private String pet_name;
 	private int pet_type;
+	private String pet_etctype;
 	private int pet_gender;
 	private int pet_operation;
 	private String pet_age;
 	private int pet_big;
-	
 	public int getPet_num() {
 		return pet_num;
 	}
@@ -34,6 +34,12 @@ public class PetDTO {
 	public void setPet_type(int pet_type) {
 		this.pet_type = pet_type;
 	}
+	public String getPet_etctype() {
+		return pet_etctype;
+	}
+	public void setPet_etctype(String pet_etctype) {
+		this.pet_etctype = pet_etctype;
+	}
 	public int getPet_gender() {
 		return pet_gender;
 	}
@@ -57,6 +63,6 @@ public class PetDTO {
 	}
 	public void setPet_big(int pet_big) {
 		this.pet_big = pet_big;
-	}	
-
+	}
 }
+	
