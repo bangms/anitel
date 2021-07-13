@@ -51,8 +51,8 @@
 	// 1. 세션아이디 꺼내서 사업자 회원 정보 세팅하기
 	// 2. dao에 아이디 집어넣고 아이디, 성명, 연락처, 이메일 집어넣기
 
-	//String id = (String)session.getAttribute("sid");
-	String id = "test06";													// 테스트용 : 개발 끝나고 지워버려야댐
+	String id = (String)session.getAttribute("sid");
+	//String id = "test06";													// 테스트용 : 개발 끝나고 지워버려야댐
 	MemberDAO dao = MemberDAO.getInstance();
 	MemberDTO member = dao.getMemberHotel(id);
 	System.out.println("memberHInfo.jsp - " + member.getId() + " 사업자등록번호 승인여부 : " + member.getMember_approved() + "(0 : 승인대기, 1 : 승인완료, 2 : 승인보류)");
@@ -79,7 +79,6 @@
 
 		</div>
 	</div>	
-	<div id="main">
 	
 	<!-- 여기서부터 사이드바 입니다.  -->
 	<div id="sidebar">
@@ -137,11 +136,10 @@
       	</table>
       	<br/>
 			<input type="button" value="호텔정보 수정" onclick="popupOpen()"/>&emsp;
-			<!-- window.location='/anitel/memberMypage/memberHModifyForm.jsp?id=<%=member.getId()%> --> 
-			<input type="button" value="객실 및 서비스 관리" onclick="window.location='/anitel/memberMypage/memberRoomModifyForm.jsp?id=<%=member.getId()%>'"/>&emsp;
+			<!-- window.location='memberHModifyForm.jsp?id=<%=member.getId()%> --> 
+			<input type="button" value="객실 및 서비스 관리" onclick="window.location='memberRoomModifyForm.jsp?id=<%=member.getId()%>'"/>&emsp;
 		<br/><br/>
        </div>
-     </div>
       
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
       <div id="footer">
@@ -214,7 +212,7 @@
 	
 	
 	function popupOpen(){
-		var popUrl = "/anitel/popupForm.jsp?pop=4";
+		var popUrl = "../popupForm.jsp?pop=4";
 		var popOption = "width=370, heigth=360, resizable=no, scrollbars=no, status=no;";
 			window.open(popUrl,"",popOption);
 	}

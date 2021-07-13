@@ -65,17 +65,8 @@
 		</div>
 		<div id="button">
 			<button id="notice" onclick="window.location='../board/list.jsp?categ=0'">공지사항</button>
-<% 	
-		if(session.getAttribute("sid") == null){ 
-%>
-			<button id="signin" onclick="window.location='../signIn.jsp'">회원가입</button>
-			<button id="login" onclick="window.location='../loginForm.jsp'">로그인</button>
-			
-		<%}else{ %>
 			<button id="mypage" onclick="window.location='memberMyPage.jsp'">마이페이지</button>
 			<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
-		<%}%>
-
 		</div>
 	</div>	
 
@@ -122,7 +113,7 @@
       	<br/>
       		<%-- <input type="button" id="popup_open_btn" value="회원정보 수정"/>&emsp;--%>
 			<input type="button" value="회원정보 수정" onclick="popupOpen()"/>&emsp;
-			<input type="button" value="비밀번호 변경" onclick="window.location='/anitel/memberMypage/memberModifyPwForm.jsp?id=<%=member.getId()%>'"/>&emsp; 
+			<input type="button" value="비밀번호 변경" onclick="window.location='memberModifyPwForm.jsp?id=<%=member.getId()%>'"/>&emsp; 
 			<br/><br/>
       </div>
       
@@ -196,12 +187,12 @@
 	
 	function submitForm(id) {
 		var btn = document.getElementById('popup_close_btn');
-		document.modify.action = "/anitel/memberMypage/memberModifyPro.jsp?id=" + id;
+		document.modify.action = "memberModifyPro.jsp?id=" + id;
 		document.modify.submit();
 	}
 	
 	function popupOpen(){
-		var popUrl = "/anitel/popupForm.jsp?pop=7";
+		var popUrl = "../popupForm.jsp?pop=7";
 		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";
 		window.open(popUrl,"",popOption);
 	}

@@ -7,12 +7,14 @@
   <head>
     <meta charset="UTF-8">
     <title>마이페이지(사업자회원) - 비밀번호 변경</title>
+   	<link rel="stylesheet" href="../style/style.css">
+		<link rel="stylesheet" href="../style/reset.css">
   </head>
   
 <%	request.setCharacterEncoding("UTF-8");
 
 	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
-	if(session.getAttribute("sid")!=null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
+	if(session.getAttribute("sid")==null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
 			window.location="../loginForm.jsp";
@@ -24,43 +26,41 @@
 	MemberDTO member = dao.getMember(id);
 %>
 <body>
-	<div id="container">
-    
- <!-- 여기서부터 헤더  입니다.  -->
- 	
-      <div id="header">
-      	<div id="logo">
-       		 <img src="imgs/logo.png" width="200px" height="100px">
-        </div>
- 		<section>
-       		 <div id="button">
-        		<button id="notice">공지사항</button>
-        		<button id="signin">회원가입</button>
-   	     		<button id="login">로그인</button>
-       		 </div>
-        </section>
-      </div>
-      
-	<div id="main">
-	
-	<!-- 여기서부터 사이드바 입니다.  -->
+<div id="container">
+	<div id="header">
+		<div id="logo" onclick="window.location='../main.jsp'">
+			<img src="../imgs/logo.jpg" width="200px" height="100px" alt="logo">
+		</div>
+		<div id="button">
+			<button id="notice" onclick="window.location='../board/list.jsp?categ=0'">공지사항</button>
+			<button id="mypage" onclick="window.location='memberMyPage.jsp'">마이페이지</button>
+			<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
+	 </div>
+</div>
+ <!-- 여기서부터 사이드바 입니다.  -->
       <div id="sidebar">
-        <h1>마이페이지</h1>
-        <ul>
-          <li><a href="/anitel/memberMypage/memberMyPage.jsp">내 정보</a></li>
-          <li><a href="/anitel/memberMypage/memberHInfo.jsp">호텔 정보</a></li>
-          <li><a href="/anitel/memberMypage/memberBookingModifyForm.jsp">호텔 예약 관리</a></li>
-          <li><a href="/anitel/memberMypage/memberQna.jsp">호텔 QnA 관리</a></li>
-          <li><a href="/anitel/memberMypage/memberReview.jsp">호텔 후기 관리</a></li>
-        </ul>
+      	<h1 class="menu_name">마이페이지</h1>
+        <div class="sidebar_menu_wrap">
+					<div class="nav-wrap">
+					  <nav class="main-nav" role="navigation">
+					    <ul class="unstyled list-hover-slide">
+					      <li class="menu"><a href="memberMyPage.jsp">내 정보</a></li>
+						    <li class="menu"><a href="memberHInfo.jsp">호텔 정보</a></li>
+						    <li class="menu"><a href="memberBookingModifyForm.jsp">호텔 예약 관리</a></li>
+						    <li class="menu"><a href="memberQna.jsp">호텔 QnA 관리</a></li>
+						    <li class="menu"><a href="memberReview.jsp">호텔 후기 관리</a></li>
+					    </ul>
+					  </nav>
+					</div>
+				</div>
       </div>
       
       <!-- 여기서부터 콘텐츠 화면 입니다.  -->
-      <div id="content">
+      <div id="section" style="padding-left:15%; margin-left:40px;">
         <h1><%= member.getMember_name() %>님의 회원정보 수정</h1>
-      	<hr align="left" width=700 color="black">
+      	<hr align="left"color="black">
       	<br/>
-      	<form action="/anitel/memberMypage/memberModifyPwPro.jsp?id=<%=member.getId()%>" method="post">
+      	<form action="memberModifyPwPro.jsp?id=<%=member.getId()%>" method="post">
       	<table>
       		<tr height = 50>
       			<td width = 250><h3>현재 사용중인 비밀번호</h3></td>
