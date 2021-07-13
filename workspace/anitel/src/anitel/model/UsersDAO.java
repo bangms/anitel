@@ -49,6 +49,30 @@ public class UsersDAO {
 			if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
 		}
 	}
+	//일반유저 회원가입 (펫)
+	public void insertPet(PetDTO dto, String id) { 
+
+		Connection conn = null;
+		PreparedStatement pstmt = null; 
+		try {
+			conn = getConnection();
+			String sql = "insert into pet values(PET_SEQ.nextVal,?,?,?,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, dto.getPet_name());
+			pstmt.setInt(3, dto.getPet_type());
+			pstmt.setInt(4, dto.getPet_gender());
+			pstmt.setInt(5, dto.getPet_operation());
+			pstmt.setString(6, dto.getPet_age());
+			pstmt.setInt(7, dto.getPet_big());
+			pstmt.executeUpdate(); 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+			if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+		}
+	}
 
 	//아이디 중복 체크하는메소드 
 	public boolean confirmId(String id) {
@@ -83,6 +107,35 @@ public class UsersDAO {
 			if(conn != null) try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
 		}		
 		
+		return result;
+	}
+	// 아이디 비밀번호 체크
+	public boolean idPwCheck(String id, String pw) {
+		boolean result = false;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();	
+			String sql = "select * from users where id=? and user_pw=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = true;
+			}
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try { rs.close(); } catch(Exception e) { e.printStackTrace(); }
+			if(pstmt != null) try { pstmt.close(); } catch(Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
+		}
 		return result;
 	}
 	// 노현호 작성 - id 받아서 해당 '일반 회원' 개인정보 불러오기 (userMyPage.jsp 에서 사용함)

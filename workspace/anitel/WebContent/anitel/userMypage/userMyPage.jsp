@@ -18,7 +18,7 @@
 	if(session.getAttribute("sid")==null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
-			window.location="/anitel/userLoginForm.jsp";
+			window.location="../loginForm.jsp";
 		</script>
 <%	}else{ 
 	// 해줘야 하는것
@@ -47,13 +47,13 @@ function popupOpen(){
  	
       <div id="header">
       	<div id="logo">
-       		 <img src="/anitel/anitel/userMyPage/imgs/logo.png" width="200px" height="100px">
+       		 <img src="../imgs/logo.png" width="200px" height="100px">
         </div>
  		<section>
        		 <div id="button">
         		<button id="notice" onclick="location='list.jsp'">공지사항</button>
         		<button id="signin" >회원가입</button>
-   	     		<button id="login" onclick="window.location='/anitel/anitel/userLoginForm.jsp'">로그인</button>
+   	     		<button id="login" onclick="window.location='../loginForm.jsp'">로그인</button>
        		 </div>
         </section>
       </div>
@@ -64,10 +64,10 @@ function popupOpen(){
       <div id="sidebar">
         <h1>마이페이지</h1>
        	<ul>
-      	 	<li><a href="/anitel/anitel/userMyPage/userMyReserve.jsp">나의 예약현황</a></li>
-          	<li><a href="/anitel/anitel/userMyPage/userMyPage.jsp">나의 정보</a></li>
-          	<li><a href="/anitel/anitel/userMyPage/userQnA.jsp">나의 Q&A</a></li>
-          	<li><a href="/anitel/anitel/userMyPage/userReview.jsp">나의 후기</a></li>
+      	 	<li><a href="userMyReserve.jsp">나의 예약현황</a></li>
+          	<li><a href="userMyPage.jsp">나의 정보</a></li>
+          	<li><a href="userQnA.jsp">나의 Q&A</a></li>
+          	<li><a href="userReview.jsp">나의 후기</a></li>
         </ul>
       </div>
       <!-- 여기서부터 콘텐츠 화면 입니다.  -->
@@ -98,7 +98,7 @@ function popupOpen(){
       	</table><br/>
       		<input type="button" value="내정보 수정"  onclick="popupOpen()"/>&emsp;
 			<input type="button" value="비밀번호 변경" onclick="window.location='/anitel/anitel/userMyPage/userModifyPwForm.jsp?id=<%=users.getId()%>'"/>&emsp; 
-			<input type="button" value="반려동물 정보수정" onclick="window.location='/anitel/anitel/userMyPage/petSelect.jsp'"/>&emsp;
+			<input type="button" value="반려동물 정보수정" onclick="window.location='petSelect.jsp'"/>&emsp;
 			<br/><br/>
 			
        </div>
