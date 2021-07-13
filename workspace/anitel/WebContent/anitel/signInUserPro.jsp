@@ -31,7 +31,7 @@
 	dao.insertUser(usersDto); 
 	dao.insertPet(petDto, usersDto.getId()); 
 	
-	//response.sendRedirect("main.jsp");
+	response.sendRedirect("main.jsp");
 
 
 %>
