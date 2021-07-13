@@ -9,7 +9,7 @@
 <title>반려동물 추가폼</title>
 </head>
 <%	request.setCharacterEncoding("UTF-8");	
-	if(session.getAttribute("sid")!=null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
+	if(session.getAttribute("sid")==null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
 			window.location="/anitel/userLoginForm.jsp";
