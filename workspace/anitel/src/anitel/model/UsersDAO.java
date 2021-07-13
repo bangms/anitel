@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.ldap.Rdn;
 import javax.sql.DataSource;
+
 
  
 
@@ -49,32 +49,8 @@ public class UsersDAO {
 			if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
 		}
 	}
-	
-	//일반유저 회원가입 (펫)
-	public void insertPet(PetDTO dto, String id) { 
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null; 
-		try {
-			conn = getConnection();
-			String sql = "insert into pet values(PET_SEQ.nextVal,?,?,?,?,?,?,?)";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setString(2, dto.getPet_name());
-			pstmt.setInt(3, dto.getPet_type());
-			pstmt.setInt(4, dto.getPet_gender());
-			pstmt.setInt(5, dto.getPet_operation());
-			pstmt.setString(6, dto.getPet_age());
-			pstmt.setInt(7, dto.getPet_big());
-			pstmt.executeUpdate(); 
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			if(pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
-			if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
-		}
-	}
-	//아이디 중복 체크 
+
+	//아이디 중복 체크하는메소드 
 	public boolean confirmId(String id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null; 
@@ -109,36 +85,6 @@ public class UsersDAO {
 		
 		return result;
 	}
-	
-	// 아이디 비밀번호 체크
-	public boolean idPwCheck(String id, String pw) {
-		boolean result = false;
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = getConnection();	
-			String sql = "select * from users where id=? and user_pw=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setString(2, pw);
-			
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				result = true;
-			}
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			if(rs != null) try { rs.close(); } catch(Exception e) { e.printStackTrace(); }
-			if(pstmt != null) try { pstmt.close(); } catch(Exception e) { e.printStackTrace(); }
-			if(conn != null) try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
-		}
-		return result;
-	}
 	// 노현호 작성 - id 받아서 해당 '일반 회원' 개인정보 불러오기 (userMyPage.jsp 에서 사용함)
 	public UsersDTO getuser(String id) {
 		UsersDTO dto = null;
@@ -167,7 +113,8 @@ public class UsersDAO {
 		}
 		return dto;
 	}	
-
+	
+	//비밀번호 수정하는 메소드 
 	public int userModifyPw(String id, String pw_now, String pw, String pw2){
 		int result = -1;
 		Connection conn = null;
@@ -201,8 +148,8 @@ public class UsersDAO {
 		// result 값이 -1 : 현재 비밀번호 불일치, 0 : 새 비밀번호간 불일치, 1 : 변경 완료 
 		return result;
 	}
-		
-		
+	
+	
 	// 노현호 작성 - pw 넣어서 '일반회원' 비밀번호 일치 여부 확인(popupPro.jsp에서 사용)
 	public int matchUserPw(String id, String pw) {
 		int result = -1;
@@ -229,6 +176,7 @@ public class UsersDAO {
 		// result 값이 -1 : 현재 비밀번호 불일치, 1 : 변경 완료 
 		return result;
 	}
+	
 	// 노현호 작성 - pw 넣어서 일반회원' 탈퇴(popupPro.jsp에서 사용)
 	public int deleteUser(String id, String pw) {
 		int result = -1;
@@ -259,30 +207,32 @@ public class UsersDAO {
 		// result 값이 -1 : 현재 비밀번호 불일치, 0 : 새 비밀번호간 불일치, 1 : 변경 완료 
 		return result;
 	}
-	//개인정보 수정 메서드
-	public int userModify(String id, UsersDTO dto){
-	int result = -1;
-	Connection conn = null;
-	PreparedStatement pstmt = null;
+
 	
-	try {
-		conn = getConnection();
-		String sql = "update users set user_name=?, user_phone=?, user_email=? where id=?";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, dto.getUser_name());
-		pstmt.setString(2, dto.getUser_phone());
-		pstmt.setString(3, dto.getUser_email());
-		pstmt.setString(4, id);
-		
-		result = pstmt.executeUpdate();
+	//개인정보 수정 메서드 (userModifyForm)
+	public int userModify(String id, UsersDTO dto){
+		int result = -1;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+	
+		try {
+			conn = getConnection();
+			String sql = "update users set user_name=?, user_phone=?, user_email=? where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getUser_name());
+			pstmt.setString(2, dto.getUser_phone());
+			pstmt.setString(3, dto.getUser_email());
+			pstmt.setString(4, id);
+			
+			result = pstmt.executeUpdate();
 
-	}catch(Exception e) {
-		e.printStackTrace();
-	}finally {
-		if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
-		if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
-	}
-	return result;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		return result;
 
-}
+	}	
 }
