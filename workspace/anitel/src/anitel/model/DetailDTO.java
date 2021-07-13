@@ -17,9 +17,16 @@ public class DetailDTO {
 		private String paid_beauty;
 		private String paid_medi;
 		private String hotel_img;
+		private String hotel_add;
 		
 		// 검색 호텔정보 룸 뿌려줄 
 		 
+		public String getHotel_add() {
+			return hotel_add;
+		}
+		public void setHotel_add(String hotel_add) {
+			this.hotel_add = hotel_add;
+		}
 		private int room_num;
 		private String name;
 		private int pet_type;
@@ -27,6 +34,7 @@ public class DetailDTO {
 		private String d_fee;
 		private int pet_big;
 		private String img;
+		
 		
 		
 		private String reg_num;
@@ -184,6 +192,4 @@ public class DetailDTO {
 			this.board_num = board_num;
 		}
 		
- 		
-
 }

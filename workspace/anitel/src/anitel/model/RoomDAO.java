@@ -9,6 +9,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.oreilly.servlet.MultipartRequest;
+
 public class RoomDAO {
 	//싱글톤 만들기 
 	private static RoomDAO instance = new RoomDAO();

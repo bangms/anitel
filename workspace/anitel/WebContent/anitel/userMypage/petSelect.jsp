@@ -1,6 +1,6 @@
 <%@page import="java.util.List"%>
 <%@page import="anitel.model.PetDTO"%>
-<%@page import="anitel.model.PetDAO"%>
+<%@page import="anitel.model.PetDAO"%> 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
