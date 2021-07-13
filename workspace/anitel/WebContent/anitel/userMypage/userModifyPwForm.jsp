@@ -17,7 +17,7 @@
 	if(session.getAttribute("sid")==null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
-			window.location="/anitel/userLoginForm.jsp";
+			window.location="/anitel/anitel/loginForm.jsp";
 		</script>
 <%	}else{ 
 	//String id = (String)session.getAttribute("sid");
@@ -50,10 +50,10 @@
       <div id="sidebar">
         <h1>마이페이지</h1>
        <ul>
-          <li><a href="/anitel/userMyPage/userMyReserve.jsp">나의 예약현황</a></li>
-          <li><a href="/anitel/userMyPage/userMyPage.jsp">나의 정보</a></li>
-          <li><a href="/anitel/userMyPage/userQnA.jsp">나의 Q&A</a></li>
-          <li><a href="/anitel/userMyPage/userReview.jsp">나의 후기</a></li>
+          <li><a href="/anitel/anitel/userMyPage/userMyReserve.jsp">나의 예약현황</a></li>
+          <li><a href="/anitel/anitel/userMyPage/userMyPage.jsp">나의 정보</a></li>
+          <li><a href="/anitel/anitel/userMyPage/userQnA.jsp">나의 Q&A</a></li>
+          <li><a href="/anitel/anitel/userMyPage/userReview.jsp">나의 후기</a></li>
         </ul>
       </div>
       
