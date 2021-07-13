@@ -16,25 +16,29 @@
 	if(session.getAttribute("sid")!=null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
-			window.location="../loginForm.jsp";
+			window.location="/anitel/userLoginForm.jsp";
 		</script>
 <%	}else{ 
 	//String id = (String)session.getAttribute("sid");
-	String id = "test01";													// 테스트용 : 개발 끝나고 지워버려야댐
+	String id = "global";													// 테스트용 : 개발 끝나고 지워버려야댐
 	RoomDAO dao = RoomDAO.getInstance();
 	
 	String path = request.getRealPath("save"); 
-	System.out.println("writePro - 이미지저장경로 : " + path);
+	System.out.println("memberRoomModifyPro.jsp - 이미지저장경로 : " + path);
 	int max = 1024*1024*5;
 	String enc = "UTF-8";
 	DefaultFileRenamePolicy dp = new DefaultFileRenamePolicy();
 	MultipartRequest mr = new MultipartRequest(request, path, max, enc, dp);
-	System.out.println("Form name : " + mr.getParameter("name"));
-	System.out.println("Form pet_type : " + mr.getParameter("pet_type"));
-	System.out.println("Form d_fee : " + mr.getParameter("d_fee"));
-	System.out.println("Form pet_big : " + mr.getParameter("pet_big"));
-	System.out.println("Form name : " + mr.getParameter("name"));
-	int result = dao.insertRoom(id, mr); 
+	
+	String sysName = mr.getFilesystemName("img");	// 업로드된 파일 이름
+	System.out.println(sysName);
+	String orgName = mr.getOriginalFileName("img");	// 파일 원본 이름
+	System.out.println(orgName);
+	String contentType = mr.getContentType("img");	// 파일 종류
+	System.out.println(contentType);
+	
+	
+	int result = dao.insertRoom(id, mr, sysName);
 	System.out.println("memberRoomModifyPro.jsp - 객실 추가 결과 : " + result + "(1 : 추가 성공, -1 : 추가 실패)");
 %>
 <body>
