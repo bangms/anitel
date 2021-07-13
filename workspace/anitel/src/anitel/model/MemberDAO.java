@@ -166,7 +166,7 @@ public class MemberDAO {
 		ResultSet rs = null;
 		try {
 			conn = getConnection();
-			String sql = "select id, member_name, member_phone, member_email from member where id=?";
+			String sql = "select id, member_name, member_phone, member_email, reg_num from member where id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -176,6 +176,7 @@ public class MemberDAO {
 				dto.setMember_name(rs.getString(2));
 				dto.setMember_phone(rs.getString(3));
 				dto.setMember_email(rs.getString(4));
+				dto.setReg_num(rs.getString(5));
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
