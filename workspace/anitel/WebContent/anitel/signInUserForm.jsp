@@ -5,11 +5,45 @@
 <head>
 	<meta charset="UTF-8">
 	<title>일반회원 회원가입폼</title>
-  <link rel="stylesheet" href="style/style.css">
+  	<link rel="stylesheet" href="style/style.css">
  	<link rel="stylesheet" href="style/reset.css">
-  <link rel="stylesheet" href="style/init.css">	
+  	<link rel="stylesheet" href="style/init.css">	
 	
 	<script>
+ 
+	// 유효성 검사 
+	function check(){
+		
+		if(!inputForm.id.value){
+			alert("아이디가 입력되지 않았습니다.");
+			return false;
+		}
+	
+		if(!inputForm.user_pw.value){
+			alert("비밀번호가 입력되지 않았습니다.");
+			return false;
+		}
+		if(!inputForm.user_name.value){
+			alert("이름이 입력되지 않았습니다.");
+			return false;
+		}
+		if(!inputForm.user_phone.value){
+			alert("연락처가 입력되지 않았습니다.");
+			return false;
+		}
+		if(!inputForm.user_email.value){
+			alert("이메일이 입력되지 않았습니다.");
+			return false;
+		}
+		if(!inputForm.pet_name.value){
+			alert("반려동물 이름이 입력되지 않았습니다.");
+			return false;
+		}
+	 
+	}
+	
+	
+	//아이디 중복체크 
 	function confirmId(inputForm) {
 		if (inputForm.id.value == "" || !inputForm.id.value) {
 			alert("아이디를 입력하세요");
@@ -18,6 +52,8 @@
 			var url = "confirmId.jsp?id=" + inputForm.id.value;
 			open(url, "confirmId", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
 		}
+	
+ 
 	</script>
 </head>
 <div id="container">
