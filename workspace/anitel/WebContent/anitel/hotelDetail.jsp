@@ -300,7 +300,7 @@ $(document).ready(function(){
 	      	방 사진 : <img src="/anitel/save/<%=room.getImg()%>" /><br />
 	      	방 가격 : (박)<%=room.getD_fee()%> 원	<br />
 	      	대형견 수용여부 :<%=room.getPet_big() %> <br />
-	      <button onclick="window.location='.jsp?memId=<%=room.getId()%>&room_num=<%=room.getRoom_num()%>&check_in=<%=room.getCheck_in()%>&check_out=<%=room.getCheck_out()%>'">예약하기</button>
+	      <button onclick="window.location='.jsp?memId=<%=room.getId()%>&room_num=<%=room.getRoom_num()%>&check_in=<%=check_in%>&check_out=<%=check_out%>'">예약하기</button>
 	      </li>
 	    <%} 
 	} %>
