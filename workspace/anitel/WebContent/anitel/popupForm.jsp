@@ -48,6 +48,11 @@
 	      	width: 110px;
 	      	height:40px;	
 		}
+		 input[type=submit]:hover{
+      	background-color:#111111;
+      	color:#ffffff;
+      }
+		
 		   #withdraw{ 
       	border: none;
       	border-radius: 3px;
@@ -58,41 +63,40 @@
       	margin-left:600px;
       	position:relative;
       }
-	
-
+	// petSelect.jsp 				  -> petinfoModiform (pooh 10)
+	//			-> popForm -> popPro 
+	//   pooh(10)-> pooh(10)-> pooh(10) 
+	// myReserve.jsp
       	
     </style>
 
 	</head>
 <%
 	request.setCharacterEncoding("UTF-8");
-	
-	System.out.println("popupForm.jsp");
-
 	String pop = request.getParameter("pop");
-	System.out.println(pop);
-	String id = request.getParameter("id");
-	System.out.println(id);
-%>
-<script>
-	function pop3(){ // pop : 3
-		opener.document.location="/anitel/userMypage/userModifyForm.jsp";
-		self.close();
-	}
-	function pop7(){ // pop : 7
-		opener.document.location="/anitel/memberMypage/memberModifyForm.jsp?id";
-		self.close();
+	
+	String pet_num = null; 
+	if(request.getParameter("pet_num") != null){
+		pet_num = request.getParameter("pet_num");
 	}
 	
-	function move() {
-		console.log(opener.document.location);
-		String url = "/anitel/popupPro.jsp";
-		opener.document.location=url;
-	} 
-</script>
+	String booking_num= null;
+	if(request.getParameter("booking_num") != null){
+		booking_num = request.getParameter("booking_num");
+	}
+%>
+
 <body>
 	<br/><br/><br/><br/>
-	<form action="popupPro.jsp?pop=<%= pop %>" method="post">
+		<form action="popupPro.jsp?pop=<%= pop %>" method="post">
+		<%if(pet_num != null){ %>
+		<input type="hidden" name="pet_num" value="<%=pet_num%>" />
+		<%} %>
+	
+		<%if(booking_num != null){ %>
+			<input type="hidden" name="booking_num" value="<%=booking_num%>"/>
+		<%} %>
+ 	
 	<table>
 		<tr>
 			<td>본인확인을 위하여 비밀번호를 입력해주세요. </td>
@@ -102,13 +106,10 @@
 		</tr>
 		<tr>
 			<td align="center"><br/>
-				<input type="submit" value="확인" onclick="move()"/>&emsp;
-				<!-- onclick="<% if(pop.equals("1")){}else if(pop.equals("2")){%><%}else if(pop.equals("3")){%>pop3()<%} else if(pop.equals("4")){} else if(pop.equals("5")){} else if(pop.equals("6")){} else if(pop.equals("7")){%> pop7() <%} %>" -->	 
-				<input type="button" value="취소" onclick='window.close()'/>
-			</td>
+			<input type="submit" value="확인" />&emsp;	 
+			<input type="button" value="취소" onclick='window.close()'/> </td>
 		</tr>
 	</table> 
 	</form>
 </body>
-</html>
 </html>

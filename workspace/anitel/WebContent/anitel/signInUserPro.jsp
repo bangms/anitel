@@ -29,20 +29,21 @@
 	UsersDAO dao = UsersDAO.getInstance();
 	// 회원정보 DB에 저장시키는 메서드 호출, 이때 데이터는 vo 하나보내기.
 	dao.insertUser(usersDto); 
-	dao.insertPet(petDto, usersDto.getId()); 
+	dao.insertPet(petDto, usersDto.getId());    
 	
-	response.sendRedirect("main.jsp");
 
 
 %>
 	 
+	 
+	 <script type="text/javascript">
+		alert("회원 가입이 정상적으로 처리 되었습니다.");
+		window.location.href="main.jsp";
+	</script>
  
 
 
 
 <body>
-안녕하세요
-
-
 </body>
 </html>
