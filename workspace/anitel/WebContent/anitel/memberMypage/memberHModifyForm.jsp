@@ -57,7 +57,7 @@
         <h1><%= member.getMember_name() %>님의 호텔관리</h1>
       	<hr align="left" width=800 color="black">
       	<br/>
-      	<form action="/anitel/memberMypage/memberHModifyPro.jsp?id=<%=member.getId()%>" method="post">
+      	<form action="/anitel/memberMypage/memberHModifyPro.jsp" method="post">
       	<table>
       		<tr height = 50>
       			<td width = 200><h3>호텔 이름</h3></td>
