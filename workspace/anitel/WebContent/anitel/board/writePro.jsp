@@ -57,7 +57,10 @@
  	int hidden_content = Integer.parseInt(mr.getParameter("hidden_content"));
  	System.out.println("hiddenWP=" + hidden_content);
  	
- 
+ 	//reg_num
+ 	String reg_num = mr.getParameter("reg_num");
+ 	
+ 	
  	String sysName = mr.getFilesystemName("img"); // 파일 넘어오는 이름 
 	String orgName = mr.getOriginalFileName("img"); // 파일 원본 이름 
  	String contentT = mr.getContentType("img"); // 파일 종류 

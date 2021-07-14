@@ -19,7 +19,10 @@
    
    	// categ 값 꺼내기 
    	int categ = Integer.parseInt(request.getParameter("categ"));
-   	System.out.println("commment.categ=" + categ);
+   	System.out.println("reply.categ=" + categ);
+   	
+   	String reg_num = request.getParameter("reg_num");
+	System.out.println("reply.reg_num=" +reg_num);
    
 	// DB에 담아줄 글 관련 정보 선언 및 초기화
 	int board_num= Integer.parseInt(request.getParameter("board_num"));
@@ -53,6 +56,7 @@
 			<%-- 글에 대한 속성값 노출 없이 전송 --%>
 			<input type="hidden" name="board_num" value="<%= board_num%>"/>
 			<input type="hidden" name="categ" value="<%= categ%>"/>
+			<input type="hidden" name="reg_num" value="<%= reg_num%>"/>
 			<table>
 				<tr>
 					<td><h1>답변</h1></td>

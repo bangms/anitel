@@ -17,6 +17,11 @@
 	String pageNum = request.getParameter("pageNum");
 	int categ = Integer.parseInt(request.getParameter("categ"));
 	
+	//reg_num 이 넘어올때 
+	String reg_num = request.getParameter("reg_num");
+	System.out.println("content reg_num=" +reg_num);
+	
+	
 	if (session.getAttribute("sid") == null) {
 	%>
 		<script type="text/javascript">
@@ -31,6 +36,7 @@
 	<form action="popCheckPwPro.jsp?pageNum=<%=pageNum%>" method="post">
 		<input type="hidden" name="board_num" value="<%=board_num%>" />
 		<input type="hidden" name="categ" value="<%=categ%>" />
+		<input type="hidden" name="reg_num" value="<%=reg_num%>" />
 		<table>
 			<tr>
 				<td><input type="password" name="pw" /></td>

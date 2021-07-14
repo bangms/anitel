@@ -18,11 +18,13 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 
+	String id = (String)session.getAttribute("sid");
+	System.out.println("sid=" + id);
+
 	//컨텐츠에서 보고 있던 페이지 번호 뽑아오기 
 	String pageNum = request.getParameter("pageNum"); 
- 
-	String id = (String)session.getAttribute("sid");
-	System.out.println("sid=" + id);	
+ 	
+	
 	
  	
 	BoardDTO dto = new BoardDTO();
@@ -39,11 +41,14 @@
  	System.out.println("board_num=" + board_num);
  	int categ = Integer.parseInt(mr.getParameter("categ"));
  	System.out.println("categ=" + categ);
+ 	String reg_num = request.getParameter("reg_num");
+	System.out.println("list reg_num=" +reg_num);
  	
 	// update imgMember set email = ? .... where id = ?
 	// modify Form 에서 id 값이 안넘어오니, 세션에서 꺼내서 dto에 추가
 	dto.setBoard_num(board_num);
 	dto.setId(id);
+	dto.setReg_num(reg_num);
 	dto.setCateg(categ); 
  	dto.setSubject(mr.getParameter("subject"));
  	dto.setPw(mr.getParameter("pw")); 

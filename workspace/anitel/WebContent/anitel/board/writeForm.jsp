@@ -9,37 +9,39 @@
 	<link rel="stylesheet" href="../style/reset.css">
 	<link rel="stylesheet" href="../style/init.css">	
 </head>
-	<%-- 
+ 
 	<script>
-	// 유효성 검사 TODO: 마지막에 name="inputForm" onsubmit="return check()" 추가 
-		function check(){
-		
-			if(!inputs.subject.value){
+	// 유효성 검사  
+		function check(){ 
+			if(!inputForm.subject.value){
 				alert("제목이 입력되지 않았습니다.");
 				return false;
 			}
-		
-			if(!inputs.pw.value){
+			if(!inputForm.pw.value){
 				alert("비밀번호가 입력되지 않았습니다.");
 				return false;
 			}
-			if(!inputs.content.value){
+			if(!inputForm.ctt.value){
 				alert("본문이 입력되지 않았습니다.");
 				return false;
 			}
 		}
 	</script>
-	--%>
+ 
 
 <%   
    	String id = (String)session.getAttribute("sid");
-		System.out.println(id);
+	System.out.println(id);
 		
-		String pageNum = request.getParameter("pageNum");
+	String pageNum = request.getParameter("pageNum");
 
-		// categ 값 꺼내기 
+	// categ 값 꺼내기 
    	int categ = Integer.parseInt(request.getParameter("categ"));
    	System.out.println("writeForm.categ=" + categ);
+   	
+  	//reg_num 이 넘어올때 
+  	String reg_num = request.getParameter("reg_num");
+  	System.out.println("content reg_num=" +reg_num);
    
 	// DB에 담아줄 글 관련 정보 선언 및 초기화
 	int board_num=0;
@@ -68,15 +70,15 @@
 				
 			<%}else{ 
 				if(id.equals("admin")) { %><%-- 관리자 일 때 --%>
-					<button id="mypage" onclick="window.location='adminMypage/adminMemberForm.jsp'">마이페이지</button>
+					<button id="mypage" onclick="window.location='../adminMypage/adminMemberForm.jsp'">마이페이지</button>
 			<%}
 				if(id.equals("일반회원")) { %><%-- 일반 회원 일 때 --%>
-					<button id="mypage" onclick="window.location='mypage.jsp'">마이페이지</button>
+					<button id="mypage" onclick="window.location='../mypage.jsp'">마이페이지</button>
 			<%}
 				if(id.equals("사업자")) { %><%-- 사업자 일 때 --%>
-					<button id="mypage" onclick="window.location='mypage.jsp'">마이페이지</button>
+					<button id="mypage" onclick="window.location='../mypage.jsp'">마이페이지</button>
 			<%}%>	
-				<button id="signout" onclick="window.location='logout.jsp'">로그아웃</button>
+				<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
 		<%}%>
 		</div>
 	</div>	
@@ -93,11 +95,12 @@
 		<% } %>
  	</div>
  	<div align="center">
-		<form action="writePro.jsp" method="post" enctype="multipart/form-data">
+		<form action="writePro.jsp" method="post" enctype="multipart/form-data" name="inputForm" onsubmit="return check()">
 			<%-- 글에 대한 속성값 노출 없이 전송 --%>
-			<input type="hidden" name="board_num" value="<%= board_num%>"/>
-			<input type="hidden" name="categ" value="<%= categ%>"/>
-			<input type="hidden" name="hidden_content" value="<%= hidden_content%>"/>
+			<input type="hidden" name="board_num" value="<%=board_num%>"/>
+			<input type="hidden" name="categ" value="<%=categ%>"/>
+			<input type="hidden" name="hidden_content" value="<%=hidden_content%>"/>
+			<input type="hidden" name="reg_num" value="<%=reg_num%>"/>
 	 
 			<table>
 				<tr>

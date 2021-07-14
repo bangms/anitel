@@ -25,39 +25,49 @@
 	int categ= Integer.parseInt(request.getParameter("categ"));
 	System.out.println("modify.categ:" + categ);
 	
-	///
+	//reg_num
+	String reg_num = request.getParameter("reg_num");
+	System.out.println("list reg_num=" +reg_num);
+	
 	// 디비에서 해당글 가져와 화면에 뿌려주기
 	BoardDAO dao = BoardDAO.getInstance();
 	BoardDTO article = dao.getUpdateArticle(board_num, categ);  
 	
 %>
 <body>
-	<div id="container">
+<div id="container">
 	<div id="header">
 		<div id="logo" onclick="window.location='../main.jsp'">
 			<img src="../imgs/logo.jpg" width="200px" height="100px" alt="logo">
 		</div>
 		<div id="button">
 			<button id="notice" onclick="window.location='list.jsp?categ=0'">공지사항</button>
-		<% 	
+			<% 	
 			if(session.getAttribute("sid") == null){ 
-		%>
+			%>
 				<button id="signin" onclick="window.location='../signIn.jsp'">회원가입</button>
 				<button id="login" onclick="window.location='../loginForm.jsp'">로그인</button>
-					
-		<%}else{ %>
-				<button id="mypage" onclick="window.location='../mypage.jsp'">마이페이지</button>
+				
+			<%}else{ 
+				if(id.equals("admin")) { %><%-- 관리자 일 때 --%>
+					<button id="mypage" onclick="window.location='../adminMypage/adminMemberForm.jsp'">마이페이지</button>
+			<%}
+				if(id.equals("일반회원")) { %><%-- 일반 회원 일 때 --%>
+					<button id="mypage" onclick="window.location='../mypage.jsp'">마이페이지</button>
+			<%}
+				if(id.equals("사업자")) { %><%-- 사업자 일 때 --%>
+					<button id="mypage" onclick="window.location='../mypage.jsp'">마이페이지</button>
+			<%}%>	
 				<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
 		<%}%>
-
 		</div>
-	</div>	
-
+	</div>
 	<div id="section">
 	 	<div align="center">
  			<form action="modifyPro.jsp?pageNum=<%=pageNum%>" method="post" enctype="multipart/form-data">
 	 	 		<input type="hidden" name="board_num" value="<%= board_num%>" />
 	 	 		<input type="hidden" name="categ" value="<%= categ%>" />
+	 	 		<input type="hidden" name="reg_num" value="<%= reg_num%>" />
 				<table>
 					<tr>
 						<td><input size="60%" type="text" name="subject" value="<%=article.getSubject()%>" placeholder="제목수정" /></td>

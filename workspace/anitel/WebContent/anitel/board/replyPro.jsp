@@ -22,7 +22,10 @@
 	String pageNum = request.getParameter("pageNum"); 
 	int categ= Integer.parseInt(request.getParameter("categ"));
 	String board_num = request.getParameter("board_num");
-	System.out.println("board_num : " + board_num);
+	System.out.println("reply_pro board_num : " + board_num);
+	
+	String reg_num = request.getParameter("reg_num");
+	System.out.println("reply_pro reg_num=" +reg_num);
 	
 	article.getReply_content(); 
 	
@@ -33,7 +36,7 @@
 	
 	System.out.println("result=" + result);
 	
-	response.sendRedirect("content.jsp?board_num=" + article.getBoard_num() + "&pageNum=" + pageNum + "&categ=" + categ);
+	response.sendRedirect("content.jsp?board_num=" + article.getBoard_num() + "&pageNum=" + pageNum + "&categ=" + categ + "&reg_num=" + reg_num);
  
  
 %>

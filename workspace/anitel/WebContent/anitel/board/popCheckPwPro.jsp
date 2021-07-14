@@ -13,11 +13,15 @@
 	String pageNum = request.getParameter("pageNum");
 	int categ = Integer.parseInt(request.getParameter("categ"));
 	
+	//reg_num 이 넘어올때 
+	String reg_num = request.getParameter("reg_num");
+	System.out.println("content reg_num=" +reg_num);
+	
 	if (session.getAttribute("sid") == null) {
 %>
 	<script type="text/javascript">
 		alert("잘못된 접근입니다!");
-		window.location = "list.jsp?board_num="+ <%=board_num%>+ "&pageNum=" + <%=pageNum%> +"&categ=" + <%=categ%>;
+		window.location = "list.jsp?board_num="+ <%=board_num%>+ "&pageNum=" + <%=pageNum%> +"&categ=" + <%=categ%> + "&reg_num=" + <%=reg_num%>;
 	</script>
 <%
 	} else {
@@ -30,7 +34,7 @@
 	%>
 	<script type="text/javascript">
 		self.close();
-		opener.document.location = "content.jsp?board_num="+ <%=board_num%>+"&pageNum=" + <%=pageNum%> +"&categ=" + <%=categ%>;
+		opener.document.location = "content.jsp?board_num="+ <%=board_num%>+"&pageNum=" + <%=pageNum%> +"&categ=" + <%=categ%> + "&reg_num=" + <%=reg_num%>;;
 	</script>
 	<%
 	} else { // 비밀번호가 틀린 경우

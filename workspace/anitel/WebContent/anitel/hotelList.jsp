@@ -1,3 +1,4 @@
+<%@page import="anitel.model.BoardDAO"%>
 <%@page import="anitel.model.HotelDTO"%> 
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -104,7 +105,7 @@ $(document).ready(function(){
 });
 </script>
 <body>
-	<div id="container">
+<div id="container">
 	<div id="header">
 		<div id="logo" onclick="window.location='main.jsp'">
 			<img src="imgs/logo.jpg" width="200px" height="100px" alt="logo">
@@ -112,17 +113,33 @@ $(document).ready(function(){
 		<div id="button">
 			<button id="notice" onclick="window.location='board/list.jsp?categ=0'">공지사항</button>
 <% 	
-	if(session.getAttribute("sid") == null){ 
+	String id =(String)session.getAttribute("sid");
+
+	if(id == null){ 
 %>
 			<button id="signin" onclick="window.location='signIn.jsp'">회원가입</button>
 			<button id="login" onclick="window.location='loginForm.jsp'">로그인</button>
 			
-<%}else{ %>
-			<button id="mypage" onclick="window.location='mypage.jsp'">마이페이지</button>
-			<button id="signout" onclick="window.location='logout.jsp'">로그아웃</button>
+<%}else{ 
+		BoardDAO board = BoardDAO.getInstance(); 
+		int checkID = board.idCk(id);
+		System.out.println("아이디 체크 - 사업자면 2, 일반회원이면 1 : " + checkID);
+		
+		if(checkID == 1) { 
+			if(session.getAttribute("sid").equals("admin")) { %><%--— 관리자 일 때 —--%>
+				<button id="mypage" onclick="window.location='adminMypage/adminMemberForm.jsp'">마이페이지</button>
+		<%} else { %>
+			<button id="mypage" onclick="window.location='userMypage/userMyPage.jsp'">마이페이지</button>
+		<%}
+		}
+		if(checkID == 2) { %><%--— 사업자 일 때 —--%>
+			<button id="mypage" onclick="window.location='memberMypage/memberMyPage.jsp'">마이페이지</button>
+	<%}%>	
+		<button id="signout" onclick="window.location='logout.jsp'">로그아웃</button>
 <%}%>
+
 		</div>
-	</div>	
+	</div>
   <div id="section" style="height:100%;padding:0;">
   	<div class="box"></div>
 		<div id="main_wrap">

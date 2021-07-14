@@ -1,3 +1,4 @@
+<%@page import="anitel.model.BoardDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="anitel.model.DetailDTO"%>
 <%@page import="anitel.model.RoomDAO"%>
@@ -110,7 +111,8 @@ $(document).ready(function(){
 });
 </script>
 <body>
-	<div id="container">
+<body style="overflow: hidden">
+<div id="container">
 	<div id="header">
 		<div id="logo" onclick="window.location='main.jsp'">
 			<img src="imgs/logo.jpg" width="200px" height="100px" alt="logo">
@@ -118,105 +120,89 @@ $(document).ready(function(){
 		<div id="button">
 			<button id="notice" onclick="window.location='board/list.jsp?categ=0'">공지사항</button>
 <% 	
-	if(session.getAttribute("sid") == null){ 
+
+	if(sid == null){ 
 %>
 			<button id="signin" onclick="window.location='signIn.jsp'">회원가입</button>
 			<button id="login" onclick="window.location='loginForm.jsp'">로그인</button>
 			
-<%}else{ %>
-			<button id="mypage" onclick="window.location='mypage.jsp'">마이페이지</button>
-			<button id="signout" onclick="window.location='logout.jsp'">로그아웃</button>
+<%}else{ 
+		BoardDAO board = BoardDAO.getInstance();  
+		int checkID = board.idCk(sid);
+		System.out.println("아이디 체크 - 사업자면 2, 일반회원이면 1 : " + checkID);
+		
+		if(checkID == 1) { 
+			if(sid.equals("admin")) { %> <%-- 관리자 일 때 --%>
+				<button id="mypage" onclick="window.location='adminMypage/adminMemberForm.jsp'">마이페이지</button>
+		<%} else { %>
+			<button id="mypage" onclick="window.location='userMypage/userMyPage.jsp'">마이페이지</button>
+		<%}
+		}
+		if(checkID == 2) { %><%-- 사업자 일 때 --%> 
+			<button id="mypage" onclick="window.location='memberMypage/memberMyPage.jsp'">마이페이지</button>
+	<%}%>	
+		<button id="signout" onclick="window.location='logout.jsp'">로그아웃</button>
 <%}%>
+
 		</div>
-	</div>	
-  <div id="section">
+	</div>		
+  <div id="section" class="detail_wrapper">
 	  <p class="hotel_name">
 	    <!-- 호텔이름 -->
 	    <%= dto.getHotel_name() %>
 	  </p>
 	  <div class="info_wrapper">
 	    <div class="img_wrap">
-	      <ul>
-	        <li class="main_img"></li>
-	        <%if(dto.getHotel_img()!= null){%>
-				<li><img src="/anitel/save/<%=dto.getHotel_img()%>" /></li>	
+        <%if(dto.getHotel_img()!= null){%>
+					<img src="save/<%=dto.getHotel_img()%>" />
 			<%}else{ %>
-				<li><img src="/anitel/save/default.png"/></li>
+					<img src="save/default.png"/>
 			<%} %>	  
 	      </ul>
 	    </div>
 	    <!-- 지도 -->
-		<div class="map" id="map"> 
-			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85cb70f384f9e8ef51db5fd63fe96989&libraries=services"></script>
-			<script>
-			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-			    mapOption = {
-			        center: new kakao.maps.LatLng(37.565577,126.978082), // 지도의 중심좌표
-			        level: 3 // 지도의 확대 레벨
-			    };  
-			
-			// 지도를 생성합니다    
-			var map = new kakao.maps.Map(mapContainer, mapOption); 
-			
-			// 주소-좌표 변환 객체를 생성합니다
-			var geocoder = new kakao.maps.services.Geocoder();
-			
-			// 주소로 좌표를 검색합니다
-			geocoder.addressSearch('<%=dto.getHotel_add()%>', function(result, status) {
+			<div class="map" id="map"> 
+				<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85cb70f384f9e8ef51db5fd63fe96989&libraries=services"></script>
+				<script>
+				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				    mapOption = {
+				        center: new kakao.maps.LatLng(37.565577,126.978082), // 지도의 중심좌표
+				        level: 3 // 지도의 확대 레벨
+				    };  
 				
-			    // 정상적으로 검색이 완료됐으면 
-			     if (status === kakao.maps.services.Status.OK) {
-			
-			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			
-			        // 결과값으로 받은 위치를 마커로 표시합니다
-			        var marker = new kakao.maps.Marker({
-			            map: map,
-			            position: coords
-			        });
-			
-			        // 인포윈도우로 장소에 대한 설명을 표시합니다
-			        var infowindow = new kakao.maps.InfoWindow({
-			            content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=dto.getHotel_name()%></div>'
-			        });
-			        infowindow.open(map, marker);
-			
-			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			        map.setCenter(coords);
-			    } 
-			});    
-			</script>
+				// 지도를 생성합니다    
+				var map = new kakao.maps.Map(mapContainer, mapOption); 
+				
+				// 주소-좌표 변환 객체를 생성합니다
+				var geocoder = new kakao.maps.services.Geocoder();
+				
+				// 주소로 좌표를 검색합니다
+				geocoder.addressSearch('<%=dto.getHotel_add()%>', function(result, status) {
+					
+				    // 정상적으로 검색이 완료됐으면 
+				     if (status === kakao.maps.services.Status.OK) {
+				
+				        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+				
+				        // 결과값으로 받은 위치를 마커로 표시합니다
+				        var marker = new kakao.maps.Marker({
+				            map: map,
+				            position: coords
+				        });
+				
+				        // 인포윈도우로 장소에 대한 설명을 표시합니다
+				        var infowindow = new kakao.maps.InfoWindow({
+				            content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=dto.getHotel_name()%></div>'
+				        });
+				        infowindow.open(map, marker);
+				
+				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+				        map.setCenter(coords);
+				    } 
+				});    
+				</script>
+			</div>
 		</div>
-	   
-	    <div class="mini_review_wrap">
-		<%
-		categ = 3;
-		System.out.println(categ);
-		count = dao.getReviewCount(categ, reg_num); 
-		System.out.println("hotelaDetail-count : " + count);
-		%>
-		<div>후기</div>
-	      <div class="mini_review_txt"></div>
-	<% if(count == 0){ %>
-		<table class="review">
-	     		 <tr>
-	       	 		<td colspan="2"><p class="empty"> 후기 게시글이 없습니다.</p></td>
-	      		</tr>
-	    	</table>
- 	<%}else{
-		reviewList = dao.getReviews(startRow, endRow, categ, reg_num); %>
-		  <table class="review">
-	     <% for(int i = 0; i < reviewList.size(); i++) {
-				DetailDTO article = (DetailDTO)reviewList.get(i);
-			%>
-	      <tr>
-	         <td><%= article.getSubject() %></td>    
-	      </tr>
-	    </table>
-  			<%}  	
-	    }%> 
-	    </div>
-	  </div>
 	  <div class="exp_wrap">
 	  	  <div class="info"></div>
 	  		<table>
@@ -444,7 +430,7 @@ $(document).ready(function(){
  			<%}  	
     }%>
        		</table>
-		    <button onclick="window.location='../anitel/board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=2'">문의하기</button> 
+		    <button onclick="window.location='../board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=2'">문의하기</button> 
 		  </div>
 	  </div>
 	  
