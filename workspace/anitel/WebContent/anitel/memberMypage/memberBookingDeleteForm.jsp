@@ -7,7 +7,15 @@
 	<title>예약 삭제</title>
 	
 </head>
-<% String [] check = request.getParameterValues("info"); %>
+<% 
+if(session.getAttribute("sid")==null){ %>
+	<script>
+		alert("로그인이 필요한 서비스입니다.");
+		window.location="../loginForm.jsp";
+	</script>
+<%
+}else{ 
+String [] check = request.getParameterValues("info"); %>
 <body>
 	<form action="memberBookingDeletePro.jsp" method="post">
 		<%for(int i = 0; i < check.length; i++) {%>		
@@ -28,4 +36,5 @@
 		</table>	
 	</form>
 </body>
+<% } %>
 </html>
