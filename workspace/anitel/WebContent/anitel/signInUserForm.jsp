@@ -13,12 +13,22 @@
  
 	// 유효성 검사 
 	function check(){
+		var inputForm = document.inputForm;
+		var regExp = /\s/g;
+		var idReg = /^[a-z0-9]{5,15}$/g;
+		var pet_ageReg = /^[0-9]*$/;
+		var user_phoneReg = /^[0-9]*$/;
 		
 		if(!inputForm.id.value){
 			alert("아이디가 입력되지 않았습니다.");
 			return false;
 		}
-	
+		
+		if(!idReg.test(inputForm.id.value) || regExp.test(inputForm.id.value)){
+			alert("아이디는 6~16자 사이의 영문 소문자+숫자만 가능합니다.");
+			return false;
+		}
+		
 		if(!inputForm.user_pw.value){
 			alert("비밀번호가 입력되지 않았습니다.");
 			return false;
@@ -27,8 +37,14 @@
 			alert("이름이 입력되지 않았습니다.");
 			return false;
 		}
+		
 		if(!inputForm.user_phone.value){
 			alert("연락처가 입력되지 않았습니다.");
+			return false;
+		}
+		
+		if(!user_phoneReg.test(inputForm.user_phone.value)){
+			alert("핸드폰 번호는 숫자만 가능합니다.");
 			return false;
 		}
 		if(!inputForm.user_email.value){
@@ -39,6 +55,11 @@
 			alert("반려동물 이름이 입력되지 않았습니다.");
 			return false;
 		}
+		if(!pet_ageReg.test(inputForm.pet_age.value)){
+			alert("펫 나이는 숫자만 가능합니다.");
+			return false;
+		}
+
 	 
 	}
 	
