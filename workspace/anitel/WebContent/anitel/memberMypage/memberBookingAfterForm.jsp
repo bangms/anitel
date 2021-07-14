@@ -122,7 +122,13 @@
       				<td><%= dto.getUser_name() %></td>
       				<td><%= dto.getUser_phone() %></td>
       				<td><%= dto.getPet_name() %></td>
-      				<td><%= dto.getRequests() %></td>
+      				<td>
+      					<%if(dto.getRequests()==null){ %>
+      						-
+      					<%}else{ %>
+      						<%= dto.getRequests() %>
+      					<%} %>
+      				</td>
       				<td>
 <%					if(dto.getBooking_status()==0){ %>
       					종료됨
