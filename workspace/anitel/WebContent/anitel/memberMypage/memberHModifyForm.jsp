@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>마이페이지(사업자회원) - 호텔정보 수정</title>\
     <link rel="stylesheet" href="../style/style.css">
-		<link rel="stylesheet" href="../style/reset.css">
+    <link rel="stylesheet" href="../style/reset.css">
   </head>
 <%	request.setCharacterEncoding("UTF-8");
 	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
@@ -18,11 +18,6 @@
 			window.location="../loginForm.jsp";
 		</script>
 <%	}else{ 
-	// 해줘야 하는것
-	// 1. 세션아이디 꺼내서 사업자 회원 정보 세팅하기
-	// 2. dao에 아이디 집어넣고 아이디, 성명, 연락처, 이메일 집어넣기
-
-
 	String id = (String)session.getAttribute("sid");
 	MemberDAO dao = MemberDAO.getInstance();
 	MemberDTO member = dao.getMemberHotel(id);
