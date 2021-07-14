@@ -106,7 +106,6 @@
       		</tr>
       	</table>
       	<br/>
-      		<%-- <input type="button" id="popup_open_btn" value="회원정보 수정"/>&emsp;--%>
 			<input type="button" value="회원정보 수정" onclick="popupOpen()"/>&emsp;
 			<input type="button" value="비밀번호 변경" onclick="window.location='memberModifyPwForm.jsp'"/>&emsp; 
 			<br/><br/>
@@ -182,7 +181,7 @@
 	
 	function submitForm(id) {
 		var btn = document.getElementById('popup_close_btn');
-		document.modify.action = "memberModifyPro.jsp?id=" + id;
+		document.modify.action = "memberModifyPro.jsp";
 		document.modify.submit();
 	}
 	
