@@ -111,7 +111,6 @@ $(document).ready(function(){
 });
 </script>
 <body>
-<body style="overflow: hidden">
 <div id="container">
 	<div id="header">
 		<div id="logo" onclick="window.location='main.jsp'">
@@ -430,7 +429,7 @@ $(document).ready(function(){
  			<%}  	
     }%>
        		</table>
-		    <button onclick="window.location='../board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=2'">문의하기</button> 
+		    <button onclick="window.location='board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=2'">문의하기</button> 
 		  </div>
 	  </div>
 	  

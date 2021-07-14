@@ -522,6 +522,61 @@ public class BoardDAO {
 	   }
 	   
 	   // 일반 회원인지 아이디 확인 // 윤지 추가
+	   public boolean userCk(String id) {
+		   boolean result = false;
+		   Connection conn = null;
+		   PreparedStatement pstmt = null;
+		   ResultSet rs = null;
+		   try {
+		         conn = getConnection();
+		         String sql = "select id from users where id = ?";
+		         pstmt = conn.prepareStatement(sql);
+		         pstmt.setString(1, id);
+		         rs = pstmt.executeQuery();
+		         if(rs.next()) {
+		        	 String dbid = rs.getString("id");
+		        	 if(dbid.equals(id)) {
+		        		 result = true;
+		        	 }
+		         }
+		      } catch (Exception e) {
+		         e.printStackTrace();
+		      } finally { 
+		         if(rs != null) try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
+		         if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
+		         if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
+		      }
+		   return result;
+	   }
+	   
+	   // 사업자 회원인지 아이디 확인 // 윤지 추가
+	   public boolean memberCk(String id) {
+		   boolean result = false;
+		   Connection conn = null;
+		   PreparedStatement pstmt = null;
+		   ResultSet rs = null;
+		   try {
+		         conn = getConnection();
+		         String sql = "select id from member where id = ?";
+		         pstmt = conn.prepareStatement(sql);
+		         pstmt.setString(1, id);
+		         rs = pstmt.executeQuery();
+		         if(rs.next()) {
+		        	 String dbid = rs.getString("id");
+		        	 if(dbid.equals(id)) {
+		        		 result = true;
+		        	 }
+		         }
+		      } catch (Exception e) {
+		         e.printStackTrace();
+		      } finally { 
+		         if(rs != null) try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
+		         if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
+		         if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
+		      }
+		   return result;
+	   }
+	   // 일반 회원인지 아이디 확인 // 윤지 추가 
 	   public int idCk(String id) {
 		   int result = -1;
 		   Connection conn = null;
@@ -560,160 +615,162 @@ public class BoardDAO {
 		      }
 		   return result;
 	   }
-	
-	// 사업자 QnA, 후기용 게시글 갯수 로드 메서드
-	public int getQnaArticleCount(int categ, String reg_num) {
-		int count = 0;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	   
+		// 사업자 QnA, 후기용 게시글 갯수 로드 메서드
+		public int getQnaArticleCount(int categ, String reg_num) {
+			int count = 0;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
 
-		try {
-			conn = getConnection();
-			String sql = "select count(*) from board where categ = ? and reg_num = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, categ);
-			pstmt.setString(2, reg_num);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				// count(*) 은 결과를 숫자로 가져옴. 컬럼명 대신 컬럼번호로 꺼내서 count 변수에 담기
-				count = rs.getInt(1); 
+			try {
+				conn = getConnection();
+				String sql = "select count(*) from board where categ = ? and reg_num = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, categ);
+				pstmt.setString(2, reg_num);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					// count(*) 은 결과를 숫자로 가져옴. 컬럼명 대신 컬럼번호로 꺼내서 count 변수에 담기
+					count = rs.getInt(1); 
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(rs != null) try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
+				if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
+				if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if(rs != null) try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
-			if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
-			if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
+			return count;
 		}
-		return count;
-	}
-	
-	// 사업자QnA, 후기용 게시글 로드 메서드
-	public List getQnaArticles (int start, int end, int categ, String reg_num) {  
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List articleList = null;
+		
+		// 사업자QnA, 후기용 게시글 로드 메서드
+		public List getQnaArticles (int start, int end, int categ, String reg_num) {  
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List articleList = null;
 
-		try {
-			conn = getConnection();  
-			//간단버전  
-			String sql = "select b.*, r " 
-					+"from (select A.*, rownum r from "
-					+"(select * from board where categ = ? and reg_num = ? order by reg_date desc) A order by reg_date desc) B where r >= ? and r <= ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, categ);
-			pstmt.setString(2, reg_num);
-			pstmt.setInt(3, start);
-			pstmt.setInt(4, end);
-			rs = pstmt.executeQuery();
+			try {
+				conn = getConnection();  
+				//간단버전  
+				String sql = "select b.*, r " 
+						+"from (select A.*, rownum r from "
+						+"(select * from board where categ = ? and reg_num = ? order by reg_date desc) A order by reg_date desc) B where r >= ? and r <= ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, categ);
+				pstmt.setString(2, reg_num);
+				pstmt.setInt(3, start);
+				pstmt.setInt(4, end);
+				rs = pstmt.executeQuery();
 
-			if(rs.next()) { // 결과가 있으면
-				articleList = new ArrayList(); // arraylist 객체 생성
+				if(rs.next()) { // 결과가 있으면
+					articleList = new ArrayList(); // arraylist 객체 생성
 
-				do {
-					BoardDTO article = new BoardDTO();
-					article.setBoard_num(rs.getInt("board_num"));
-					article.setId(rs.getString("id"));
-					article.setReg_num(rs.getString("reg_num"));
-					article.setCateg(rs.getInt("categ"));
-					article.setSubject(rs.getString("subject"));
-					article.setPw(rs.getString("pw"));
-					article.setCtt(rs.getString("ctt"));
-					article.setImg(rs.getString("img"));
-					article.setReg_date(rs.getTimestamp("reg_date"));
-					article.setReply_date(rs.getTimestamp("reply_date"));
-					article.setReply_content(rs.getString("reply_content"));
-					article.setReadcount(rs.getInt("readcount"));
-					article.setComm(rs.getInt("comm"));
-					article.setHidden_content(rs.getInt("hidden_content"));
-					articleList.add(article);  
+					do {
+						BoardDTO article = new BoardDTO();
+						article.setBoard_num(rs.getInt("board_num"));
+						article.setId(rs.getString("id"));
+						article.setReg_num(rs.getString("reg_num"));
+						article.setCateg(rs.getInt("categ"));
+						article.setSubject(rs.getString("subject"));
+						article.setPw(rs.getString("pw"));
+						article.setCtt(rs.getString("ctt"));
+						article.setImg(rs.getString("img"));
+						article.setReg_date(rs.getTimestamp("reg_date"));
+						article.setReply_date(rs.getTimestamp("reply_date"));
+						article.setReply_content(rs.getString("reply_content"));
+						article.setReadcount(rs.getInt("readcount"));
+						article.setComm(rs.getInt("comm"));
+						article.setHidden_content(rs.getInt("hidden_content"));
+						articleList.add(article);  
 
-				} while (rs.next()); // 없으면 null
+					} while (rs.next()); // 없으면 null
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(rs != null) try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
+				if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
+				if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
+			}   
+			return articleList;
+		}
+		
+		// 사업자용 QnA, 후기 검색용 게시글 갯수 로드 메서드
+		public int getSearchQnaArticleCount(int categ, String sel, String search, String reg_num) {
+			int count = 0;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				conn = getConnection();
+				String sql = "select count(*) from board where categ=? and reg_num=? and " + sel + " like '%" + search + "%'";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, categ);
+				pstmt.setString(2, reg_num);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(rs!=null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+				if(pstmt!=null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+				if(conn!=null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if(rs != null) try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
-			if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
-			if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
-		}   
-		return articleList;
-	}
-	
-	// 사업자용 QnA, 후기 검색용 게시글 갯수 로드 메서드
-	public int getSearchQnaArticleCount(int categ, String sel, String search, String reg_num) {
-		int count = 0;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			conn = getConnection();
-			String sql = "select count(*) from board where categ=? and reg_num=? and " + sel + " like '%" + search + "%'";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, categ);
-			pstmt.setString(2, reg_num);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				count = rs.getInt(1);
+			return count;
+		}
+		
+		// 사업자용 QnA, 후기 검색용 게시글 로드 메서드
+		public List getSearchQnaArticles(int categ, int start, int end, String sel, String search, String reg_num) {
+			List articleList = null;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				conn = getConnection();
+				String sql = "select B.* "
+						+ "from (select A.*, rownum r "
+						+ "from (select * from board where categ=? and reg_num=? and " + sel + " like '%" + search + "%' order by reg_date desc) A order by reg_date desc) B where r >= ? and r <= ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, categ);
+				pstmt.setString(2, reg_num);
+				pstmt.setInt(3, start);
+				pstmt.setInt(4, end);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					articleList = new ArrayList();		 
+					do {
+						BoardDTO article = new BoardDTO();
+						article.setBoard_num(rs.getInt("board_num"));
+						article.setId(rs.getString("id"));
+						article.setReg_num(rs.getString("reg_num"));
+						article.setCateg(rs.getInt("categ"));
+						article.setSubject(rs.getString("subject"));
+						article.setPw(rs.getString("pw"));
+						article.setCtt(rs.getString("ctt"));
+						article.setImg(rs.getString("img"));
+						article.setReg_date(rs.getTimestamp("reg_date"));
+						article.setReply_date(rs.getTimestamp("reply_date"));
+						article.setReply_content(rs.getString("reply_content"));
+						article.setReadcount(rs.getInt("readcount"));
+						article.setComm(rs.getInt("comm"));
+						article.setHidden_content(rs.getInt("hidden_content"));
+						articleList.add(article); 
+					}while(rs.next());
+				}									 
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(rs!=null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+				if(pstmt!=null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+				if(conn!=null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
 			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			if(rs!=null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
-			if(pstmt!=null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
-			if(conn!=null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+			return articleList;
 		}
-		return count;
-	}
-	
-	// 사업자용 QnA, 후기 검색용 게시글 로드 메서드
-	public List getSearchQnaArticles(int categ, int start, int end, String sel, String search, String reg_num) {
-		List articleList = null;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			conn = getConnection();
-			String sql = "select B.* "
-					+ "from (select A.*, rownum r "
-					+ "from (select * from board where categ=? and reg_num=? and " + sel + " like '%" + search + "%' order by reg_date desc) A order by reg_date desc) B where r >= ? and r <= ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, categ);
-			pstmt.setString(2, reg_num);
-			pstmt.setInt(3, start);
-			pstmt.setInt(4, end);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				articleList = new ArrayList();		 
-				do {
-					BoardDTO article = new BoardDTO();
-					article.setBoard_num(rs.getInt("board_num"));
-					article.setId(rs.getString("id"));
-					article.setReg_num(rs.getString("reg_num"));
-					article.setCateg(rs.getInt("categ"));
-					article.setSubject(rs.getString("subject"));
-					article.setPw(rs.getString("pw"));
-					article.setCtt(rs.getString("ctt"));
-					article.setImg(rs.getString("img"));
-					article.setReg_date(rs.getTimestamp("reg_date"));
-					article.setReply_date(rs.getTimestamp("reply_date"));
-					article.setReply_content(rs.getString("reply_content"));
-					article.setReadcount(rs.getInt("readcount"));
-					article.setComm(rs.getInt("comm"));
-					article.setHidden_content(rs.getInt("hidden_content"));
-					articleList.add(article); 
-				}while(rs.next());
-			}									 
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			if(rs!=null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
-			if(pstmt!=null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
-			if(conn!=null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
-		}
-		return articleList;
-	}
+	   
+	   
 }// close

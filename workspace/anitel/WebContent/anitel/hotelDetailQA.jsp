@@ -152,7 +152,7 @@
 			BoardDTO article = (BoardDTO)articleList.get(i); %>
 			<tr><!-- 제목 부분 -->
 				<td><%= number--%></td>
- 				<td><a class="list_subject" href="../anitel/board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%=article.getSubject() %> </a></td>
+ 				<td><a class="list_subject" href="board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%=article.getSubject() %> </a></td>
 				<td> 익 명 </td>
 				<td><%= sdf.format(article.getReg_date()) %></td>
 				<td><%= article.getReadcount()%></td>
