@@ -61,7 +61,7 @@
         <h1><%= member.getMember_name() %>님의 호텔정보 수정</h1>
       	<hr align="left" width=800 color="black">
       	<br/>
-      	<form action="/anitel/memberMypage/memberModifyPro.jsp?id=<%=member.getId()%>" method="post">
+      	<form action="/anitel/memberMypage/memberModifyPro.jsp" method="post">
       	<table>
       		<tr height = 50>
       			<td width = 200><h3>아이디</h3></td>
