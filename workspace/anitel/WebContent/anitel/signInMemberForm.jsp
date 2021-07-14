@@ -14,10 +14,7 @@
 function check() {
 	// id 입력 했는지 
 	var inputs = document.inputForm; // 스크립트로 html의 form요소 가져오기
-	if(!inputs.id.value == "" || !inputs.id.value) {
-		alert("아이디를 입력하세요!");
-		return;
-	}
+
 	if(inputs.member_name.value == "" || !inputs.member_name.value) {
 		alert("사업자 이름을 입력하세요!");
 		return; // 메서드 강제 종료
@@ -74,7 +71,7 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 		<div id="button">
 			<button id="notice" onclick="window.location='board/list.jsp?categ=0'">공지사항</button>
 			<button id="signin" onclick="window.location='signIn.jsp'">회원가입</button>
-			<button id="login" onclick="window.location='LoginForm.jsp'">로그인</button>
+			<button id="login" onclick="window.location='loginForm.jsp'">로그인</button>
 		</div>
 	</div>	
 	<div id="section">
