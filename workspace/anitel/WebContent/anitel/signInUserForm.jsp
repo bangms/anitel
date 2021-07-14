@@ -126,10 +126,10 @@
 					<td>반려동물 종</td>
 					<td>
 						  <select name="pet_type" id="pet_type" onChange="view(this.value)">  
-		              <option value ="1" "pet_type">강아지</option>
-		              <option value ="2">고양이</option>
-		              <option value ="0">기타</option>
-              </select>
+		              		<option value ="1">강아지</option>
+		              		<option value ="2">고양이</option>
+		              		<option value ="0">기타</option>
+             		 	</select>
               <input type="text" id="pet_etctype" class="hidden" name="pet_etctype" />
 					</td>
 				</tr>
