@@ -8,9 +8,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>글조회</title>
-  	<link rel="stylesheet" href="../style/style.css">
+ 	<link rel="stylesheet" href="../style/style.css">
  	<link rel="stylesheet" href="../style/reset.css">
-  	<link rel="stylesheet" href="../style/init.css">	
+ 	<link rel="stylesheet" href="../style/init.css">	
 </head>
 
 <%
@@ -40,6 +40,9 @@
 	//db 에서 글 고유번호 주고 해당 글에 대한 애용 가져오기
 	BoardDAO dao = BoardDAO.getInstance();
 	BoardDTO article = dao.getArticle(board_num);  
+	
+	int checkID = dao.idCk(id);
+	System.out.println("아이디 체크 - 사업자면 2, 일반회원이면 1 : " + checkID);
 	 
 	System.out.println("content subject " + article.getSubject());
 	System.out.println("content img name " + article.getImg());
@@ -58,19 +61,28 @@
 		<div id="button">
 			<button id="notice" onclick="window.location='list.jsp?categ=0'">공지사항</button>
 <% 	
-	if(session.getAttribute("sid") == null){ 
+	if(id == null){ 
 %>
 			<button id="signin" onclick="window.location='../signIn.jsp'">회원가입</button>
 			<button id="login" onclick="window.location='../loginForm.jsp'">로그인</button>
 			
-<%}else{ %>
-			<button id="mypage" onclick="window.location='../mypage.jsp'">마이페이지</button>
-			<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
+<%}else{ 
+	if(checkID == 1) { 
+		if(session.getAttribute("sid").equals("admin")) { %><%-- 관리자 일 때 --%>
+			<button id="mypage" onclick="window.location='../adminMypage/adminMemberForm.jsp'">마이페이지</button>
+	<%} else { %>
+		<button id="mypage" onclick="window.location='../userMypage/userMyPage.jsp'">마이페이지</button>
+	<%}
+	}
+	if(checkID == 2) { %><%-- 사업자 일 때 --%>
+		<button id="mypage" onclick="window.location='../memberMypage/memberMyPage.jsp'">마이페이지</button>
+<%}%>	
+		<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
 <%}%>
 
 		</div>
-	</div>	
-	 <div id="section">
+	</div>		
+	 <div id="section" align="center">
 		<div id = "boardName">
 		<!-- 게시판 이름 분기처리  -->
 	 		<% if (categ == 0){ %>

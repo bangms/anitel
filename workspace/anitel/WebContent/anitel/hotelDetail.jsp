@@ -132,7 +132,7 @@ $(document).ready(function(){
 		
 		if(checkID == 1) { 
 			if(sid.equals("admin")) { %> <%-- 관리자 일 때 --%>
-				<button id="mypage" onclick="window.location='adminMypage/adminMemberForm.jsp'">마이페이지</button>
+				<button id="mypage" onclick="window.location='adminMypage/adminUserForm.jsp'">마이페이지</button>
 		<%} else { %>
 			<button id="mypage" onclick="window.location='userMypage/userMyPage.jsp'">마이페이지</button>
 		<%}
