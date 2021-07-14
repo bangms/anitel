@@ -70,7 +70,7 @@
 				
 			<%}else{ 
 				if(id.equals("admin")) { %><%-- 관리자 일 때 --%>
-					<button id="mypage" onclick="window.location='../adminMypage/adminMemberForm.jsp'">마이페이지</button>
+					<button id="mypage" onclick="window.location='../adminMypage/adminUserForm.jsp'">마이페이지</button>
 			<%}
 				if(id.equals("일반회원")) { %><%-- 일반 회원 일 때 --%>
 					<button id="mypage" onclick="window.location='../mypage.jsp'">마이페이지</button>
