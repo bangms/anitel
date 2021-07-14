@@ -98,7 +98,6 @@
       COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
       			
       </div>
-    </div>
 </body>
 <%	} %>
 </html>
