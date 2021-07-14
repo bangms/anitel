@@ -88,7 +88,14 @@
         <h1><%= member.getMember_name() %>님의 <%= member.getHotel_name() %> 호텔 예약 관리</h1>
       	<hr align="left" width=800 color="black">
       	<br/>
-      	
+
+<%	if(userList==null) { %>
+		현재 예정된 예약이 없습니다.
+	<div>
+      		<input type="button" value="지난 예약 보기" onclick="window.location='memberBookingAfterForm.jsp'" />
+      	</div>
+<% 	}else{ %>      	
+
       	<form action="/anitel/memberMypage/memberBookingModifyForm.jsp" name="frmUserInfo" method="post">
       	예정된 예약 일정
       	<table border=1>
@@ -123,7 +130,8 @@
       		<input type="button" value="삭제" onclick="chkUser();"/>
       		<input type="button" value="지난 예약 보기" onclick="window.location='memberBookingAfterForm.jsp'" />
       	</div>
-		</form>
+	</form>
+<%	} %>
         
  
      </div>
