@@ -59,7 +59,7 @@
         <h1><%= member.getMember_name() %>님의 회원정보 수정</h1>
       	<hr align="left"color="black">
       	<br/>
-      	<form action="memberModifyPwPro.jsp?id=<%=member.getId()%>" method="post">
+      	<form action="memberModifyPwPro.jsp" method="post">
       	<table>
       		<tr height = 50>
       			<td width = 250><h3>현재 사용중인 비밀번호</h3></td>
