@@ -10,8 +10,7 @@
 	<title>호텔 객실 정보 수정 결과</title>
 </head>
 <%	request.setCharacterEncoding("UTF-8"); 
-	//String id = (String)session.getAttribute("sid");
-	String id = "global";													// 테스트용 : 개발 끝나고 지워버려야댐
+	String id = (String)session.getAttribute("sid");
 	RoomDAO dao = RoomDAO.getInstance();
 	int room_num = Integer.parseInt(request.getParameter("room_num"));
 	
