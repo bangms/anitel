@@ -13,6 +13,7 @@
   <title>마이페이지(사업자회원) - 호텔 리뷰 관리</title>
   <link rel="stylesheet" href="../style/style.css">
 	<link rel="stylesheet" href="../style/reset.css">
+	<link rel="stylesheet" href="../style/search.css">
 		<script type="text/javascript">
 		function secret(board_num, pageNum, categ) {
 			var url = "popCheckPw.jsp?pageNum=" + pageNum + "&board_num=" + board_num + "&categ=" + categ;
@@ -124,59 +125,47 @@
       
       <!-- 여기서부터 콘텐츠 화면 입니다.  -->
       <div id="section" style="padding-left:15%; margin-left:40px;">
-        	<h1>호텔 후기</h1>
-      		<hr align="left" width=800 color="black">
-      		<br/>
-      		
-<%	if(count==0){ %>
-	<table>
-		<tr>
-			<td align="center"> 게시글이 없습니다. </td>
-		</tr>
-	</table>
-<%	}else{ %> 
-	<table border="1" width="80%">
-		<tr>
-			<td> No. </td>
-			<td> 제 목 </td>
-			<td> 작성자 </td>
-			<td> 날 짜 </td>	 		
-			<td> 조회수 </td>
-		</tr>
-		
-<%		for(int i=0; i< articleList.size(); i++){
-			BoardDTO article = (BoardDTO)articleList.get(i); %>  
-      	
-			<tr><!-- 제목 부분 -->
-				<td><%= number--%></td>
-<%				if(categ == 0) {%>
-					<td><a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%=article.getSubject() %></a></td>
-<%				}%>
-<%				if(categ == 1 || categ == 2 ) { /* 1:1 문의 */%>
-<%					if(hidden_content == 0){%>
-						<td><a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%= article.getSubject() %></a></td>
-<%					}else{
-						if("admin".equals(id)) {%>
-							<td><a class="list_subject" href="/anitel/board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>">[비밀글]<%= article.getSubject() %></a></td>
-<%						} else if(member.getReg_num().equals(article.getReg_num())) { %>
-							<td><a class="list_subject" href="/anitel/board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>">[비밀글]<%= article.getSubject() %></a></td>
-<%						} else { %>
-							<td align="left"><a class="list_subject" href="#" onclick="secret(<%=article.getBoard_num()%>, <%=pageNum%>, <%=categ%>); return false;">[비밀글]<%= article.getSubject() %></a></td>
-<%						} %>
-<%					} %>
-<%				}
-				if(categ == 3) { /* 호텔 후기 */%><%-- 결제고객 전용 --%>
-					<td><a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"> 익명 </a></td>
-<%				} %>
-				<td><%= article.getId()%></td>
-				<td><%= sdf.format(article.getReg_date()) %></td>
-				<td><%= article.getReadcount()%></td>
-			</tr>
-<%		} %>	
-		</table>
-		<br /><br />
-<%	} %>
-		
+      	<div class="table_wrap">
+					  <h2>호텔 후기</h2>
+						  <ul class="responsive-table">
+				<%	if(count==0){ %>
+							    <li class="table-header">
+							      <div class="col col-1">No.</div>
+							      <div class="col col-2">제  목</div>
+							      <div class="col col-3">작성자</div>
+							      <div class="col col-4">날  짜</div>
+							      <div class="col col-5">조회수</div>
+							    </li>
+							    <li>
+							    	<div style="flex-basis: 100%;">게시글이 없습니다.</div>
+							    </li>
+				<%	}else{ %> 
+							    <li class="table-header">
+							      <div class="col col-1">No.</div>
+							      <div class="col col-2">제  목</div>
+							      <div class="col col-3">작성자</div>
+							      <div class="col col-4">날  짜</div>
+							      <div class="col col-5">조회수</div>
+							    </li>
+						
+				<%		for(int i=0; i< articleList.size(); i++){
+								BoardDTO article = (BoardDTO)articleList.get(i); %>  
+					       	
+			       	
+					      <li class="table-row">
+						      <div class="col col-1" style="flex-basis: 5%;"><%= number--%></div>
+						      <div class="col col-2" style="flex-basis: 45%;">
+						      	<a class="list_subject" href="../anitel/board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%=article.getSubject() %></a>
+					      	</div>
+						      <div class="col col-3" style="flex-basis: 20%;">익명</div>
+						      <div class="col col-4" style="flex-basis: 20%;"><%= sdf.format(article.getReg_date()) %></div>
+						      <div class="col col-5" style="flex-basis: 10%;"><%= article.getReadcount()%></div>
+						    </li>	 	
+				<%		} 
+						}%>
+				  </ul>
+				</div>
+      
 	  <%-- 페이지 번호 --%>
 		<div align="center">
 <%		if(count>0){
@@ -225,21 +214,40 @@
 <%				}
 			}
 	}%>		
-		<br/><br/>
-			<%-- 아이디 , 글제목 으로 검색 --%>
+		<%-- 아이디 , 글제목 으로 검색 --%>
 			<form action="list.jsp"> 
+			
 				<input type="hidden" name="categ" value="<%=categ%>"/>
-				<select name="sel">
-					<option value="id">아이디</option>
-					<option value="subject">글제목</option> 
-				</select>
-				<input type="text" name="search"/>
-				<input type="submit" value="검색"/>
+				<div class="search_wrap">
+					<div id="sel" class="select-box">
+					  <div class="select-box_current" tabindex="1">
+					    <div class="select-box_value">
+					      <input class="select-box_input" type="radio" id="id" value="id" name="sel" checked="checked"/>
+					      <p class="select-box_input-text">작성자</p>
+					    </div>
+					    <div class="select-box_value">
+					      <input class="select-box_input" type="radio" id="subject" value="subject" name="sel"/>
+					      <p class="select-box_input-text">글제목</p>
+					    </div>
+					    <img class="select-box_icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
+					  </div>
+					  <ul class="select-box_list">
+					    <li>
+					      <label class="select-box_option" for="id" aria-hidden="aria-hidden">작성자</label>
+					    </li>
+					    <li>
+					      <label class="select-box_option" for="subject" aria-hidden="aria-hidden">글제목</label>
+					    </li>
+					  </ul>
+					</div>
+					<input class="search" type="text" name="search" />
+					<input class="btn" type="submit" value="검색" />
+				</div>
+				<h3 style="color:black">현재 페이지 : <%=pageNum%></h3>
 			</form>
 			
-			<h3 style="color:black">현재 페이지 : <%=pageNum%></h3>
 		</div>
-  </div>
+	</div>
       
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
       <div id="footer">
