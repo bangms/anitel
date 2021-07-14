@@ -49,22 +49,23 @@ public class UsersDAO {
 			if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
 		}
 	}
-	//일반유저 회원가입 (펫)
+	//일반유저 회원가입 (펫) - 다희수정
 	public void insertPet(PetDTO dto, String id) { 
 
 		Connection conn = null;
 		PreparedStatement pstmt = null; 
 		try {
 			conn = getConnection();
-			String sql = "insert into pet values(PET_SEQ.nextVal,?,?,?,?,?,?,?)";
+			String sql = "insert into pet values(PET_SEQ.nextVal,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, dto.getPet_name());
 			pstmt.setInt(3, dto.getPet_type());
-			pstmt.setInt(4, dto.getPet_gender());
-			pstmt.setInt(5, dto.getPet_operation());
-			pstmt.setString(6, dto.getPet_age());
-			pstmt.setInt(7, dto.getPet_big());
+			pstmt.setString(4, dto.getPet_etctype());
+			pstmt.setInt(5, dto.getPet_gender());
+			pstmt.setInt(6, dto.getPet_operation());
+			pstmt.setString(7, dto.getPet_age());
+			pstmt.setInt(8, dto.getPet_big());
 			pstmt.executeUpdate(); 
 		}catch(Exception e) {
 			e.printStackTrace();
