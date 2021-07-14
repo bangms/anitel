@@ -17,7 +17,7 @@
 <%	request.setCharacterEncoding("UTF-8");
 
 	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
-	if(session.getAttribute("sid")==null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
+	if(session.getAttribute("sid")==null){ %>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
 			window.location="../loginForm.jsp";

@@ -12,14 +12,13 @@
 <jsp:setProperty property="*" name="dto"/>
 
 <%	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
-	if(session.getAttribute("sid")!=null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
+	if(session.getAttribute("sid")==null){ %>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
 			window.location="../loginForm.jsp";;
 		</script>
 <%	}else{ 
-	//String id = (String)session.getAttribute("sid");
-	String id = (String)request.getParameter("id");
+	String id = (String)session.getAttribute("sid");
 	MemberDAO dao = MemberDAO.getInstance();
 	int result = dao.memberModify(id, dto);  
 	System.out.println("memberHModifyPro.jsp - 호텔정보 수정 결과 : " + result + "(1 : 수정 성공, -1 : 수정 실패)");
