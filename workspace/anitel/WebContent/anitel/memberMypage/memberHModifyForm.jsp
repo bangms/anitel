@@ -9,29 +9,17 @@
     <title>마이페이지(사업자회원) - 호텔정보 수정</title>
   </head>
 <%	request.setCharacterEncoding("UTF-8");
-
 	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
-	if(session.getAttribute("sid")!=null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
+	if(session.getAttribute("sid")!=null){ %>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
 			window.location="../loginForm.jsp";
 		</script>
 <%	}else{ 
-	// 해줘야 하는것
-	// 1. 세션아이디 꺼내서 사업자 회원 정보 세팅하기
-	// 2. dao에 아이디 집어넣고 아이디, 성명, 연락처, 이메일 집어넣기
-
-
-	//String id = (String)session.getAttribute("sid");
-	String id = "test06";													// 테스트용 : 개발 끝나고 지워버려야댐
+	String id = (String)session.getAttribute("sid");
 	MemberDAO dao = MemberDAO.getInstance();
 	MemberDTO member = dao.getMemberHotel(id);
-	//System.out.println("memberHModifyForm -  : ");
 %>
-
-
-
-
 <body>
 	<div id="container">
     
