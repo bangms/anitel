@@ -203,53 +203,66 @@ $(document).ready(function(){
 			</div>
 		</div>
 	  <div class="exp_wrap">
-	  	  <div class="info"></div>
-	  		<table>
-	  			<tr> <td>호텔인포: <%= dto.getHotel_intro()%></td> </tr>
-	  		</table> 
-	  		<br />
-	  			<p>편의시설</p>
-   	 <div class="util"></div>
-	  		<table>
-	  			<tr>
-	  				<td>무료시설 :</td>
-	  				<%if("1".equals(dto.getUtil_pool())){ %>
-	  					<td> 수영장 </td>
-	  				<%} %>
-	  				<%if("1".equals(dto.getUtil_ground())){ %>
-	  					<td> 운동장 </td>
-	  				<%} %>
-	  				<%if("1".equals(dto.getUtil_parking())){ %>
-	  					<td> 무료주차 </td>
-	  				<%} %>
-	  			</tr>
-	  		</table>   
-	  <div class="paid"></div>
-	   		 <table>
-	  			<tr>
-	  				<td>유료시설 :</td>
-	  				<%if("1".equals(dto.getPaid_bath())){ %>
-	  					<td> 목 욕 </td>
-	  				<%} %>
-	  				<%if("1".equals(dto.getPaid_beauty())){ %>
-	  					<td> 미 용 </td>
-	  				<%} %>
-	  				<%if("1".equals(dto.getPaid_medi())){ %>
-	  					<td> 병 원 </td>
-	  				<%} %>
-	  			</tr>
-	  		</table>
+  		<hr>
+  	  <div class="info">
+  	  	<h3> 호텔 세부 사항 </h3>
+  	  	<%= dto.getHotel_intro()%>
+  	  </div>
+  	  <hr>
+			<div class="util">
+				<h4>편의시설</h4>
+<%	   	 if(dto.getUtil_pool().equals("1")) { %>
+						<div class="icon">
+							<img src = "imgs/swim.png" />
+							<span>수영장</span>
+						</div>
+<%				} %>
+<%				if(dto.getUtil_ground().equals("1")) { %>
+						<div class="icon">
+							<img src = "imgs/park.png" />
+							<span>운동장</span>
+						</div>
+<%				} %>
+<%				if(dto.getUtil_parking().equals("1")) { %>
+						<div class="icon">
+							<img src = "imgs/parking.png" />							
+							<span>무료주차</span>
+						</div>
+<%				} %>
+	   	 </div>
+		  	
+		  <div class="paid">
+		  	<h4>유료 서비스</h4>
+<%			if(dto.getPaid_bath().equals("1")) { %>
+					<div class="icon">
+						<img src = "imgs/bath.png" />
+						<span>목욕서비스</span>
+					</div>
+<%			} %>
+<%			if(dto.getPaid_beauty().equals("1")) { %>
+					<div class="icon">
+						<img src = "imgs/beauty.png" />
+						<span>미용서비스</span>
+					</div>
+<%			} %>
+<%			if(dto.getPaid_medi().equals("1")) { %>
+					<div class="icon">
+						<img src = "imgs/medi.png" />
+						<span>동물병원</span>
+					</div>
+<%			} %>
+		  </div>
 	  </div>
+	  <hr>
 	  
-	  <div class="search_wrap">
-	    <form id="main_form" class="main_form" action="hotelDetail.jsp" method="post" name="searchForm" onsubmit="return check();">
+	  <div class="search_wrap" style="margin:0;">
+	    <form id="main_form" class="main_form" action="hotelDetail.jsp" method="post" name="searchForm" onsubmit="return check();" style="margin-top:0;">
 	    	<input type="hidden" name="memId" value="<%= memId%>" />
 	    	<%System.out.println(memId); %>
-			<div class="search_bar" style="width:50%;">				
+			<div class="search_bar" style="width:100%;">				
 				<div class="double">
 					<input id="check_in" class="check_date" type="text" name="check_in" value="<%=check_in %>" />
 					<input id="check_out" class="check_date" type="text" name="check_out" value="<%=check_out %>" />
-					 
 				</div>
 
 				<div id="pet" class="select-box" style="width:25%;">
@@ -273,27 +286,36 @@ $(document).ready(function(){
 				  </ul>
 				</div>
 				<div class="search_btn_wrap" style="margin-left:10px;">
-					<button class="search_btn">검색</button> 
+					<button class="search_btn"></button> 
 				</div>
 			</div>
 		</form>
   </div>
 	  
 	  <div class="room_wrap">	
-	    <ul>
-	<%if(roomCount == 0){ %>
-		<p class="empty">조건에 해당하는 방이 없습니다.</p>	 
-	<%}else {
-		for(int i = 0; i < roomList.size(); i++) {
-			DetailDTO room  = (DetailDTO)roomList.get(i);
-		%>
-	      <li>
-	      	방 번호 : <%=room.getRoom_num() %> 	<br />
-	      	방 이름 : <%=room.getName()%>			<br />
-	      	방 사진 : <img src="/anitel/save/<%=room.getImg()%>" /><br />
-	      	방 가격 : (박)<%=room.getD_fee()%> 원	<br />
-	      	대형견 수용여부 :<%=room.getPet_big() %> <br />
-	      <button onclick="window.location='.jsp?memId=<%=room.getId()%>&room_num=<%=room.getRoom_num()%>&check_in=<%=check_in%>&check_out=<%=check_out%>'">예약하기</button>
+	    <ul class="room_list_wrap">
+			<%if(roomCount == 0){ %>
+				<p class="empty" text-align="center">조건에 해당하는 방이 없습니다.</p>	 
+			<%}else {
+				for(int i = 0; i < roomList.size(); i++) {
+					DetailDTO room  = (DetailDTO)roomList.get(i);
+				%>
+				
+					
+	      <li class="room_list">
+	      	<div class="img_wrap">
+	      		<img src="/anitel/save/<%=room.getImg()%>" class="room_img" alt="room_img"/>
+	      	</div>
+	      	<div class="txt_wrap">
+		      	<div class="room_name"_><%=room.getName()%></div>
+		      	<div class="pet_big"_>
+		      		<% if(room.getPet_big() == 1) { %>
+		      				대형견 전용
+		      		<% } %>
+		      	</div>
+		      	<div class="room_fee"_><%=room.getD_fee()%> 원</div>
+	      	</div>
+	      	<button class="list_btn" onclick="window.location='.jsp?memId=<%=room.getId()%>&room_num=<%=room.getRoom_num()%>&check_in=<%=check_in%>&check_out=<%=check_out%>'">예약하기</button>
 	      </li>
 	    <%} 
 	} %>
