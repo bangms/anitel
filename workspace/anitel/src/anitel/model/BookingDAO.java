@@ -182,6 +182,175 @@ public class BookingDAO {
 
 	}
 
+	// 호텔 정보 가져오는 메서드
+		public MemberDTO getHotelInfo(String id) {
+			MemberDTO hotel = new MemberDTO();
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;		
+			
+			try {
+				conn = getConnection();
+				String sql = "select hotel_name, hotel_add, hotel_img, util_pool, util_ground, util_parking, paid_bath, paid_beauty, paid_medi from member where id = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1,id);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					hotel.setHotel_name(rs.getString("hotel_name"));
+					hotel.setHotel_add(rs.getString("hotel_add"));
+					hotel.setHotel_img(rs.getString("hotel_img"));
+					hotel.setUtil_ground(rs.getInt("util_ground"));
+					hotel.setUtil_parking(rs.getInt("util_parking"));
+					hotel.setUtil_pool(rs.getInt("util_pool"));
+					hotel.setPaid_bath(rs.getInt("paid_bath"));
+					hotel.setPaid_beauty(rs.getInt("paid_beauty"));
+					hotel.setPaid_medi(rs.getInt("paid_medi"));
+				}			
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(rs != null) try { rs.close(); }catch(Exception e) { e.printStackTrace(); }
+				if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+				if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+			}
+			return hotel;
+		} // getHotelInfo()
+		
+		// 객실 정보 가져오는 메서드
+		public RoomDTO getRoomInfo(String num) {
+			RoomDTO room = new RoomDTO();
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;		
+			
+			try {
+				conn = getConnection();
+				String sql = "select name, pet_type, pet_etctype, d_fee, pet_big, img from room where room_num = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1,num);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					room.setName(rs.getString("name"));
+					room.setPet_type(rs.getInt("pet_type"));
+					room.setPet_etctype(rs.getString("pet_etctype"));
+					room.setD_fee(rs.getString("d_fee"));
+					room.setPet_big(rs.getInt("pet_big"));
+					room.setImg(rs.getString("img"));
+				}			
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(rs != null) try { rs.close(); }catch(Exception e) { e.printStackTrace(); }
+				if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+				if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+			}
+			return room;
+		}
+		
+		// 예약자 정보 가져오는 메서드
+		public UsersDTO getReserveUserInfo(String id) {
+			UsersDTO user = new UsersDTO();
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;		
+			
+			try {
+				conn = getConnection();
+				String sql = "select user_name, user_email, user_phone from users where id = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1,id);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					user.setUser_name(rs.getString("user_name"));
+					user.setUser_email(rs.getString("user_email"));
+					user.setUser_phone(rs.getString("user_phone"));
+				}			
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(rs != null) try { rs.close(); }catch(Exception e) { e.printStackTrace(); }
+				if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+				if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+			}		
+			return user;
+		}
+		
+		// 예약자의 펫 정보 가져오는 메서드
+		public List getReservePetInfo(String id) {
+			List petInfo = null;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;		
+			
+			try {
+				conn = getConnection();
+				String sql ="select p.pet_num, p.pet_name, p.pet_type, p.pet_gender, p.pet_age, p.pet_big, p.pet_operation from pet p, users u where u.id = p.id AND u.id = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					petInfo = new ArrayList();
+					do {
+						PetDTO pet = new PetDTO();
+						pet.setPet_num(rs.getInt("pet_num"));
+						pet.setPet_name(rs.getString("pet_name"));
+						pet.setPet_type(rs.getInt("pet_type"));
+						pet.setPet_gender(rs.getInt("pet_gender"));
+						pet.setPet_age(rs.getString("pet_age"));
+						pet.setPet_big(rs.getInt("pet_big"));
+						pet.setPet_operation(rs.getInt("pet_operation"));									
+						petInfo.add(pet);
+					}while(rs.next());
+				}			
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(rs != null) try { rs.close(); }catch(Exception e) { e.printStackTrace(); }
+				if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+				if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+			}
+			return petInfo;
+		}
+		
+		// 결제하기 버튼 누른 후 예약자 정보 저장되는 메서드
+		public void insertBooking(BookingDTO dto) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			
+			try {
+				conn = getConnection();
+				String sql = "insert into booking(id,room_num,user_name,user_phone,user_email,pet_num,requests,paid_bath,paid_beauty,paid_medi,check_in,check_out,booking_time) values(?,?,?,?,?,?,?,?,?,?,?,?,sysdate)";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, dto.getId());
+				pstmt.setInt(2, dto.getRoom_num());
+				pstmt.setString(3, dto.getUser_name());
+				pstmt.setString(4, dto.getUser_phone());
+				pstmt.setString(5, dto.getUser_email());
+				pstmt.setInt(6, dto.getPet_num());
+				pstmt.setString(7, dto.getRequests());
+				pstmt.setInt(8, dto.getPaid_bath());
+				pstmt.setInt(9, dto.getPaid_beauty());
+				pstmt.setInt(10, dto.getPaid_medi());
+				pstmt.setTimestamp(11, dto.getCheck_in());
+				pstmt.setTimestamp(12, dto.getCheck_out());
+				
+				pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+				if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+			}
+		}
 
 
 
