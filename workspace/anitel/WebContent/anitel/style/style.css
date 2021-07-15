@@ -92,7 +92,12 @@
 	#section {
 		padding-top: 140px;
 	}
-    
+	.t_btn { 
+		background-color : #EEE6C4;
+   	border: none;
+   	border-radius: 6px;
+   	height: 30px;	
+	}
     
 /* 회원가입 선택 */
 	#signup_wrap {
@@ -279,12 +284,6 @@
 		height:auto;
 	}
 	
-	.util, .paid {
-		display: flex;
-		float:left;
-		width: 50%;
-	}
-	
 	.util > h4, .paid > h4 {
 		font-size: 12px;	
 		padding: 0 20px;
@@ -322,7 +321,7 @@
 	}
 
 	.search_wrap {
-	  margin:50px 0;
+	  margin:20px 0;
 	}
 	
 	.room_wrap {
@@ -766,7 +765,6 @@
     	width: 100%;
     	justify-content: center;
     	z-index:99;
-    	margin-bottom : 100px;
 		}
 	.search_wrap #sel {
 		margin: 0;
@@ -777,14 +775,32 @@
     box-shadow: 0 15px 30px -10px rgb(0 0 0 / 10%);
     width: 25%;
 	}
-	.search_wrap .btn, .table_wrap input.write_btn {
+	.search_wrap .btn, .table_wrap input.write_btn, .table_wrap .btn {
 		background-color: #FFA742;
 		border : none;
 		border-radius: 6px;
-    width: 80px;
+    width: 110px;
     font-size: 16px;
     cursor: pointer;
     color: white;
     margin: 0 10px;
     padding: 10px 15px;
 	}
+
+	.search_wrap .btn:hover, .table_wrap input.write_btn:hover, .table_wrap .btn:hover {
+		background-color: #FF822B;
+	}
+	
+	.table_wrap .btn {
+    width: 10%;
+    float: left;
+	 }
+    
+  .pageNum {
+    width: 80%;
+    margin: auto;
+	}
+ 	
+ 	.currentPage {
+ 		margin-bottom: 100px;
+ 	}

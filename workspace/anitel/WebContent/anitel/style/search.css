@@ -157,9 +157,9 @@
   bottom: 0;
   right: 0;
 }
-.sub {
-	width: 33.33%;
-	padding: 20px;
+.inp_wrap .sub {
+	width: 33.33% !important;
+	padding: 20px !important;
 }
 .sub p {
 	font-weight: bold;
