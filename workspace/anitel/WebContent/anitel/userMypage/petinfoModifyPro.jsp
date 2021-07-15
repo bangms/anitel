@@ -1,5 +1,5 @@
 <%@page import="anitel.model.PetDTO"%>
-<%@page import="anitel.model.PetDAO"%> 
+<%@page import="anitel.model.PetDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,17 +13,14 @@
 <jsp:setProperty property="*" name="dto"/>
 
 <%	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
-	//if(session.getAttribute("sid")!=null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
-	<!-- 	<script>
+	if(session.getAttribute("sid")==null){ 	%>
+	 	<script>
 			alert("로그인이 필요한 서비스입니다.");
-			window.location="loginForm.jsp";
-		</script>  -->
-<%	//}else{ 
-	//String id = (String)session.getAttribute("sid");
-	//String id = (String)request.getParameter("id");
-	String id = "java04";
+			window.location="userLoginForm.jsp";
+		</script> 
+<%	}else{ 
+	String id = (String)session.getAttribute("sid");
 	PetDAO dao = PetDAO.getInstance();
-	//PetDTO pet = dao.getPet(id);
 	int result = dao.updatePet(id, dto);
 	
 	System.out.println("petinfoModifyPro.jsp - 반려동물 정보수정 결과 : " + result + "(1 : 수정 성공, -1 : 수정 실패)");
@@ -32,7 +29,7 @@
 <%	if(result == 1){%>
 		<script>
 			alert("회원 정보가 수정되었습니다.");
-			window.location.href="/anitel/anitel/userMyPage/userMyPage.jsp";
+			window.location.href="userMyPage.jsp";
 		</script>
 <%	}else{%>
 		<script>
@@ -41,5 +38,5 @@
 		</script>
 <%	}%>
 </body>
-<%	//} %>
+<% } %>
 </html>
