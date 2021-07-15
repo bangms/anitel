@@ -15,7 +15,7 @@
 	if(session.getAttribute("sid")==null){ 	%>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
-			window.location="userLoginForm.jsp";
+			window.location="../loginForm.jsp";
 		</script>
 <%	}else{ 
 	String id = (String)request.getParameter("id");
