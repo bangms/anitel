@@ -20,15 +20,17 @@ function datePickerSet(sDate, eDate, flag) {
             edp.selectDate(new Date(eDay.replace(/-/g, "/")));  //익스에서는 그냥 new Date하면 -을 인식못함 replace필요
         }
 
-        //시작일자 세팅하기 날짜가 없는경우엔 제한을 걸지 않음
+      //시작일자 세팅하기 날짜가 없는경우엔 제한을 걸지 않음
         if (!isValidStr(eDay)) {
             sDate.datepicker({
+            	minDate: new Date(),
                 maxDate: new Date(eDay.replace(/-/g, "/"))
             });
         }
         sDate.datepicker({
             language: 'ko',
             autoClose: true,
+            minDate: new Date(),
             onSelect: function () {
                 datePickerSet(sDate, eDate);
             }
