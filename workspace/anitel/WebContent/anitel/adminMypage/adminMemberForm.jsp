@@ -174,6 +174,7 @@
 	
 			<%}//사업자정보출력리스트반복문 닫기%>
 			  </ul>
+				<input class="btn" type="button" value="삭제" onclick="chkUser();"/>
 			</div>
 			<br />
 			<div class="pageNum">
@@ -245,11 +246,10 @@
 				</div>
 				<input class="search" type="text" name="search" />
 				<input class="btn" type="submit" value="검색" />
-				<input class="btn" type="button" value="삭제" onclick="chkMember();"/>
 				<input class="btn" type="button" value="전체보기" onclick="window.location='adminMemberForm.jsp'"/>
 			</div>		 
-		
 		<%}//count이 0이 아닐때 if문 닫기%>
+			<h3 class="currentPage" style="color:black">현재 페이지 : <%=pageNum%></h3>
 		</form>
 	</div>
 	<div id="footer">

@@ -167,6 +167,7 @@
 			    
 				<%} %>
 				</ul>
+				<input class="btn" type="button" value="삭제" onclick="chkUser();"/>
 			</div>
 			<%} %>
 			<br />
@@ -221,9 +222,9 @@
 				</div>
 				<input class="search" type="text" name="search" />
 				<input class="btn" type="submit" value="검색" />
-				<input class="btn" type="button" value="삭제" onclick="chkUser();"/>
 				<input class="btn" type="button" value="전체보기" onclick="window.location='adminMemberQnAForm.jsp'"/>
 			</div>				
+			<h3 class="currentPage" style="color:black">현재 페이지 : <%=pageNum%></h3>
 		</form>
 	</div>
 	<div id="footer">

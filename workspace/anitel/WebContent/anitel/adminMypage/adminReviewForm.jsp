@@ -144,7 +144,7 @@
 		<%}else{%>
 			<form action="adminReviewForm.jsp" name="frmReviewInfo" method="post">
 			
-				<div class="table_wrap">
+			<div class="table_wrap">
 			  <h2>호텔 후기 페이지</h2>
 			  <ul class="responsive-table">
 			    <li class="table-header">
@@ -180,6 +180,7 @@
 			    </li>				    
 				<%}//후기 정보 출력리스트반복문 닫기%>
 			  </ul>
+				<input class="btn" type="button" value="삭제" onclick="chkUser();"/>
 			</div>
 			<br />
 			<div class="pageNum">
@@ -245,6 +246,7 @@
 			 
 			
 			<%}//count이 0이 아닐때 if문 닫기%>
+			<h3 class="currentPage" style="color:black">현재 페이지 : <%=pageNum%></h3>
 		</form>
 	</div>
 	<div id="footer">

@@ -203,6 +203,7 @@
 
 				<%} %>				
 				</ul>
+				<input class="btn" type="button" value="삭제" onclick="chkUser();"/>
 			</div>
 			<br />
 			<div class="pageNum">
@@ -268,6 +269,7 @@
 					<input class="btn" type="button" value="전체보기" onclick="window.location='adminReserveForm.jsp'"/>
 				</div>
 			<%} %>
+			<h3 class="currentPage" style="color:black">현재 페이지 : <%=pageNum%></h3>
 		</form>
 	</div>
 	<div id="footer">

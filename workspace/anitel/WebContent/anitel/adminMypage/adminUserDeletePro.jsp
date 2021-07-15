@@ -13,7 +13,7 @@
 	for(int i = 0 ; i < check.length; i++){
 		String id = check[i];
 		AdminDAO dao = AdminDAO.getInstance();
-		result = dao.deleteUser(id); 
+		result = dao.deleteUser(id);  
 		dao.deleteUserBooking(id);	// 회원 삭제시, 해당 회원 예약상태 변경(예정->취소)
 	}
 
