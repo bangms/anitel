@@ -3,10 +3,9 @@ package anitel.model;
 import java.sql.Timestamp;
 
 public class ReserveDTO {
-	private String hotel_name, name, user_name, pet_name, requests, hotel_img;
+	private String hotel_name, name, user_name, pet_name, requests, hotel_img, reg_num;
 	private int booking_num, paid_bath, paid_beauty, paid_medi, booking_status;
 	private Timestamp check_in, check_out;
-	
 	public String getHotel_name() {
 		return hotel_name;
 	}
@@ -37,29 +36,23 @@ public class ReserveDTO {
 	public void setRequests(String requests) {
 		this.requests = requests;
 	}
-	public Timestamp getCheck_in() {
-		return check_in;
+	public String getHotel_img() {
+		return hotel_img;
 	}
-	public void setCheck_in(Timestamp check_in) {
-		this.check_in = check_in;
+	public void setHotel_img(String hotel_img) {
+		this.hotel_img = hotel_img;
 	}
-	public Timestamp getCheck_out() {
-		return check_out;
+	public String getReg_num() {
+		return reg_num;
 	}
-	public void setCheck_out(Timestamp check_out) {
-		this.check_out = check_out;
+	public void setReg_num(String reg_num) {
+		this.reg_num = reg_num;
 	}
 	public int getBooking_num() {
 		return booking_num;
 	}
 	public void setBooking_num(int booking_num) {
 		this.booking_num = booking_num;
-	}
-	public int getBooking_status() {
-		return booking_status;
-	}
-	public void setBooking_status(int booking_status) {
-		this.booking_status = booking_status;
 	}
 	public int getPaid_bath() {
 		return paid_bath;
@@ -79,11 +72,24 @@ public class ReserveDTO {
 	public void setPaid_medi(int paid_medi) {
 		this.paid_medi = paid_medi;
 	}
-	public String getHotel_img() {
-		return hotel_img;
+	public int getBooking_status() {
+		return booking_status;
 	}
-	public void setHotel_img(String hotel_img) {
-		this.hotel_img = hotel_img;
+	public void setBooking_status(int booking_status) {
+		this.booking_status = booking_status;
 	}
+	public Timestamp getCheck_in() {
+		return check_in;
+	}
+	public void setCheck_in(Timestamp check_in) {
+		this.check_in = check_in;
+	}
+	public Timestamp getCheck_out() {
+		return check_out;
+	}
+	public void setCheck_out(Timestamp check_out) {
+		this.check_out = check_out;
+	}
+	
 	
 }
