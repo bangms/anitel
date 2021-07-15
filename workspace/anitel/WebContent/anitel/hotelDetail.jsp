@@ -37,6 +37,12 @@
 	display:inline-flex;
 }
 
+.util, .paid {
+		display: flex;
+		float:left;
+		width: 50%;
+	}
+
 </style>
 
 <%
@@ -315,7 +321,7 @@ $(document).ready(function(){
 		      	</div>
 		      	<div class="room_fee"_><%=room.getD_fee()%> 원</div>
 	      	</div>
-	      	<button class="list_btn" onclick="window.location='.jsp?memId=<%=room.getId()%>&room_num=<%=room.getRoom_num()%>&check_in=<%=check_in%>&check_out=<%=check_out%>'">예약하기</button>
+	      	<button class="list_btn" onclick="window.location='reserveForm.jsp?memId=<%=room.getId()%>&room_num=<%=room.getRoom_num()%>&check_in=<%=check_in%>&check_out=<%=check_out%>'">예약하기</button>
 	      </li>
 	    <%} 
 	} %>
@@ -334,7 +340,7 @@ $(document).ready(function(){
 	      </tr>
 	    </table>
 	  </div>
-	  <div class="qna_wrap board">
+	  <div class="qna_wrap board" style="margin-bottom: 50px">
 	    <p>Q&A 게시판</p>
 	    <table class="qna">
 	      <tr>
@@ -392,12 +398,12 @@ $(document).ready(function(){
 	    <%} %>
 	    
 	    <!-- test -->
-	     <button onclick="window.location='hotelDetailQA.jsp?memId=<%=memId%>&amp;reg_num=<%=reg_num%>&hotel_name=<%=dto.getHotel_name()%>'">전체후기보기</button>
+	     <button class="t_btn" style="width:150px;height:auto;padding:10px 0;margin:20px 0 50px;" onclick="window.location='hotelDetailQA.jsp?memId=<%=memId%>&amp;reg_num=<%=reg_num%>&hotel_name=<%=dto.getHotel_name()%>'">전체후기보기</button>
 	 	
 	      
 	    
 	  </div>  
-		  <div class="qna_wrap board">
+		  <div class="qna_wrap board" style="margin-bottom: 100px">
 		 	<%
 		 	categ= 2; 
 		 	System.out.println(categ);
@@ -451,7 +457,7 @@ $(document).ready(function(){
  			<%}  	
     }%>
        		</table>
-		    <button onclick="window.location='board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=2'">문의하기</button> 
+		    <button class="t_btn" style="width:150px;height:auto;padding:10px 0; margin:20px 0 50px;" onclick="window.location='board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=2'">문의하기</button> 
 		  </div>
 	  </div>
 	  
