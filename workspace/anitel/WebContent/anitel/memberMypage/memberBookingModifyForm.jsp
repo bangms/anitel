@@ -61,7 +61,7 @@
 		// 검색하지 않은 경우
 		count = dao.getBookingCount(id);
 		if(count > 0) {
-			userList = dao.getBookingList(id, startRow, endRow);
+			userList = dao.getBookingList(id, startRow, endRow); 
 		}		
 	}
 	
