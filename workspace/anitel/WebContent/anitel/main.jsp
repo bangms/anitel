@@ -1,6 +1,7 @@
 <%@page import="anitel.model.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page errorPage = "/error/errorPage.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,6 +65,7 @@ $(document).ready(function(){
 		<div id="button">
 			<button id="notice" onclick="window.location='board/list.jsp?categ=0'">공지사항</button>
 <% 	
+	response.setStatus(HttpServletResponse.SC_OK);
 	String id =(String)session.getAttribute("sid");
 
 	if(id == null){ 
@@ -74,7 +76,6 @@ $(document).ready(function(){
 <%}else{ 
 		BoardDAO board = BoardDAO.getInstance(); 
 		int checkID = board.idCk(id);
-		System.out.println("아이디 체크 - 사업자면 2, 일반회원이면 1 : " + checkID);
 		
 		if(checkID == 1) { 
 			if(session.getAttribute("sid").equals("admin")) { %><%-- 관리자 일 때 --%>
