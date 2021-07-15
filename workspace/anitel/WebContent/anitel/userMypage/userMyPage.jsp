@@ -74,10 +74,10 @@ System.out.println(users.getUser_name());
 					<div class="nav-wrap">
 						<nav class="main-nav" role="navigation">
 							<ul class="unstyled list-hover-slide">
-								<li class="menu"><a href="userMyReserve.jsp">내 정보</a></li>
-								<li class="menu"><a href="userMyPage.jsp">호텔 정보</a></li>
-								<li class="menu"><a href="userQnA.jsp">호텔 QnA 관리</a></li>
-								<li class="menu"><a href="userReview.jsp">호텔 후기 관리</a></li>
+								<li class="menu"><a href="userMyReserve.jsp">나의 예약 현황</a></li>
+								<li class="menu"><a href="userMyPage.jsp">나의 정보</a></li>
+								<li class="menu"><a href="userQnA.jsp">나의 QnA</a></li>
+								<li class="menu"><a href="userReview.jsp">나의 후기</a></li>
 							</ul>
 						</nav>
 					</div>
