@@ -393,7 +393,7 @@ public class MemberDAO {
 	}
 	
 	// 기간이 경과하지 않은 호텔 예약 목록
-	public List getBookingList(String id) {
+	public List getBookingList(String id, int start, int end) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;		
@@ -401,9 +401,11 @@ public class MemberDAO {
 		System.out.println("getBookingList 실행");
 		try {
 			conn = getConnection();
-			String sql = "select b.booking_num, r.name, b.booking_time, b.check_in, b.check_out, b.user_name, b.user_phone, p.pet_name, b.requests, b.payment, b.booking_status from booking b, room r, pet p where b.room_num = r.room_num and b.pet_num = p.pet_num and r.id=? and b.booking_status = 2 order by r.name, b.check_in, b.check_out";
+			String sql = "select B.* from (select A.*, rownum r from (select b.booking_num, r.name, b.booking_time, b.check_in, b.check_out, b.user_name, b.user_phone, p.pet_name, b.requests, b.payment, b.booking_status from booking b, room r, pet p where b.room_num = r.room_num and b.pet_num = p.pet_num and r.id=? and b.booking_status = 2 order by r.name, b.check_in, b.check_out) A ) B where r >= ? and r <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
 			System.out.println("id : " + id);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -508,10 +510,101 @@ public class MemberDAO {
 		return result;
 	}
 	
+	// 사업자 id를 넣어 기간이 경과하지 않은 예약 수를 가져오는 메서드
+	public int getBookingCount(String id) {
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from booking b, room r, pet p where b.room_num = r.room_num and b.pet_num = p.pet_num and r.id=? and b.booking_status=2";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try { rs.close(); }catch(Exception e) { e.printStackTrace(); }
+			if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+		}
+		return count;
+	}
 	
+	// '검색 된' 기간이 경과하지 않은 예약 수를 가져오는 메서드(사업자 id 필요 / 회원 id, 회원 연락처로 검색)
+	public int getBookingSearchCount(String id, String sel, String search) {
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;		
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from booking b, room r, pet p where b.room_num = r.room_num and b.pet_num = p.pet_num and b.booking_status=2 and r.id=? and " + sel + " like '%" + search + "%'";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try { rs.close(); }catch(Exception e) { e.printStackTrace(); }
+			if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+		}
+		return count;
+	}
+	
+	// 기간이 경과하지 않은 '검색 된' 호텔 예약 목록 
+	public List getBookingListSearch(String id, int start, int end, String sel, String search) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List bookingList = null;
+		try {
+			conn = getConnection();
+			String sql = "select B.* from (select A.*, rownum r from (select b.booking_num, r.name, b.booking_time, b.check_in, b.check_out, b.user_name, b.user_phone, p.pet_name, b.requests, b.payment, b.booking_status from booking b, room r, pet p where b.room_num = r.room_num and b.pet_num = p.pet_num and r.id=? and b.booking_status = 2 and " +sel+ " like '%" + search+ "%' order by r.name, b.check_in, b.check_out) A ) B where r >= ? and r <= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				bookingList = new ArrayList();
+				do {
+					System.out.println("do 반복문 실행");
+					BKListDTO dto = new BKListDTO();
+					dto.setBooking_num(rs.getInt("booking_num"));
+					dto.setName(rs.getString("name"));
+					dto.setBooking_time(rs.getTimestamp("booking_time"));
+					dto.setCheck_in(rs.getTimestamp("check_in"));
+					dto.setCheck_out(rs.getTimestamp("check_out"));
+					dto.setUser_name(rs.getString("user_name"));
+					dto.setUser_phone(rs.getString("user_phone"));
+					dto.setPet_name(rs.getString("pet_name"));
+					dto.setRequests(rs.getString("requests"));
+					dto.setPayment(rs.getInt("payment"));
+					bookingList.add(dto);	
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try { rs.close(); }catch(Exception e) { e.printStackTrace(); }
+			if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+		}	
+		return bookingList;
+	}
 	
 	// 사업자 id를 넣어 기간이 경과 + 취소한 예약 수를 가져오는 메서드
-	public int getBookingCount(String id) {
+	public int getAfterBookingCount(String id) {
 		int count = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -536,7 +629,7 @@ public class MemberDAO {
 	}
 	
 	// '검색 된' 기간이 경과한 예약 수를 가져오는 메서드(사업자 id 필요 / 회원 id, 회원 연락처로 검색)
-	public int getBookingSearchCount(String id, String sel, String search) {
+	public int getAfterBookingSearchCount(String id, String sel, String search) {
 		int count = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
