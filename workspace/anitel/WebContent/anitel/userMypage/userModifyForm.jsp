@@ -14,7 +14,7 @@
 	if(session.getAttribute("sid")==null){ 	%>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
-			window.location="/anitel/anitel/userLoginForm.jsp";
+			window.location="../loginForm.jsp";
 		</script>
 <%	}else{ 
 	String id = (String)session.getAttribute("sid");
@@ -25,7 +25,7 @@
 %>
 <script type="text/javascript">
 function popupOpen(){
-	var popUrl = "/anitel/anitel/popupForm.jsp?pop=2";	//팝업창에 출력될 페이지 URL
+	var popUrl = "../popupForm.jsp?pop=2";	//팝업창에 출력될 페이지 URL
 	var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
 		window.open(popUrl,"",popOption);
 
