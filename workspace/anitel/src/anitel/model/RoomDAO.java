@@ -416,7 +416,7 @@ public class RoomDAO {
 		   ResultSet rs = null;
 		   try {
 		         conn = getConnection();
-		         String sql = "Select b.id from booking b, room r, member m where m.id = r.id AND r.room_num = b.room_num AND b.booking_status = '0' AND m.reg_num = ? and b.id = ?";
+		         String sql = "select b.id from booking b, room r, member m where m.id = r.id AND r.room_num = b.room_num AND b.booking_status = '0' AND m.reg_num = ? and b.id = ?";
 		         pstmt = conn.prepareStatement(sql);
 		         pstmt.setString(1, reg_num);
 		         pstmt.setString(2, id);
