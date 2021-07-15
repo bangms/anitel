@@ -6,19 +6,18 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>마이페이지 일반회원  - 개인정보 수정결과</title>
+	<title>마이페이지 일반회원  - 비밀번호 수정결과</title>
 </head>
 <%	request.setCharacterEncoding("UTF-8"); %>
 
 <%	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
-	if(session.getAttribute("sid")!=null){ 									// 테스트용 : 개발 끝나고 == null로 바꿔야합니당%>
+	if(session.getAttribute("sid")==null){ 	%>
 		<script>
 			alert("로그인이 필요한 서비스입니다.");
-			window.location="/anitel/anitel/loginForm.jsp";
+			window.location="../loginForm.jsp";
 		</script>
 <%	}else{ 
-	//String id = (String)session.getAttribute("sid");
-	String id = (String)request.getParameter("id");
+	String id = (String)session.getAttribute("sid");
 	String pw_now = (String)request.getParameter("user_pw_now");	// 현재 사용중인 비밀번호
 	String pw = (String)request.getParameter("user_pw");			// 변경할 비밀번호
 	String pw2 = (String)request.getParameter("user_pw2");		// 변경할 비밀번호 재입력
@@ -30,7 +29,7 @@
 <%	if(result == 1){%>
 		<script>
 			alert("비밀번호가 변경되었습니다.");
-			window.location.href="/anitel/anitel/userMyPage/userMyPage.jsp";
+			window.location.href="userMyPage.jsp";
 		</script>
 <%	}else if(result ==0){%>
 		<script>
