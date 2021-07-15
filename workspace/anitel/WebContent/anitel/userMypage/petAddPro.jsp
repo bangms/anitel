@@ -14,7 +14,7 @@
 
 
  <%	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
-	if(session.getAttribute("sid")!==null){ %>
+	if(session.getAttribute("sid") == null){ %>
 	 	<script>
 			alert("로그인이 필요한 서비스입니다.");
 			window.location="../loginForm.jsp";

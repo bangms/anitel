@@ -8,8 +8,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>반려동물 수정폼</title>
+	<meta charset="UTF-8">
+	<title>반려동물 수정폼</title>
+  <link rel="stylesheet" href="../style/style.css">
+	<link rel="stylesheet" href="../style/reset.css">
+	<link rel="stylesheet" href="../style/search.css">
 </head>
 
 <%	request.setCharacterEncoding("UTF-8");
@@ -37,7 +40,6 @@ function popupOpen(){
 <body>
 
 	<div id="container">
-
 		<!-- 여기서부터 헤더  입니다.  -->
 		<div id="header">
 			<div id="logo" onclick="window.location='../main.jsp'">
@@ -50,9 +52,6 @@ function popupOpen(){
 				<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
 			</div>
 		</div>
-
-
-		<div id="main">
 
 			<!-- 여기서부터 사이드바 입니다.  -->
 			<div id="sidebar">
@@ -72,7 +71,7 @@ function popupOpen(){
 			</div>
 			<!-- 여기서부터 콘텐츠 화면 입니다.  -->
 
-			<div id="content">
+      <div id="section" style="padding-left:15%; margin-left:40px;">
 				<h1>
 					<%=pet.getPet_name()%>의 정보
 				</h1>
@@ -130,8 +129,6 @@ function popupOpen(){
 						type="button" value="뒤로가기"
 						onclick="window.location='petSelect.jsp'" />&emsp; <br /> <br />
 				</form>
-
-
 			</div>
 
 			<!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->
@@ -141,7 +138,6 @@ function popupOpen(){
 					평일 10:00 - 17:00 | anitel@anitel.com <br /> 이용약관 | 취소정책 | 1:1문의 <br />
 					COPYRIGHT 콩콩이 ALL RIGHT Reserved.
 				</p>
-
 			</div>
 		</div>
 </body>

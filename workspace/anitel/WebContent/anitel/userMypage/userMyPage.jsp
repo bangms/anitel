@@ -5,9 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>일반회원 마이페이지</title>
-
+	<meta charset="UTF-8">
+	<title>일반회원 마이페이지</title>
+  <link rel="stylesheet" href="../style/style.css">
+	<link rel="stylesheet" href="../style/reset.css">
+	<link rel="stylesheet" href="../style/search.css">
 </head>
 
 <%
@@ -39,9 +41,7 @@ System.out.println(users.getUser_name());
 
 <body>
 	<div id="container">
-
 		<!-- 여기서부터 헤더  입니다.  -->
-
 		<div id="header">
 			<div id="logo" onclick="window.location='../main.jsp'">
 				<img src="../imgs/logo.jpg" width="200px" height="100px" alt="logo">
@@ -52,20 +52,17 @@ System.out.println(users.getUser_name());
 				<%
 				if (session.getAttribute("sid") == null) {
 				%>
-				<button id="signin" onclick="window.location='../signIn.jsp'">회원가입</button>
-				<button id="login" onclick="window.location='../loginForm.jsp'">로그인</button>
-
+					<button id="signin" onclick="window.location='../signIn.jsp'">회원가입</button>
+					<button id="login" onclick="window.location='../loginForm.jsp'">로그인</button>
 				<%
 				} else {
 				%>
-				<button id="mypage" onclick="window.location='userMyPage.jsp'">마이페이지</button>
-				<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
+					<button id="mypage" onclick="window.location='userMyPage.jsp'">마이페이지</button>
+					<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
 				<%}%>
 
 			</div>
 		</div>
-
-		<div id="main">
 
 			<!-- 여기서부터 사이드바 입니다.  -->
 			<div id="sidebar">
@@ -83,7 +80,6 @@ System.out.println(users.getUser_name());
 					</div>
 				</div>
 			</div>
-
 
 			<!-- 여기서부터 콘텐츠 화면 입니다.  -->
 			<div id="section" style="padding-left: 15%; margin-left: 40px;">
@@ -108,15 +104,13 @@ System.out.println(users.getUser_name());
 						<td><%=users.getUser_email()%></td>
 					</tr>
 				</table>
-				<br /> <input type="button" value="내정보 수정" onclick="popupOpen()" />&emsp;
-				<input type="button" value="비밀번호 변경"
+				<br /> <input type="button" class="t_btn" style="width: 150px; padding: 10px 0; height: auto;" value="내정보 수정" onclick="popupOpen()" />&emsp;
+				<input type="button" class="t_btn" style="width: 150px; padding: 10px 0; height: auto;" value="비밀번호 변경"
 					onclick="window.location='userModifyPwForm.jsp?id=<%=users.getId()%>'" />&emsp;
-				<input type="button" value="반려동물 정보수정"
+				<input type="button" class="t_btn" style="width: 150px; padding: 10px 0; height: auto;" value="반려동물 정보수정"
 					onclick="window.location='petSelect.jsp'" />&emsp;
 				<br /> <br />
 			</div>
-
-		</div>
 
 		<!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->
 		<div id="footer">

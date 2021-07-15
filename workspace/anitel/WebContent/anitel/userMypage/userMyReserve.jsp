@@ -5,207 +5,16 @@
 <%@page import="anitel.model.BookingDAO"%>
 <%@page import="anitel.model.BookingDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%> 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>내 예약 현황</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<%-- jquery 라이브러리 추가 --%>
-
-<style>
-#container {
-	width: 100%;
-	margin: 0px auto;
-	padding: 20px;
-}
-
-#header {
-	height: 100px;
-	width: 100%;
-	padding: 20px;
-	margin-bottom: 20px;
-	height: 100px;
-	top: 0;
-	display: flex;
-	justify-content: space-between;
-	background-color: white;
-	position: sticky;
-	top: 0;
-}
-
-#header logo {
-	width: 300px;
-	height: 100px;
-}
-
-#header section {
-	width: 1100px;
-	height: 100px;
-	margin-right: 300px;
-}
-
-#main {
-	position: relative;
-	width: 100%;
-	overflow: auto;
-	height: 500px;
-}
-
-#content {
-	width: 65%;
-	height: 100%;
-	padding: 20px;
-	margin-bottom: 20px;
-	margin-left: 300px;
-	margin-right: 200px;
-	padding-left: 100px;
-	padding-right: 100px;
-	float: left;
-	padding-bottom: 100px;
-	z-index: 3
-}
-
-#sidebar {
-	width: 230px;
-	padding: 20px;
-	float: left;
-	clear: both;
-	background-color: #EBDDCA;
-	margin-right: 50px;
-	margin-left: 70px;
-	position: fixed;
-}
-
-#footer {
-	height: 80px;
-	width: 100%;
-	clear: both;
-	padding: 20px;
-	margin-left: -50px;
-	padding-left: 100px;
-	left: 0;
-	bottom: 0;
-	background-color: black;
-	color: white;
-	overflow-y: hidden;
-	overflow-x: hidden;
-}
-
-p {
-	margin-top: 10px;
-	font-size: 13px;
-	margin-left: 200px;
-}
-
-img {
-	float: left;
-	padding: 20px;
-	margin-top: -15px;
-	margin-left: 40px;
-}
-
-ul {
-	font-size: 20px
-}
-
-#button button {
-	font-weight: semi-bold;
-	border: none;
-	border-radius: 6px;
-	width: 110px;
-	height: 40px;
-	font-size: 16px;
-	margin-top: 30px;
-	position: relative;
-}
-
-#button button:hover {
-	background-color: #FF822B;
-	color: #ffffff;
-}
-
-#withdraw {
-	border: none;
-	border-radius: 3px;
-	width: 65px;
-	height: 25px;
-	font-size: 12px;
-	margin-top: 15px;
-	margin-left: 100px;
-	position: relative;
-}
-
-#withdraw:hover {
-	background-color: #111111;
-	color: #ffffff;
-}
-
-#login {
-	background-color: #FFA742;
-	color: white;
-	float: right;
-	margin-right: 5px;
-}
-
-#signin {
-	background-color: #FFA742;
-	color: white;
-	float: right;
-	margin-right: 5px;
-}
-
-#notice {
-	float: right;
-	margin-right: 5px;
-	background-color: #ffffff;
-	color: black;
-}
-
-A {
-	text-decoration: none;
-	color: black;
-}
-
-li {
-	list-style: none;
-	margin-bottom: 10px;
-}
-
-input[type=text] {
-	border: 1px solid black;
-	border-radius: 5px;
-	height: 30px;
-	text-indent: 1em;
-}
-
-input[type=password] {
-	border: 1px solid black;
-	border-radius: 5px;
-	height: 30px;
-	text-indent: 1em;
-}
-
-input[type=button] {
-	background-color: #FFA742;
-	color: white;
-	border: none;
-	border-radius: 6px;
-	width: 110px;
-	height: 40px;
-}
-
-input[type=button]:hover {
-	background-color: #FF822B;
-	color: #ffffff;
-}
-
-.buttonCol {
-	background-color: #FF822B;
-	color: #ffffff;
-}
-</style>
+	<meta charset="UTF-8">
+	<title>내 예약 현황</title>
+  <link rel="stylesheet" href="../style/style.css">
+	<link rel="stylesheet" href="../style/reset.css">
+	<link rel="stylesheet" href="../style/search.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <%	request.setCharacterEncoding("UTF-8");
 
@@ -241,11 +50,8 @@ input[type=button]:hover {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");	
 %>
 <body>
-
 	<div id="container">
-
 		<!-- 여기서부터 헤더  입니다.  -->
-
 		<div id="header">
 			<div id="logo" onclick="window.location='../main.jsp'">
 				<img src="../imgs/logo.jpg" width="200px" height="100px" alt="logo">
@@ -257,8 +63,6 @@ input[type=button]:hover {
 				<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
 			</div>
 		</div>
-
-		<div id="main">
 
 			<!-- 여기서부터 사이드바 입니다.  -->
 			<div id="sidebar">
@@ -278,12 +82,10 @@ input[type=button]:hover {
 			</div>
 
 			<!-- 여기서부터 콘텐츠 화면 입니다.  -->
-
-			<div id="content">
-				<button class="button" onclick="location='userMyReserve.jsp?num=2'">투숙예정 예약</button>
-				<button class="button" onclick="location='userMyReserve.jsp?num=0'">투숙완료 예약</button>
-				<button class="button" onclick="location='userMyReserve.jsp?num=1'">취소된예약</button>
-
+      <div id="section" style="padding-left:15%; margin-left:40px;">
+				<button class="t_btn" style="width: 150px; padding: 10px 0; height: auto;" onclick="location='userMyReserve.jsp?num=2'">투숙예정 예약</button>
+				<button class="t_btn" style="width: 150px; padding: 10px 0; height: auto;" onclick="location='userMyReserve.jsp?num=0'">투숙완료 예약</button>
+				<button class="t_btn" style="width: 150px; padding: 10px 0; height: auto;" onclick="location='userMyReserve.jsp?num=1'">취소된예약</button>
 
 				<hr align="left" width=1000 color="black">
 				<br />
@@ -351,9 +153,6 @@ input[type=button]:hover {
 				<%}//count 0일시 분기처리%>
 			</div>
 
-
-		</div>
-
 		<!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->
 		<div id="footer">
 			<img src="../imgs/logo2.png" width=100px; height=50px;>
@@ -380,4 +179,4 @@ function check(booking_num){
 </script>
 
 <%}%>
-</html>
+</html> 
