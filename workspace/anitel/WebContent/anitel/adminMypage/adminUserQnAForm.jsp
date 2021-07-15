@@ -159,7 +159,7 @@
 			      </div>
 					<div class="col col-6" style="flex-basis: 17%;" data-label="comm">
 			      	<%if(user.getComm() == 0) {%>
-			         	 <button onClick="window.location='../board/replyForm.jsp?board_num=<%=user.getBoard_num()%>&categ=1'">답변하기</button>					
+			         	 <button class="t_btn" style="width: 100px" onClick="window.location='../board/replyForm.jsp?board_num=<%=user.getBoard_num()%>&categ=1'">답변하기</button>					
 					<%}else if(user.getComm() == 1) {%>
 						<h4>답변완료</h4>		
 					<%}%>

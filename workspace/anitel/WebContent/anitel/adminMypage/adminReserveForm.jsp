@@ -13,13 +13,6 @@
 	<link rel="stylesheet" href="../style/reset.css">
 	<link rel="stylesheet" href="../style/search.css">
 	<style>
-		.add { 
-			background-color : #EEE6C4;
-	      	border: none;
-	      	border-radius: 6px;
-	      	width: 100px;
-	      	height: 30px;	
-		}
 		button {
 	      	border: none;
 	      	border-radius: 3px;
@@ -173,7 +166,7 @@
 			      <div class="col col-6" style="flex-basis: 10.77%;" data-label="userName"><%=hotel.getUser_name() %></div>
 			      <div class="col col-7" style="flex-basis: 10.77%;" data-label="userPhone"><%=hotel.getUser_phone() %></div>
 			      <div class="col col-8" style="flex-basis: 10.77%;" data-label="petName">
-			      	<input class="add" type="button" value="<%=hotel.getPet_name()%>" onclick="window.open('adminReserveAnimalInfo.jsp?petnum=<%=hotel.getPet_num()%>','','width=500,height=500,location=no,status=no,scrollbars=no,left=800,top=250')"/>		      
+			      	<input class="t_btn" style="width: 100px" type="button" value="<%=hotel.getPet_name()%>" onclick="window.open('adminReserveAnimalInfo.jsp?petnum=<%=hotel.getPet_num()%>','','width=500,height=500,location=no,status=no,scrollbars=no,left=800,top=250')"/>		      
 			      </div>
 			      <div class="col col-9" style="flex-basis: 10.77%;" data-label="Requests">	      
 			      	<%if(hotel.getRequests() != null){%>

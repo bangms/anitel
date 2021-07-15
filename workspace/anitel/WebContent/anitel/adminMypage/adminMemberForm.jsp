@@ -167,8 +167,8 @@
 							<%}else if(member.getMember_approved() == 2){%>승인보류<%}%>
 						</div>
 			      <div class="col col-8" style="flex-basis: 20%;" data-label="approved_btn">
-			      	<button type="button" onClick="window.open('adminApproveForm.jsp?Id=<%=member.getId()%>','','width=500,height=300,location=no,status=no,scrollbars=yes')" <%if(member.getMember_approved() == 1 ){%>disabled="true"<%}%>>승인하기</button>
-							<button type="button" onClick="window.open('adminConfirmRegNumForm.jsp?Id=<%=member.getId()%>','','width=500,height=600,location=no,status=no,scrollbars=yes')" >보류하기</button>
+			      	<button type="button" class="t_btn" onClick="window.open('adminApproveForm.jsp?Id=<%=member.getId()%>','','width=500,height=300,location=no,status=no,scrollbars=yes')" <%if(member.getMember_approved() == 1 ){%>disabled="true"<%}%>>승인하기</button>
+							<button type="button" class="t_btn" onClick="window.open('adminConfirmRegNumForm.jsp?Id=<%=member.getId()%>','','width=500,height=600,location=no,status=no,scrollbars=yes')" >보류하기</button>
 			      </div>
 			    </li>	
 	
