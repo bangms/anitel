@@ -8,8 +8,9 @@
   	<link rel="stylesheet" href="style/style.css">
  	<link rel="stylesheet" href="style/reset.css">
   	<link rel="stylesheet" href="style/init.css">	
-	
-	<script>
+  	<link rel="stylesheet" href="style/signup.css">
+</head>
+<script type="text/javascript">
  
 	// 유효성 검사 
 	function check(){
@@ -37,16 +38,17 @@
 			alert("이름이 입력되지 않았습니다.");
 			return false;
 		}
+
+		//if(!inputForm.user_phone.value){
+		//	alert("연락처가 입력되지 않았습니다.");
+		//	return false;
+		//}
 		
-		if(!inputForm.user_phone.value){
-			alert("연락처가 입력되지 않았습니다.");
-			return false;
-		}
+		//if(!user_phoneReg.test(inputForm.user_phone.value)){
+		//	alert("핸드폰 번호는 숫자만 가능합니다.");
+		//	return false;
+		//}
 		
-		if(!user_phoneReg.test(inputForm.user_phone.value)){
-			alert("핸드폰 번호는 숫자만 가능합니다.");
-			return false;
-		}
 		if(!inputForm.user_email.value){
 			alert("이메일이 입력되지 않았습니다.");
 			return false;
@@ -75,12 +77,13 @@
 		}
 	
  
-	</script>
-</head>
+</script>
+<body>
 <div id="container">
+
 	<div id="header">
 		<div id="logo" onclick="window.location='main.jsp'">
-			<img src="imgs/logo.jpg" width="200px" height="100px">
+			<img src="imgs/logo.jpg" width="200px" height="100px" alt="logo">
 		</div>
 		<div id="button">
 			<button id="notice" onclick="window.location='board/list.jsp?categ=0'">공지사항</button>
@@ -88,113 +91,103 @@
 			<button id="login" onclick="window.location='LoginForm.jsp'">로그인</button>
 		</div>
 	</div>	
+	
   <div id="section">
-    <h1 align="center"> 회원가입 </h1>
-		<form action="signInUserPro.jsp" method="post" name="inputForm" onsubmit="return check()">
+		<form class="submitForm" action="signInUserPro.jsp" method="post" name="inputForm" onsubmit="return check()">
 			<h3>회원정보 (필수입력)</h3>
-			<table>
-				<tr>
-					<td>아이디</td>
-					<td>
-						<input type="text" name="id" placeholder="입력 후 중복 체크해주세요" /> 
-					</td>
-					<td>
-						<input type="button" value="중복체크" onclick="confirmId(this.form)" />
-					</td>
-				</tr>
-				<tr>
-					<td>비밀번호</td>
-					<td>
-						<input type="password" name="user_pw" /> 
-					</td>
-				</tr>
-				<tr>
-					<td>성명</td>
-					<td>
-						<input type="text" name="user_name" /> 
-					</td>
-				</tr>
-				<tr>
-					<td>연락처</td>
-					<td>
-						<input type="text" name="user_phone" /> 
-					</td>
-				</tr>
-				<tr>
-					<td>E-mail</td>
-					<td>
-						<input type="text" name="user_email" /> 
-					</td>
-				</tr>
-			</table>
-			<br />
 			
-			<h3>반려동물 정보(필수입력)</h3>
-			<table>
-				<tr>
-					<td>반려동물이름</td>
-					<td>
-						<input type="text" name="pet_name" /> 
-					</td>
-				</tr>
-			</table>
-			<br />
-	 
+			<div class="form__group field">
+				<input type="text" id="id" class="form__field" placeholder="ID" name="id" >
+				<label for="id" class="form__label">아이디 <span class="txt">*</span></label>
+				<input type="button" class="confirmId" value="아이디중복체크" onclick="confirmId(this.form)" />
+			</div>
+			<div class="form__group field">
+        <input type="password" id="pw" class="form__field" placeholder="Password" name="user_pw"/>
+        <label for="pw" class="form__label">비밀번호 <span class="txt">*</span></label>
+      </div>
+			<div class="form__group field">
+        <input type="text" id="member_name" class="form__field" placeholder="Name" name="user_name" maxlength="6" />
+        <label for="member_name" class="form__label">이름 <span class="txt">*</span></label>
+      </div>
+      
+			<div class="form__group" style="display:flex;">
+         <input type="text" id="user_tel" class="form__field" name="user_tel1"  minlength="3" maxlength="4"/>
+         <label for="user_tel" class="form__label">전화번호 <span class="txt">*</span></label>
+         -
+         <input type="text" class="form__field" name="user_tel2" minlength="3" maxlength="4" required/>
+         -
+         <input type="text" class="form__field" name="user_tel3" minlength="4" maxlength="4" required/> 
+       </div>
+       
+		 <div class="form__group field">
+				 <input type="text" id="email" class="form__field" placeholder="E-mail" name="user_email" />
+				 <label for="email" class="form__label">E-mail <span class="txt">*</span></label>
+		</div>	
+				
+		<h3>반려동물 정보(필수입력)</h3>
 		
-			<h3>반려동물 정보(선택사항)</h3>
-			<table>
-				<tr>
-					<td>반려동물 종</td>
-					<td>
-						  <select name="pet_type" id="pet_type" onChange="view(this.value)">  
-		              		<option value ="1">강아지</option>
-		              		<option value ="2">고양이</option>
-		              		<option value ="0">기타</option>
-             		 	</select>
-              <input type="text" id="pet_etctype" class="hidden" name="pet_etctype" />
-					</td>
-				</tr>
-				 <tr> 
-				 	<td>반려동물 성별</td>
-	               <td> 
-	                   <input type="radio" name='pet_gender' value="1"/> 수컷 
-	                   <input type="radio" name='pet_gender' value="0"/> 암컷     
-	              </td>
-	           </tr> 
-	           <tr>
-					<td>중성화여부</td>
-					  <td>
-	                    <input type="radio" name="pet_operation" value="1"> 예 
-	                    <input type="radio" name="pet_operation" value="0"> 아니오
-	               	</td> 
-				</tr>
-				<tr>
-					<td>반려동물 나이</td>
-					<td>
-						<input type="text" name="pet_age" /> 
-					</td>
-				</tr>
-				 <tr>
-					<td>대형동물 여부</td>
-					  <td>
-	                    <input type="radio" name="pet_big" value="1"> 20kg 이상 경우 체크해주세요 
-	               	</td> 
-				</tr>  
-				<tr>
-				<td colspan="2" align="center"> 
-				<input type="submit" value="가입하기" />
-				</td>
-				</tr>
-			</table>
+		<div class="form__group field">
+        <input type="text" id="pet_name" class="form__field" name="pet_name" />
+        <label for="hotel_name" class="form__label">반려동물 이름 <span class="txt">*</span></label>
+      	</div>
+      	
+      	<h3>반려동물 정보(선택사항)</h3>
+	
+      	 <div class="form__group field" style="display:flex;">
+      		<select name="pet_type" id="pet_type" onChange="view(this.value)">
+						<option value="1" selected >강아지</option>
+						<option value="2">고양이</option>
+						<option value="0">기타</option>
+			</select>
+	        <label for="pet_type" class="form__label">호텔 수용 동물
+	        <input type="text" id="pet_etctype" class="form__field hidden" name="pet_etctype" />
+	        	<span class="txt">*</span></label>
+	      </div>
+	      
+	       <div class="form__group" style="display:flex;">
+             <p>반려동물 성별 </p>
+             <label for="pet_gender" class="form__label"> 수컷
+                 <input type="radio" id="pet_gender" value="1" name="pet_gender" /> 
+             </label>
+             <label for="pet_gender" class="form__label">암컷
+                 <input type="radio" id="pet_gender" value="0" name="pet_gender" />  
+             </label>  
+          </div>
+          
+          <div class="form__group" style="display:flex;">
+             <p>중성화 여부 </p>
+             <label for="pet_operation" class="form__label">예
+                 <input type="radio" id="pet_operation" value="1" name="pet_operation" /> 
+             </label>
+            
+             <label for="pet_operation" class="form__label">아니오
+                 <input type="radio" id="pet_operation" value="0" name="pet_operation" /> 
+             </label>  
+          </div>
+          
+          <div class="form__group field"> 
+       	 <label for="pet_age" class="form__label">반려동물 나이
+       		 <input type="text" id="pet_age" class="form__field" name="pet_age" />
+       		 <span class="txt"></span></label>
+    	  </div>
+    	  
+          <div class="form__group" style="display:flex;">
+             <label for="pet_big" class="form__label">대형동물 여부 
+                 <input type="radio" id="pet_big" value="1" name="pet_big" /> 20kg 이상일 경우 체크해주세요 
+             </label>
+          </div>
+			<input type="submit" value="가입하기" />
+			<input type="button" value="취소" onclick="window.location='main.jsp'" />
 		</form>
-  </div>
-</div>
-	<div id="footer">
-	 <img src="imgs/logo2.png" width=100px; height=50px;>
-	 <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
-	 이용약관 | 취소정책 | 1:1문의 <br/>
-		COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
- </div>
+   </div>
+		<div id="footer">
+	 		<img src="imgs/logo2.png" width=100px; height=50px;>
+	 		<p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
+	 		이용약관 | 취소정책 | 1:1문의 <br/>
+			COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
+ 		</div>
+ 	</div>
+ </body>
  <%-- 반려동물 종 선택 기타 입력란 나타내는 스크립트 --%>
  <script type="text/javascript">
 function view(value){
@@ -208,5 +201,5 @@ function view(value){
 	}
 }
 </script>
-</body>
+
 </html>
