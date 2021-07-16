@@ -1,3 +1,4 @@
+<%@page import="anitel.model.BookingDAO"%>
 <%@page import="anitel.model.UsersDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

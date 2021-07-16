@@ -1,4 +1,5 @@
 
+<%@page import="anitel.model.BookingDAO"%>
 <%@page import="anitel.model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -31,7 +32,7 @@
 		System.out.println("auto : " + auto);
 		
 		// 로그인 시 DB의 옛날 예약의 예약 상태(booking_status)를 전부 0으로 변경
-		BookingDAO booking = BookingDAO.getInstance();
+		BookingDAO booking = BookingDAO.getInstance(); 
 		booking.updateBookings();
 	
 		MemberDAO dao = MemberDAO.getInstance(); 
