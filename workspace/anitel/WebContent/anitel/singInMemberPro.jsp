@@ -1,3 +1,4 @@
+<%@page import="com.sun.org.apache.xerces.internal.impl.xpath.regex.REUtil"%>
 <%@page import="anitel.model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -8,14 +9,29 @@
 	<title>Insert title here</title>
 </head>
 <body>
-<% request.setCharacterEncoding("UTF-8"); 
-System.out.println(request.getParameter("a"));
-%>
-
+<% request.setCharacterEncoding("UTF-8"); %>
 <jsp:useBean id="member" class="anitel.model.MemberDTO" />
 <jsp:useBean id="room" class="anitel.model.RoomDTO" />
-<jsp:setProperty property="*" name="member"/><body>
-<jsp:setProperty property="*" name="room"/><body>
+<%
+String mem_tel1 = request.getParameter("mem_tel1");
+String mem_tel2 = request.getParameter("mem_tel2");
+String mem_tel3 = request.getParameter("mem_tel3");
+String ho_tel1 = request.getParameter("ho_tel1");
+String ho_tel2 = request.getParameter("ho_tel2");
+String ho_tel3 = request.getParameter("ho_tel3");
+
+String member_phone = mem_tel1 + "-" + mem_tel2 + "-" + mem_tel3; 
+String hotel_phone = ho_tel1 + "-" + ho_tel2 + "-" + ho_tel3;
+System.out.println("사업자 전화번호 : " + member_phone);
+System.out.println("호텔 전화번호 : " + hotel_phone);
+
+member.setHotel_phone(hotel_phone);
+member.setMember_phone(member_phone);
+
+%>
+<jsp:setProperty property="*" name="member"/>
+<jsp:setProperty property="*" name="room"/>
+
 <%
 
 	// DAO 객체 생성
