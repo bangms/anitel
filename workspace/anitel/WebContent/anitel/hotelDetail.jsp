@@ -8,6 +8,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1" content="no-cache">
 	<link rel="stylesheet" href="style/style.css">
  	<link rel="stylesheet" href="style/reset.css">
 	<link rel="stylesheet" href="style/search.css">
@@ -61,14 +63,14 @@ int pet_type = Integer.parseInt(request.getParameter("pet_type"));
  
 %>
 
-<jsp:useBean id="detail" class="anitel.model.DetailDTO" />
+<jsp:useBean id="board_dto" class="anitel.model.BoardDTO" />
+<jsp:setProperty property="*" name="board_dto"/>
+ <jsp:useBean id="detail" class="anitel.model.DetailDTO" />
 <jsp:setProperty property="*" name="detail"/>
-
  
 
 <% 
 
- 
 System.out.println("체크인 : " + check_in + " / 체크아웃 : " + check_out + " / 동물 종류 : " + pet_type);
 
 String petType[] = {"강아지", "고양이", "기타"};
@@ -356,6 +358,7 @@ $(document).ready(function(){
 	  </div>
   </div>
 <%}else{ //로그인 후 %>
+	
 	<div class="review_wrap board">
 	<%
 	boolean check = false;
@@ -399,30 +402,31 @@ $(document).ready(function(){
 		<%//} %>
 	    <p>후기게시판</p>
 	    <table class="review">
-	<% if(count == 0){ %>
-	     	 <tr>
-	      	  	<td>작성자</td>
-	       	 	<td>내용</td>
-	      	</tr>
-	      	<tr>
-	        	<td colspan="2"><p class="empty"> 후기 게시글이 없습니다.</p></td>
-	      	</tr>        	
-	<%}else{
-		reviewList = dao.getReviews(startRow, endRow, categ, reg_num); %>
-		 
-	     	<tr>
+			<% if(count == 0){ %>
+			     	 <tr>
+			      	  	<td>작성자</td>
+			       	 	<td>내용</td>
+			      	</tr>
+			      	<tr>
+			        	<td colspan="2"><p class="empty"> 후기 게시글이 없습니다.</p></td>
+			      	</tr>        	
+			<%}else{
+					reviewList = dao.getReviews(startRow, endRow, categ, reg_num); %>
+		 			<tr id="rs"></tr>
+	     		<tr>
 	        	<td>작성자</td>
 	        	<td>제 목</td>
 	      	</tr>
-	<% for(int i = 0; i < reviewList.size(); i++) {
-		DetailDTO article = (DetailDTO)reviewList.get(i);
+			<% for(int i = 0; i < reviewList.size(); i++) {
+					DetailDTO article = (DetailDTO)reviewList.get(i);
 	%>
-		   	 <tr>
-	        	 <td>익명</td>
-	         	<td><a href="../anitel/board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum %>&categ=3"><%= article.getSubject() %></a></td>    
+					<tr id="review_article">
+		   	 		<input type="hidden" class="board_num" name="board_num" value="<%= article.getBoard_num()%>" />
+	        	<td>익명</td>
+	         	<td><%= article.getSubject() %></td>
 	      	</tr>
-	    	
-	 			<%}  	
+	      	<tr class="review_content"></tr>
+ 			<%	}  	
 	    }%>  
 	    </table>
 	    <!-- TODO : 결제한 고객만 쓸 수 있도록 분기처리  --> <%-- 전체후기보기는 결제한 고객만 보이는게 아니니까 빼도 되지 않을까? --%>

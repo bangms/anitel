@@ -44,10 +44,6 @@
 		}
 	}
  	
- %>
-  
-<%
- 	
 	BoardDTO board = new BoardDTO();
 	board.setId(id);
 	board.setReg_num(reg_num);
@@ -60,7 +56,6 @@
  	board.setReadcount(0);  
  	board.setComm(0);
  	board.setHidden_content(0);
- 	
 
  	BoardDAO b_dao = BoardDAO.getInstance(); 
  	b_dao.insertArticle(board);

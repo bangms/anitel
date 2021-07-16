@@ -228,3 +228,9 @@
 	width: 100%;
 	height:100px;
 }
+.review tr {
+	cursor: pointer;
+}
+.review tr:hover {
+	background-color: #eee;
+}
