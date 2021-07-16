@@ -6,35 +6,39 @@
 <head>
 	<meta charset="UTF-8">
 	<title>회원가입 프로</title>
-	<link href="style.css" rel="stylesheet" type="text/css" >
 </head>
 
 <%
 	request.setCharacterEncoding("UTF-8");
-
-	
 %>
 
-<jsp:useBean id="usersDto" class="anitel.model.UsersDTO" />
-<jsp:setProperty property="*" name="usersDto"/>
-
-<jsp:useBean id="petDto" class="anitel.model.PetDTO" />
-<jsp:setProperty property="*" name="petDto"/>
+<jsp:useBean id="user" class="anitel.model.UsersDTO" />
+<jsp:useBean id="pet" class="anitel.model.PetDTO" />
 
 
 
+<%
+
+String user_tel1 = request.getParameter("user_tel1");
+String user_tel2 = request.getParameter("user_tel2");
+String user_tel3 = request.getParameter("user_tel3");
+
+String user_phone = user_tel1 + "-" + user_tel2 + "-" + user_tel3; 
+user.setUser_phone(user_phone);
+
+%>
+	 
+<jsp:setProperty property="*" name="user"/>
+<jsp:setProperty property="*" name="pet"/>
 
 <%
 	// DAO 객체 생성
 	UsersDAO dao = UsersDAO.getInstance();
 	// 회원정보 DB에 저장시키는 메서드 호출, 이때 데이터는 vo 하나보내기.
-	dao.insertUser(usersDto); 
-	dao.insertPet(petDto, usersDto.getId());    
-	
-
-
+	dao.insertUser(user); 
+	dao.insertPet(pet, user.getId());    
 %>
-	 
+
 	 
 	 <script type="text/javascript">
 		alert("회원 가입이 정상적으로 처리 되었습니다.");
