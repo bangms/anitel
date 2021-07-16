@@ -132,22 +132,22 @@
 						  <ul class="responsive-table">
 				<%	if(count==0){ %>
 							    <li class="table-header">
-							      <div class="col col-1">No.</div>
-							      <div class="col col-2">제  목</div>
-							      <div class="col col-3">작성자</div>
-							      <div class="col col-4">날  짜</div>
-							      <div class="col col-5">조회수</div>
+							      <div class="col col-1" style="flex-basis: 5%;">No.</div>
+							      <div class="col col-2" style="flex-basis: 45%;">제  목</div>
+							      <div class="col col-3" style="flex-basis: 20%;">작성자</div>
+							      <div class="col col-4" style="flex-basis: 20%;">날  짜</div>
+							      <div class="col col-5" style="flex-basis: 10%;">조회수</div>
 							    </li>
 							    <li>
 							    	<div style="flex-basis: 100%;">게시글이 없습니다.</div>
 							    </li>
 				<%	}else{ %> 
 							    <li class="table-header">
-							      <div class="col col-1">No.</div>
-							      <div class="col col-2">제  목</div>
-							      <div class="col col-3">작성자</div>
-							      <div class="col col-4">날  짜</div>
-							      <div class="col col-5">조회수</div>
+							      <div class="col col-1" style="flex-basis: 5%;">No.</div>
+							      <div class="col col-2" style="flex-basis: 45%;">제  목</div>
+							      <div class="col col-3" style="flex-basis: 20%;">작성자</div>
+							      <div class="col col-4" style="flex-basis: 20%;">날  짜</div>
+							      <div class="col col-5" style="flex-basis: 10%;">조회수</div>
 							    </li>
 						
 				<%		for(int i=0; i< articleList.size(); i++){
@@ -156,7 +156,11 @@
 					      <li class="table-row">
 						      <div class="col col-1" style="flex-basis: 5%;"><%= number--%></div>
 						      <div class="col col-2" style="flex-basis: 45%;">
-						      	<a class="list_subject" href="../anitel/board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%=article.getSubject() %></a>
+						      	<%if(sel != null && search != null){ %>
+						      		<a class="list_subject" href="../board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=member.getReg_num()%>&sel=<%=sel%>&search=<%=search%>"><%=article.getSubject() %></a>
+						      	<%}else{ %>
+						      		<a class="list_subject" href="../board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=member.getReg_num()%>"><%=article.getSubject() %></a>
+						      	<%} %>
 					      	</div>
 						      <div class="col col-3" style="flex-basis: 20%;"><%= article.getId()%></div>
 						      <div class="col col-4" style="flex-basis: 20%;"><%= sdf.format(article.getReg_date()) %></div>
@@ -190,35 +194,36 @@
 			if(sel != null && search != null){
 				// 왼쪽 꺾쇠 : startPage가 pageBlock(5)보다 크면 생성
 				if(startPage > pageBlock){ %>
-					<a href="list.jsp?pageNum=<%= startPage-pageBlock %>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &lt; </a>
+					<a href="memberQna.jsp?pageNum=<%= startPage-pageBlock %>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>&amp;reg_num=<%=member.getReg_num()%>" class="pageNums"> &lt; </a>
 <%				}
 				// 페이지 번호
 				for(int i = startPage; i <= endPage; i++){ %>
-					<a href="list.jsp?pageNum=<%=i%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
+					<a href="memberQna.jsp?pageNum=<%=i%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>&amp;reg_num=<%=member.getReg_num()%>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
 <%				}
 				// 오른쪽 꺾쇠 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막 번호) 보다 크면
 				if(endPage < pageCount){%>
-					<a href="list.jsp?pageNum=<%=startPage + pageBlock%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &gt; </a>
+					<a href="memberQna.jsp?pageNum=<%=startPage + pageBlock%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>&amp;reg_num=<%=member.getReg_num()%>" class="pageNums"> &gt; </a>
 <%				}
 			}else{
 				// 왼쪽 꺾쇠 : startPage가 pageBlock(5)보다 크면 생성
 					if(startPage > pageBlock){ %>
-						<a href="list.jsp?pageNum=<%= startPage-pageBlock %>&categ=<%=categ%>" class="pageNums"> &lt; </a>
+						<a href="memberQna.jsp?pageNum=<%= startPage-pageBlock %>&categ=<%=categ%>&amp;reg_num=<%=member.getReg_num()%>" class="pageNums"> &lt; </a>
 <%					}
 				// 페이지 번호
 					for(int i = startPage; i <= endPage; i++){ %>
-						<a href="list.jsp?pageNum=<%=i%>&categ=<%=categ%>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
+						<a href="memberQna.jsp?pageNum=<%=i%>&categ=<%=categ%>&amp;reg_num=<%=member.getReg_num()%>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
 <%					}
 				// 오른쪽 꺾쇠 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막 번호) 보다 크면
 				if(endPage < pageCount){%>
-					<a href="list.jsp?pageNum=<%=startPage + pageBlock%>&categ=<%=categ%>" class="pageNums"> &gt; </a>
+					<a href="memberQna.jsp?pageNum=<%=startPage + pageBlock%>&categ=<%=categ%>&amp;reg_num=<%=member.getReg_num()%>" class="pageNums"> &gt; </a>
 <%				}
 			}
 	}%>		
 		<%-- 아이디 , 글제목 으로 검색 --%>
-			<form action="list.jsp"> 
+			<form action="memberQna.jsp"> 
 			
 				<input type="hidden" name="categ" value="<%=categ%>"/>
+				<input type="hidden" name="reg_num" value="<%=member.getReg_num()%>"/>
 				<div class="search_wrap">
 					<div id="sel" class="select-box">
 					  <div class="select-box_current" tabindex="1">
@@ -228,7 +233,7 @@
 					    </div>
 					    <div class="select-box_value">
 					      <input class="select-box_input" type="radio" id="subject" value="subject" name="sel"/>
-					      <p class="select-box_input-text">글제목</p>
+					      <p class="select-box_input-text">제목</p>
 					    </div>
 					    <img class="select-box_icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
 					  </div>
@@ -237,12 +242,13 @@
 					      <label class="select-box_option" for="id" aria-hidden="aria-hidden">작성자</label>
 					    </li>
 					    <li>
-					      <label class="select-box_option" for="subject" aria-hidden="aria-hidden">글제목</label>
+					      <label class="select-box_option" for="subject" aria-hidden="aria-hidden">제목</label>
 					    </li>
 					  </ul>
 					</div>
 					<input class="search" type="text" name="search" />
 					<input class="btn" type="submit" value="검색" />
+					<input class="btn" type="button" value="원래대로" onclick="window.location='memberQna.jsp'"/>
 				</div>
 				<h3 style="color:black">현재 페이지 : <%=pageNum%></h3>
 			</form>

@@ -27,7 +27,9 @@
 	// DB에 담아줄 글 관련 정보 선언 및 초기화
 	int board_num= Integer.parseInt(request.getParameter("board_num"));
 	
- 
+	// 답글 관리를 위한 기능 활성화
+ 	BoardDAO dao = BoardDAO.getInstance(); 
+	String reply = dao.getReply(board_num);
 %>
 <body>
 <div id="container">
@@ -69,7 +71,7 @@
 					<td><h1>답변</h1></td>
 				</tr>
 				<tr>
-					<td><textarea rows="20" cols="60" name="reply_content"></textarea></td>
+					<td><textarea rows="20" cols="60" name="reply_content" autofocus><%=reply%></textarea></td>
 				</tr> 
 				<tr>
 					<td colspan="2"><input type="submit" value="등 록" /></td>

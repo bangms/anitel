@@ -695,4 +695,29 @@ public class MemberDAO {
 		}	
 		return bookingList;
 	}
+	
+	// id 집어넣고 사업자 여부 확인
+	public boolean memberMatch(String id) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;		
+		try {
+			conn = getConnection();
+			String sql = "select id from member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = true;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try { rs.close(); }catch(Exception e) { e.printStackTrace(); }
+			if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+		}
+		return result;
+	}
 }

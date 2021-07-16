@@ -797,6 +797,31 @@ public class BoardDAO {
 			}
 			return articleList;
 		}
-	   
-	   
+
+	// 보드넘버 넣고 답글 꺼내기
+	public String getReply(int board_num) {
+		String reply = "";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			String sql = "select reply_content from board where board_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				if(rs.getString(1)!=null) {
+					reply = rs.getString(1);
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		return reply;
+	}
 }// close
