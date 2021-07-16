@@ -21,7 +21,7 @@
 %>
 	<script type="text/javascript">
 		alert("잘못된 접근입니다!");
-		window.location = "list.jsp?board_num="+ <%=board_num%>+ "&pageNum=" + <%=pageNum%> +"&categ=" + <%=categ%> + "&reg_num=" + <%=reg_num%>;
+		window.location = "list.jsp?board_num="+ <%=board_num%>+ "&pageNum=" + <%=pageNum%> + "&categ=" + <%=categ%> + "&reg_num=" + '<%=reg_num%>';
 	</script>
 <%
 	} else {
@@ -34,7 +34,7 @@
 	%>
 	<script type="text/javascript">
 		self.close();
-		opener.document.location = "content.jsp?board_num="+ <%=board_num%>+"&pageNum=" + <%=pageNum%> +"&categ=" + <%=categ%> + "&reg_num=" + <%=reg_num%>;;
+		opener.document.location = "content.jsp?board_num="+ <%=board_num%>+ "&pageNum=" + <%=pageNum%> + "&categ=" + <%=categ%> + "&reg_num=" + '<%=reg_num%>';
 	</script>
 	<%
 	} else { // 비밀번호가 틀린 경우
