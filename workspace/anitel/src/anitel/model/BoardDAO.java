@@ -347,6 +347,32 @@ public class BoardDAO {
 		return result;
 	}
 	
+	// 게시판 수정 (관리자용) //다희 추가 
+	public int modifyArticleAdmin(BoardDTO dto, int categ)  {
+		int result = -1;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+ 
+		try {
+			conn = getConnection(); 
+			String sql = "update board set subject=?, ctt=?, img=? where board_num=? and categ=?";
+			pstmt= conn.prepareStatement(sql); 
+			pstmt.setString(1, dto.getSubject());
+			pstmt.setString(2, dto.getCtt());
+			pstmt.setString(3, dto.getImg());
+			pstmt.setInt(4, dto.getBoard_num());
+			pstmt.setInt(5, dto.getCateg());
+			result = pstmt.executeUpdate();  
+		 		 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		return result;
+	}
+	
 	// path만들기 위헤 img 가져오기 
 	public String getPhoto(int board_num, int categ){
 		String photo = null;
