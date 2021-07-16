@@ -41,7 +41,13 @@
    	
   	//reg_num 이 넘어올때 
   	String reg_num = request.getParameter("reg_num");
-  	System.out.println("content reg_num=" +reg_num);
+  	System.out.println("writeForm reg_num=" +reg_num);
+  	
+  	
+  	//memId 가 넘어올떄 categ =2,3 일때 hoteldetail 로 보내주기 위함 
+  	//String memId = request.getParameter("memId");
+  	//System.out.println("writeForm memId=" + memId);
+  	
    
 	// DB에 담아줄 글 관련 정보 선언 및 초기화
 	int board_num=0;
@@ -70,7 +76,7 @@
 				
 			<%}else{ 
 				if(id.equals("admin")) { %><%-- 관리자 일 때 --%>
-					<button id="mypage" onclick="window.location='../adminMypage/adminUserForm.jsp'">마이페이지</button>
+					<button id="mypage" onclick="window.location='adminMypage/adminUserForm.jsp'">마이페이지</button>
 			<%}
 				if(id.equals("일반회원")) { %><%-- 일반 회원 일 때 --%>
 					<button id="mypage" onclick="window.location='../mypage.jsp'">마이페이지</button>
@@ -101,6 +107,7 @@
 			<input type="hidden" name="categ" value="<%=categ%>"/>
 			<input type="hidden" name="hidden_content" value="<%=hidden_content%>"/>
 			<input type="hidden" name="reg_num" value="<%=reg_num%>"/>
+			 
 	 
 			<table>
 				<tr>
@@ -118,8 +125,12 @@
 				</tr> 
 				<tr>
 					<td>
-						<input type="submit" value="등 록" />
-						<input type="button" value="취 소" onclick="window.location='list.jsp?pageNum=<%=pageNum%>&categ=<%=categ %>'" />
+						<input type="submit" value="등 록" />	
+						<%if(categ == 0 || categ == 1){%>
+						 	<input type="button" value="취 소" onclick="window.location='list.jsp?&categ=<%=categ %>&amp;reg_num=<%=reg_num%>'" />            
+						<%}else if(categ == 2 || categ == 3){%>
+							<input type="button" value="취 소" onclick="history.back(-2)"/>
+						<%}%>				 
 					</td>
 				</tr>
 			</table>
