@@ -37,15 +37,15 @@
 		</div>
 		<div id="button">
 			<button id="notice" onclick="window.location='list.jsp?categ=0'">공지사항</button>
-		<% 	
+			<% 	
 			if(session.getAttribute("sid") == null){ 
-		%>
+			%>
 				<button id="signin" onclick="window.location='../signIn.jsp'">회원가입</button>
 				<button id="login" onclick="window.location='../loginForm.jsp'">로그인</button>
-					
-		<%}else{ 
+				
+			<%}else{ 
 				if(id.equals("admin")) { %><%-- 관리자 일 때 --%>
-					<button id="mypage" onclick="window.location='../adminMypage/adminUserForm.jsp'">마이페이지</button>
+					<button id="mypage" onclick="window.location='adminMypage/adminUserForm.jsp'">마이페이지</button>
 			<%}
 				if(id.equals("일반회원")) { %><%-- 일반 회원 일 때 --%>
 					<button id="mypage" onclick="window.location='../mypage.jsp'">마이페이지</button>
@@ -55,7 +55,6 @@
 			<%}%>	
 				<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
 		<%}%>
-
 		</div>
 	</div>	
  <div id="section">
