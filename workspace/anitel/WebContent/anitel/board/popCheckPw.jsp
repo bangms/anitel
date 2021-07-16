@@ -19,7 +19,7 @@
 	
 	//reg_num 이 넘어올때 
 	String reg_num = request.getParameter("reg_num");
-	System.out.println("content reg_num=" +reg_num);
+	System.out.println("pwcheck reg_num=" +reg_num);
 	
 	
 	if (session.getAttribute("sid") == null) {
