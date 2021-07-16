@@ -25,6 +25,11 @@
 			}
 		}
 		
+		// 로그인 시 DB의 옛날 예약의 예약 상태(booking_status)를 전부 0으로 변경
+		BookingDAO booking = BookingDAO.getInstance();
+		booking.updateBookings();
+
+		
 		UsersDAO dao = UsersDAO.getInstance(); 
 		// 쿠키에서 준 id, pw 주고 다시 한번 체크
 		boolean res = dao.idPwCheck(id, pw); 
