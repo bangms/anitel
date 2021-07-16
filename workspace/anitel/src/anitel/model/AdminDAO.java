@@ -439,7 +439,7 @@ public class AdminDAO {
 		
 		try {
 			conn = getConnection();
-			String sql = "select reg_date,id,subject,reply_date,comm,r from (select reg_date, id, subject, reply_date, comm, rownum r from (select B.reg_date,B.id,B.subject,B.reply_date,B.comm from board B, users U where B.id = U.id and B.categ = 1 order by B.reg_date desc)) where r >= ? and r <= ?";
+			String sql = "select reg_date,id,subject,reply_date,comm,board_num,r from (select reg_date, id, subject, reply_date, comm, board_num, rownum r from (select B.reg_date,B.id,B.subject,B.reply_date,B.comm,B.board_num from board B, users U where B.id = U.id and B.categ = 1 order by B.reg_date desc)) where r >= ? and r <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -455,6 +455,7 @@ public class AdminDAO {
 					user.setSubject(rs.getString("subject"));
 					user.setReply_date(rs.getTimestamp("reply_date"));
 					user.setComm(rs.getInt("comm"));
+					user.setBoard_num(rs.getInt("board_num"));
 					usQnaList.add(user);					
 				}while(rs.next());
 			}			
@@ -530,7 +531,7 @@ public class AdminDAO {
 		
 		try {
 			conn = getConnection();
-			String sql = "select reg_date,id,subject,reply_date,comm,r from (select reg_date, id, subject, reply_date, comm, rownum r from (select B.reg_date,B.id,B.subject,B.reply_date,B.comm from board B, users U where B.id = U.id and B.categ = 1 and B." +sel+ " like '%" +search+ "%' order by B.reg_date desc)) where r >= ? and r <= ?";
+			String sql = "select reg_date,id,subject,reply_date,comm,board_num,r from (select reg_date, id, subject, reply_date, comm,board_num, rownum r from (select B.reg_date,B.id,B.subject,B.reply_date,B.comm,B.board_num from board B, users U where B.id = U.id and B.categ = 1 and B." +sel+ " like '%" +search+ "%' order by B.reg_date desc)) where r >= ? and r <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -545,6 +546,7 @@ public class AdminDAO {
 					user.setSubject(rs.getString("subject"));
 					user.setReply_date(rs.getTimestamp("reply_date"));
 					user.setComm(rs.getInt("comm"));
+					user.setBoard_num(rs.getInt("board_num"));
 					usQnaList.add(user);
 				}while(rs.next());
 			}
@@ -589,7 +591,7 @@ public class AdminDAO {
 		
 		try {
 			conn = getConnection();
-			String sql = "select reg_date,id,subject,reply_date,comm,r from (select reg_date, id, subject, reply_date, comm, rownum r from (select B.reg_date,B.id,B.subject,B.reply_date,B.comm from board B, member M where B.id = M.id and B.categ = 1 order by B.reg_date desc)) where r >= ? and r <= ?";
+			String sql = "select reg_date,id,subject,reply_date,comm,board_num,r from (select reg_date, id, subject, reply_date, comm, board_num, rownum r from (select B.reg_date,B.id,B.subject,B.reply_date,B.comm,B.board_num from board B, member M where B.id = M.id and B.categ = 1 order by B.reg_date desc)) where r >= ? and r <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -605,6 +607,7 @@ public class AdminDAO {
 					user.setSubject(rs.getString("subject"));
 					user.setReply_date(rs.getTimestamp("reply_date"));
 					user.setComm(rs.getInt("comm"));
+					user.setBoard_num(rs.getInt("board_num"));
 					mbQnaList.add(user);					
 				}while(rs.next());
 			}			
@@ -680,7 +683,7 @@ public class AdminDAO {
 			
 			try {
 				conn = getConnection();
-				String sql = "select reg_date,id,subject,reply_date,comm,r from (select reg_date, id, subject, reply_date, comm, rownum r from (select B.reg_date,B.id,B.subject,B.reply_date,B.comm from board B, member M where B.id = M.id and B.categ = 1 and B." +sel+ " like '%" +search+ "%' order by B.reg_date desc)) where r >= ? and r <= ?";
+				String sql = "select reg_date,id,subject,reply_date,board_num,comm,r from (select reg_date, id, subject, reply_date, comm, board_num, rownum r from (select B.reg_date,B.id,B.subject,B.reply_date,B.comm,B.board_num from board B, member M where B.id = M.id and B.categ = 1 and B." +sel+ " like '%" +search+ "%' order by B.reg_date desc)) where r >= ? and r <= ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, end);
@@ -695,6 +698,7 @@ public class AdminDAO {
 						user.setSubject(rs.getString("subject"));
 						user.setReply_date(rs.getTimestamp("reply_date"));
 						user.setComm(rs.getInt("comm"));
+						user.setBoard_num(rs.getInt("board_num"));
 						mbQnaList.add(user);
 					}while(rs.next());
 				}

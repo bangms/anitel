@@ -10,36 +10,12 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="style/style.css">
+	<title> HotelQA 게시판</title>
+ 	<link rel="stylesheet" href="style/style.css">
  	<link rel="stylesheet" href="style/reset.css">
 	<link rel="stylesheet" href="style/search.css">
-	<link rel="stylesheet" href="style/datepicker.min.css">
-	<script src="js/jquery-3.1.1.min.js"></script>
- 	<script src="js/datepicker.min.js"></script>
- 	<script src="js/datepicker.ko.js"></script>
-	<script type="text/javascript" src="js/search.js"></script>
-	<title> 디테일페이지</title>
 </head>
-<style>
-/* 메인페이지 height 100% 옵션주기 위한 div */
-.box {
-	height: 140px;
-}
-
-.main_form {
-	width: 80%;
-	position: absolute;
-	left: 50%;
-	transform: translate(-50%, 0);
-	margin-top: 30px;
-	text-align: center;
-}
-
-.search_bar {
-	display:inline-flex;
-}
-
-</style>
+ 
 
 <%	
 	request.setCharacterEncoding("UTF-8");
@@ -84,6 +60,13 @@
 	
 	//게시판 글가져오기
 	BoardDAO bdao = BoardDAO.getInstance(); 
+	boolean check = false;
+	
+	// 사업자, 일반회원인지 체크
+	int checkID = bdao.idCk(id);
+	System.out.println("아이디 체크 - 사업자면 2, 일반회원이면 1 : " + checkID);
+	
+	
 		
 	List articleList = null;							// 전체(or검색된) 게시글들을 담을 list변수
 	int count = 0;										// DB에 저장되어 있는 전체(or검색된) 글의 개수 보관
@@ -122,48 +105,73 @@
 			<img src="imgs/logo.jpg" width="200px" height="100px" alt="logo">
 		</div>
 		<div id="button">
-			<button id="notice">공지사항</button>
+			<button id="notice" onclick="window.location='board/list.jsp?categ=0'">공지사항</button>
+<% 	
+	if(id == null){ 
+%>
 			<button id="signin" onclick="window.location='signIn.jsp'">회원가입</button>
 			<button id="login" onclick="window.location='loginForm.jsp'">로그인</button>
+			
+<%}else{ 
+	if(checkID == 1) { 
+		if(session.getAttribute("sid").equals("admin")) { %><%-- 관리자 일 때 --%>
+			<button id="mypage" onclick="window.location='adminMypage/adminUserForm.jsp'">마이페이지</button>
+	<%} else { %>
+		<button id="mypage" onclick="window.location='userMypage/userMyPage.jsp'">마이페이지</button>
+	<%}
+	}
+	if(checkID == 2) { %><%-- 사업자 일 때 --%>
+		<button id="mypage" onclick="window.location='memberMypage/memberMyPage.jsp'">마이페이지</button>
+<%}%>	
+		<button id="signout" onclick="window.location='logout.jsp'">로그아웃</button>
+<%}%>
+
 		</div>
 	</div>	
-  <div id="section" class="detail_wrapper">
-        	<h1><%=hotel_name %> 님의 후기</h1>
-      		<hr align="left" width=800 color="black">
-      		<br/>
-      		
+	 <div id="section" align="center">
+		 <div id = "boardName" style="font-size:20px; font-weight: bold; color:black; padding:10px;">
+        	<p><%=hotel_name %> 님의 후기</p>
+      	</div>
 <%	if(count==0){ %>
 	<table>
 		<tr>
 			<td align="center"> 게시글이 없습니다. </td>
 		</tr>
 	</table>
-<%	}else{ %> 
-	<table border="1" width="80%">
-		<tr>
-			<td> No. </td>
-			<td> 제 목 </td>
-			<td> 작성자 </td>
-			<td> 날 짜 </td>	 		
-			<td> 조회수 </td>
-		</tr>
+<%}else{ %> 
+	<div class="table_wrap">
+				  <ul class="responsive-table">
+				    <li class="table-header">
+				      <div class="col col-1" style="flex-basis: 5%;">No.</div>
+				      <div class="col col-2" style="flex-basis: 45%;">제목</div>
+				      <div class="col col-3" style="flex-basis: 20%;">아이디</div>
+				      <div class="col col-4" style="flex-basis: 20%;">날짜</div>
+				      <div class="col col-5" style="flex-basis: 10%;">조회수</div>
+				    </li>
 		
-<%		for(int i=0; i< articleList.size(); i++){
+			<%for(int i=0; i< articleList.size(); i++){
 			BoardDTO article = (BoardDTO)articleList.get(i); %>
-			<tr><!-- 제목 부분 -->
-				<td><%= number--%></td>
- 				<td><a class="list_subject" href="board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%=article.getSubject() %> </a></td>
-				<td> 익 명 </td>
-				<td><%= sdf.format(article.getReg_date()) %></td>
-				<td><%= article.getReadcount()%></td>
-			</tr>
-<%		} %>	
-		</table>
-		<br /><br />
-<%	} %>
+				<li class="table-row">
+					<div class="col col-1" style="flex-basis: 5%;"><%= number--%></div>
+ 				<div class="col col-2" style="flex-basis: 45%;"> <a class="list_subject" href="board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%=article.getSubject() %> </a>
+				</div>
+				<div class="col col-3" style="flex-basis: 20%;">  익 명  </div>
+		     	<div class="col col-4" style="flex-basis: 20%;"><%= sdf.format(article.getReg_date()) %></div>
+	      		<div class="col col-5" style="flex-basis: 10%;"><%= article.getReadcount()%></div>
+			</li>
+			<%}%>	
+	
+			<input class="write_btn btn"  type="button" value="뒤로가기" onclick="history.back()"/>
+			
+			<% check = bdao.paymentUserCk(id,reg_num); 
+				if(check) { %> 
+			<input class="write_btn btn" type="button" value="글쓰기" onclick="window.location='writeForm.jsp?categ=3&amp;reg_num=<%=reg_num%>'" /> 
+			<%} %>
+			
+		</ul>
+	</div>	 
+<%}%>
 
-	<input type="button" value="뒤로가기" onclick="history.back()"/>
-		
 		
 	  <%-- 페이지 번호 --%>
 		<div align="center">
@@ -188,55 +196,80 @@
 			if(sel != null && search != null){
 				// 왼쪽 꺾쇠 : startPage가 pageBlock(5)보다 크면 생성
 				if(startPage > pageBlock){ %>
-					<a href="list.jsp?pageNum=<%= startPage-pageBlock %>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &lt; </a>
+					<a href="hotelDetailQA.jsp?pageNum=<%= startPage-pageBlock %>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&hotel_name=<%=hotel_name %>" class="pageNums"> &lt; </a>
 <%				}
 				// 페이지 번호
 				for(int i = startPage; i <= endPage; i++){ %>
-					<a href="list.jsp?pageNum=<%=i%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
+					<a href="hotelDetailQA.jsp?pageNum=<%=i%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&hotel_name=<%=hotel_name %>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
 <%				}
 				// 오른쪽 꺾쇠 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막 번호) 보다 크면
 				if(endPage < pageCount){%>
-					<a href="list.jsp?pageNum=<%=startPage + pageBlock%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &gt; </a>
+					<a href="hotelDetailQA.jsp?pageNum=<%=startPage + pageBlock%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&hotel_name=<%=hotel_name %>" class="pageNums"> &gt; </a>
 <%				}
 			}else{
 				// 왼쪽 꺾쇠 : startPage가 pageBlock(5)보다 크면 생성
 					if(startPage > pageBlock){ %>
-						<a href="list.jsp?pageNum=<%= startPage-pageBlock %>&categ=<%=categ%>" class="pageNums"> &lt; </a>
+						<a href="hotelDeatilQA.jsp?pageNum=<%= startPage-pageBlock %>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&hotel_name=<%=hotel_name %>" class="pageNums"> &lt; </a>
 <%					}
 				// 페이지 번호
 					for(int i = startPage; i <= endPage; i++){ %>
-						<a href="list.jsp?pageNum=<%=i%>&categ=<%=categ%>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
+						<a href="hotelDetailQA.jsp?pageNum=<%=i%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&hotel_name=<%=hotel_name %>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
 <%					}
 				// 오른쪽 꺾쇠 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막 번호) 보다 크면
 				if(endPage < pageCount){%>
-					<a href="list.jsp?pageNum=<%=startPage + pageBlock%>&categ=<%=categ%>" class="pageNums"> &gt; </a>
+					<a href="hotelDetailQA.jsp?pageNum=<%=startPage + pageBlock%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&hotel_name=<%=hotel_name %>" class="pageNums"> &gt; </a>
 <%				}
 			}
 	}%>		
-		<br/><br/>
+
+			 <br />
+			 <br />
+			<h3 style="color:black">현재 페이지 : <%=pageNum%></h3>
 			<%-- 아이디 , 글제목 으로 검색 --%>
-			<form action="list.jsp"> 
+			<form action="hotelDetailQA.jsp"> 
 				<input type="hidden" name="categ" value="<%=categ%>"/>
-				<select name="sel">
-					<option value="id">아이디</option>
-					<option value="subject">글제목</option> 
-				</select>
-				<input type="text" name="search"/>
-				<input type="submit" value="검색"/>
+				<input type="hidden" name="reg_num" value="<%=reg_num%>"/>
+				<input type="hidden" name="memId" value="<%=memId%>"/>
+				<input type="hidden" name="hotel_name" value="<%=hotel_name%>"/>
+				<div class="search_wrap">
+					<div id="sel" class="select-box">
+					  <div class="select-box_current" tabindex="1">
+					    <div class="select-box_value">
+					      <input class="select-box_input" type="radio" id="id" value="id" name="sel" checked="checked"/>
+					      <p class="select-box_input-text">아이디</p>
+					    </div>
+					    <div class="select-box_value">
+					      <input class="select-box_input" type="radio" id="subject" value="subject" name="sel"/>
+					      <p class="select-box_input-text">글제목</p>
+					    </div>
+					    <img class="select-box_icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
+					  </div>
+					  <ul class="select-box_list">
+					    <li>
+					      <label class="select-box_option" for="id" aria-hidden="aria-hidden">아이디</label>
+					    </li>
+					    <li>
+					      <label class="select-box_option" for="subject" aria-hidden="aria-hidden">글제목</label>
+					    </li>
+					  </ul>
+					</div>
+					<input class="search" type="text" name="search" />
+					<input class="btn" type="submit" value="검색" />
+				</div>
 			</form>
 			
-			<h3 style="color:black">현재 페이지 : <%=pageNum%></h3>
+				
 		</div>
 	</div>
-      
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
-      <div id="footer">
-      <img src="imgs/logo2.png" width=100px; height=50px;>
-      <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
-      이용약관 | 취소정책 | 1:1문의 <br/>
-      COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
-      </div>
-    </div>
+		<div id="footer">
+			 <img src="imgs/logo2.png" width=100px; height=50px;>
+			 <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
+			 이용약관 | 취소정책 | 1:1문의 <br/>
+				COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
+			</div>
+  </div>
 </body>
+</html>
  
 </html>
