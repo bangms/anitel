@@ -1,4 +1,3 @@
-<%@page import="com.sun.org.apache.xerces.internal.impl.xpath.regex.REUtil"%>
 <%@page import="anitel.model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
