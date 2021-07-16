@@ -8,9 +8,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>글조회</title>
- 	<link rel="stylesheet" href="../style/style.css">
+  	<link rel="stylesheet" href="../style/style.css">
  	<link rel="stylesheet" href="../style/reset.css">
- 	<link rel="stylesheet" href="../style/init.css">	
+  	<link rel="stylesheet" href="../style/init.css">	
 </head>
 
 <%
@@ -40,10 +40,10 @@
 	//db 에서 글 고유번호 주고 해당 글에 대한 애용 가져오기
 	BoardDAO dao = BoardDAO.getInstance();
 	BoardDTO article = dao.getArticle(board_num);  
-	
+	 
 	int checkID = dao.idCk(id);
 	System.out.println("아이디 체크 - 사업자면 2, 일반회원이면 1 : " + checkID);
-	 
+	
 	System.out.println("content subject " + article.getSubject());
 	System.out.println("content img name " + article.getImg());
 			
@@ -53,7 +53,7 @@
 	boolean check = false;
 %>
 <body>
-<div id="container">
+<div id="container" align="center"> 
 	<div id="header">
 		<div id="logo" onclick="window.location='../main.jsp'">
 			<img src="../imgs/logo.jpg" width="200px" height="100px" alt="logo">
@@ -81,9 +81,9 @@
 <%}%>
 
 		</div>
-	</div>		
+	</div>	
 	 <div id="section" align="center">
-		<div id = "boardName">
+		<div id = "boardName" style="font-size:20px; font-weight: bold; color:black; padding:10px;">
 		<!-- 게시판 이름 분기처리  -->
 	 		<% if (categ == 0){ %>
 						<h1 align="center" > 공지사항 </h1>
@@ -95,8 +95,8 @@
 						<h1 align="center" > 후기 </h1>
 			<% } %>
 		</div>
-		
-	 		<table>
+		<div id="content" align= "center">
+	 		<table border="1">
 			<tr>
 				<td colspan="2"><b> <%= article.getSubject()%> </b> </td>
 			</tr>
@@ -123,8 +123,21 @@
 			
 			<tr>
 				<td colspan="2">
-				<input type="button" value="뒤로가기" onclick="history.back()"/>
-				<button onclick="window.location='list.jsp?categ=<%=categ%>'">목록으로</button>
+				 
+		
+<% if (categ == 0){//공지%> 
+				<button onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'">목록으로</button>
+<%} else if(categ == 1){//1:1%>	
+				<button onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'">목록으로</button>
+<%} else if(categ == 2){//호텔QA%>	
+				<input type="button" value="목록으로" onclick="history.back(-2)"/>
+<%} else if(categ == 3){//후기%>	
+				<input type="button" value="목록으로" onclick="history.back(-2)"/>
+		
+<%}%>
+
+
+ 
 <%if(id== null){ %>
 	<%-- 버튼 안보임  --%>
 	
@@ -133,9 +146,10 @@
  		<% if (categ == 0 && session.getAttribute("sid").equals("admin")){//공지%> 
 				<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=0'">수  정</button>
 				<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=0'">삭  제</button>
+				
 		<%} else if(categ == 1){//1:1%>
 				<%if(session.getAttribute("sid").equals("admin")){ %>
-					<button onclick="window.location='replyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=0'">답변입력</button>	 
+					<button onclick="window.location='replyForm.jsp?board_num=<%= article.getBoard_num()%>&categ=1'">답변입력</button>	 
 				<%}  
 				if(dao.idCk(id) == 1) { %><!-- TODO: 글쓰기, 수정은 고객전용 / 삭제는 고객,관리자 --> 
 					<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=1'">수  정</button>
@@ -143,17 +157,19 @@
 				if(dao.idCk(id) == 1 || id.equals("admin")) {%>
 					<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=1'">삭  제</button>
 			<%} %>
+		
 		<%} else if(categ == 2){//호텔QA
 				if(dao.idCk(id) == 2) { %><!-- TODO: 답변은 사업자만 쓸수 있게 처리/ 글쓰기,수정은 고객전용 / 삭제는 고객,관리자전용  -->
-					<button onclick="window.location='replyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2&amp;reg_num=<%=reg_num%>'">답글쓰기</button>
+					<button onclick="window.location='replyForm.jsp?board_num=<%= article.getBoard_num()%>&categ=2&amp;reg_num=<%=reg_num%>'">답글쓰기</button>
 			<%} 
 				if(dao.idCk(id) == 1) { %>
 					<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2&amp;reg_num=<%=reg_num%>'">수  정</button>
-					<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2'">삭  제</button>
-		<%	} 
-				if(check || id.equals("admin")) {%>
-					<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2'">삭  제</button>
-			<%} %>
+					 
+		<%} 
+				if(dao.idCk(id) == 1 || id.equals("admin")) {%>
+				<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2&amp;reg_num=<%=reg_num%>'">삭  제</button>
+		<%} %>
+		
 		<%} else if(categ == 3){//후기
 					check = dao.paymentUserCk(id, reg_num);
 					if(check) { %>
@@ -161,14 +177,15 @@
 						<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=3&amp;reg_num=<%=reg_num%>'">수  정</button>
 			<%  }
 					if(check || id.equals("admin")) { %>
-						<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2'">삭  제</button>
+						<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=3&amp;reg_num=<%=reg_num%>'">삭  제</button>
 			<%  } %>
 		<% } %>
 		
-<%} //세션 있고 없고   %>
+<%} //세션 있고 없고 %>
 				</td>
 			</tr>
 		</table>
+		</div>	
 	 </div>
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
 	<div id="footer">
@@ -178,6 +195,6 @@
 			COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
 	</div>
   </div>
-</div>
+
 </body>
 </html>
