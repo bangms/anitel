@@ -398,7 +398,7 @@ $(document).ready(function(){
 	    <%} %>
 	    
 	    <!-- test -->
-	     <button class="t_btn" style="width:150px;height:auto;padding:10px 0;margin:20px 0 50px;" onclick="window.location='hotelDetailQA.jsp?memId=<%=memId%>&amp;reg_num=<%=reg_num%>&hotel_name=<%=dto.getHotel_name()%>'">전체후기보기</button>
+	     <button class="t_btn" style="width:150px;height:auto;padding:10px 0;margin:20px 0 50px;" onclick="window.location='hotelDetailReview.jsp?memId=<%=memId%>&amp;reg_num=<%=reg_num%>&hotel_name=<%=dto.getHotel_name()%>'">전체후기보기</button>
 	 	
 	      
 	    
@@ -437,19 +437,21 @@ $(document).ready(function(){
             window.open(url,"checkPw","toolbar=no, location=no, status=no, menubar=no, scrollbars=no resizeable=no, width=300, height=200");
        		  }
 		</script>
-		     		 <tr>
+		     		<tr>
 		         		<td><%=article.getId() %></td>
 		         		
 		         		<%if(sid == null) { // 팝업 - 로그인이 필요한 페이지 입니다. %> 
-		         			<td><a onclick="secret(<%=article.getBoard_num()%>,<%=pageNum%>,<%=categ%>)">[비밀글] <%=article.getSubject() %></a></td> 
+		         			<td><a onclick="secret(<%=article.getBoard_num()%>,<%=pageNum%>,<%=categ%>,'<%=reg_num%>')">[비밀글] <%=article.getSubject() %></a></td> 
 		         		
 		         		<!-- 비밀글 // sid 가 사업자거나 어드민인 경우 비번 입력 x  --> 
-		         		<%}else if(session.getAttribute("sid").equals("memId") || (session.getAttribute("sid").equals("admin"))){
+		         		<%}else if(memId.equals(sid) || ("admin".equals(sid))){
 		         			System.out.println("HD sid, memId =" + sid + "," + memId);%> 
-		         			<td><a href="../anitel/board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum %>&categ=2">[비밀글]<%= article.getSubject() %></a></td>   
-		         		
-		         		<%}else{ %>
-		         			<td><a onclick="secret(<%=article.getBoard_num()%>,<%=pageNum%>,<%=categ%>)">[비밀글] <%=article.getSubject() %></a></td>   
+		         			<td><a href="../anitel/board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum %>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>">[비밀글]<%= article.getSubject() %></a></td>   
+		     
+		         		<%}else{ 
+		         			System.out.println("else구문 안에서"+reg_num);
+		         		%>
+		         			<td><a onclick="secret(<%=article.getBoard_num()%>,<%=pageNum%>,<%=categ%>,'<%=reg_num%>')">[비밀글] <%=article.getSubject() %></a></td>   
 		      			<%}  
 		      			%>
 		      		</tr>
