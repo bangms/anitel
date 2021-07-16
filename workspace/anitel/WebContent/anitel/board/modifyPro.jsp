@@ -15,6 +15,7 @@
  	<link rel="stylesheet" href="../style/reset.css">
   	<link rel="stylesheet" href="../style/init.css">	
 </head>
+<body>
 <%
 	request.setCharacterEncoding("UTF-8");
 
@@ -79,57 +80,51 @@
 			dto.setImg(mr.getParameter("exPhoto"));
 		}
 	}
- 	
- 
- 	/* //덮어쓰기 방지 객체 : 중복이름으로 파일 저장시 파일 자동으로 이름 생성 
- 	DefaultFileRenamePolicy dp = new DefaultFileRenamePolicy();
- 	// MultipartRequest 객체생성
- 	MultipartRequest mr = new MultipartRequest(request, path, max, enc, dp);
- 	
- 	int board_num = Integer.parseInt(mr.getParameter("board_num"));
- 	System.out.println("board_num=" + board_num);
- 	int categ = Integer.parseInt(mr.getParameter("categ"));
- 	System.out.println("categ=" + categ);
-  
- 	String subject = mr.getParameter("subject");
- 	System.out.println("subject=" + subject); 
- 	String ctt = mr.getParameter("ctt");
- 	System.out.println("ctt=" + ctt);
- 	String pw = mr.getParameter("pw");
- 	System.out.println("pw=" + pw);
- 	
-	String sysName = mr.getFilesystemName("img"); // 파일 넘어오는 이름 
-	String orgName = mr.getOriginalFileName("img"); // 파일 원본 이름 
- 	String contentT = mr.getContentType("img"); 
 	
- 	System.out.println("img=" + sysName);
- 	
- 	if(sysName != null){
-		String[] ct = contentT.split("/");
-		if(!(ct[0].equals("image"))){
-			File f = new File(sysName);
-			f.delete(); */
-		%>
-			<script type="text/javascript">
-				alert("이미지 파일이 아닙니다. 이미지 파일을 업로드해주세요.");
-				history.go(-1);
-			</script>		
- <%
- 	
+	int result;
+  
  	BoardDAO dao = BoardDAO.getInstance();
- 	int result = dao.updateArticle(dto, categ); 
+ 	if(session.getAttribute("sid").equals("admin")){
+ 		result = dao.modifyArticleAdmin(dto, categ);
+ 		System.out.println("modifyPro - 수정 결과 : " + result + "(수정실패 : -1, 수정성공 : 1)");
+ 
+ 	}else{
+ 	 	
+ 		result = dao.updateArticle(dto, categ); 
  	
+ 		
+ 	}
+%>
+
+<%  
  	if(result == 1){
- 		response.sendRedirect("content.jsp?board_num=" + dto.getBoard_num() + "&pageNum=" + pageNum + "&categ=" + categ);
-	}else{ %>
+ 		System.out.println("수정 처리 확인 !");
+ 		System.out.println("modifyPro - 수정 결과 : " + result + "(수정실패 : -1, 수정성공 : 1)"); %>
+ 	
+ 	<%if(categ == 0 || categ == 1){%>	
+ 		<script>
+		alert("수정이 성공적으로 완료되었습니다.");
+		window.location="list.jsp?pageNum=<%=pageNum%>&categ=<%=categ%>&board_num<%=board_num%>&reg_num<%=reg_num%>";
+		</script>
+		
+	<%}else if(categ == 2 || categ == 3){%>
+		<script type="text/javascript">
+		alert("수정이 성공적으로 완료되었습니다.");
+		history.go(-2);
+		</script>
+	<%} %>
+	
+		
+ 		
+<%	}else{ %>
+
 		<script>
-			alert("비밀번호가 맞지 않습니다 ");
+			alert("비밀번호를 확인하고 다시 수정해보세요.... ");
 			history.go(-1);
 		</script>
-<%} 
-%>
+<%} %>
  
-<body>
+
 	
 </body>
 </html>
