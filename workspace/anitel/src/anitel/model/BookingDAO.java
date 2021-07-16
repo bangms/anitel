@@ -360,7 +360,7 @@ public class BookingDAO {
 		ResultSet rs = null;		
 		try {
 			conn = getConnection();
-			String sql ="update booking set booking_status=0 where check_out < sysdate";
+			String sql ="update booking set booking_status=0 where check_out < sysdate and booking_status!=1";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.executeUpdate();
 		}catch(Exception e) {
