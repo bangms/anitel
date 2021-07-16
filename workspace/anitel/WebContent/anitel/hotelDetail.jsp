@@ -321,7 +321,7 @@ $(document).ready(function(){
 		      	</div>
 		      	<div class="room_fee"_><%=room.getD_fee()%> 원</div>
 	      	</div>
-	      	<button class="list_btn" onclick="window.location='reserveForm.jsp?memId=<%=room.getId()%>&room_num=<%=room.getRoom_num()%>&check_in=<%=check_in%>&check_out=<%=check_out%>'">예약하기</button>
+	      	<button class="list_btn" onClick="window.location='reserveForm.jsp?memId=<%=room.getId()%>&room_num=<%=room.getRoom_num()%>&check_in=<%=check_in%>&check_out=<%=check_out%>'">예약하기</button>
 	      </li>
 	    <%} 
 	} %>
