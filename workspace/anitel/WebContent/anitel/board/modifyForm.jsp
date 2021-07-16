@@ -50,7 +50,7 @@
 				
 			<%}else{ 
 				if(id.equals("admin")) { %><%-- 관리자 일 때 --%>
-					<button id="mypage" onclick="window.location='../adminMypage/adminUserForm.jsp'">마이페이지</button>
+					<button id="mypage" onclick="window.location='adminMypage/adminUserForm.jsp'">마이페이지</button>
 			<%}
 				if(id.equals("일반회원")) { %><%-- 일반 회원 일 때 --%>
 					<button id="mypage" onclick="window.location='../mypage.jsp'">마이페이지</button>
@@ -87,18 +87,21 @@
 								<img src="../save/default.png"/>
 							<%} %>	
 							
-							<input type="file" name="img" /> <%-- 수정을 할 수 있는 버튼 --%>
-							<%-- 데이터를 넘겼을 때 수정을 했다라고 하면 photo 값으로 업데이트 하고 
-							수정을 하지 않았다고 하면 exphoto로 기존에 있던 사진을 업데이트해줌 --%>
+							<input type="file" name="img" />  
 							<input type="hidden" name="exPhoto" value="<%= article.getImg() %>" />
-							<%-- null이라는 문자열로 들어가서 기본 이미지가 아닌 엑박이 뜸 --%>
-							<br/>
+						 
 						</td>	
 					</tr>
 					<tr>
 						<td colspan="2">
 						   <input type="submit" value="수 정" />
-						   <input type="button" value="취 소" onclick="window.location='list.jsp'" />               
+						   
+						<%if(categ == 0 || categ == 1){%>
+						  <input type="button" value="취 소" onclick="window.location='list.jsp?pageNum=<%=pageNum%>&categ=<%=categ %>&amp;reg_num=<%=reg_num%>'" />            
+						<%}else if(categ == 2 || categ == 3){%>
+							<input type="button" value="취 소" onclick="history.back(-2)"/>
+						<%}%>
+						  
 						</td>
 					</tr>
 				</table>
