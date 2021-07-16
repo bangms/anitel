@@ -11,11 +11,13 @@
 	<link rel="stylesheet" href="style/style.css">
  	<link rel="stylesheet" href="style/reset.css">
 	<link rel="stylesheet" href="style/search.css">
+	<link rel="stylesheet" href="style/detail.css">
 	<link rel="stylesheet" href="style/datepicker.min.css">
 	<script src="js/jquery-3.1.1.min.js"></script>
  	<script src="js/datepicker.min.js"></script>
  	<script src="js/datepicker.ko.js"></script>
 	<script type="text/javascript" src="js/search.js"></script>
+	<script type="text/javascript" src="js/detail.js"></script>
 	<title> 디테일페이지</title>
 </head>
 <style>
@@ -362,6 +364,39 @@ $(document).ready(function(){
 	count= dao.getReviewCount(categ, reg_num);   
 	System.out.println("hotelaDetail-count : " + count);
 	%>
+	<%	check = dao.paymentUserCk(sid,reg_num); 
+	    //if(check) {%>
+				<div id="review_write_wrap">
+				<%--  onclick="window.location='../anitel/board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=3'" --%>
+					<button id="review_write_btn" class="t_btn" style="width:150px; padding:10px; height:auto;">리뷰쓰기</button>
+					<div id="wrtie_form" class="hidden">
+						<form method="post" enctype="multipart/form-data" id="ajaxForm">
+							<input type="hidden" name="categ" value="3"/>
+							<input type="hidden" name="reg_num" value="<%=reg_num%>"/>
+							<input type="hidden" name="id" value="<%=sid %>" />
+							<div class="row" style="margin-top:20px;">
+								<div class="sub">제목</div>
+								<div class="txt"><input type="text" name="subject" /></div>
+							</div>
+							<div class="row">
+								<div class="sub">비밀번호</div>
+								<div class="txt"><input type="password" name="pw" /></div>
+							</div>
+							<div class="row">
+								<div class="sub">파일올리기</div>
+								<div class="txt"><input type="file" name="img" /></div>
+							</div>
+							<div class="row">
+								<div class="sub">내용</div>
+								<div class="txt"><textarea name="ctt"></textarea></div>
+							</div>
+							<div class="row">
+									<div class="btn"><button id="ajax">등  록</button></div>
+							</div>
+						</form>
+					</div>
+				</div>
+		<%//} %>
 	    <p>후기게시판</p>
 	    <table class="review">
 	<% if(count == 0){ %>
@@ -390,11 +425,11 @@ $(document).ready(function(){
 	 			<%}  	
 	    }%>  
 	    </table>
-	    <!-- TODO : 결제한 고객만 쓸 수 있도록 분기처리  -->
+	    <!-- TODO : 결제한 고객만 쓸 수 있도록 분기처리  --> <%-- 전체후기보기는 결제한 고객만 보이는게 아니니까 빼도 되지 않을까? --%>
 	    <%check = dao.paymentUserCk(sid,reg_num); 
 	    if(check) {%>
-	    <button onclick="window.location='../anitel/board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=3'">글쓰기</button> 
-	    <button onclick="window.location='hotelDetailQA.jsp?memId=<%=memId%>&reg_num=<%=dto.getReg_num()%>'">전체후기보기</button>
+	    <button class="t_btn" onclick="window.location='../anitel/board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=3'">글쓰기</button> 
+	    <button class="t_btn" onclick="window.location='hotelDetailQA.jsp?memId=<%=memId%>&reg_num=<%=dto.getReg_num()%>'">전체후기보기</button>
 	    <%} %>
 	    
 	    <!-- test -->
