@@ -160,13 +160,12 @@
 	      		<div class="col col-5" style="flex-basis: 10%;"><%= article.getReadcount()%></div>
 			</li>
 			<%}%>	
-			
-			
+	
 			<input class="write_btn btn"  type="button" value="뒤로가기" onclick="history.back()"/>
 			
 			<% check = bdao.paymentUserCk(id,reg_num); 
 				if(check) { %> 
-			<input class="write_btn btn" type="button" value="글쓰기" onclick="window.location='writeForm.jsp?categ=3&amp;reg_num=<%=reg_num%>'"> 
+			<input class="write_btn btn" type="button" value="글쓰기" onclick="window.location='writeForm.jsp?categ=3&amp;reg_num=<%=reg_num%>'" /> 
 			<%} %>
 			
 		</ul>
@@ -197,28 +196,28 @@
 			if(sel != null && search != null){
 				// 왼쪽 꺾쇠 : startPage가 pageBlock(5)보다 크면 생성
 				if(startPage > pageBlock){ %>
-					<a href="hotelDeatilQA.jsp?pageNum=<%= startPage-pageBlock %>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &lt; </a>
+					<a href="hotelDetailQA.jsp?pageNum=<%= startPage-pageBlock %>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&hotel_name=<%=hotel_name %>" class="pageNums"> &lt; </a>
 <%				}
 				// 페이지 번호
 				for(int i = startPage; i <= endPage; i++){ %>
-					<a href="hotelDeatilQA.jsp?pageNum=<%=i%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
+					<a href="hotelDetailQA.jsp?pageNum=<%=i%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&hotel_name=<%=hotel_name %>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
 <%				}
 				// 오른쪽 꺾쇠 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막 번호) 보다 크면
 				if(endPage < pageCount){%>
-					<a href="hotelDeatilQA.jsp?pageNum=<%=startPage + pageBlock%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>" class="pageNums"> &gt; </a>
+					<a href="hotelDetailQA.jsp?pageNum=<%=startPage + pageBlock%>&sel=<%=sel%>&search=<%=search%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&hotel_name=<%=hotel_name %>" class="pageNums"> &gt; </a>
 <%				}
 			}else{
 				// 왼쪽 꺾쇠 : startPage가 pageBlock(5)보다 크면 생성
 					if(startPage > pageBlock){ %>
-						<a href="hotelDeatilQA.jsp?pageNum=<%= startPage-pageBlock %>&categ=<%=categ%>" class="pageNums"> &lt; </a>
+						<a href="hotelDeatilQA.jsp?pageNum=<%= startPage-pageBlock %>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&hotel_name=<%=hotel_name %>" class="pageNums"> &lt; </a>
 <%					}
 				// 페이지 번호
 					for(int i = startPage; i <= endPage; i++){ %>
-						<a href="hotelDeatilQA.jsp?pageNum=<%=i%>&categ=<%=categ%>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
+						<a href="hotelDetailQA.jsp?pageNum=<%=i%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&hotel_name=<%=hotel_name %>" class="pageNums"> &nbsp; [<%= i %>] &nbsp; </a>
 <%					}
 				// 오른쪽 꺾쇠 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막 번호) 보다 크면
 				if(endPage < pageCount){%>
-					<a href="hotelDeatilQA.jsp?pageNum=<%=startPage + pageBlock%>&categ=<%=categ%>" class="pageNums"> &gt; </a>
+					<a href="hotelDetailQA.jsp?pageNum=<%=startPage + pageBlock%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&hotel_name=<%=hotel_name %>" class="pageNums"> &gt; </a>
 <%				}
 			}
 	}%>		
@@ -227,10 +226,11 @@
 			 <br />
 			<h3 style="color:black">현재 페이지 : <%=pageNum%></h3>
 			<%-- 아이디 , 글제목 으로 검색 --%>
-			<form action="hotelDeatilQA.jsp"> 
-			
+			<form action="hotelDetailQA.jsp"> 
 				<input type="hidden" name="categ" value="<%=categ%>"/>
 				<input type="hidden" name="reg_num" value="<%=reg_num%>"/>
+				<input type="hidden" name="memId" value="<%=memId%>"/>
+				<input type="hidden" name="hotel_name" value="<%=hotel_name%>"/>
 				<div class="search_wrap">
 					<div id="sel" class="select-box">
 					  <div class="select-box_current" tabindex="1">
