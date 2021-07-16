@@ -360,12 +360,18 @@ public class BookingDAO {
 		ResultSet rs = null;		
 		try {
 			conn = getConnection();
-			String sql ="update booking set booking_status=0 where check_out < sysdate and booking_status!=1";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.executeUpdate();
+				String sql ="select count(*) from booking where check_out < sysdate and booking_status=2";
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					sql ="update booking set booking_status=0 where check_out < sysdate and booking_status=2";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.executeUpdate();
+				}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
+			if(rs != null) try { rs.close(); }catch(Exception e) { e.printStackTrace(); }
 			if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
 			if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
 		}
