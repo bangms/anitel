@@ -51,6 +51,10 @@
   
 	// id 타입 체크
 	boolean check = false;
+	
+	// 검색파라미터 받아오기
+	String sel = request.getParameter("sel");
+	String search = request.getParameter("search");
 %>
 <body>
 <div id="container" align="center"> 
@@ -130,10 +134,25 @@
 <%} else if(categ == 1){//1:1%>	
 				<button onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'">목록으로</button>
 <%} else if(categ == 2){//호텔QA%>	
-				<input type="button" value="목록으로" onclick="history.back(-2)"/>
+	<%if(member.memberMatch(id)){ // 해당 유저가 사업자임 %>
+		<%if(sel != null && search != null){ // 검색해서 들어왔음 %>
+			<input type="button" value="목록으로" onclick="window.location='../memberMypage/memberQna.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>&sel=<%=sel%>&search=<%=search%>'"/>
+		<%}else{ // 그냥 들어왔음 %>
+			<input type="button" value="목록으로" onclick="window.location='../memberMypage/memberQna.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/>
+		<%} %>
+	<%}else{ // 사업자가 아님 %>
+		<input type="button" value="목록으로" onclick="history.back(-2)"/>
+	<%} %>
 <%} else if(categ == 3){//후기%>	
-				<input type="button" value="목록으로" onclick="history.back(-2)"/>
-		
+	<%if(member.memberMatch(id)){ // 해당 유저가 사업자임 %>
+		<%if(sel != null && search != null){ // 검색해서 들어왔음%>
+			<input type="button" value="목록으로" onclick="window.location='../memberMypage/memberReview.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>&sel=<%=sel%>&search=<%=search%>'"/>
+		<%}else{ // 그냥 들어왔음%>
+			<input type="button" value="목록으로" onclick="window.location='../memberMypage/memberReview.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/>
+		<%} %>
+	<%}else{ // 사업자가 아님 %>
+		<input type="button" value="목록으로" onclick="history.back(-2)"/>
+	<%} %>
 <%}%>
 
 
@@ -159,12 +178,12 @@
 			<%} %>
 		
 		<%} else if(categ == 2){//호텔QA
-				if(dao.idCk(id) == 2) { %><!-- TODO: 답변은 사업자만 쓸수 있게 처리/ 글쓰기,수정은 고객전용 / 삭제는 고객,관리자전용  -->
-					<button onclick="window.location='replyForm.jsp?board_num=<%= article.getBoard_num()%>&categ=2&amp;reg_num=<%=reg_num%>'">답글쓰기</button>
-			<%} 
-				if(dao.idCk(id) == 1) { %>
-					<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2&amp;reg_num=<%=reg_num%>'">수  정</button>
-					 
+			if(dao.idCk(id) == 2) { %><!-- TODO: 답변은 사업자만 쓸수 있게 처리/ 글쓰기,수정은 고객전용 / 삭제는 고객,관리자전용  -->
+				<%if(article.getComm()==0){ // 답변 없음 %>				
+					<button onclick="window.location='replyForm.jsp?board_num=<%= article.getBoard_num()%>&categ=2&amp;reg_num=<%=reg_num%>&pageNum=<%=pageNum%>'">답글쓰기</button>
+				<%}else{ // 답변 있음 %>
+					<button onclick="window.location='replyForm.jsp?board_num=<%= article.getBoard_num()%>&categ=2&amp;reg_num=<%=reg_num%>&pageNum=<%=pageNum%>'">답글수정</button>
+				<%} %>
 		<%} 
 				if(dao.idCk(id) == 1 || id.equals("admin")) {%>
 				<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2&amp;reg_num=<%=reg_num%>'">삭  제</button>
