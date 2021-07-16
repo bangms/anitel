@@ -353,6 +353,22 @@ public class BookingDAO {
 		}
 
 
-
+	// 체크아웃 날짜가 현재 날짜보다 느린 경우(기간 경과) 예약상태를 종료(0)로 변경
+	public void updateBookings() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;		
+		try {
+			conn = getConnection();
+			String sql ="update booking set booking_status=0 where check_out < sysdate";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+		}
+	}
 
 }
