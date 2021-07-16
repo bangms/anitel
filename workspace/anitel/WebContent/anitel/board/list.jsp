@@ -150,24 +150,24 @@
 <% 		if(categ == 0) { /* 공지사항 */
 			if("admin".equals(id)) {%><%-- 관리자만 글쓰기 가능 --%>
 				<tr>
-					<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></td>
+					<td><button onclick="window.location='writeForm.jsp?categ=0'"> 글쓰기 </button></td>
 				</tr>
 <%			} %>
 <%		} else if(categ == 1) { /* 1:1 문의 */%>
 			<tr>
-				<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>'"> 글쓰기 </button></td>
+				<td><button onclick="window.location='writeForm.jsp?categ=1'"> 글쓰기 </button></td>
 			</tr>
 <%		} else if(categ == 2) { /* 호텔 QNA */ 
 			if(checkID == 1) {%><%-- 고객만 글쓰기 가능 / 무슨 호텔인지 보내주기 &reg_num=<%=reg_num%> --%>
 				<tr>
-					<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>&amp;reg_num=<%=reg_num%>'"> 글쓰기 </button></td>
+					<td><button onclick="window.location='writeForm.jsp?categ=2&amp;reg_num=<%=reg_num%>'"> 글쓰기 </button></td>
 				</tr>
 		<%  } %>
 <%		} else if(categ == 3) { /* 호텔 후기 */
-			check = dao.paymentUserCk(id,"000-000-000001");
+			check = dao.paymentUserCk(id,reg_num);
 			if(check) { %>
 				<tr>
-					<td><button onclick="window.location='writeForm.jsp?categ=<%=categ%>&amp;reg_num=<%=reg_num%>'"> 글쓰기 </button></td>
+					<td><button onclick="window.location='writeForm.jsp?categ=3&amp;reg_num=<%=reg_num%>'"> 글쓰기 </button></td>
 				</tr>
 <%			} %>
 <%		} %>
@@ -179,7 +179,7 @@
 				    <li class="table-header">
 				      <div class="col col-1" style="flex-basis: 5%;">No.</div>
 				      <div class="col col-2" style="flex-basis: 45%;">제목</div>
-				      <div class="col col-3" style="flex-basis: 20%;">작성자</div>
+				      <div class="col col-3" style="flex-basis: 20%;">아이디</div>
 				      <div class="col col-4" style="flex-basis: 20%;">날짜</div>
 				      <div class="col col-5" style="flex-basis: 10%;">조회수</div>
 				    </li>
@@ -206,7 +206,7 @@
 										if("admin".equals(id)) {%> <%-- 관리자는 그냥 볼 수 있게 --%>
 												<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>">[비밀글]<%= article.getSubject() %></a>
 <%									} else { %>
-												<a class="list_subject" href="#" onclick="secret(<%=article.getBoard_num()%>, <%=pageNum%>, <%=categ%>, <%=reg_num%>); return false;">[비밀글]<%= article.getSubject() %></a>
+												<a class="list_subject" href="#" onclick="secret(<%=article.getBoard_num()%>, <%=pageNum%>, <%=categ%>, '<%=reg_num%>'); return false;">[비밀글]<%= article.getSubject() %></a>
 <%									}
 								}
 						} else if(categ == 3) { %> <%-- 호텔 후기--%>
@@ -222,32 +222,31 @@
 		  </div>
 	      <div class="col col-4" style="flex-basis: 20%;"><%= sdf.format(article.getReg_date()) %></div>
 	      <div class="col col-5" style="flex-basis: 10%;"><%= article.getReadcount()%></div>
-			</li>
+		</li>
 		<%} %>
 		
 		<!-- 글쓰기 버튼 추가  -->
 		<% 		if(categ == 0) { /* 공지사항 */
 						if("admin".equals(id)) {%><%-- 관리자만 글쓰기 가능 --%>
-							<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum %>'" value="글쓰기">
+							<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=0'" value="글쓰기">
 		<%			} %>
 		<%		} else if(categ == 1) { /* 1:1 문의 */
 						if(id != null) {%>
-						<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum %>'" value="글쓰기">
+							<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=1&amp;reg_num=<%=reg_num%>'" value="글쓰기">
 					<%	} %>
-			<%		} else if(categ == 2) { /* 호텔 QNA */ 
+		<%		} else if(categ == 2) { /* 호텔 QNA */ 
 						if(checkID == 1) {%><%-- 고객만 글쓰기 가능 / 무슨 호텔인지 보내주기 &reg_num=<%=reg_num%> --%>
-							<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum %>&amp;reg_num=<%=reg_num%>'" value="글쓰기">
+							<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=2&amp;reg_num=<%=reg_num%>'" value="글쓰기">
 					<%  } %>
-			<%		} else if(categ == 3) { /* 호텔 후기 결제고객 전용 */
+		<%		} else if(categ == 3) { /* 호텔 후기 결제고객 전용 */
 						check = dao.paymentUserCk(id,reg_num);
 						if(check) { %>
-							<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum %>&amp;reg_num=<%=reg_num%>'" value="글쓰기">
-			<%			} %>
-			<%		} %>	
-				<button onclick="window.location='category.jsp'"> 카테고리</button>
-				 
-			</ul>
-		</div>
+							<input class="write_btn btn" type="button" onclick="window.location='writeForm.jsp?categ=3&amp;reg_num=<%=reg_num%>'" value="글쓰기">
+		<%			} %>
+		<%		} %>
+				
+
+	</div>
 		<%} %>
 		
 	  <%-- 페이지 번호 --%>
@@ -304,6 +303,9 @@
 				}
 			}%>
 			
+			 <br />
+			 <br />
+			<h3 style="color:black">현재 페이지 : <%=pageNum%></h3>
 			<%-- 아이디 , 글제목 으로 검색 --%>
 			<form action="list.jsp"> 
 			
@@ -336,6 +338,7 @@
 				</div>
 			</form>
 			
+				
 		</div>
 	</div>
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
