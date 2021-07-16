@@ -188,6 +188,7 @@
 			</table>
 		</form>
   </div>
+</div>
 	<div id="footer">
 	 <img src="imgs/logo2.png" width=100px; height=50px;>
 	 <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
