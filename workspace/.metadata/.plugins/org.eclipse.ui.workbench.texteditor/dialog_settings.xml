@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="btn"/>
+		<item key="selection" value="qna_wrap"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="btn"/>
-			<item value="게시판"/>
-			<item value="sect"/>
-			<item value="BoardDAO"/>
-			<item value="matchMemberPw"/>
-			<item value="hotelList"/>
-			<item value="img_"/>
-			<item value="img_\"/>
-			<item value="imgw"/>
-			<item value="img"/>
-			<item value="checkID"/>
-			<item value="border"/>
-			<item value="sha"/>
-			<item value="__"/>
-			<item value="calendar__date"/>
+			<item value="qna_wrap"/>
+			<item value="qna"/>
+			<item value=".add"/>
+			<item value="add"/>
+			<item value="url"/>
+			<item value="gongmoDiv"/>
+			<item value="gongmoCalDetailAjax"/>
+			<item value="option"/>
+			<item value="petInfo"/>
+			<item value="getHotelInfo"/>
+			<item value="hotelIn"/>
+			<item value="hotel"/>
+			<item value="idCk"/>
+			<item value="article"/>
+			<item value="form__group"/>
 		</list>
 		<list key="replacehistory">
 			<item value="_"/>
@@ -34,8 +34,8 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="749"/>
-		<item key="DIALOG_Y_ORIGIN" value="215"/>
+		<item key="DIALOG_X_ORIGIN" value="849"/>
+		<item key="DIALOG_Y_ORIGIN" value="314"/>
 		<item key="DIALOG_WIDTH" value="288"/>
 		<item key="DIALOG_HEIGHT" value="391"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|5|0|맑은 고딕"/>
