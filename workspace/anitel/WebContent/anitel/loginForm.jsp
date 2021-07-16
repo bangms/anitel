@@ -7,10 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
  	<link rel="stylesheet" href="style/reset.css">
-  <link rel="stylesheet" href="style/init.css">	
   <link rel="stylesheet" href="style/style.css">
   <title>login</title>
 </head>
+<script>
+
+</script>
 <script>
 function classChange(el) {
 	var user = document.getElementById('userLogin'); 
@@ -28,22 +30,12 @@ function classChange(el) {
 	}
 	
 }
-window.onload = function() {
-  document.getElementById('userLogin').onclick = function() {
-    classChange(this);
-  };
-  document.getElementById('memberLogin').onclick = function() {
-    classChange(this);
-  };
-} 
 
  function checkForm(btn) {
 		var btn = document.getElementById('btn_login');
 		if(btn.classList.contains('user')) {
-			//alert("유저");
 			submitForm();
 		} else if(btn.classList.contains('mem')) {
-			//alert("사업자");
 			submitForm();
 		}
 	}
@@ -51,13 +43,49 @@ window.onload = function() {
 function submitForm() {
 	var btn = document.getElementById('btn_login');
 	if(btn.classList.contains('user')) {
-		document.frm.action = "userLoginPro.jsp";
-		document.frm.submit();
+	 	var result = valueCheck();
+		if(result == true) {
+			document.frm.action = "userLoginPro.jsp";
+			document.frm.submit();
+		 }
 	} else if(btn.classList.contains('mem')) {
-		document.frm.action = "memberLoginPro.jsp";
-		document.frm.submit();
+		var result = valueCheck();
+		if(result == true) {
+			document.frm.action = "memberLoginPro.jsp";
+			document.frm.submit();
+		}
 	}
 }
+
+function valueCheck() {
+	if (!document.frm.id.value) {
+        alert("아이디를 입력해 주십시오.");
+        document.frm.id.focus();
+        return false;
+  }
+ 
+  if (!document.frm.pw.value) {
+      alert("비밀번호를 입력해 주십시오.");
+      document.frm.pw.focus();
+      return;
+  }
+  return true;
+}
+
+window.onload = function() {
+	var signup = document.getElementById('btn_signIn');
+	
+  document.getElementById('userLogin').onclick = function() {
+    classChange(this);
+    signup.innerHTML = '회원가입';
+		signup.setAttribute( 'href', 'signInUserForm.jsp' );
+  };
+  document.getElementById('memberLogin').onclick = function() {
+    classChange(this);
+    signup.innerHTML = '사업자회원가입';
+		signup.setAttribute( 'href', 'signInMemberForm.jsp' );
+  };
+} 
 </script>
 <body>
 <div id="container">
@@ -89,7 +117,7 @@ function submitForm() {
        </div>
        <div class="btn_wrap">
          <button id="btn_login" class="btn_login user" onclick="checkForm(this)">로그인</button>
-         <button class="btn_memsignIn" onclick="window.location='signInMemberForm.jsp'">사업자 회원가입</button>
+         <div class="signIn_wrap" style="height: 20px; background-color:#eee;"><a id="btn_signIn" href="signInUserForm.jsp">회원가입</a></div>
          <label for="auto">
            <input type="checkbox" name="auto" value="1" id="auto" />자동 로그인
          </label>
