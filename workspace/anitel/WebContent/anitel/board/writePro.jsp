@@ -39,13 +39,9 @@
 	System.out.println("-writePro.jsp-");
 	
  	String subject = mr.getParameter("subject");
- 	System.out.println("subject=" + subject);
- 	
  	String pw = mr.getParameter("pw");
- 	System.out.println("pw=" + pw);
- 	
  	String ctt = mr.getParameter("ctt");
- 	System.out.println("ctt=" + ctt);
+ 	 
  	
  	int board_num = Integer.parseInt(mr.getParameter("board_num"));
  	System.out.println("board_num=" + board_num);
@@ -59,7 +55,8 @@
  	
  	//reg_num
  	String reg_num = mr.getParameter("reg_num");
- 	
+ 	System.out.println("reg_num=" + reg_num);
+ 
  	
  	String sysName = mr.getFilesystemName("img"); // 파일 넘어오는 이름 
 	String orgName = mr.getOriginalFileName("img"); // 파일 원본 이름 
@@ -88,6 +85,7 @@
 	BoardDTO dto = new BoardDTO();
 	dto.setBoard_num(board_num);
 	dto.setId(id);
+	dto.setReg_num(reg_num);
 	dto.setCateg(categ); 
  	dto.setSubject(subject);
  	dto.setPw(pw);
@@ -101,12 +99,23 @@
 
  	BoardDAO dao = BoardDAO.getInstance();
  	dao.insertArticle(dto);
- 
- 
- 	response.sendRedirect("list.jsp?categ="+categ);
+ 	
+ 	//response.sendRedirect("list.jsp?categ="+categ + "&reg_num" + reg_num);
 
 %>
+	<%if(categ == 0 || categ == 1){%>
+	 <script type="text/javascript">
+		alert(" 글이 정상적으로 등록 되었습니다. ");
+		window.location.href="list.jsp?categ=<%=categ%>&reg_num=<%=reg_num%>";
+	</script>
 
+	<%}else if(categ == 2 || categ == 3){%>
+
+ 	<script type="text/javascript">
+		alert(" 글이 정상적으로 등록 되었습니다. ");
+		history.go(-2);
+	</script>
+<%} %>
 <body>
 
 </body>
