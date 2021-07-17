@@ -198,19 +198,35 @@
 				<div class="col col-1" style="flex-basis: 5%;"><%= number--%></div>
 				<div class="col col-2" style="flex-basis: 45%;">
 <% 					if(categ == 0) {%> <%-- 공지사항 --%>
-								<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>"><%=article.getSubject() %></a>
+						<%if(sel != null && search != null){ %>
+							<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&sel=<%=sel%>&search=<%=search%>"><%=article.getSubject() %></a>
+						<%}else{ %>
+						    <a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>"><%=article.getSubject() %></a>
+						<%} %>
 <%					} else if(categ == 1 || categ == 2) { /* 1:1 문의(1) / 호텔 QNA (2) */ 
 								if(hidden_content == 0) { %> <%-- 비밀글이 아니면 --%>
-									<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>"><%= article.getSubject() %></a>
+									<%if(sel != null && search != null){ %>
+										<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&sel=<%=sel%>&search=<%=search%>"><%=article.getSubject() %></a>
+									<%}else{ %>
+						    			<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>"><%=article.getSubject() %></a>
+									<%} %>
 <%							} else { // 비밀글이면
-										if("admin".equals(id)) {%> <%-- 관리자는 그냥 볼 수 있게 --%>
-												<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>">[비밀글]<%= article.getSubject() %></a>
+									if("admin".equals(id)) {%> <%-- 관리자는 그냥 볼 수 있게 --%>
+											<%if(sel != null && search != null){ %>
+												<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&sel=<%=sel%>&search=<%=search%>">[비밀글]<%=article.getSubject() %></a>
+											<%}else{ %>
+											    <a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>">[비밀글]<%=article.getSubject() %></a>
+											<%} %>
 <%									} else { %>
 												<a class="list_subject" href="#" onclick="secret(<%=article.getBoard_num()%>, <%=pageNum%>, <%=categ%>, '<%=reg_num%>'); return false;">[비밀글]<%= article.getSubject() %></a>
 <%									}
 								}
 						} else if(categ == 3) { %> <%-- 호텔 후기--%>
-								<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>"><%= article.getSubject() %></a>
+							<%if(sel != null && search != null){ %>
+								<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&sel=<%=sel%>&search=<%=search%>"><%=article.getSubject() %></a>
+							<%}else{ %>
+						    	<a class="list_subject" href="content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>"><%=article.getSubject() %></a>
+							<%} %>
 <%					} %>
 				</div>	
 		  	<div class="col col-3" style="flex-basis: 20%;"> 
@@ -335,6 +351,7 @@
 					</div>
 					<input class="search" type="text" name="search" />
 					<input class="btn" type="submit" value="검색" />
+					<input class="btn" type="button" value="원래대로" onclick="window.location='list.jsp?categ=<%=categ%>'"/>
 				</div>
 			</form>
 			
