@@ -319,6 +319,42 @@ public class BookingDAO {
 			}
 			return petInfo;
 		}
+	
+		// 예약자의 반려동물이 여러마리일 경우, 각 정보를 불러오는 메서드
+		public PetDTO getReservePetSel(String id, int num) {
+			PetDTO pet = new PetDTO(); 
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;		
+			
+			try {
+				conn = getConnection();
+				String sql ="select * from pet where id = ? and pet_num = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setInt(2, num);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					pet.setPet_num(rs.getInt("pet_num"));
+					pet.setId(rs.getString("id"));
+					pet.setPet_name(rs.getString("pet_name"));
+					pet.setPet_type(rs.getInt("pet_type"));
+					pet.setPet_gender(rs.getInt("pet_gender"));
+					pet.setPet_operation(rs.getInt("pet_operation"));	
+					pet.setPet_age(rs.getString("pet_age"));
+					pet.setPet_big(rs.getInt("pet_big"));
+				}			
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(rs != null) try { rs.close(); }catch(Exception e) { e.printStackTrace(); }
+				if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+				if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+			}
+			return pet;
+		}
 		
 		// 결제하기 버튼 누른 후 예약자 정보 저장되는 메서드
 		public void insertBooking(BookingDTO dto) {
