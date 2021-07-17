@@ -5,8 +5,6 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="anitel.model.BoardDAO"%>
-<%@page import="anitel.model.MemberDTO"%>
-<%@page import="anitel.model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
