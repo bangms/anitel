@@ -80,7 +80,7 @@
 		}
 		
 		if(!pet_ageReg.test(inputForm.pet_age.value)){
-			alert("펫 나이는 숫자만 가능합니다.");
+			alert("반려동물 나이는 숫자만 가능합니다.");
 			return false;
 		}
 	}
