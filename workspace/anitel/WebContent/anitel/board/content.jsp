@@ -41,6 +41,8 @@
 	//db 에서 글 고유번호 주고 해당 글에 대한 애용 가져오기
 	BoardDAO dao = BoardDAO.getInstance();
 	BoardDTO article = dao.getArticle(board_num);  
+	
+	MemberDAO member = MemberDAO.getInstance(); 
 	 
 	int checkID = dao.idCk(id);
 	System.out.println("아이디 체크 - 사업자면 2, 일반회원이면 1 : " + checkID);
@@ -56,9 +58,6 @@
 	// 검색파라미터 받아오기
 	String sel = request.getParameter("sel");
 	String search = request.getParameter("search");
-	
-	MemberDAO member = MemberDAO.getInstance();
-	
 %>
 <body>
 <div id="container" align="center"> 
@@ -133,11 +132,15 @@
 				<td colspan="2">
 				 
 		
-<% if (categ == 0){//공지%> 
-				<button onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'">목록으로</button>
+<% if (categ == 0){//공지%>
+	<%if(sel != null && search != null){ // 검색해서 들어왔음 %>
+		<input type="button" value="목록으로" onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>&sel=<%=sel%>&search=<%=search%>'"/>
+	<%}else{ // 그냥 들어왔음 %>
+		<input type="button" value="목록으로" onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/>
+	<%} %>
 <%} else if(categ == 1){//1:1%>	
 				<button onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'">목록으로</button>
-<%} else if(categ == 2){//호텔QA%>	
+<%} else if(categ == 2){//호텔QA%>	 
 	<%if(member.memberMatch(id)){ // 해당 유저가 사업자임 %>
 		<%if(sel != null && search != null){ // 검색해서 들어왔음 %>
 			<input type="button" value="목록으로" onclick="window.location='../memberMypage/memberQna.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>&sel=<%=sel%>&search=<%=search%>'"/>
@@ -148,7 +151,7 @@
 		<input type="button" value="목록으로" onclick="history.back(-2)"/>
 	<%} %>
 <%} else if(categ == 3){//후기%>	
-	<%if(member.memberMatch(id)){ // 해당 유저가 사업자임 %>
+	<%if(member.memberMatch(id)){ // 해당 유저가 사업자임 %> 
 		<%if(sel != null && search != null){ // 검색해서 들어왔음%>
 			<input type="button" value="목록으로" onclick="window.location='../memberMypage/memberReview.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>&sel=<%=sel%>&search=<%=search%>'"/>
 		<%}else{ // 그냥 들어왔음%>
