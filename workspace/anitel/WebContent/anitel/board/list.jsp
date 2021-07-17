@@ -240,7 +240,7 @@
 	      <div class="col col-5" style="flex-basis: 10%;"><%= article.getReadcount()%></div>
 		</li>
 		<%} %>
-		
+		</ul>
 		<!-- 글쓰기 버튼 추가  -->
 		<% 		if(categ == 0) { /* 공지사항 */
 						if("admin".equals(id)) {%><%-- 관리자만 글쓰기 가능 --%>
