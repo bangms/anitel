@@ -89,9 +89,9 @@ function popupOpen(){
 							<td width=150><h3>종</h3></td>
 							<td><select id="pet_type" name="pet_type">
 									<option value="" disabled selected>선택</option>
-									<option value="1" <%=1==(pet.getPet_type())? "selected":"" %>>강아지</option>
-									<option value="2" <%=2==(pet.getPet_type())? "selected":"" %>>고양이</option>
-									<option value="0" <%=0==(pet.getPet_type())? "selected":"" %>>기타동물</option>
+									<option value="0" <%=0==(pet.getPet_type())? "selected":"" %>>강아지</option>
+									<option value="1" <%=1==(pet.getPet_type())? "selected":"" %>>고양이</option>
+									<option value="2" <%=2==(pet.getPet_type())? "selected":"" %>>기타동물</option>
 							</select> <input type="text" id="pet_etctype" name="pet_etctype"
 								value="<%= pet.getPet_etctype() == null ? "" : pet.getPet_etctype() %>"
 								style="height: 30px;" placeholder="기타동물 입력란" /></td>
