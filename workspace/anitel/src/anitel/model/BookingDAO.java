@@ -290,7 +290,7 @@ public class BookingDAO {
 			
 			try {
 				conn = getConnection();
-				String sql ="select p.pet_num, p.pet_name, p.pet_type, p.pet_gender, p.pet_age, p.pet_big, p.pet_operation from pet p, users u where u.id = p.id AND u.id = ?";
+				String sql ="select p.pet_num, p.pet_name from pet p, users u where u.id = p.id AND u.id = ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, id);
 				
@@ -301,12 +301,7 @@ public class BookingDAO {
 					do {
 						PetDTO pet = new PetDTO();
 						pet.setPet_num(rs.getInt("pet_num"));
-						pet.setPet_name(rs.getString("pet_name"));
-						pet.setPet_type(rs.getInt("pet_type"));
-						pet.setPet_gender(rs.getInt("pet_gender"));
-						pet.setPet_age(rs.getString("pet_age"));
-						pet.setPet_big(rs.getInt("pet_big"));
-						pet.setPet_operation(rs.getInt("pet_operation"));									
+						pet.setPet_name(rs.getString("pet_name"));								
 						petInfo.add(pet);
 					}while(rs.next());
 				}			
