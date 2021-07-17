@@ -18,14 +18,11 @@
  
 	request.setCharacterEncoding("utf-8");
 	
-
 	String memId = request.getParameter("memId"); // 사업자아이디
 	System.out.println(memId);
 	String check_in = request.getParameter("check_in");
 	String check_out = request.getParameter("check_out");
 	String pet_type = request.getParameter("pet_type");
-
-
 	// session id 
 	String id =(String)session.getAttribute("sid");
 	System.out.println("content sid=" + id);
@@ -44,7 +41,6 @@
 	String reg_num = request.getParameter("reg_num");
 	System.out.println("content reg_num=" +reg_num);
 	
-
 	//db 에서 글 고유번호 주고 해당 글에 대한 애용 가져오기
 	BoardDAO dao = BoardDAO.getInstance();
 	BoardDTO article = dao.getArticle(board_num);  
@@ -110,6 +106,7 @@
 			<% } %>
 		</div>
 		<div id="content" align= "center">
+		<div class="table_wrap">
 	 		<table align="center" style="margin:  0 auto;" >
 			<tr>
 				<td colspan="2"><b> <%= article.getSubject()%> </b> </td>
@@ -129,16 +126,15 @@
 			<%} %>
 			</tr>
 			<%if(article.getReply_content() != null){ %> 
-			<tr> <td colspan="2"> 답변 </td><tr>
+			<tr> <td colspan="2"> 답변 </td></tr>
 			<tr>
 				<td colspan="2" height="100"> <%= article.getReply_content()%></td>
 			</tr>
 			<%} %>
-			
-			<tr>
-				<td colspan="2">
-				 
-		
+			 
+		</table>
+		</div>
+		</br></br></br>
 <% if (categ == 0){//공지%>
 	<%if(sel != null && search != null){ // 검색해서 들어왔음 %>
 		<input type="button" value="목록으로" onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>&sel=<%=sel%>&search=<%=search%>'"/>
@@ -227,9 +223,7 @@
 		<% } %>
 		
 <%} //세션 있고 없고 %>
-				</td>
-			</tr>
-		</table>
+				 
 		</div>	
 	 </div>
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
@@ -240,6 +234,5 @@
 			COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
 	</div>
   </div>
-
 </body>
 </html>

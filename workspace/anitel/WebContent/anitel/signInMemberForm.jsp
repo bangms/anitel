@@ -5,52 +5,121 @@
 <head>
 	<meta charset="UTF-8">
 	<title>사업자회원가입</title>
-  <link rel="stylesheet" href="style/style.css">
+  	<link rel="stylesheet" href="style/style.css">
  	<link rel="stylesheet" href="style/reset.css">
-  <link rel="stylesheet" href="style/init.css">	
-  <link rel="stylesheet" href="style/signup.css">	
+  	<link rel="stylesheet" href="style/init.css">		
+ 	<link rel="stylesheet" href="style/signup.css">	
 </head>
 <script type="text/javascript">
 //유효성 검사 // 체크해서 폼한테 다시 false / true 리턴
 function check() {
 	// id 입력 했는지 
-	var inputs = document.inputForm; // 스크립트로 html의 form요소 가져오기
-	if(inputs.id.value == "" || !inputs.id.value) {
-		alert("아이디를 입력하세요!");
-		return;
+	var inputForm = document.inputForm; // 스크립트로 html의 form요소 가져오기
+	var regExp = /\s/g;
+	var idReg = /^[a-z0-9]{6,15}$/g;
+	var nameReg = /^[가-힣ㄱ-ㅎㅏ-ㅣ]{1,10}$/g;
+	var hnameReg = /^[가-힣ㄱ-ㅎㅏ-ㅣ]{1,10}$/g;
+	var phoneReg = /^[0-9]*$/;
+	
+	if(!inputForm.id.value){
+		alert("아이디가 입력되지 않았습니다.");
+		return false;
 	}
-	if(inputs.member_name.value == "" || !inputs.member_name.value) {
-		alert("사업자 이름을 입력하세요!");
-		return; // 메서드 강제 종료
+	
+	if(!idReg.test(inputForm.id.value) || regExp.test(inputForm.id.value)){
+		alert("아이디는 6~16자 사이의 영문 소문자+숫자만 가능합니다.");
+		return false;
 	}
-	if(inputs.member_phone.value == "" || !inputs.member_phone.value) {
-		alert("연락처를 입력하세요!");
-		return; // 메서드 강제 종료
+	
+	if(!inputForm.member_pw.value){
+		alert("비밀번호가 입력되지 않았습니다.");
+		return false;
 	}
-	if(inputs.member_email.value == "" || !inputs.member_email.value) {
-		alert("이메일을 입력하세요!");
-		return; // 메서드 강제 종료
+	
+	if(!inputForm.member_name.value){
+		alert("사업자 이름이 입력되지 않았습니다.");
+		return false;
 	}
-	if(inputs.hotel_name.value == "" || !inputs.hotel_name.value) {
-		alert("호텔 이름을 입력하세요!");
-		return; // 메서드 강제 종료
+	if(!nameReg.test(inputForm.member_name.value)){
+		alert("이름은 2~10자 사이의 한글만 가능합니다.");
+		return false;
 	}
-	if(inputs.hotel_owner.value == "" || !inputs.hotel_owner.value) {
-		alert("대표자 성명을 입력하세요!");
-		return; // 메서드 강제 종료
+	
+	if(!inputForm.mem_tel.value || !inputForm.mem_tel1.value || !inputForm.mem_tel2.value || !inputForm.mem_tel3.value){
+		alert("사업자 전화번호가 입력되지 않았습니다.");
+		return false;
+	}	
+ 
+	//if(!phoneReg.test(inputForm.mem_tel1.value) || !phoneReg.test(inputForm.mem_tel2.value) || !phoneReg.test(inputForm.mem_tel3.value)){	
+	//	alert("핸드폰 번호는 숫자만 가능합니다.");
+	//	return false;
+	//}
+	if(!phoneReg.test(inputForm.mem_tel1.value)){
+		alert("전화번호는 숫자만 가능합니다.");
+		return false;
 	}
-	if(inputs.hotel_area.value == "" || !inputs.hotel_area.value) {
-		alert("호텔 주소를 입력하세요!");
-		return; // 메서드 강제 종료
+	if(!phoneReg.test(inputForm.mem_tel2.value)){
+		alert("전화번호는 숫자만 가능합니다.");
+		return false;
 	}
-	if(inputs.hotel_phone.value == "" || !inputs.hotel_phone.value) {
-		alert("호텔 전화번호를 입력하세요!");
-		return; // 메서드 강제 종료
+	if(!phoneReg.test(inputForm.mem_tel3.value)){
+		alert("전화번호는 숫자만 가능합니다.");
+		return false;
 	}
-	if(inputs.reg_num.value == "" || !inputs.reg_num.value) {
-		alert("사업자등록번호를 입력하세요!");
-		return; // 메서드 강제 종료
+	
+	if(!inputForm.member_email.value){
+		alert("이메일이 입력되지 않았습니다.");
+		return false;
 	}
+	
+	if(!inputForm.hotel_name.value){
+		alert("호텔 이름이 입력되지 않았습니다.");
+		return false;
+	}
+	if(!inputForm.hotel_owner.value){
+		alert("대표자 이름이 입력되지 않았습니다.");
+		return false;
+	}
+	if(!hnameReg.test(inputForm.hotel_owner.value)){
+		alert("이름은 2~10자 사이의 한글만 가능합니다.");
+		return false;
+	}
+
+	if(!inputForm.hotel_add.value){
+		alert("호텔 상세주소가 입력되지 않았습니다.");
+		return false;
+	}
+	
+	if(!inputForm.hotel_tel.value || !inputForm.ho_tel1.value || !inputForm.ho_tel2.value || !inputForm.ho_tel3.value){
+		alert("호텔 전화번호가 입력되지 않았습니다.");
+		return false;
+	}	
+	
+	if(!phoneReg.test(inputForm.ho_tel1.value)){
+		alert("호텔 전화번호는 숫자만 가능합니다.");
+		return false;
+	}
+	if(!phoneReg.test(inputForm.ho_tel2.value)){
+		alert("호텔 전화번호는 숫자만 가능합니다.");
+		return false;
+	}
+	if(!phoneReg.test(inputForm.ho_tel3.value)){
+		alert("호텔 전화번호는 숫자만 가능합니다.");
+		return false;
+	}
+	
+	if(!inputForm.reg_num.value){
+		alert("사업자등록번호가 입력되지 않았습니다.");
+		return false;
+	}
+	
+	if(!inputForm.hotel_intro.value){
+		alert("호텔 소개글이 입력되지 않았습니다.");
+		return false;
+	}
+	
+  
+
 }
 // 아이디 중복 여부 판단
 function confirmId(inputForm) { // inputForm <- this.form 객체 받음
@@ -58,7 +127,6 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 		alert("아이디를 입력하세요!");
 		return; // 메서드 강제 종료
 	}
-
 	// 팝업
 	var url = "confirmId.jsp?id=" + inputForm.id.value; // confiemId.jsp?pika
 	open(url, "confirmId",  "toolbar=no, location=no, status=no, menubar=no, scrollbars=no resizeable=no, width=300, height=200");
@@ -84,39 +152,39 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 			<h3> 사업자 회원 정보(필수입력)</h3>
 			
 			<div class="form__group field">
-				<input type="text" id="id" class="form__field" placeholder="ID" name="id" minlength="3" maxlength="10" required>
+				<input type="text" id="id" class="form__field" placeholder="ID" name="id" />
 				<label for="id" class="form__label">아이디 <span class="txt">*</span></label>
 				<input type="button" class="confirmId" value="아이디중복체크" onclick="confirmId(this.form)" />
 			</div>
 			<div class="form__group field">
-        <input type="password" id="pw" class="form__field" placeholder="Password" name="member_pw" required />
+        <input type="password" id="pw" class="form__field" placeholder="Password" name="member_pw" />
         <label for="pw" class="form__label">비밀번호 <span class="txt">*</span></label>
       </div>
 			<div class="form__group field">
-        <input type="text" id="member_name" class="form__field" placeholder="Name" name="member_name" maxlength="6" required />
+        <input type="text" id="member_name" class="form__field" placeholder="Name" name="member_name"/>
         <label for="member_name" class="form__label">이름 <span class="txt">*</span></label>
       </div>
 			<div class="form__group" style="display:flex;">
-         <input type="text" id="mem_tel" class="form__field" name="mem_tel1"  minlength="3" maxlength="4" required />
+         <input type="text" id="mem_tel" class="form__field" name="mem_tel1"  />
          <label for="mem_tel" class="form__label">전화번호 <span class="txt">*</span></label>
          -
-         <input type="text" class="form__field" name="mem_tel2" minlength="3" maxlength="4" required/>
+         <input type="text" class="form__field" name="mem_tel2" />
          -
-         <input type="text" class="form__field" name="mem_tel3" minlength="4" maxlength="4" required/> 
+         <input type="text" class="form__field" name="mem_tel3" /> 
        </div>
 			 <div class="form__group field">
-				  <input type="text" id="email" class="form__field" placeholder="E-mail" name="member_email" required/>
+				  <input type="text" id="email" class="form__field" placeholder="E-mail" name="member_email"  />
 				  <label for="email" class="form__label">E-mail <span class="txt">*</span></label>
 				</div>
 			
 			
 			<h3> 호텔(사업자) 기본 정보(필수입력)</h3>
 			<div class="form__group field">
-        <input type="text" id="hotel_name" class="form__field" name="hotel_name" required />
+        <input type="text" id="hotel_name" class="form__field" name="hotel_name"   />
         <label for="hotel_name" class="form__label">호텔 이름 <span class="txt">*</span></label>
       </div>
       <div class="form__group field">
-        <input type="text" id="hotel_owner" class="form__field" name="hotel_owner" required />
+        <input type="text" id="hotel_owner" class="form__field" name="hotel_owner"   />
         <label for="hotel_owner" class="form__label">대표자 이름<span class="txt">*</span></label>
       </div>
       <div class="form__group field" style="display:flex;">
@@ -135,19 +203,19 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 							<option value="충청도">충청도</option>
 							<option value="강원도">강원도</option>
 						</select>
-        <input type="text" id="hotel_add" class="form__field" name="hotel_add" required />
+        <input type="text" id="hotel_add" class="form__field" name="hotel_add"   />
         <label for="hotel_add" class="form__label">호텔 상세 주소<span class="txt">*</span></label>
       </div>
 			<div class="form__group" style="display:flex;">
-         <input type="text" id="hotel_tel" class="form__field" name="ho_tel1"  minlength="3" maxlength="4" required />
+         <input type="text" id="hotel_tel" class="form__field" name="ho_tel1"  />
          <label for="hotel_tel" class="form__label">전화번호 <span class="txt">*</span></label>
          -
-         <input type="text" class="form__field" name="ho_tel2" minlength="3" maxlength="4" required/>
+         <input type="text" class="form__field" name="ho_tel2" />
          -
-         <input type="text" class="form__field" name="ho_tel3" minlength="4" maxlength="4" required/> 
+         <input type="text" class="form__field" name="ho_tel3" /> 
       </div>
 			<div class="form__group field">
-        <input type="text" id="reg_num" class="form__field" name="reg_num" required />
+        <input type="text" id="reg_num" class="form__field" name="reg_num"   />
         <label for="reg_num" class="form__label">사업자 등록 번호 <span class="txt">*</span></label>
       </div>
       <hr>
