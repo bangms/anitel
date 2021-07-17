@@ -122,10 +122,12 @@
 					</tr>
 					<tr>
 						<td height="160px">반려동물 이름 : <%=reserve.getPet_name() %><br />
-							<br /> 유료서비스 이용 여부 : 
-							<input type="checkbox" name="paid_bath" value="1" <%=1==(reserve.getPaid_bath())? "checked":"" %>>목욕 
-							<input type="checkbox" name="paid_beauty" value="1" <%=1==(reserve.getPaid_beauty())? "checked":"" %>> 미용 
-							<input type="checkbox" name="paid_medi" value="1" <%=1==(reserve.getPaid_medi())? "checked":"" %>> 병원
+							<br /> 선택한 유료서비스 : 
+							<%if(reserve.getPaid_bath()==1){%> V 목욕 <%}%>
+							<%if(reserve.getPaid_beauty()==1){%> V 미용 <%}%>
+							<%if(reserve.getPaid_medi()==1){%> V 병원 <%}%><br/>
+							(현장에서 추가 결제가 필요한 항목입니다.)
+
 							<br />
 							<br /> 
 							추가 요청사항 : <%=reserve.getRequests() == null ? "" : reserve.getRequests() %>
