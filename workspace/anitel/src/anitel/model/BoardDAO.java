@@ -824,4 +824,83 @@ public class BoardDAO {
 		}
 		return reply;
 	}
+	// 일반회원 Qna 전체 게시글 갯수 로드 메서드
+	public int getuserQnaCount(int categ, String id) {
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from board where categ = ? and id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, categ);
+			pstmt.setString(2, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1); 
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
+			if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
+		}
+		return count;
+	}
+	
+	// 일반회원 Qna 게시글 로드 메서드
+	public List getuserQna (int start, int end, int categ, String id) {  
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List articleList = null;
+
+		try {
+			conn = getConnection();  
+			String sql="select * from (select rownum r, board_num, id, reg_num, categ, subject, pw, ctt, img, reg_date, reply_date, reply_content, readcount, comm, hidden_content, hotel_name "
+			+ "from (Select b.*, m.hotel_name from board b, member m where m.reg_num = b.reg_num ORDER BY b.reg_date desc)where categ = ? AND id = ?) where r >= ? AND r <= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, categ);
+			pstmt.setString(2, id);
+			pstmt.setInt(3, start);
+			pstmt.setInt(4, end);
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) { // 결과가 있으면
+				articleList = new ArrayList(); // arraylist 객체 생성
+
+				do {
+					UserBoardDTO qna= new UserBoardDTO();
+					qna.setBoard_num(rs.getInt("board_num"));
+					qna.setId(rs.getString("id"));
+					qna.setReg_num(rs.getString("reg_num"));
+					qna.setCateg(rs.getInt("categ"));
+					qna.setSubject(rs.getString("subject"));
+					qna.setPw(rs.getString("pw"));
+					qna.setCtt(rs.getString("ctt"));
+					qna.setImg(rs.getString("img"));
+					qna.setReg_date(rs.getTimestamp("reg_date"));
+					qna.setReply_date(rs.getTimestamp("reply_date"));
+					qna.setReply_content(rs.getString("reply_content"));
+					qna.setReadcount(rs.getInt("readcount"));
+					qna.setComm(rs.getInt("comm"));
+					qna.setHidden_content(rs.getInt("hidden_content"));
+					qna.setHotel_name(rs.getString("hotel_name"));
+					articleList.add(qna);  
+
+				} while (rs.next()); // 없으면 null
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
+			if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
+		}   
+		return articleList;
+	}
 }// close
