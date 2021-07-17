@@ -206,21 +206,37 @@
 				<hr />
 					<p><strong>예약자 이름 *</strong>
 					<input type="text" name="name" value="<%=userInfo.getUser_name()%>" /></p>
+					
 					<p><strong>예약자 이메일 *</strong>
 					<input type="text" name="email" value="<%=userInfo.getUser_email()%>" /></p>
+					
 					<p><strong>예약자 전화번호 *</strong>
 					<input type="text" name="phone" value="<%=userInfo.getUser_phone()%>" /></p>
+					
 					<p><strong>예약자 반려동물 정보</strong>
+					
 						<select name="pet" id="pet">
-								<option>정보 등록 된 반려동물 중 선택</option>
 								<%for(int i = 0; i < petInfo.size(); i++){ 
 									pet = (PetDTO)petInfo.get(i);
 								%>
 								<option value="<%=pet.getPet_num()%>"><%=pet.getPet_name() %></option>
 								<%}%>
 						</select>
-						<div id = "rs"></div>
 					</p>
+					<div id="rs">
+						<p><strong>반려동물 이름</strong>
+						<input type="text" name="phone" value="<%=userInfo.getUser_phone()%>" /></p>
+						<p><strong>반려동물 종</strong>
+						<input type="text" name="phone" value="<%=userInfo.getUser_phone()%>" /></p>
+						<p><strong>반려동물 성별</strong>
+						<input type="text" name="phone" value="<%=userInfo.getUser_phone()%>" /></p>
+						<p><strong>반려동물 나이</strong>
+						<input type="text" name="phone" value="<%=userInfo.getUser_phone()%>" /></p>
+						<p><strong>대형견 여부</strong>
+						<input type="text" name="phone" value="<%=userInfo.getUser_phone()%>" /></p>
+						<p><strong>중성화</strong>
+					</div>
+					
 					<p><strong>유료서비스 : </strong></p>
 					<p> <%if(hotel.getPaid_medi() == 1) {%> <input type="checkbox" value="paid" /> 동물병원 <%} %>
 						<%if(hotel.getPaid_bath() == 1) {%> <input type="checkbox" value="paid" /> 목욕 <%} %>
