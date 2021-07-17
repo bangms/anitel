@@ -1,4 +1,4 @@
-<%@page import="anitel.model.UserBoardDTO"%>
+<%@page import="anitel.model.UserBoardDTO"%> 
 <%@page import="anitel.model.UsersDTO"%>
 <%@page import="anitel.model.UsersDAO"%>
 <%@page import="anitel.model.BoardDTO"%>

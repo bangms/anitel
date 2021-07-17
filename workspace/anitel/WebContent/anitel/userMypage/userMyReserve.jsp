@@ -169,7 +169,7 @@
 function check(booking_num){
 	//var booking_num= $("#booking_num").val();
 	console.log(booking_num);
-	var popUrl = "/anitel/anitel/userMyPage/userCancelForm.jsp?booking_num="+ booking_num;	//팝업창에 출력될 페이지 URL
+	var popUrl = "/anitel/anitel/userMypage/userCancelForm.jsp?booking_num="+ booking_num;	//팝업창에 출력될 페이지 URL
 	var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
 		window.open(popUrl,"",popOption);
 
