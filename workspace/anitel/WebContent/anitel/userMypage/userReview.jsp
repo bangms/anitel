@@ -143,7 +143,7 @@
 						<div class="col col-1" style="flex-basis: 5%;"><%= number--%></div>
 						<div class="col col-2" style="flex-basis: 30%;">
 							<a class="list_subject"
-								href="../anitel/board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%=article.getSubject() %></a>
+								href="../board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%=article.getSubject() %></a>
 						</div>
 						<div class="col col-3" style="flex-basis: 30%;"><%= article.getHotel_name()%></div>
 						<div class="col col-4" style="flex-basis: 20%;"><%= sdf.format(article.getReg_date()) %></div>
