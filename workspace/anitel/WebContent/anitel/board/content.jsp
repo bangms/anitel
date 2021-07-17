@@ -1,3 +1,4 @@
+<%@page import="anitel.model.MemberDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="anitel.model.BoardDTO"%>
 <%@page import="anitel.model.BoardDAO"%> 
@@ -55,6 +56,9 @@
 	// 검색파라미터 받아오기
 	String sel = request.getParameter("sel");
 	String search = request.getParameter("search");
+	
+	MemberDAO member = MemberDAO.getInstance();
+	
 %>
 <body>
 <div id="container" align="center"> 
