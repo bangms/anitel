@@ -258,7 +258,6 @@
 					</div>
 					<input class="search" type="text" name="search" />
 					<input class="btn" type="submit" value="검색" />
-					<input class="btn" type="button" value="삭제" onclick="chkUser();"/>
 					<input class="btn" type="button" value="전체보기" onclick="window.location='adminReserveForm.jsp'"/>
 				</div>
 			<%} %>

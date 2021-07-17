@@ -149,7 +149,7 @@
 			      <div class="col col-1" style="flex-basis: 5%;" data-label="checkbox"><input type="checkbox" name="info" value="<%=user.getId()%>" /></div>
 			      <div class="col col-2" style="flex-basis: 17%;" data-label="reg_date"><%=sdf.format(user.getReg_date()) %></div>
 			      <div class="col col-3" style="flex-basis: 17%;" data-label="memberId"><%=user.getId() %></div>
-			      <div class="col col-4" style="flex-basis: 17%;" data-label="subject"><%=user.getSubject() %></div>
+			      <div class="col col-4" style="flex-basis: 17%;" data-label="subject"><a class="list_subject" href="../board/replyForm.jsp?board_num=<%=user.getBoard_num()%>&categ=1"><%=user.getSubject() %></a></div>
 			      <div class="col col-5" style="flex-basis: 17%;" data-label="reply_date">
 			      	<%if(user.getReply_date() != null) {%>
 						<%=sdf.format(user.getReply_date()) %>
@@ -222,7 +222,6 @@
 				</div>
 				<input class="search" type="text" name="search" />
 				<input class="btn" type="submit" value="검색" />
-				<input class="btn" type="button" value="삭제" onclick="chkUser();"/>
 				<input class="btn" type="button" value="전체보기" onclick="window.location='adminUserQnAForm.jsp'"/>
 			</div>	
 			<h3 class="currentPage" style="color:black">현재 페이지 : <%=pageNum%></h3>			
