@@ -110,34 +110,34 @@
 			<% } %>
 		</div>
 		<div id="content" align= "center">
-	 		<table align="center" style="margin:  0 auto;" >
-			<tr>
-				<td colspan="2"><b> <%= article.getSubject()%> </b> </td>
-			</tr>
-			<tr>
-				<td> <%= sdf.format(article.getReg_date()) %> </td>
-				<td> <%= article.getReadcount() %> viewed </td>
-			</tr>
-			<tr>
-				<td colspan="2" height="100"> <%= article.getCtt() %></td>
-			</tr>
-			<tr>
-			<%if(article.getImg() != null){%>
-				<td colspan="2" height="100"><img src="<%=request.getContextPath()%>/save/<%=article.getImg()%>" style="max-width: 80%" /> </td>	
-			<%}else{ %>
-				<td colspan="2" height="100"><img src="../save/default.png"/></td>
-			<%} %>
-			</tr>
-			<%if(article.getReply_content() != null){ %> 
-			<tr> <td colspan="2"> 답변 </td><tr>
-			<tr>
-				<td colspan="2" height="100"> <%= article.getReply_content()%></td>
-			</tr>
-			<%} %>
-			
-			<tr>
-				<td colspan="2">
-				 
+	 		<div class="table_wrap">
+	 			<table align="center" style="margin:  0 auto;" >
+				<tr>
+					<td colspan="2"><b> <%= article.getSubject()%> </b> </td>
+				</tr>
+				<tr>
+					<td> <%= sdf.format(article.getReg_date()) %> </td>
+					<td> <%= article.getReadcount() %> viewed </td>
+				</tr>
+				<tr>
+					<td colspan="2" height="100"> <%= article.getCtt() %></td>
+				</tr>
+				<tr>
+					<%if(article.getImg() != null){%>
+						<td colspan="2" height="100"><img src="<%=request.getContextPath()%>/save/<%=article.getImg()%>" style="max-width: 80%" /> </td>	
+					<%}else{ %>
+						<td colspan="2" height="100"><img src="../save/default.png"/></td>
+				<%} %>
+				</tr>
+				<%if(article.getReply_content() != null){ %> 
+					<tr> <td colspan="2"> 답변 </td></tr>
+					<tr>
+						<td colspan="2" height="100"> <%= article.getReply_content()%></td>
+					</tr>
+				<%} %>
+			</table>
+		</div>
+		</br></br></br>
 		
 <% if (categ == 0){//공지%>
 	<%if(sel != null && search != null){ // 검색해서 들어왔음 %>
@@ -227,9 +227,7 @@
 		<% } %>
 		
 <%} //세션 있고 없고 %>
-				</td>
-			</tr>
-		</table>
+		 
 		</div>	
 	 </div>
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
