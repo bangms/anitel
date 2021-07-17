@@ -5,8 +5,6 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="anitel.model.BoardDAO"%>
-<%@page import="anitel.model.MemberDTO"%>
-<%@page import="anitel.model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,13 +25,13 @@
 <%	request.setCharacterEncoding("UTF-8");
 
 	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
-	//if(session.getAttribute("sid")==null){ %>
-	<!-- <script>
+	if(session.getAttribute("sid")==null){ %>
+		 <script>
 			alert("로그인이 필요한 서비스입니다.");
 			window.location="../loginForm.jsp";
-		</script> -->
-<%	//}else{ 
-	String id = "java03";
+		</script> 
+<%	}else{ 
+	String id = (String) session.getAttribute("sid");
 	UsersDAO dao = UsersDAO.getInstance();
 	UsersDTO user = dao.getuser(id);
 	System.out.println("user id : " + user.getId());	
@@ -143,7 +141,7 @@
 						<div class="col col-1" style="flex-basis: 5%;"><%= number--%></div>
 						<div class="col col-2" style="flex-basis: 30%;">
 							<a class="list_subject"
-								href="../board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%=article.getSubject() %></a>
+								href="../board/content.jsp?board_num=<%= article.getBoard_num()%>&categ=<%=categ%>"><%=article.getSubject() %></a>
 						</div>
 						<div class="col col-3" style="flex-basis: 30%;"><%= article.getHotel_name()%></div>
 						<div class="col col-4" style="flex-basis: 20%;"><%= sdf.format(article.getReg_date()) %></div>
@@ -219,5 +217,5 @@
 		</div>
 	</div>
 </body>
-<%	//} %>
+<%	} %>
 </html>
