@@ -60,6 +60,10 @@ System.out.println(memId);
 String check_in = request.getParameter("check_in");
 String check_out = request.getParameter("check_out");
 int pet_type = Integer.parseInt(request.getParameter("pet_type"));
+
+// 로그인 체크 부분 (헤더 버튼 부분과 룸 예약하기 버튼에서 사용)
+BoardDAO board = BoardDAO.getInstance();  
+int checkID = board.idCk(sid);
  
 %>
 
@@ -136,8 +140,7 @@ $(document).ready(function(){
 			<button id="login" onclick="window.location='loginForm.jsp'">로그인</button>
 			
 <%}else{ 
-		BoardDAO board = BoardDAO.getInstance();  
-		int checkID = board.idCk(sid);
+		
 		System.out.println("아이디 체크 - 사업자면 2, 일반회원이면 1 : " + checkID);
 		
 		if(checkID == 1) { 
@@ -325,9 +328,19 @@ $(document).ready(function(){
 		      	</div>
 		      	<div class="room_fee"_><%=room.getD_fee()%> 원</div>
 	      	</div>
-	     <% if(sid != null){ %>
-		      	<button class="list_btn" onClick="window.location='aaa.jsp?memId=<%=room.getId()%>&room_num=<%=room.getRoom_num()%>&check_in=<%=check_in%>&check_out=<%=check_out%>'">예약하기</button>							    	 	
-	     <%	} else { %>
+	     <% if(sid != null){ // 로그인 되어있을 때
+				     if(checkID == 1) { // 일반 회원일 경우
+								if(sid.equals("admin")) { %> <%-- 관리자 일 때 --%>
+									<button class="list_btn" onClick="alert('관리자는 예약할 수 없습니다!')">예약하기</button>
+							<%} else { %>
+									<button class="list_btn" onClick="window.location='reserveForm.jsp?memId=<%=room.getId()%>&room_num=<%=room.getRoom_num()%>&check_in=<%=check_in%>&check_out=<%=check_out%>'">예약하기</button>
+							<%}
+						}
+						if(checkID == 2) { %><%-- 사업자 일 때 --%> 
+							<button class="list_btn" onClick="alert('사업자는 예약할 수 없습니다!')">예약하기</button>
+					<%}
+		      								    	 	
+	     		} else { // 로그인 안되어있을 때%>
 		      	<button class="list_btn" onClick="alert('로그인하세요!')">예약하기</button>							    	 	
 	     <% } %>
 	      </li>

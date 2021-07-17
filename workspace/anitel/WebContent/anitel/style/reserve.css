@@ -1,0 +1,226 @@
+#section {
+	width: 80%;
+	margin: 0 auto;
+	text-align: left;
+}
+
+#section div.hotel_info {
+	background-color: transparent;
+}
+
+.hotel_name {
+   font-size: 1.4em;
+   font-weight: bold;
+   padding: 20px 0 10px;
+}
+
+#reserveForm {
+	width: 100%;
+	height: auto;
+	position: relative;
+}
+
+.date_wrap {
+  width: 68%;
+  display: grid;
+  padding: 60px 0;
+  float: left;
+}
+.map {
+	width: 30%;
+  height: 200px;
+  display:block;
+  float: right;
+}
+.date_wrap .date {
+	width:100%;
+}
+.date_wrap .date .tit {
+   font-weight: bold;
+   color: black;
+   font-size: 1em;
+   padding: 10px 0;
+   margin: 0;
+   height: auto;
+   line-height: normal;
+   float: left;
+}
+.date_wrap .date span {
+	padding: 12px 0 0;
+	float:right;
+	font-size: 0.9em;
+  font-weight: 100;
+}
+#reserveForm {
+	width:70%;
+}
+.userInfo {
+	font-size:1.4em;
+	font-weight:bold;
+	margin-bottom:10px;
+}
+.userInfo > input {
+	width:15px;
+	height:15px;
+	margin-left: 25px;
+}
+.userInfo > span {
+	font-size:0.8em; 
+	font-weight:100;
+}
+.group {
+	position:relative;
+	width: 100%;
+	height:30px;
+	margin-bottom: 20px;
+}
+.group input[type="text"]{
+	width: 50%;
+	height:28px;
+  float: right;
+  padding:5px;
+  min-width:250px;
+}
+.group label, .group .sub {
+	clear:both;
+  font-size: 1em;
+  font-weight: 500;
+  line-height:42px;
+}
+.sub {
+	width:50%;
+	float:left;
+}
+.input_wrap {
+	float:right;
+	width: 50%;
+}
+.red {
+	color:red;
+}
+.group select {
+	width:50%;
+	float:right;
+	height:42px;
+	padding:5px;	
+	min-width:250px;
+}
+
+.gender {
+	position:relative;
+}
+.gender .input_wrap {
+	margin-top:0;
+}
+.gender .input_wrap label {
+	width: 50%;
+	font-weight:100;
+}
+.gender .input_wrap input {
+	margin-right: 20%;
+}
+input[type="checkbox"], input[type="radio"] {
+	width: 20px;
+	height: 20px;
+}
+.paid {
+	margin:100px 0;
+}
+.request p {
+	padding: 20px 0;	
+}
+.request textarea {
+	width: 100%;
+  height: 200px;
+  margin-bottom:50px;
+}
+
+#paymentBtn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 50px;
+    width: 176px;
+    box-sizing: border-box;
+    border: transparent;
+    border-radius: 60px;
+    font-size: 1em;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    background-color: #EEE6C4;
+    cursor: pointer;
+    outline: none;
+}
+#paymentBtn:hover {
+	background-color: #c4b26a;
+}
+.util {
+	margin-top:30px;
+}
+.util > h4 {
+	font-size: 12px;
+  padding: 0 20px;
+  width: 50px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #9cebd5;
+  color: #fff;
+  border-radius: 7px;
+  text-align: center;
+}
+
+.room_info_wrap {
+	margin-bottom:100px;
+}
+
+.room_info_wrap .sub {
+	float:none;
+	margin-top:30px;
+}
+.icon {
+	float: left;
+}
+.img_wrap {
+   margin-top: 120px;
+   width: 200px;
+   height:200px;
+   background: #eee;
+}
+
+.terms {
+	width:100%;
+	height: 130px;
+}
+.terms .sub {
+	width: 100%;
+	font-weight:700;
+	font-size:1.1em;
+	padding: 10px 0;
+}
+.terms span {
+	font-weight:500;
+}
+.terms p {
+	width:100%;
+	font-size:0.9em;
+	font-weight:100;
+	padding:10px 0;
+}
+.terms a {
+	color:blue;
+	text-decoration:underline;
+}
+.terms label {
+	font-size:0.9em;
+}
+
+.total_fee {
+	margin: 50px 0 80px;
+	position: relative;
+}
+.total_fee strong {
+	font-weight:700;
+	font-size:1.4em;
+	margin-right: 50px;
+}

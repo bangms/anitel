@@ -5,10 +5,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>일반회원 회원가입폼</title>
-  	<link rel="stylesheet" href="style/style.css">
- 	<link rel="stylesheet" href="style/reset.css">
-  	<link rel="stylesheet" href="style/init.css">	
-  	<link rel="stylesheet" href="style/signup.css">
+ 	<link rel="stylesheet" href="style/style.css">
+	<link rel="stylesheet" href="style/reset.css">
+ 	<link rel="stylesheet" href="style/signup.css">
 </head>
 <script type="text/javascript">
  

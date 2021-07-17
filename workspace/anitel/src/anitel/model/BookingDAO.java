@@ -3,7 +3,12 @@ package anitel.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.naming.Context;
@@ -336,6 +341,7 @@ public class BookingDAO {
 					pet.setId(rs.getString("id"));
 					pet.setPet_name(rs.getString("pet_name"));
 					pet.setPet_type(rs.getInt("pet_type"));
+					pet.setPet_etctype(rs.getString("pet_etctype"));
 					pet.setPet_gender(rs.getInt("pet_gender"));
 					pet.setPet_operation(rs.getInt("pet_operation"));	
 					pet.setPet_age(rs.getString("pet_age"));
@@ -358,7 +364,7 @@ public class BookingDAO {
 			
 			try {
 				conn = getConnection();
-				String sql = "insert into booking(id,room_num,user_name,user_phone,user_email,pet_num,requests,paid_bath,paid_beauty,paid_medi,check_in,check_out,booking_time) values(?,?,?,?,?,?,?,?,?,?,?,?,sysdate)";
+				String sql = "insert into booking(booking_num,id,room_num,user_name,user_phone,user_email,pet_num,requests,paid_bath,paid_beauty,paid_medi,check_in,check_out,booking_time) values(booking_seq.nextVal,?,?,?,?,?,?,?,?,?,?,?,?,sysdate)";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, dto.getId());
 				pstmt.setInt(2, dto.getRoom_num());
@@ -382,6 +388,20 @@ public class BookingDAO {
 				if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
 			}
 		}
+		
+	 public static Timestamp convertStringToTimestamp(String str_date) {
+		    try {
+		      DateFormat formatter;
+		      formatter = new SimpleDateFormat("yyyy-mm-dd");
+		      Date date = (Date) formatter.parse(str_date);
+		      java.sql.Timestamp timeStampDate = new Timestamp(date.getTime());
+
+		      return timeStampDate;
+		    } catch (ParseException e) {
+		      System.out.println("Exception :" + e);
+		      return null;
+		    }
+		  }
 
 
 	// 체크아웃 날짜가 현재 날짜보다 느린 경우(기간 경과) 예약상태를 종료(0)로 변경
