@@ -29,7 +29,7 @@
 	int board_num= Integer.parseInt(request.getParameter("board_num"));
 	
 	// 답글 관리를 위한 기능 활성화
- 	BoardDAO dao = BoardDAO.getInstance(); 
+ 	BoardDAO dao = BoardDAO.getInstance();  
 	String reply = dao.getReply(board_num);
 %>
 <body>
@@ -67,7 +67,7 @@
 			<input type="hidden" name="board_num" value="<%= board_num%>"/>
 			<input type="hidden" name="categ" value="<%= categ%>"/>
 			<input type="hidden" name="reg_num" value="<%= reg_num%>"/>
-			<table>
+			<table align="center" style="margin:  0 auto;">
 				<tr>
 					<td><h1>답변</h1></td>
 				</tr>

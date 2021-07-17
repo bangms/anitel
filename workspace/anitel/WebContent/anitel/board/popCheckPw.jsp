@@ -37,7 +37,7 @@
 		<input type="hidden" name="board_num" value="<%=board_num%>" />
 		<input type="hidden" name="categ" value="<%=categ%>" />
 		<input type="hidden" name="reg_num" value="<%=reg_num%>" />
-		<table>
+		<table align="center" style="margin:  0 auto;">
 			<tr>
 				<td><input type="password" name="pw" /></td>
 			</tr>

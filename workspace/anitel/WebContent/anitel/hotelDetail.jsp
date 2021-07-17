@@ -433,18 +433,9 @@ $(document).ready(function(){
  			<%	}  	
 	    }%>  
 	    </table>
-	    <!-- TODO : 결제한 고객만 쓸 수 있도록 분기처리  --> <%-- 전체후기보기는 결제한 고객만 보이는게 아니니까 빼도 되지 않을까? --%>
-	    <%check = dao.paymentUserCk(sid,reg_num); 
-	    if(check) {%>
-	    <button class="t_btn" onclick="window.location='../anitel/board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=3'">글쓰기</button> 
-	    <button class="t_btn" onclick="window.location='hotelDetailQA.jsp?memId=<%=memId%>&reg_num=<%=dto.getReg_num()%>'">전체후기보기</button>
-	    <%} %>
-	    
-	    <!-- test -->
-	     <button class="t_btn" style="width:150px;height:auto;padding:10px 0;margin:20px 0 50px;" onclick="window.location='hotelDetailReview.jsp?memId=<%=memId%>&amp;reg_num=<%=reg_num%>&hotel_name=<%=dto.getHotel_name()%>'">전체후기보기</button>
-	 	
-	      
-	    
+	   
+	    <button class="t_btn" style="width:150px;height:auto;padding:10px 0;margin:20px 0 50px;" onclick="window.location='hotelDetailReview.jsp?memId=<%=memId%>&amp;reg_num=<%=reg_num%>&hotel_name=<%=dto.getHotel_name()%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>'">전체후기보기</button>
+	 
 	  </div>  
 		  <div class="qna_wrap board" style="margin-bottom: 100px">
 		 	<%
@@ -474,26 +465,25 @@ $(document).ready(function(){
 				DetailDTO article = (DetailDTO)reviewList.get(i);
 			%> 
 		
-		<script type="text/javascript">
-        	 function secret(board_num, pageNum, categ) {
-            var url = "../anitel/board/popCheckPw.jsp?pageNum=" + pageNum + "&board_num=" + board_num + "&categ=" + 2;
-            window.open(url,"checkPw","toolbar=no, location=no, status=no, menubar=no, scrollbars=no resizeable=no, width=300, height=200");
-       		  }
-		</script>
+			<script type="text/javascript">
+	         function secret(board_num, pageNum, categ, reg_num) {
+	            var url = "../anitel/board/popCheckPw.jsp?pageNum=" + pageNum + "&board_num=" + board_num + "&categ=" + categ + "&reg_num=" + reg_num;
+	            window.open(url,"checkPw","toolbar=no, location=no, status=no, menubar=no, scrollbars=no resizeable=no, width=300, height=200");
+	         }
+			</script>
 		     		<tr>
 		         		<td><%=article.getId() %></td>
 		         		
 		         		<%if(sid == null) { // 팝업 - 로그인이 필요한 페이지 입니다. %> 
-		         			<td><a onclick="secret(<%=article.getBoard_num()%>,<%=pageNum%>,<%=categ%>,'<%=reg_num%>')">[비밀글] <%=article.getSubject() %></a></td> 
+		         			<td><a onclick="secret(<%=article.getBoard_num()%>,<%=pageNum%>,<%=categ%>,'<%=reg_num%>',<%=memId%>,<%=check_in%>,<%=check_out%>,<%=pet_type%>)">[비밀글] <%=article.getSubject() %></a></td> 
 		         		
 		         		<!-- 비밀글 // sid 가 사업자거나 어드민인 경우 비번 입력 x  --> 
 		         		<%}else if(memId.equals(sid) || ("admin".equals(sid))){
 		         			System.out.println("HD sid, memId =" + sid + "," + memId);%> 
-		         			<td><a href="../anitel/board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum %>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>">[비밀글]<%= article.getSubject() %></a></td>   
+		         			<td><a href="../anitel/board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum %>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>">[비밀글]<%= article.getSubject() %></a></td>   
 		     
-		         		<%}else{ 
-		         			System.out.println("else구문 안에서"+reg_num);
-		         		%>
+		         		<%}else{ System.out.println("else구문 안에서"+reg_num); %>
+		         		
 		         			<td><a onclick="secret(<%=article.getBoard_num()%>,<%=pageNum%>,<%=categ%>,'<%=reg_num%>')">[비밀글] <%=article.getSubject() %></a></td>   
 		      			<%}  
 		      			%>

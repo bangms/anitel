@@ -22,6 +22,12 @@
 	String pageNum = request.getParameter("pageNum");  
 	int categ= Integer.parseInt(request.getParameter("categ"));
 	System.out.println("content:" + id + board_num + pageNum + categ);
+	
+	String memId = request.getParameter("memId"); // 사업자아이디
+	System.out.println(memId);
+	String check_in = request.getParameter("check_in");
+	String check_out = request.getParameter("check_out");
+	String pet_type = request.getParameter("pet_type");
 
 	int result;
 

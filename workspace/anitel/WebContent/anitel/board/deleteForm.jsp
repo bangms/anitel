@@ -9,6 +9,31 @@
  	<link rel="stylesheet" href="../style/reset.css">
   	<link rel="stylesheet" href="../style/init.css">	
 </head>
+	<style>
+		input[type=button] { 
+	      	border: none;
+	      	border-radius: 6px;
+	      	width: 110px;
+	      	height:40px;	
+		}
+		input[type=submit] { 
+	      	border: none;
+	      	border-radius: 6px;
+	      	width: 110px;
+	      	height:40px;	
+		}
+		#withdraw{ 
+	      	border: none;
+	      	border-radius: 3px;
+			width: 65px;
+			height:25px;
+			font-size: 12px;
+	      	margin-top:15px;
+	      	margin-left:600px;
+	      	position:relative;
+      }   	
+    </style>
+    
 
 <%
 	String id = (String)session.getAttribute("sid");
@@ -24,6 +49,13 @@
 	// 게시판 구분 코드 
 	int categ= Integer.parseInt(request.getParameter("categ"));
 	System.out.println("modify.categ:" + categ);
+	
+	
+	String memId = request.getParameter("memId"); // 사업자아이디
+	System.out.println(memId);
+	String check_in = request.getParameter("check_in");
+	String check_out = request.getParameter("check_out");
+	String pet_type = request.getParameter("pet_type");
 %>
 <body>
 <div id="container">
@@ -56,24 +88,30 @@
 	<div id="section">
 	<h1 align="center"> 게시판 삭제 </h1>
 <%	if(session.getAttribute("sid").equals("admin")){ %>	
-	<form action="deletePro.jsp?pageNum=<%=pageNum%>" method="post">
+<br/><br/><br/><br/>
+	<form action="deletePro.jsp?pageNum=<%=pageNum%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>" method="post">
 		<input type="hidden" name="board_num" value="<%= board_num %>"/>
 		<input type="hidden" name="categ" value="<%= categ%>"/>
-		<table>
+		<table align="center" style="margin:  0 auto;">
 			<tr>
 				<td>관리자 권한 : 삭제하시겠습니까?</td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="삭제"/>
-					<input type="button" value="취소" onclick="window.location='content.jsp?board_num=<%=board_num%>&pageNum=<%=pageNum%>&categ=<%=categ%>'"/></td>
+					<%if(pet_type!=null){ %>
+						<input type="button" value="취소" onclick="window.location='content.jsp?board_num=<%=board_num%>&pageNum=<%=pageNum%>&categ=<%=categ%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>'"/></td>
+					<%}else{ %>
+						<input type="button" value="취소" onclick="window.location='content.jsp?board_num=<%=board_num%>&pageNum=<%=pageNum%>&categ=<%=categ%>'"/></td>
+					<%} %>
 			</tr>
 		</table>
 	</form>
 <%	}else{ %>
+<br/><br/><br/><br/>
 	<form action="deletePro.jsp?pageNum=<%=pageNum%>" method="post">
 		<input type="hidden" name="board_num" value="<%= board_num %>"/>
 		<input type="hidden" name="categ" value="<%= categ%>"/>
-			<table>
+			<table align="center" style="margin:  0 auto;">
 				<tr>
 					<td>삭제하려면 비밀번호를 입력하세요.</td>
 				</tr>

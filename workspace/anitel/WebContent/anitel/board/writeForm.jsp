@@ -109,7 +109,7 @@
 			<input type="hidden" name="reg_num" value="<%=reg_num%>"/>
 			 
 	 
-			<table>
+			<table align="center" style="margin:  0 auto;">
 				<tr>
 					<td><input size="60%" type="text" name="subject" placeholder="제목입력" autofocus/></td>
 				</tr>

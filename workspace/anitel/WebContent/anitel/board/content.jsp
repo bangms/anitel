@@ -18,6 +18,14 @@
  
 	request.setCharacterEncoding("utf-8");
 	
+
+	String memId = request.getParameter("memId"); // 사업자아이디
+	System.out.println(memId);
+	String check_in = request.getParameter("check_in");
+	String check_out = request.getParameter("check_out");
+	String pet_type = request.getParameter("pet_type");
+
+
 	// session id 
 	String id =(String)session.getAttribute("sid");
 	System.out.println("content sid=" + id);
@@ -36,6 +44,7 @@
 	String reg_num = request.getParameter("reg_num");
 	System.out.println("content reg_num=" +reg_num);
 	
+
 	//db 에서 글 고유번호 주고 해당 글에 대한 애용 가져오기
 	BoardDAO dao = BoardDAO.getInstance();
 	BoardDTO article = dao.getArticle(board_num);  
@@ -101,7 +110,7 @@
 			<% } %>
 		</div>
 		<div id="content" align= "center">
-	 		<table border="1">
+	 		<table align="center" style="margin:  0 auto;" >
 			<tr>
 				<td colspan="2"><b> <%= article.getSubject()%> </b> </td>
 			</tr>
@@ -143,10 +152,18 @@
 		<%if(sel != null && search != null){ // 검색해서 들어왔음 %>
 			<input type="button" value="목록으로" onclick="window.location='../memberMypage/memberQna.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>&sel=<%=sel%>&search=<%=search%>'"/>
 		<%}else{ // 그냥 들어왔음 %>
-			<input type="button" value="목록으로" onclick="window.location='../memberMypage/memberQna.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/>
+			<%if(pet_type!=null){ %>
+				<input type="button" value="목록으로" onclick="window.location='../hotelDetail.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>'"/>
+			<%}else{ %>
+				<input type="button" value="목록으로" onclick="window.location='../memberMypage/memberQna.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/>
+			<%} %>
 		<%} %>
 	<%}else{ // 사업자가 아님 %>
-		<input type="button" value="목록으로" onclick="history.back(-2)"/>
+		<%if(pet_type!=null){ %>
+			<input type="button" value="목록으로" onclick="window.location='../hotelDetail.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>'"/>
+		<%}else{ %>
+			<input type="button" value="목록으로" onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/>
+		<%} %>
 	<%} %>
 <%} else if(categ == 3){//후기%>	
 	<%if(member.memberMatch(id)){ // 해당 유저가 사업자임 %> 
@@ -156,7 +173,11 @@
 			<input type="button" value="목록으로" onclick="window.location='../memberMypage/memberReview.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/>
 		<%} %>
 	<%}else{ // 사업자가 아님 %>
-		<input type="button" value="목록으로" onclick="history.back(-2)"/>
+		<%if(pet_type!=null){ %>
+			<input type="button" value="목록으로" onclick="window.location='../hotelDetail.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>'"/>
+		<%}else{ %>
+			<input type="button" value="목록으로" onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/>
+		<%} %>
 	<%} %>
 <%}%>
 
@@ -201,7 +222,7 @@
 						<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=3&amp;reg_num=<%=reg_num%>'">수  정</button>
 			<%  }
 					if(check || id.equals("admin")) { %>
-						<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=3&amp;reg_num=<%=reg_num%>'">삭  제</button>
+						<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=3&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>'">삭  제</button>
 			<%  } %>
 		<% } %>
 		
@@ -219,5 +240,6 @@
 			COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
 	</div>
   </div>
+
 </body>
 </html>

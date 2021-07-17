@@ -32,6 +32,12 @@
 	String hotel_name = request.getParameter("hotel_name");
 	System.out.println("hdqa =" + hotel_name);
 	
+
+	String check_in = request.getParameter("check_in");
+	String check_out = request.getParameter("check_out");
+	String pet_type = request.getParameter("pet_type");
+
+	
 	
 	MemberDAO dao = MemberDAO.getInstance();
 	
@@ -153,7 +159,7 @@
 			BoardDTO article = (BoardDTO)articleList.get(i); %>
 				<li class="table-row">
 					<div class="col col-1" style="flex-basis: 5%;"><%= number--%></div>
- 				<div class="col col-2" style="flex-basis: 45%;"> <a class="list_subject" href="board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>"><%=article.getSubject() %> </a>
+ 				<div class="col col-2" style="flex-basis: 45%;"> <a class="list_subject" href="board/content.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&memId=<%=memId%>&amp;reg_num=<%=reg_num%>&hotel_name=<%=hotel_name%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>"><%=article.getSubject() %> </a>
 				</div>
 				<div class="col col-3" style="flex-basis: 20%;">  익 명  </div>
 		     	<div class="col col-4" style="flex-basis: 20%;"><%= sdf.format(article.getReg_date()) %></div>
