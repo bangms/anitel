@@ -46,7 +46,7 @@ function check() {
 	}
 	
 	if(!inputForm.mem_tel.value || !inputForm.mem_tel1.value || !inputForm.mem_tel2.value || !inputForm.mem_tel3.value){
-		alert("연락처가 입력되지 않았습니다.");
+		alert("사업자 전화번호가 입력되지 않았습니다.");
 		return false;
 	}	
  
@@ -55,15 +55,15 @@ function check() {
 	//	return false;
 	//}
 	if(!phoneReg.test(inputForm.mem_tel1.value)){
-		alert("핸드폰 번호는 숫자만 가능합니다.");
+		alert("전화번호는 숫자만 가능합니다.");
 		return false;
 	}
 	if(!phoneReg.test(inputForm.mem_tel2.value)){
-		alert("핸드폰 번호는 숫자만 가능합니다.");
+		alert("전화번호는 숫자만 가능합니다.");
 		return false;
 	}
 	if(!phoneReg.test(inputForm.mem_tel3.value)){
-		alert("핸드폰 번호는 숫자만 가능합니다.");
+		alert("전화번호는 숫자만 가능합니다.");
 		return false;
 	}
 	
@@ -91,20 +91,20 @@ function check() {
 	}
 	
 	if(!inputForm.hotel_tel.value || !inputForm.ho_tel1.value || !inputForm.ho_tel2.value || !inputForm.ho_tel3.value){
-		alert("연락처가 입력되지 않았습니다.");
+		alert("호텔 전화번호가 입력되지 않았습니다.");
 		return false;
 	}	
 	
 	if(!phoneReg.test(inputForm.ho_tel1.value)){
-		alert("핸드폰 번호는 숫자만 가능합니다.");
+		alert("호텔 전화번호는 숫자만 가능합니다.");
 		return false;
 	}
 	if(!phoneReg.test(inputForm.ho_tel2.value)){
-		alert("핸드폰 번호는 숫자만 가능합니다.");
+		alert("호텔 전화번호는 숫자만 가능합니다.");
 		return false;
 	}
 	if(!phoneReg.test(inputForm.ho_tel3.value)){
-		alert("핸드폰 번호는 숫자만 가능합니다.");
+		alert("호텔 전화번호는 숫자만 가능합니다.");
 		return false;
 	}
 	
