@@ -116,11 +116,12 @@
 				<ul class="responsive-table">
 					<%	if(count==0){ %>
 					<li class="table-header">
-						<div class="col col-1">No.</div>
-						<div class="col col-2">제 목</div>
-						<div class="col col-3">호텔 이름</div>
-						<div class="col col-4">날 짜</div>
-						<div class="col col-5">조회수</div>
+						<div class="col col-1" style="flex-basis: 5%;">No.</div>
+						<div class="col col-2" style="flex-basis: 20%;">제 목</div>
+						<div class="col col-3" style="flex-basis: 20%;">호텔 이름</div>
+						<div class="col col-4" style="flex-basis: 20%;">날 짜</div>
+						<div class="col col-5" style="flex-basis: 15%;">조회수</div>
+						<div class="col col-5" style="flex-basis: 20%;">답변여부</div>
 					</li>
 					<li>
 						<div style="flex-basis: 100%;">게시글이 없습니다.</div>
@@ -128,11 +129,11 @@
 					<%	}else{ %>
 					<li class="table-header">
 						<div class="col col-1" style="flex-basis: 5%;">No.</div>
-						<div class="col col-2" style="flex-basis: 30%;">제 목</div>
-						<div class="col col-3" style="flex-basis: 30%;">호텔 이름</div>
+						<div class="col col-2" style="flex-basis: 20%;">제 목</div>
+						<div class="col col-3" style="flex-basis: 20%;">호텔 이름</div>
 						<div class="col col-4" style="flex-basis: 20%;">날 짜</div>
-						
 						<div class="col col-5" style="flex-basis: 15%;">조회수</div>
+						<div class="col col-5" style="flex-basis: 20%;">답변여부</div>
 					</li>
 
 					<%		for(int i=0; i< articleList.size(); i++){
@@ -140,13 +141,20 @@
 
 					<li class="table-row">
 						<div class="col col-1" style="flex-basis: 5%;"><%= number--%></div>
-						<div class="col col-2" style="flex-basis: 30%;">
+						<div class="col col-2" style="flex-basis: 20%;">
 							<a class="list_subject"
 								href="../board/content.jsp?board_num=<%= article.getBoard_num()%>&categ=<%=categ%>&pageNum=<%=pageNum%>"><%=article.getSubject() %></a>
 						</div>
-						<div class="col col-3" style="flex-basis: 30%;"><%= article.getHotel_name()%></div>
+						<div class="col col-3" style="flex-basis: 20%;"><%= article.getHotel_name()%></div>
 						<div class="col col-4" style="flex-basis: 20%;"><%= sdf.format(article.getReg_date()) %></div>
 						<div class="col col-5" style="flex-basis: 15%;"><%= article.getReadcount()%></div>
+						<div class="col col-5" style="flex-basis: 20%;">
+							<%if(article.getComm()==1){ %>
+								답변 완료
+							<%}else{ %>
+								답변중
+							<%} %>
+						</div>
 					</li>
 					<%		} 
 						}%>
