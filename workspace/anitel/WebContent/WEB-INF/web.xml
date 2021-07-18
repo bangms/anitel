@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   	<!-- 예외처리 -->
 	<!-- 오류 코드로 예외처리 -->
-		<error-page>
+		<!-- <error-page>
     <error-code>400</error-code>
 		<location>/error/errorPage.jsp</location>
     </error-page>
@@ -28,9 +28,9 @@
     </error-page>
 
 	
-	<!-- 자바 예외 클래스로 예외처리  -->
+	자바 예외 클래스로 예외처리 
 	<error-page>
 		<exception-type>java.lang.Exception/</exception-type>
 		<location>/error/errorPage.jsp</location>
-	</error-page>
+	</error-page> -->
 </web-app>
