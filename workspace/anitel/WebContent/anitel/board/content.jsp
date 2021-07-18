@@ -151,14 +151,15 @@
 			<%if(pet_type!=null){ %>
 				<input type="button" value="목록으로" onclick="window.location='../hotelDetail.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>'"/>
 			<%}else{ %>
-				<input type="button" value="목록으로" onclick="window.location='../memberMypage/memberQna.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/>
+				 <input type="button" value="목록으로" onclick="window.location='../memberMypage/memberQna.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/> 
 			<%} %>
 		<%} %>
 	<%}else{ // 사업자가 아님 %>
-		<%if(pet_type!=null){ %>
+		<%if(pet_type!=null){ System.out.println("2222222222"); %>
 			<input type="button" value="목록으로" onclick="window.location='../hotelDetail.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>'"/>
-		<%}else{ %>
-			<input type="button" value="목록으로" onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/>
+		<%}else{  System.out.println("11111111");%>
+			<input class="write_btn btn"  type="button" value="뒤로가기" onclick="history.back(-3)"/> 
+			<!-- <input type="button" value="목록으로" onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/>  -->
 		<%} %>
 	<%} %>
 <%} else if(categ == 3){//후기%>	
@@ -208,7 +209,11 @@
 				<%} %>
 		<%} 
 				if(dao.idCk(id) == 1 || id.equals("admin")) {%>
+				<%if(pet_type!=null){ %>			
 				<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2&amp;reg_num=<%=reg_num%>'">삭  제</button>
+				<%}else{ %> 
+				
+				<%} %>
 		<%} %>
 		
 		<%} else if(categ == 3){//후기
