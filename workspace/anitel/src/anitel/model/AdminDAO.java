@@ -784,7 +784,7 @@ public class AdminDAO {
 			}		
 			return result;			
 		}
-		
+		/* 예약에서 아예 삭제 되는 것으로 변경
 		// 사업자 삭제시, 해당 사업자의 객실정보 삭제하는 메서드 - adminMemberDeletePro
 		public void deleteMemberRoom(String id) {
 			PreparedStatement pstmt = null;
@@ -805,8 +805,7 @@ public class AdminDAO {
 				if(conn != null) try {conn.close(); }catch(Exception e) { e.printStackTrace(); }				
 			}				
 		}
-		
-		/* 예약에서 아예 삭제 되는 것으로 변경
+				
 		// 사업자 삭제시, 해당 사업자의 호텔을 예약한 일반회원의 예약들을 모두 예약상태 취소로 변경 - adminMemberDeletePro
 		public void deleteMemberBooking(String id) {
 			PreparedStatement pstmt = null;
