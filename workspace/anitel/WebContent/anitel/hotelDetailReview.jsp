@@ -180,11 +180,7 @@
 			<%}%>	
 	
 			<input class="write_btn btn"  type="button" value="뒤로가기" onclick="history.back()"/>
-			
-			<% check = bdao.paymentUserCk(id,reg_num); 
-				if(check) { %> 
-			<input class="write_btn btn" type="button" value="글쓰기" onclick="window.location='../anitel/board/writeForm.jsp?categ=3&amp;reg_num=<%=reg_num%>'" /> 
-			<%} %>
+			 
 			
 		</ul>
 	</div>	 
