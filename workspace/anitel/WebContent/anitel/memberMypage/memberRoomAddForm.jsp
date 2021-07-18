@@ -31,6 +31,49 @@
 	RoomDAO roomdao = RoomDAO.getInstance();
 	RoomDTO room = roomdao.getRoom(room_num); 	
 %>
+<script>
+	function check(){
+		if (!checkRoomName(mod.name.value)) {
+			return false;
+		} else if (!checkFee(mod.d_fee.value)) {
+			return false;
+		} 
+		return true;
+	}
+
+	//공백확인 함수 
+	function checkExistData(value, dataName) {
+	    if (value == "") {
+        	alert(dataName + " 입력해주세요!");
+        	return false;
+    	}
+    	return true;
+	}
+
+	function checkRoomName(name) {
+		if (!checkExistData(name, "객실 이름을"))
+	    	return false;
+		
+		var nameRegExp = /^[가-힣]{2,10}$/;
+		if (!nameRegExp.test(user_name)) {
+		    alert("이름은 2~10자 사이의 한글만 가능합니다.");
+		    return false;
+		}
+		return true; //확인이 완료되었을 때
+	}
+
+	function checkFee(d_fee) {
+	    if (!checkExistData(d_fee, "이용요금을"))
+        	return false;
+
+    	var feeRegExp = /^[0-9]*$/;
+    	if (!feeRegExp.test(d_fee)) {
+	        alert("이용요금은 숫자만 가능합니다.");
+        	return false;
+    	}
+    	return true; //확인이 완료되었을 때
+}
+</script>
 <body>
 <div id="container">
 	<div id="header">
@@ -67,7 +110,7 @@
         <h1>호텔 객실 정보 수정</h1>
       	<hr align="left" width=1000 color="black">
       	<div>
-      		<form  action="memberRoomAddPro.jsp?room_num=<%= room_num %>" method="post" enctype="multipart/form-data">
+      		<form  action="memberRoomAddPro.jsp?room_num=<%= room_num %>" method="post" name="mod" onsubmit=check() enctype="multipart/form-data">
       		<table>
       			<tr>
       				<td>객실 목록</td>
