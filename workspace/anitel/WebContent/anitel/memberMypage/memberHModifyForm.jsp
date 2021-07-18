@@ -22,6 +22,72 @@
 	MemberDAO dao = MemberDAO.getInstance();
 	MemberDTO member = dao.getMemberHotel(id);
 %>
+<script>
+function check(){
+	if (!checkHotelName(mod.hotel_name.value)) {
+		return false;
+	} else if (!checkOwner(mod.hotel_owner.value)) {
+		return false;
+	} else if (!checkPhone(mod.hotel_phone.value)) {
+		return false;
+	}  else if (!checkReg(mod.reg_num.value)) {
+		return false;
+	}  
+	return true;
+}
+
+//공백확인 함수 
+function checkExistData(value, dataName) {
+    if (value == "") {
+        alert(dataName + " 입력해주세요!");
+        return false;
+    }
+    return true;
+}
+
+function checkHotelName(hotel_name) {
+	if (!checkExistData(name, "호텔 이름을"))
+	    return false;
+	
+	var nameRegExp = /^[가-힣]{2,10}$/;
+		if (!nameRegExp.test(hotel_name)) {
+		    alert("이름은 2~10자 사이의 한글만 가능합니다.");
+		    return false;
+		}
+		return true; //확인이 완료되었을 때
+}
+
+function checkOwner(hotel_owner) {
+	if (!checkExistData(name, "대표자 성명을"))
+	    return false;
+	
+	var nameRegExp = /^[가-힣]{2,10}$/;
+		if (!nameRegExp.test(hotel_owner)) {
+		    alert("이름은 2~10자 사이의 한글만 가능합니다.");
+		    return false;
+		}
+		return true; //확인이 완료되었을 때
+}
+
+function checkPhone(hotel_phone) {
+    if (!checkExistData(hotel_phone, "호텔 전화번호를"))
+        return false;
+    return true; //확인이 완료되었을 때
+}
+
+function checkReg(reg_num) {
+    if (!checkExistData(reg_num, "사업자 등록번호를"))
+        return false;
+
+    var numRegExp = /^\d{2,3}-\d{3,4}-\d{4}$/;
+    if (!numRegExp.test(reg_num)) {
+        alert("사업자 등록번호는 000-000-000000의 형식으로 입력해야 합니다.");
+        return false;
+    }
+    return true; //확인이 완료되었을 때
+}
+
+</script>
 <body>
 <div id="container">
 	<div id="header">
@@ -58,7 +124,7 @@
         <h1><%= member.getMember_name() %>님의 호텔관리</h1>
       	<hr align="left" width=800 color="black">
       	<br/>
-      	<form action="memberHModifyPro.jsp" method="post" enctype="multipart/form-data">
+      	<form action="memberHModifyPro.jsp" method="post" name="mod" <%--onsubmit=check()--%> enctype="multipart/form-data">
       	<table>
       		<tr height = 50>
       			<td width = 200><h3>호텔 이름</h3></td>
