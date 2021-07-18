@@ -186,7 +186,7 @@
 		<%if(pet_type!=null){ %>
 			<input type="button" value="목록으로" onclick="window.location='../hotelDetail.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>'"/>
 		<%}else{ %>
-			<input type="button" value="목록으로" onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/>
+			<input type="button" value="목록으로" onclick="window.location='../userMypage/userReview.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/>
 		<%} %>
 	<%} %>
 <%}%>
