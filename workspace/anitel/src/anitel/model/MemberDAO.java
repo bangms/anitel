@@ -197,7 +197,7 @@ public class MemberDAO {
 		ResultSet rs = null;
 		try {
 			conn = getConnection();
-			String sql = "select hotel_name, hotel_owner, hotel_area, hotel_add, hotel_phone, reg_num, member_approved, hold_reason, member_name, id from member where id=?";
+			String sql = "select hotel_name, hotel_owner, hotel_area, hotel_add, hotel_phone, reg_num, member_approved, hold_reason, member_name, id, hotel_img from member where id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -213,6 +213,7 @@ public class MemberDAO {
 				dto.setHold_reason(rs.getString(8));
 				dto.setMember_name(rs.getString(9));
 				dto.setId(rs.getString(10));
+				dto.setHotel_img(rs.getString(11));
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
