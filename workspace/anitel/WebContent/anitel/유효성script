@@ -57,3 +57,18 @@ function checkPhone(user_phone) {
     }
     return true; //확인이 완료되었을 때
 }
+
+url 치고 들어가는 거 막는 거래여
+	<%
+	 String strReferer = request.getHeader("referer");
+	 
+	 if(strReferer == null){
+	%>
+	 <script language="javascript">
+	  alert("URL 주소창에 주소를 직접 입력해서 접근하셨습니다.\n\n정상적인 경로를 통해 다시 접근해 주십시오.");
+	  document.location.href="../index.jsp";
+	 </script>
+	<%
+	  return;
+	 }
+	%>

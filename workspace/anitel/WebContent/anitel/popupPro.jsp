@@ -134,11 +134,7 @@
 			String pet_num = request.getParameter("pet_num");
 			//일반회원 - 반려동물 정보 수정 %>
 			<script>
-<<<<<<< HEAD
-				opener.document.location="../anitel/userMyPage/petinfoModifyForm.jsp?id=<%=id%>&pet_num=<%=pet_num%>";
-=======
 				opener.document.location="../anitel/userMypage/petinfoModifyForm.jsp?id=<%=id%>&pet_num=<%=pet_num%>";
->>>>>>> 0eaef7f2a5cb3cd862c010d26ac48c31a4001f40
 				self.close();
 			</script>
 <%		}

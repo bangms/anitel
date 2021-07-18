@@ -6,9 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>펫 선택</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<meta charset="UTF-8">
+	<title>펫 선택</title>
+	<link rel="stylesheet" href="../style/style.css">
+	<link rel="stylesheet" href="../style/reset.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%-- jquery 라이브러리 추가 --%>
 </head>
 <%	request.setCharacterEncoding("UTF-8");
@@ -27,11 +29,7 @@
 		PetDTO pet = null;
 %>
 <body>
-
 	<div id="container">
-
-		<!-- 여기서부터 헤더  입니다.  -->
-
 		<div id="header">
 			<div id="logo" onclick="window.location='../main.jsp'">
 				<img src="../imgs/logo.jpg" width="200px" height="100px" alt="logo">
@@ -39,32 +37,30 @@
 			<div id="button">
 				<button id="notice"
 					onclick="window.location='../board/list.jsp?categ=0'">공지사항</button>
-				<button id="mypage" onclick="window.location='userMyPage.jsp'">마이페이지</button>
+				<button id="mypage" onclick="window.location='memberMyPage.jsp'">마이페이지</button>
 				<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
 			</div>
 		</div>
 
-		<div id="main">
 
-			<!-- 여기서부터 사이드바 입니다.  -->
-			<div id="sidebar">
-				<h1 class="menu_name">마이페이지</h1>
-				<div class="sidebar_menu_wrap">
-					<div class="nav-wrap">
-						<nav class="main-nav" role="navigation">
-							<ul class="unstyled list-hover-slide">
-								<li class="menu"><a href="userMyReserve.jsp">나의 예약 현황</a></li>
-								<li class="menu"><a href="userMyPage.jsp">나의 정보</a></li>
-								<li class="menu"><a href="userQnA.jsp">나의 Q&A</a></li>
-								<li class="menu"><a href="userReview.jsp">나의 후기</a></li>
-							</ul>
-						</nav>
-					</div>
+		<!-- 여기서부터 사이드바 입니다.  -->
+		<div id="sidebar">
+			<h1 class="menu_name">마이페이지</h1>
+			<div class="sidebar_menu_wrap">
+				<div class="nav-wrap">
+					<nav class="main-nav" role="navigation">
+						<ul class="unstyled list-hover-slide">
+							<li class="menu"><a href="userMyReserve.jsp">나의 예약 현황</a></li>
+							<li class="menu"><a href="userMyPage.jsp">나의 정보</a></li>
+							<li class="menu"><a href="userQnA.jsp">나의 QnA</a></li>
+							<li class="menu"><a href="userReview.jsp">나의 후기</a></li>
+						</ul>
+					</nav>
 				</div>
 			</div>
-			<!-- 여기서부터 콘텐츠 화면 입니다.  -->
-
-			<div id="content">
+		</div>
+		<!-- 여기서부터 콘텐츠 화면 입니다.  -->
+		<div id="section" style="padding-left: 15%; margin-left: 40px;">
 				<h1>내 반려동물의 정보</h1>
 				<hr align="left" width=800 color="black">
 				<br />
