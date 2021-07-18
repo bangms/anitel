@@ -261,47 +261,47 @@ public class UsersDAO {
 		// result 값이 -1 : 현재 비밀번호 불일치, 0 : 새 비밀번호간 불일치, 1 : 변경 완료 
 		return result;
 	}
-
-	// 삭제된 유저의 펫도 삭제
-	public void deleteUsersPet(String id) { 
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = getConnection();			
-			String sql = "delete from pet where id = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.executeUpdate();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
-			if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
-		}
-		
-		
-	}
 	
-		// 회원 삭제시, 예정 상태 예약만 취소 처리시키는 메서드
-		public void deleteUserBooking(String id) {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			
-			try {
-				conn = getConnection();			
-				String sql = "update booking set booking_status=1 where booking_status=2 and id = ?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, id);
-				pstmt.executeUpdate();
-
-			}catch(Exception e) {
-				e.printStackTrace();
-			}finally {
-				if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
-				if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
-			}		
-		}
+//	// 삭제된 유저의 펫도 삭제
+//		public void deleteUsersPet(String id) { 
+//			Connection conn = null;
+//			PreparedStatement pstmt = null;
+//			
+//			try {
+//				conn = getConnection();			
+//				String sql = "delete from pet where id = ?";
+//				pstmt = conn.prepareStatement(sql);
+//				pstmt.setString(1, id);
+//				pstmt.executeUpdate();
+//
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//			}finally {
+//				if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+//				if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+//			}
+//			
+//			
+//		}
+//		// 회원 삭제시, 예정 상태 예약만 취소 처리시키는 메서드
+//		public void deleteUserBooking(String id) {
+//			Connection conn = null;
+//			PreparedStatement pstmt = null;
+//			
+//			try {
+//				conn = getConnection();			
+//				String sql = "update booking set booking_status=1 where booking_status=2 and id = ?";
+//				pstmt = conn.prepareStatement(sql);
+//				pstmt.setString(1, id);
+//				pstmt.executeUpdate();
+//
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//			}finally {
+//				if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+//				if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+//			}		
+//		}
 		
 
 	//개인정보 수정 메서드 (userModifyForm)
