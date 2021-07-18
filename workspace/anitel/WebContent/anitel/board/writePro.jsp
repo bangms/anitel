@@ -128,19 +128,20 @@
 		alert(" 글이 정상적으로 등록 되었습니다. ");
 		window.location.href="list.jsp?categ=<%=categ%>&reg_num=<%=reg_num%>";
 	</script>
+	
 
 	<%}else if(categ == 2 || categ == 3){%>
-	 <%if(pet_type != null){ System.out.println("wp" + pet_type);%>
-		 <script type="text/javascript">
-		alert(" 글이 정상적으로 등록 되었습니다. ");
-		window.location.href="../hotelDetail.jsp?categ=<%=categ%>&reg_num=<%=reg_num%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>";
-		</script>
- 
-	 <%}else{ %>
- 	<script type="text/javascript">
-		alert(" 글이 정상적으로 등록 되었습니다. ");
-		window.location.href="list.jsp?categ=<%=categ%>&reg_num=<%=reg_num%>";
-	</script>
+	
+	 	<%if(pet_type != null){ System.out.println("팻타입 존재 " + pet_type);%>
+			 <script type="text/javascript">
+				alert(" 글이 정상적으로 등록 되었습니다. ");
+				window.location.href="../hotelDetail.jsp?categ=<%=categ%>&reg_num=<%=reg_num%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>";
+			</script>
+		<%}else{ System.out.println("유저페이지 나의후기 "); %>
+ 			<script type="text/javascript">
+			alert(" 글이 정상적으로 등록 되었습니다. ");
+			window.location.href="../userMypage/userReview.jsp";
+			</script>
 	<%} %>
 
 <%} %>
