@@ -127,6 +127,16 @@
       				<% } %>
       			</h3></td>
       		</tr>
+      		<tr height = 50>
+      			<td><h3>호텔 대표 이미지</h3></td>
+      			<td>
+      				<% if(member.getHotel_img()==null) { %>
+						이미지 없음
+					<% }else{ %>
+						<img src="/anitel/save/<%= member.getHotel_img() %>" width=400/>
+					<% } %>
+      			</td>
+      		</tr>
       	</table>
       	<br/>
 			<input type="button" value="호텔정보 수정" onclick="popupOpen()"/>&emsp;
