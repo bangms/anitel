@@ -16,8 +16,8 @@
 	for(int i = 0; i < check.length; i++){
 		String id = check[i];
 		result = dao.deleteMember(id);
-		dao.deleteMemberBooking(id);
-		dao.deleteMemberRoom(id);  
+		//dao.deleteMemberBooking(id);
+		//dao.deleteMemberRoom(id);  
 	}
 	
 	
