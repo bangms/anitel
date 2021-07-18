@@ -5,10 +5,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>사업자회원가입</title>
-  	<link rel="stylesheet" href="style/style.css">
+ 	<link rel="stylesheet" href="style/style.css">
  	<link rel="stylesheet" href="style/reset.css">
-  	<link rel="stylesheet" href="style/init.css">		
  	<link rel="stylesheet" href="style/signup.css">	
+ 	<script type="text/javascript" src="js/search.js"></script>
 </head>
 <%
 	 String strReferer = request.getHeader("referer");
@@ -25,113 +25,8 @@
 	%>
 <script type="text/javascript">
 //유효성 검사 // 체크해서 폼한테 다시 false / true 리턴
-function check() {
-	// id 입력 했는지 
-	var inputForm = document.inputForm; // 스크립트로 html의 form요소 가져오기
-	var regExp = /\s/g;
-	var idReg = /^[a-z0-9]{6,15}$/g;
-	var nameReg = /^[가-힣ㄱ-ㅎㅏ-ㅣ]{1,10}$/g;
-	var hnameReg = /^[가-힣ㄱ-ㅎㅏ-ㅣ]{1,10}$/g;
-	var phoneReg = /^[0-9]*$/;
+function check(frm) {
 	
-	if(!inputForm.id.value){
-		alert("아이디가 입력되지 않았습니다.");
-		return false;
-	}
-	
-	if(!idReg.test(inputForm.id.value) || regExp.test(inputForm.id.value)){
-		alert("아이디는 6~16자 사이의 영문 소문자+숫자만 가능합니다.");
-		return false;
-	}
-	
-	if(!inputForm.member_pw.value){
-		alert("비밀번호가 입력되지 않았습니다.");
-		return false;
-	}
-	
-	if(!inputForm.member_name.value){
-		alert("사업자 이름이 입력되지 않았습니다.");
-		return false;
-	}
-	if(!nameReg.test(inputForm.member_name.value)){
-		alert("이름은 2~10자 사이의 한글만 가능합니다.");
-		return false;
-	}
-	
-	if(!inputForm.mem_tel.value || !inputForm.mem_tel1.value || !inputForm.mem_tel2.value || !inputForm.mem_tel3.value){
-		alert("사업자 전화번호가 입력되지 않았습니다.");
-		return false;
-	}	
- 
-	//if(!phoneReg.test(inputForm.mem_tel1.value) || !phoneReg.test(inputForm.mem_tel2.value) || !phoneReg.test(inputForm.mem_tel3.value)){	
-	//	alert("핸드폰 번호는 숫자만 가능합니다.");
-	//	return false;
-	//}
-	if(!phoneReg.test(inputForm.mem_tel1.value)){
-		alert("전화번호는 숫자만 가능합니다.");
-		return false;
-	}
-	if(!phoneReg.test(inputForm.mem_tel2.value)){
-		alert("전화번호는 숫자만 가능합니다.");
-		return false;
-	}
-	if(!phoneReg.test(inputForm.mem_tel3.value)){
-		alert("전화번호는 숫자만 가능합니다.");
-		return false;
-	}
-	
-	if(!inputForm.member_email.value){
-		alert("이메일이 입력되지 않았습니다.");
-		return false;
-	}
-	
-	if(!inputForm.hotel_name.value){
-		alert("호텔 이름이 입력되지 않았습니다.");
-		return false;
-	}
-	if(!inputForm.hotel_owner.value){
-		alert("대표자 이름이 입력되지 않았습니다.");
-		return false;
-	}
-	if(!hnameReg.test(inputForm.hotel_owner.value)){
-		alert("이름은 2~10자 사이의 한글만 가능합니다.");
-		return false;
-	}
-
-	if(!inputForm.hotel_add.value){
-		alert("호텔 상세주소가 입력되지 않았습니다.");
-		return false;
-	}
-	
-	if(!inputForm.hotel_tel.value || !inputForm.ho_tel1.value || !inputForm.ho_tel2.value || !inputForm.ho_tel3.value){
-		alert("호텔 전화번호가 입력되지 않았습니다.");
-		return false;
-	}	
-	
-	if(!phoneReg.test(inputForm.ho_tel1.value)){
-		alert("호텔 전화번호는 숫자만 가능합니다.");
-		return false;
-	}
-	if(!phoneReg.test(inputForm.ho_tel2.value)){
-		alert("호텔 전화번호는 숫자만 가능합니다.");
-		return false;
-	}
-	if(!phoneReg.test(inputForm.ho_tel3.value)){
-		alert("호텔 전화번호는 숫자만 가능합니다.");
-		return false;
-	}
-	
-	if(!inputForm.reg_num.value){
-		alert("사업자등록번호가 입력되지 않았습니다.");
-		return false;
-	}
-	
-	if(!inputForm.hotel_intro.value){
-		alert("호텔 소개글이 입력되지 않았습니다.");
-		return false;
-	}
-	
-  
 
 }
 // 아이디 중복 여부 판단

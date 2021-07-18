@@ -8,6 +8,7 @@
  	<link rel="stylesheet" href="style/style.css">
 	<link rel="stylesheet" href="style/reset.css">
  	<link rel="stylesheet" href="style/signup.css">
+ 	<script type="text/javascript" src="js/valCheck.js"></script>
 </head>
 <%
 	 String strReferer = request.getHeader("referer");
@@ -23,81 +24,20 @@
 	 }
 	%>
 <script type="text/javascript">
- 
-	// 유효성 검사 
-	function check(){
-		var inputForm = document.inputForm;
-		var regExp = /\s/g;
-		var nameReg = /^[가-힣ㄱ-ㅎㅏ-ㅣ]{1,10}$/g;
-		var idReg = /^[a-z0-9]{6,15}$/g;
-		var pet_ageReg = /^[0-9]*$/;
-		var user_phoneReg = /^[0-9]*$/;
-		var pnameReg = /^[가-힣ㄱ-ㅎㅏ-ㅣ]{1,10}$/g;
-		
-		if(!inputForm.id.value){
-			alert("아이디가 입력되지 않았습니다.");
-			return false;
-		}
-		
-		if(!idReg.test(inputForm.id.value) || regExp.test(inputForm.id.value)){
-			alert("아이디는 6~16자 사이의 영문 소문자+숫자만 가능합니다.");
-			return false;
-		}
-		
-		if(!inputForm.user_pw.value){
-			alert("비밀번호가 입력되지 않았습니다.");
-			return false;
-		}
-		if(!inputForm.user_name.value){
-			alert("이름이 입력되지 않았습니다.");
-			return false;
-		}
-		
-		if(!nameReg.test(inputForm.user_name.value)){
-			alert("이름은 2~10자 사이의 한글만 가능합니다.");
-			return false;
-		}
+	//유효성검사
+	function check(frm){
+		if(/* !checkExistData(frm.id.value, "아이디를") 
+				|| !checkExistData(frm.user_pw.value, "비밀번호를") 
+				|| !checkUserName(frm.user_name.value)
+				|| */ !checkPhone(frm.user_tel1.value)
+				|| !checkPhone(frm.user_tel2.value)
+				|| !checkPhone(frm.user_tel3.value)
+				|| !checkEmail(frm.user_email.value)
+				|| !checkUserName(frm.pet_name.value)) return false;
 
-		if(!inputForm.user_tel.value || !inputForm.user_tel1.value || !inputForm.user_tel2.value || !inputForm.user_tel3.value){
-			alert("연락처가 입력되지 않았습니다.");
-			return false;
-		}
-		
-		if(!user_phoneReg.test(inputForm.user_tel1.value)){
-			alert("핸드폰 번호는 숫자만 가능합니다.");
-			return false;
-		}
-		if(!user_phoneReg.test(inputForm.user_tel2.value)){
-			alert("핸드폰 번호는 숫자만 가능합니다.");
-			return false;
-		}
-		if(!user_phoneReg.test(inputForm.user_tel3.value)){
-			alert("핸드폰 번호는 숫자만 가능합니다.");
-			return false;
-		}
-		
-		if(!inputForm.user_email.value){
-			alert("이메일이 입력되지 않았습니다.");
-			return false;
-		}
-		
-		if(!inputForm.pet_name.value){
-			alert("반려동물 이름이 입력되지 않았습니다.");
-			return false;
-		}
-		
-		if(!pnameReg.test(inputForm.pet_name.value)){
-			alert("반려동물 이름은 2~10자 사이의 한글만 가능합니다.");
-			return false;
-		}
-		
-		if(!pet_ageReg.test(inputForm.pet_age.value)){
-			alert("반려동물 나이는 숫자만 가능합니다.");
-			return false;
-		}
-	}
-	
-	
+	   return true;
+	 }
+
 	//아이디 중복체크 
 	function confirmId(inputForm) {
 		if (inputForm.id.value == "" || !inputForm.id.value) {
@@ -124,7 +64,7 @@
 		</div>
 	</div>	
 	<div id="section">
-		<form class="submitForm" action="signInUserPro.jsp" method="post" name="inputForm" onsubmit="return check()" style="margin-bottom: 50px;">
+		<form class="submitForm" action="signInUserPro.jsp" method="post" name="inputForm" onsubmit="return check(this)" style="margin-bottom: 50px;">
 			<h3>회원정보 (필수입력)</h3>
 			<div class="form__group field">
 				<input type="text" id="id" class="form__field" placeholder="ID" name="id" />
@@ -140,8 +80,8 @@
         		<label for="member_name" class="form__label">이름 <span class="txt">*</span></label>
       		</div>
     		<div class="form__group" style="display:flex;">
-         		<input type="text" id="user_tel" class="form__field" name="user_tel1" />
-         		<label for="user_tel" class="form__label">전화번호 <span class="txt">*</span></label>
+         		<input type="text" id="user_tel1" class="form__field" name="user_tel1" />
+         		<label for="user_tel1" class="form__label">전화번호 <span class="txt">*</span></label>
          		 -
          		<input type="text" class="form__field" name="user_tel2"/>
         		 -

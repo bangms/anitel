@@ -25,20 +25,17 @@
     <!--
     <Manager pathname="" />
     -->
-    
     <Resource 
-       name="jdbc/orcl"
-       auth="Container"
-       type="javax.sql.DataSource"
-       driverClassName="oracle.jdbc.driver.OracleDriver"
-       username="team03"
-       password="team03"
-       loginTimeout="10"
-       maxWait="5000"
-       maxActive="20"
-       testOnBorrow="true"
-       url="jdbc:oracle:thin:@nullmaster.iptime.org:1521:ORCL"    
-    />
-
-    
+			name="jdbc/orcl"
+			auth="Container"
+			type="javax.sql.DataSource"
+			driverClassName="oracle.jdbc.driver.OracleDriver"
+			username="team03"
+			password="team03"
+			loginTimeout="10"
+			maxWait="5000"
+			maxActive="20"
+			testOnBorrow="true"
+			url="jdbc:oracle:thin:@nullmaster.iptime.org:1521:ORCL"
+		/>
 </Context>

@@ -10,6 +10,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.oreilly.servlet.MultipartRequest;
+
 public class MemberDAO {
 	// 싱글턴
 	private static MemberDAO instance = new MemberDAO();
