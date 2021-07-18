@@ -623,6 +623,30 @@ public class RoomDAO {
 		}
 		return result;
 	}
+
+	// 객실 삭제시 필요한 이미지 꺼내오기
+	public String getPhoto(int num){
+		String photo = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			String sql = "select img from room where room_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				photo = rs.getString(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		return photo;
+	}
 	
 }// close
-
