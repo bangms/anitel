@@ -139,26 +139,6 @@
 			</script>
 <%		}
 		
-
-		
-		if(pop.equals("10")){																			// 완료됨
-			System.out.println("id : " + id + " / pop6(일반회원 -호텔예약취소 ) 실행");
-			// 일반회원 - 호텔 예약취소
-			int booking_num=booking.getBookingNum(id);
-			int num = booking.deleteReserve(booking_num);
-			if(num == 1){%>
-				<script>
-					alert("예약 취소가 완료되었습니다.");
-					window.location.href="../anitel/anitel/userMyPage/userMyReserve.jsp"; 									// main.jsp로 바꿔야됨
-				</script>
-<%				session.invalidate(); %>
-<%			}else{%>
-				<script>
-					alert("오류가 발생했습니다. 다시 시도해주세요.");
-					history.go(-1);
-				</script>
-<%			}
-		}	
 		if(pop.equals("11")){ 
 			// 사업자회원 - 객실 및 서비스 관리 %>
 			<script type="text/javascript">
