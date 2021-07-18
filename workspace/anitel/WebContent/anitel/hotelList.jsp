@@ -18,6 +18,19 @@
 	<script type="text/javascript" src="js/search.js"></script>
 	<title>리스트페이지</title>
 </head>
+<%
+	 String strReferer = request.getHeader("referer");
+	 
+	 if(strReferer == null){
+	%>
+	 <script language="javascript">
+	  alert("URL 주소창에 주소를 직접 입력해서 접근하셨습니다.\n\n정상적인 경로를 통해 다시 접근해 주십시오.");
+	  document.location.href="main.jsp";
+	 </script>
+	<%
+	  return;
+	 }
+	%>
 <style>
 	
 /* 메인페이지 height 100% 옵션주기 위한 div */

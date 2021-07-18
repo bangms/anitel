@@ -4,12 +4,24 @@
 <%@page import="anitel.model.BoardDTO"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
-<%@page import="anitel.model.TestDAO"%>
 <%@page import="anitel.model.BookingDAO"%>
 <%@page import="anitel.model.PetDTO"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@ page language="java" contentType="application/json; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+	 String strReferer = request.getHeader("referer");
+	 
+	 if(strReferer == null){
+	%>
+	 <script language="javascript">
+	  alert("URL 주소창에 주소를 직접 입력해서 접근하셨습니다.\n\n정상적인 경로를 통해 다시 접근해 주십시오.");
+	  document.location.href="main.jsp";
+	 </script>
+	<%
+	  return;
+	 }
+	%>
  <%   
 	response.setContentType("application/json; charset=UTF-8");
 	

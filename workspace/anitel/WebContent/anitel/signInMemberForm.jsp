@@ -10,6 +10,19 @@
   	<link rel="stylesheet" href="style/init.css">		
  	<link rel="stylesheet" href="style/signup.css">	
 </head>
+<%
+	 String strReferer = request.getHeader("referer");
+	 
+	 if(strReferer == null){
+	%>
+	 <script language="javascript">
+	  alert("URL 주소창에 주소를 직접 입력해서 접근하셨습니다.\n\n정상적인 경로를 통해 다시 접근해 주십시오.");
+	  document.location.href="main.jsp";
+	 </script>
+	<%
+	  return;
+	 }
+	%>
 <script type="text/javascript">
 //유효성 검사 // 체크해서 폼한테 다시 false / true 리턴
 function check() {
