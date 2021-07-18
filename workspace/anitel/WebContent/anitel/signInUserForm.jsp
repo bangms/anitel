@@ -7,7 +7,8 @@
 	<title>일반회원 회원가입폼</title>
  	<link rel="stylesheet" href="style/style.css">
 	<link rel="stylesheet" href="style/reset.css">
- 	<link rel="stylesheet" href="style/signup.css">
+	<link rel="stylesheet" href="style/signup.css">
+	<script src="js/jquery-3.1.1.min.js"></script>
  	<script type="text/javascript" src="js/valCheck.js"></script>
 </head>
 <%
@@ -23,33 +24,6 @@
 	  return;
 	 }
 	%>
-<script type="text/javascript">
-	//유효성검사
-	function check(frm){
-		if(/* !checkExistData(frm.id.value, "아이디를") 
-				|| !checkExistData(frm.user_pw.value, "비밀번호를") 
-				|| !checkUserName(frm.user_name.value)
-				|| */ !checkPhone(frm.user_tel1.value)
-				|| !checkPhone(frm.user_tel2.value)
-				|| !checkPhone(frm.user_tel3.value)
-				|| !checkEmail(frm.user_email.value)
-				|| !checkUserName(frm.pet_name.value)) return false;
-
-	   return true;
-	 }
-
-	//아이디 중복체크 
-	function confirmId(inputForm) {
-		if (inputForm.id.value == "" || !inputForm.id.value) {
-			alert("아이디를 입력하세요");
-			return;
-		}
-			var url = "confirmId.jsp?id=" + inputForm.id.value;
-			open(url, "confirmId", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
-		}
-	
- 
-</script>
 <body>
 <div id="container">
 
@@ -78,15 +52,16 @@
 			<div class="form__group field">
         		<input type="text" id="member_name" class="form__field" placeholder="Name" name="user_name" />
         		<label for="member_name" class="form__label">이름 <span class="txt">*</span></label>
-      		</div>
-    		<div class="form__group" style="display:flex;">
-         		<input type="text" id="user_tel1" class="form__field" name="user_tel1" />
-         		<label for="user_tel1" class="form__label">전화번호 <span class="txt">*</span></label>
-         		 -
-         		<input type="text" class="form__field" name="user_tel2"/>
-        		 -
-         		<input type="text" class="form__field" name="user_tel3"/> 
-      		 </div>
+   		</div>
+   		
+   		<div class="form__group" style="display:flex;">
+          <input type="text" id="tel" class="form__field" name="user_tel1" />
+          <label for="tel" class="form__label">전화번호 <span class="txt">*</span></label>
+          -
+          <input type="text" class="form__field" name="user_tel2" />
+          -
+          <input type="text" class="form__field" name="user_tel3" /> 
+      </div>
        
 		 	<div class="form__group field">
 				 <input type="text" id="email" class="form__field" placeholder="E-mail" name="user_email" />
@@ -168,6 +143,35 @@ function view(value){
 		input.classList.replace('show', 'hidden');
 	}
 }
+</script>
+<script type="text/javascript">
+	//유효성검사
+function check(frm){
+		var a = $("input[name=user_tel1]").val();
+		var b = $("input[name=user_tel2]").val();
+		var c = $("input[name=user_tel3]").val();
+		
+		if(!checkExistData(frm.id.value, "아이디를") 
+				|| !checkExistData(frm.user_pw.value, "비밀번호를") 
+				|| !checkUserName(frm.user_name.value)
+				/*|| !checkPhone(a+b+c)*/
+				|| !checkEmail(frm.user_email.value)
+				|| !checkUserName(frm.pet_name.value)
+		) return false;
+
+   return true;
+ }
+
+	//아이디 중복체크 
+	function confirmId(inputForm) {
+		if (inputForm.id.value == "" || !inputForm.id.value) {
+			alert("아이디를 입력하세요");
+			return;
+		}
+			var url = "confirmId.jsp?id=" + inputForm.id.value;
+			open(url, "confirmId", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
+		}
+	
 </script>
 
 </html>

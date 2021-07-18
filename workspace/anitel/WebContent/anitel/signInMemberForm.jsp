@@ -9,6 +9,7 @@
  	<link rel="stylesheet" href="style/reset.css">
  	<link rel="stylesheet" href="style/signup.css">	
  	<script type="text/javascript" src="js/search.js"></script>
+ 	<script type="text/javascript" src="js/valCheck.js"></script>
 </head>
 <%
 	 String strReferer = request.getHeader("referer");
@@ -24,11 +25,22 @@
 	 }
 	%>
 <script type="text/javascript">
-//유효성 검사 // 체크해서 폼한테 다시 false / true 리턴
-function check(frm) {
-	
+//유효성검사
+function check(frm){
+	if(!checkExistData(frm.id.value, "아이디를") 
+			|| !checkExistData(frm.member_pw.value, "비밀번호를") 
+			|| !checkUserName(frm.member_name.value)
+			|| !checkEmail(frm.member_email.value)
+			|| !checkExistData(frm.hotel_name.value, "호텔이름을") 
+			|| !checkUserName(frm.hotel_owner.value)
+			|| !checkExistData(frm.hotel_area.value, "지역을") 
+			|| !checkExistData(frm.hotel_add.value, "상세주소를") 
+			|| !checkExistData(frm.reg_num.value, "사업자 등록 번호를") 
+			|| !checkExistData(frm.pet_type.value, "호텔 수용 동물") 
+	) return false;
 
-}
+   return true;
+ }
 // 아이디 중복 여부 판단
 function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 	if(inputForm.id.value == "" || !inputForm.id.value) {
@@ -41,6 +53,7 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 	
 	
 }
+
 </script>
 <body>
 <div id="container">
@@ -56,7 +69,7 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 	</div>	
 	<div id="section">
 	
-		<form class="submitForm" action="signInMemberPro.jsp" method="post" name="inputForm" onsubmit="return check()">
+		<form class="submitForm" action="signInMemberPro.jsp" method="post" name="inputForm" onsubmit="return check(this)">
 			<h3> 사업자 회원 정보(필수입력)</h3>
 			
 			<div class="form__group field">
@@ -123,7 +136,7 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
          <input type="text" class="form__field" name="ho_tel3" /> 
       </div>
 			<div class="form__group field">
-        <input type="text" id="reg_num" class="form__field" name="reg_num"   />
+        <input type="text" id="reg_num" class="form__field" name="reg_num" />
         <label for="reg_num" class="form__label">사업자 등록 번호 <span class="txt">*</span></label>
       </div>
       <hr>
