@@ -177,6 +177,6 @@ function checkPhone(user_phone) {
 
 </body>
 
-<%//} %>
+<%} %>
 
 </html>

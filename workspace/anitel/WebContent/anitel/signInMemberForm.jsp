@@ -156,7 +156,7 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 		<div id="button">
 			<button id="notice" onclick="window.location='board/list.jsp?categ=0'">공지사항</button>
 			<button id="signin" onclick="window.location='signIn.jsp'">회원가입</button>
-			<button id="login" onclick="window.location='LoginForm.jsp'">로그인</button>
+			<button id="login" onclick="window.location='loginForm.jsp'">로그인</button>
 		</div>
 	</div>	
 	<div id="section">
