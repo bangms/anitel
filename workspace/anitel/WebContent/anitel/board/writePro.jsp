@@ -27,6 +27,7 @@
    %>
 </head>
 
+<
 <%
 	request.setCharacterEncoding("UTF-8");
  
@@ -69,6 +70,12 @@
  	//reg_num
  	String reg_num = mr.getParameter("reg_num");
  	System.out.println("reg_num=" + reg_num);
+ 	
+ 	// 분기처리 디테일로 가기위함 
+ 	String memId = mr.getParameter("memId"); // 사업자아이디
+	String check_in = mr.getParameter("check_in");
+	String check_out = mr.getParameter("check_out");
+	String pet_type = mr.getParameter("pet_type");
  
  	
  	String sysName = mr.getFilesystemName("img"); // 파일 넘어오는 이름 
@@ -123,11 +130,19 @@
 	</script>
 
 	<%}else if(categ == 2 || categ == 3){%>
-
+	 <%if(pet_type != null){ System.out.println("wp" + pet_type);%>
+		 <script type="text/javascript">
+		alert(" 글이 정상적으로 등록 되었습니다. ");
+		window.location.href="../hotelDetail.jsp?categ=<%=categ%>&reg_num=<%=reg_num%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>";
+		</script>
+ 
+	 <%}else{ %>
  	<script type="text/javascript">
 		alert(" 글이 정상적으로 등록 되었습니다. ");
-		history.go(-2);
+		window.location.href="list.jsp?categ=<%=categ%>&reg_num=<%=reg_num%>";
 	</script>
+	<%} %>
+
 <%} %>
 <body>
 
