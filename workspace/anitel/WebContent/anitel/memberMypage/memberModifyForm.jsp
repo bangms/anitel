@@ -7,8 +7,8 @@
   <head>
 		<meta charset="UTF-8">
 		<title>마이페이지(사업자회원) - 개인정보 수정</title>
-		<link rel="stylesheet" href="style/style.css">
-		<link rel="stylesheet" href="style/reset.css">
+		<link rel="stylesheet" href="../style/style.css">
+		<link rel="stylesheet" href="../style/reset.css">
   </head>
   
 <%	request.setCharacterEncoding("UTF-8");
@@ -19,10 +19,10 @@
 			alert("로그인이 필요한 서비스입니다.");
 			window.location="../loginForm.jsp";
 		</script>
-<%	}else{ 
-	String id = (String)session.getAttribute("sid");
-	MemberDAO dao = MemberDAO.getInstance();
-	MemberDTO member = dao.getMember(id);
+<% } else { 
+			String id = (String)session.getAttribute("sid");
+			MemberDAO dao = MemberDAO.getInstance();
+			MemberDTO member = dao.getMember(id);
 %>
 <body>
 <div id="container">
@@ -91,20 +91,15 @@
 		<br/><br/>	
 	   </form>
      </div>
-        
  
-     </div>
-      
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
       <div id="footer">
-      <img src="imgs/logo2.png" width=100px; height=50px;>
-      <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
-      이용약관 | 취소정책 | 1:1문의 <br/>
-      COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
-      			
+	      <img src="../imgs/logo2.png" width=100px; height=50px;>
+	      <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
+	      이용약관 | 취소정책 | 1:1문의 <br/>
+	      COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>	
       </div>
     </div>
-    
 </body>
 <%	} %>
 </html>

@@ -148,7 +148,7 @@ function confirmId(inputForm) { // inputForm <- this.form 객체 받음
 	</div>	
 	<div id="section">
 	
-		<form class="submitForm" action="singInMemberPro.jsp" method="post" name="inputForm" onsubmit="return check()">
+		<form class="submitForm" action="signInMemberPro.jsp" method="post" name="inputForm" onsubmit="return check()">
 			<h3> 사업자 회원 정보(필수입력)</h3>
 			
 			<div class="form__group field">
