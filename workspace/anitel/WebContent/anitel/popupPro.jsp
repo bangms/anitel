@@ -74,7 +74,7 @@
 		if(pop.equals("3")){
 			// 일반회원 - 내 정보 수정 %>
 			<script>
-				opener.document.location="../anitel/anitel/userMypage/userModifyForm.jsp";
+				opener.document.location="../anitel/userMypage/userModifyForm.jsp";
 				self.close();
 			</script>
 <%		}
@@ -134,7 +134,7 @@
 			String pet_num = request.getParameter("pet_num");
 			//일반회원 - 반려동물 정보 수정 %>
 			<script>
-				opener.document.location="../anitel/anitel/userMyPage/petinfoModifyForm.jsp?id=<%=id%>&pet_num=<%=pet_num%>";
+				opener.document.location="../anitel/userMyPage/petinfoModifyForm.jsp?id=<%=id%>&pet_num=<%=pet_num%>";
 				self.close();
 			</script>
 <%		}
