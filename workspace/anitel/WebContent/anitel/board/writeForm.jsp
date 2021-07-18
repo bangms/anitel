@@ -9,19 +9,7 @@
 	<link rel="stylesheet" href="../style/reset.css">
 	<link rel="stylesheet" href="../style/init.css">	
 </head>
- <%
-    String strReferer = request.getHeader("referer");
-    
-    if(strReferer == null){
-   %>
-    <script language="javascript">
-     alert("URL 주소창에 주소를 직접 입력해서 접근하셨습니다.\n\n정상적인 경로를 통해 다시 접근해 주십시오.");
-     document.location.href="main.jsp";
-    </script>
-   <%
-     return;
-    }
-   %>
+ 
 	<script>
 	// 유효성 검사  
 		function check(){ 
@@ -54,6 +42,12 @@
   	//reg_num 이 넘어올때 
   	String reg_num = request.getParameter("reg_num");
   	System.out.println("writeForm reg_num=" +reg_num);
+  	
+  	String memId = request.getParameter("memId"); // 사업자아이디
+	System.out.println(memId);
+	String check_in = request.getParameter("check_in");
+	String check_out = request.getParameter("check_out");
+	String pet_type = request.getParameter("pet_type");
   	
   	
   	//memId 가 넘어올떄 categ =2,3 일때 hoteldetail 로 보내주기 위함 
@@ -119,6 +113,10 @@
 			<input type="hidden" name="categ" value="<%=categ%>"/>
 			<input type="hidden" name="hidden_content" value="<%=hidden_content%>"/>
 			<input type="hidden" name="reg_num" value="<%=reg_num%>"/>
+			<input type="hidden" name="memId" value="<%=memId%>"/>
+			<input type="hidden" name="check_in" value="<%=check_in%>"/>
+			<input type="hidden" name="check_out" value="<%=check_out%>"/>
+			<input type="hidden" name="pet_type" value="<%=pet_type%>"/>
 			 
 	 
 			<table align="center" style="margin:  0 auto;">
