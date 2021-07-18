@@ -13,8 +13,6 @@
  	<link rel="stylesheet" href="../style/reset.css">
 	<link rel="stylesheet" href="../style/search.css">
 </head>
-
-
 <%
 	String id =(String)session.getAttribute("sid");
 
