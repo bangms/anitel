@@ -283,6 +283,27 @@ public class UsersDAO {
 		
 	}
 	
+		// 회원 삭제시, 예정 상태 예약만 취소 처리시키는 메서드
+		public void deleteUserBooking(String id) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			
+			try {
+				conn = getConnection();			
+				String sql = "update booking set booking_status=1 where booking_status=2 and id = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.executeUpdate();
+
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+				if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+			}		
+		}
+		
+
 	//개인정보 수정 메서드 (userModifyForm)
 	public int userModify(String id, UsersDTO dto){
 		int result = -1;
