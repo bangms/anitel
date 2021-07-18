@@ -283,42 +283,44 @@ public class MemberDAO {
 		}
 	
 	// 노현호 작성 사업자회원 호텔정보 업데이트
-	public int memberHModify(String id, MemberDTO dto) {
+	public int memberHModify(String id, MultipartRequest mr, String sysName) {
 		int result = -1;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			conn = getConnection();
-			String sql = "select hotel_name, hotel_owner, hotel_area, hotel_add, hotel_phone, reg_num, member_approved from member where id=?";
+			String sql = "select hotel_name, hotel_owner, hotel_area, hotel_add, hotel_phone, reg_num, member_approved, hotel_img from member where id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				// 사업자 등록번호 변동이 없을 경우
-				if(dto.getReg_num().equals(rs.getString("reg_num"))) {
-					sql = "update member set hotel_name=?, hotel_owner=?, hotel_area=?, hotel_add=?, hotel_phone=?, reg_num=? where id=?";
+				if(mr.getParameter("reg_num").equals(rs.getString("reg_num"))) {
+					sql = "update member set hotel_name=?, hotel_owner=?, hotel_area=?, hotel_add=?, hotel_phone=?, reg_num=?, hotel_img=? where id=?";
 					pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1, dto.getHotel_name());
-					pstmt.setString(2, dto.getHotel_owner());
-					pstmt.setString(3, dto.getHotel_area());
-					pstmt.setString(4, dto.getHotel_add());
-					pstmt.setString(5, dto.getHotel_phone());
-					pstmt.setString(6, dto.getReg_num());
-					pstmt.setString(7, id);
+					pstmt.setString(1, mr.getParameter("hotel_name"));
+					pstmt.setString(2, mr.getParameter("hotel_owner"));
+					pstmt.setString(3, mr.getParameter("hotel_area"));
+					pstmt.setString(4, mr.getParameter("hotel_add"));
+					pstmt.setString(5, mr.getParameter("hotel_phone"));
+					pstmt.setString(6, mr.getParameter("reg_num"));
+					pstmt.setString(7, sysName);
+					pstmt.setString(8, id);
 					result = pstmt.executeUpdate();
 				// 사업자 등록번호 변동이 있을 경우
 				}else {
-					sql = "update member set hotel_name=?, hotel_owner=?, hotel_area=?, hotel_add=?, hotel_phone=?, reg_num=?, member_approved=? where id=?";
+					sql = "update member set hotel_name=?, hotel_owner=?, hotel_area=?, hotel_add=?, hotel_phone=?, reg_num=?, member_approved=?, hotel_img=? where id=?";
 					pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1, dto.getHotel_name());
-					pstmt.setString(2, dto.getHotel_owner());
-					pstmt.setString(3, dto.getHotel_area());
-					pstmt.setString(4, dto.getHotel_add());
-					pstmt.setString(5, dto.getHotel_phone());
-					pstmt.setString(6, dto.getReg_num());
+					pstmt.setString(1, mr.getParameter("hotel_name"));
+					pstmt.setString(2, mr.getParameter("hotel_owner"));
+					pstmt.setString(3, mr.getParameter("hotel_area"));
+					pstmt.setString(4, mr.getParameter("hotel_add"));
+					pstmt.setString(5, mr.getParameter("hotel_phone"));
+					pstmt.setString(6, mr.getParameter("reg_num"));
 					pstmt.setInt(7, 0);
-					pstmt.setString(8, id);
+					pstmt.setString(8, sysName);
+					pstmt.setString(9, id);
 					result = pstmt.executeUpdate();
 					result ++;
 				}
