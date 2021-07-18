@@ -58,7 +58,7 @@
         <h1><%= member.getMember_name() %>님의 호텔관리</h1>
       	<hr align="left" width=800 color="black">
       	<br/>
-      	<form action="memberHModifyPro.jsp" method="post">
+      	<form action="memberHModifyPro.jsp" method="post" enctype="multipart/form-data">
       	<table>
       		<tr height = 50>
       			<td width = 200><h3>호텔 이름</h3></td>
@@ -103,6 +103,22 @@
       			<td><h3>사업자 등록번호</h3></td>
       			<td>
       				<input type="text" name="reg_num" value="<%= member.getReg_num() %>"/>
+      			</td>
+      		</tr>
+      		<tr height = 50>
+      			<td><h3>호텔 대표 이미지</h3></td>
+      			<td>
+      				<% if(member.getHotel_img()==null) { System.out.println(member.getHotel_img());%>
+						이미지 없음
+					<% }else{ %>
+						<img src="/anitel/save/<%= member.getHotel_img() %>" width=100/>
+					<% } %>
+      			</td>
+      		</tr>
+      		<tr height = 50>
+      			<td><h3>대표 이미지 업로드</h3></td>
+      			<td>
+      				<input type="file" name="hotel_img"/>
       			</td>
       		</tr>
       	</table>
