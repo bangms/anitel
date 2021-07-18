@@ -58,6 +58,8 @@
 		if(pop.equals("2")){
 			// 일반회원 - 회원탈퇴
 			int num = user.deleteUser(id, pw);
+				user.deleteUsersPet(id);//유저 삭제되면 펫도 삭제 
+
 			if(num == 1){%>
 				<script>
 					alert("탈퇴 처리가 완료되었습니다.");
