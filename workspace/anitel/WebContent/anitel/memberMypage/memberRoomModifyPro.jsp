@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="anitel.model.RoomDAO"%>
@@ -37,16 +38,30 @@
 	String contentType = mr.getContentType("img");	// 파일 종류
 	System.out.println(contentType);
 	
-	
-	int result = dao.insertRoom(id, mr, sysName);
-
-	System.out.println("memberRoomModifyPro.jsp - 객실 추가 결과 : " + result + "(1 : 추가 성공, -1 : 추가 실패)");
+	// 이미지파일이 아닌 경우 삭제
+	String[] type = contentType.split("/");
+	int img = 1;
+	if(!(type[0]!=null && type[0].equals("image"))){	// 업로드된 파일이 image가 '아닐때'(!)
+		System.out.println(type[0] + "타입은 유효하지 않아 삭제되었습니다.(image파일만 업로드 가능)");
+		File f = mr.getFile("upload");					// java.io 파일 import
+		f.delete();
+	}
+	int result = -2;
+	if(img == 1){
+		result = dao.insertRoom(id, mr, sysName);
+		System.out.println("memberRoomModifyPro.jsp - 객실 추가 결과 : " + result + "(1 : 추가 성공, -1 : 추가 실패)");
+	}
 %>
 <body>
 <%	if(result == 1){%>
 		<script>
 			alert("객실 정보가 추가되었습니다.");
 			window.location.href="memberRoomModifyForm.jsp";
+		</script>
+<%	}else if(result == -2){ %>
+		<script>
+			alert("이미지 형식이 아닌 파일을 업로드하였습니다.");
+			history.go(-1);
 		</script>
 <%	}else{%>
 		<script>
