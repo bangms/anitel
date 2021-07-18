@@ -11,6 +11,19 @@
       self.close(); // 팝업창 닫기
    }
 </script>
+<%
+    String strReferer = request.getHeader("referer");
+    
+    if(strReferer == null){
+   %>
+    <script language="javascript">
+     alert("URL 주소창에 주소를 직접 입력해서 접근하셨습니다.\n\n정상적인 경로를 통해 다시 접근해 주십시오.");
+     document.location.href="main.jsp";
+    </script>
+   <%
+     return;
+    }
+   %>
 <body>
 	<%
 	int board_num = Integer.parseInt(request.getParameter("board_num"));
