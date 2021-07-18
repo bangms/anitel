@@ -37,13 +37,14 @@
 	System.out.println("contentType : " + contentType);
 	
 	// 이미지파일이 아닌 경우 삭제
-	String[] type = contentType.split("/");
 	int img = 1;
-	if(!(type[0]!=null && type[0].equals("image"))){	// 업로드된 파일이 image가 '아닐때'(!)
-		System.out.println(type[0] + "타입은 유효하지 않아 삭제되었습니다.(image파일만 업로드 가능)");
-		File f = mr.getFile("upload");					// java.io 파일 import
-		f.delete();
-		img = -1;
+	if(contentType!=null){
+		String[] type = contentType.split("/");
+		if(!(type[0]!=null && type[0].equals("image"))){	// 업로드된 파일이 image가 '아닐때'(!)
+			System.out.println(type[0] + "타입은 유효하지 않아 삭제되었습니다.(image파일만 업로드 가능)");
+			File f = mr.getFile("upload");					// java.io 파일 import
+			f.delete();
+		}
 	}
 	int result = -2;
 	if(img == 1){
