@@ -14,8 +14,8 @@
 		String id = check[i];
 		AdminDAO dao = AdminDAO.getInstance();
 		result = dao.deleteUser(id);  
-		dao.deleteUsersPet(id);
-		dao.deleteUserBooking(id);	// 회원 삭제시, 해당 회원 예약상태 변경(예정->취소)
+		//dao.deleteUsersPet(id);
+		//dao.deleteUserBooking(id);	// 회원 삭제시, 해당 회원 예약상태 변경(예정->취소)
 	}
 
 	if(result == 1) {%> 
