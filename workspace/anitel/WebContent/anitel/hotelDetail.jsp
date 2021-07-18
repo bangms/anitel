@@ -518,7 +518,7 @@ $(document).ready(function(){
  			<%}  	
     }%>
        		</table>
-		    <button class="t_btn" style="width:150px;height:auto;padding:10px 0; margin:20px 0 50px;" onclick="window.location='board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=2'">문의하기</button> 
+		    <button class="t_btn" style="width:150px;height:auto;padding:10px 0; margin:20px 0 50px;" onclick="window.location='board/writeForm.jsp?categ=<%=categ%>&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>'">문의하기</button> 
 		  </div>
 	  </div>
 	  
