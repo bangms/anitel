@@ -262,6 +262,26 @@ public class UsersDAO {
 		return result;
 	}
 
+	// 삭제된 유저의 펫도 삭제
+	public void deleteUsersPet(String id) { 
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();			
+			String sql = "delete from pet where id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try { pstmt.close(); }catch(Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); }catch(Exception e) { e.printStackTrace(); }
+		}
+		
+		
+	}
 	
 	//개인정보 수정 메서드 (userModifyForm)
 	public int userModify(String id, UsersDTO dto){
