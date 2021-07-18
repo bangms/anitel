@@ -36,10 +36,34 @@ function popupOpen(){
 	var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
 		window.open(popUrl,"",popOption);
 }
+function check(){
+	if(!checkPetName(PM.pet_name.value)) {
+	    return false;
+	}
+}
+function checkExistData(value, dataName) {
+    if (value == "") {
+        alert(dataName + " 입력해주세요!");
+        return false;
+    }
+    return true;
+}
+function checkPetName(pet_name) {
+    if (!checkExistData(pet_name, "반려동물 이름을"))
+        return false;
+
+	var petnameRegExp = /^[가-힣]{2,10}$/;
+    if (!petnameRegExp.test(pet_name)) {
+        alert("반려동물 이름은 한글만 가능합니다!");
+        return false;
+    }
+    return true; //확인이 완료되었을 때
+}
 </script>
 <body>
 
 	<div id="container">
+
 		<!-- 여기서부터 헤더  입니다.  -->
 		<div id="header">
 			<div id="logo" onclick="window.location='../main.jsp'">
@@ -52,6 +76,9 @@ function popupOpen(){
 				<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
 			</div>
 		</div>
+
+
+		<div id="main">
 
 			<!-- 여기서부터 사이드바 입니다.  -->
 			<div id="sidebar">
@@ -71,13 +98,13 @@ function popupOpen(){
 			</div>
 			<!-- 여기서부터 콘텐츠 화면 입니다.  -->
 
-      <div id="section" style="padding-left:15%; margin-left:40px;">
+			<div id="content">
 				<h1>
 					<%=pet.getPet_name()%>의 정보
 				</h1>
 				<hr align="left" width=800 color="black">
 				<br />
-				<form action="petinfoModifyPro.jsp" method="post">
+				<form name="PM" action="petinfoModifyPro.jsp" method="post"  onsubmit="return check()">
 					<input type="hidden" name="pet_num" value="<%=pet_num%>" />
 					<table>
 						<tr>
@@ -129,6 +156,8 @@ function popupOpen(){
 						type="button" value="뒤로가기"
 						onclick="window.location='petSelect.jsp'" />&emsp; <br /> <br />
 				</form>
+
+
 			</div>
 
 			<!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->
@@ -138,9 +167,11 @@ function popupOpen(){
 					평일 10:00 - 17:00 | anitel@anitel.com <br /> 이용약관 | 취소정책 | 1:1문의 <br />
 					COPYRIGHT 콩콩이 ALL RIGHT Reserved.
 				</p>
+
 			</div>
 		</div>
 </body>
+
 
 <%} %>
 
