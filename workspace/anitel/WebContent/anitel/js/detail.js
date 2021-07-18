@@ -45,13 +45,13 @@ $(document).ready(function(){
 								"<td>"+data.ctt+"</td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>"+data.img+"</td>"+
+								"<td><img src='../save/"+data.img+"' /></td>"+
 							"</tr>"+
 							"<tr>"+
 								"<td>제목 : "+data.subject+"</td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>"+data.id+"</td>"+
+								"<td>익명</td>"+
 							"</tr>"+
 						"</table>";
 					$("#rs").empty();
