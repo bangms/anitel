@@ -86,7 +86,7 @@
 			<div id="button">
 				<button id="notice"
 					onclick="window.location='../board/list.jsp?categ=0'">공지사항</button>
-				<button id="mypage" onclick="window.location='memberMyPage.jsp'">마이페이지</button>
+				<button id="mypage" onclick="window.location='userMyPage.jsp'">마이페이지</button>
 				<button id="signout" onclick="window.location='../logout.jsp'">로그아웃</button>
 			</div>
 		</div>
@@ -131,6 +131,7 @@
 						<div class="col col-2" style="flex-basis: 30%;">제 목</div>
 						<div class="col col-3" style="flex-basis: 30%;">호텔 이름</div>
 						<div class="col col-4" style="flex-basis: 20%;">날 짜</div>
+						
 						<div class="col col-5" style="flex-basis: 15%;">조회수</div>
 					</li>
 
@@ -141,7 +142,7 @@
 						<div class="col col-1" style="flex-basis: 5%;"><%= number--%></div>
 						<div class="col col-2" style="flex-basis: 30%;">
 							<a class="list_subject"
-								href="../board/content.jsp?board_num=<%= article.getBoard_num()%>&categ=<%=categ%>"><%=article.getSubject() %></a>
+								href="../board/content.jsp?board_num=<%= article.getBoard_num()%>&categ=<%=categ%>&pageNum=<%=pageNum%>"><%=article.getSubject() %></a>
 						</div>
 						<div class="col col-3" style="flex-basis: 30%;"><%= article.getHotel_name()%></div>
 						<div class="col col-4" style="flex-basis: 20%;"><%= sdf.format(article.getReg_date()) %></div>
@@ -219,4 +220,3 @@
 </body>
 <%	} %>
 </html>
-
