@@ -242,7 +242,13 @@ $(document).ready(function(){
 		<img src="imgs/logo2.png" width=100px; height=50px;>
 		<p>
 			평일 10:00 - 17:00 | anitel@anitel.com <br /> <span	id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
-			</span> | <span id="info_text_btn"><a href="board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
+			</span> | <span id="info_text_btn">
+			<%if(id != null){ %>
+			<a href="board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a>
+			<%}else{ %>
+			1:1문의
+			<%} %>
+			</span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
 		</p>
 	</div>
 </div>
