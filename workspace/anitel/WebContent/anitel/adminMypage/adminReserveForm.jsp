@@ -196,7 +196,7 @@
 
 				<%} %>				
 				</ul>
-				<input class="btn" type="button" value="삭제" onclick="chkUser();"/>
+				<input class="btn" type="button" value="" onclick="chkUser();"/>
 			</div>
 			<br />
 			<div class="pageNum">
