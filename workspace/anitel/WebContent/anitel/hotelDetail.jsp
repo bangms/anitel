@@ -398,7 +398,7 @@ $(document).ready(function(){
 	System.out.println("hotelaDetail-count : " + count);
 	%>
 	<%	check = dao.paymentUserCk(sid,reg_num); 
-	    //if(check) {%>
+	    if(check) {%>
 				<div id="review_write_wrap">
 				<%--  onclick="window.location='../anitel/board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=3'" --%>
 					<button id="review_write_btn" class="t_btn" style="width:150px; padding:10px; height:auto;">리뷰쓰기</button>
@@ -429,7 +429,7 @@ $(document).ready(function(){
 						</form>
 					</div>
 				</div>
-		<%//} %>
+		<%} %>
 	    <p>후기게시판</p>
 	    <table class="review">
 			<% if(count == 0){ %>

@@ -8,7 +8,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.naming.Context;
@@ -377,8 +377,8 @@ public class BookingDAO {
 				pstmt.setInt(8, dto.getPaid_bath());
 				pstmt.setInt(9, dto.getPaid_beauty());
 				pstmt.setInt(10, dto.getPaid_medi());
-				pstmt.setDate(11, dto.getCheck_in());
-				pstmt.setDate(12, dto.getCheck_out());
+				pstmt.setTimestamp(11, dto.getCheck_in());
+				pstmt.setTimestamp(12, dto.getCheck_out());
 				
 				
 				pstmt.executeUpdate();

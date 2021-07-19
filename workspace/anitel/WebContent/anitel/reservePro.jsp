@@ -23,14 +23,19 @@
 	 }
 	%>
 <%request.setCharacterEncoding("UTF-8");
+	
+String check_in = request.getParameter("check_in");
+String check_out = request.getParameter("check_out");
+
+	BookingDAO dao = BookingDAO.getInstance();
 
 %>	
 <jsp:useBean id="dto" class="anitel.model.BookingDTO" />
 <jsp:setProperty property="*" name="dto" />
-
-	
 <%
-	BookingDAO dao = BookingDAO.getInstance();
+
+	dto.setCheck_in(dao.convertStringToTimestamp(check_in));
+	dto.setCheck_out(dao.convertStringToTimestamp(check_out));
 	
 	dao.insertBooking(dto);
 	response.sendRedirect("payment.jsp");

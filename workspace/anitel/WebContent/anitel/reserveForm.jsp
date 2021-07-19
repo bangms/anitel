@@ -36,7 +36,6 @@
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
-
 	// 디테일에서 넘어오는 정보 받아오기 
 	
 	String memId = request.getParameter("memId");
@@ -47,7 +46,6 @@
 	String id =(String)session.getAttribute("sid");
 	
 	BookingDAO dao = BookingDAO.getInstance();
-
 	MemberDTO hotel = new MemberDTO();
 	hotel = dao.getHotelInfo(memId);
 	
@@ -64,8 +62,6 @@
 	
 	Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(check_in);
 	Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(check_out);
-	
-	System.out.println("date" + date1);
 	long diffSec = (date2.getTime()-date1.getTime()) / 1000; //초 차이
   long diffDays = diffSec / (24*60*60); //일자수 차이
   
@@ -169,8 +165,8 @@
 		
 	
 		<form method="post" id="reserveForm" name="reserveForm">
-			<input type="hidden" name="checkIn" value="<%=date1 %>" />
-			<input type="hidden" name="checkOut" value="<%=date2 %>" /> 
+			<input type="hidden" name="check_in" value="<%=check_in %>" />
+			<input type="hidden" name="check_out" value="<%=check_out %>" /> 
 			<input type="hidden" name="room_num" value="<%=room_num %>" />
 			<input type="hidden" name="id" value="<%=id %>" />
 			<input type="hidden" name="total_fee" value="<%= total_fee %>" />
@@ -219,16 +215,15 @@
 		        }else{
 	            console.log("체크박스 체크 해제!");
 	            $("input[name=user_name]").val('');
-	        	$("input[name=user_email]").val('');
-	        	$("input[name=user_phone]").val('');
-	        	$("#pet").val('');
+		        	$("input[name=user_email]").val('');
+		        	$("input[name=user_phone]").val('');
 		        }
 		    });
 			</script>
 	
 			
 			<div class="group">
-				<label for="pet_type" class="form__label">호텔 수용 동물<span class="red">*</span></label>
+				<label for="pet_type" class="form__label">호텔 수용 동물</label>
 				<select name="pet_type" id="pet_type">
 					<option id="dog" value="0" >강아지</option>
 					<option id="cat" value="1">고양이</option>
@@ -353,12 +348,10 @@
 </body>
 <script type="text/javascript">
 function submitForm() {
-
 	var cancel_agree = document.getElementById('cancel_agree').checked;
 	var reserve_agree = document.getElementById('reserve_agree').checked;
-
 	if(cancel_agree && reserve_agree) {
-		document.reserveForm.action = "payment.jsp?total_fee="+<%=total_fee %>;
+		document.reserveForm.action = "reservePro.jsp";
 		document.reserveForm.submit();
 	} else {
 		alert("동의해주세요!");

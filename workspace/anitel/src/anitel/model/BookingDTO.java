@@ -15,8 +15,8 @@ public class BookingDTO {
 	private int paid_bath;
 	private int paid_beauty;
 	private int paid_medi;
-	private Date check_in;
-	private Date check_out;
+	private Timestamp check_in;
+	private Timestamp check_out;
 	private int booking_status;
 	private int payment;
 	private Timestamp booking_time;
@@ -87,16 +87,16 @@ public class BookingDTO {
 	public void setPaid_medi(int paid_medi) {
 		this.paid_medi = paid_medi;
 	}
-	public Date getCheck_in() {
+	public Timestamp getCheck_in() {
 		return check_in;
 	}
-	public void setCheck_in(Date check_in) {
+	public void setCheck_in(Timestamp check_in) {
 		this.check_in = check_in;
 	}
-	public Date getCheck_out() {
+	public Timestamp getCheck_out() {
 		return check_out;
 	}
-	public void setCheck_out(Date check_out) {
+	public void setCheck_out(Timestamp check_out) {
 		this.check_out = check_out;
 	}
 	public int getBooking_status() {
