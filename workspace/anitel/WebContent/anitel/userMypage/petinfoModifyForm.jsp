@@ -64,7 +64,7 @@ function checkPetName(pet_name) {
     if (!checkExistData(pet_name, "반려동물 이름을"))
         return false;
 
-	var petnameRegExp = /^[가-힣]{2,10}$/;
+	var petnameRegExp = /^[가-힣]{1,10}$/;
     if (!petnameRegExp.test(pet_name)) {
         alert("반려동물 이름은 한글만 가능합니다!");
         return false;
