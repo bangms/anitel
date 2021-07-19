@@ -99,6 +99,7 @@ function checkPetName(pet_name) {
 							<li class="menu"><a href="userMyPage.jsp">나의 정보</a></li>
 							<li class="menu"><a href="userQnA.jsp">나의 QnA</a></li>
 							<li class="menu"><a href="userReview.jsp">나의 후기</a></li>
+							<li class="menu"><a href="user1_1.jsp">1:1문의</a></li>
 						</ul>
 					</nav>
 				</div>
