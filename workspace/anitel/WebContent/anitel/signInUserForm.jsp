@@ -79,9 +79,9 @@
 	
       	  	<div class="form__group field" style="display:flex;">
       				<select name="pet_type" id="pet_type" onChange="view(this.value)">
-						<option value="1" selected >강아지</option>
-						<option value="2">고양이</option>
-						<option value="0">기타</option>
+						<option value="0" selected >강아지</option>
+						<option value="1">고양이</option>
+						<option value="2">기타</option>
 					</select>
 				<input type="text" id="pet_etctype" class="form__field hidden" name="pet_etctype" />
 	        	<label for="pet_type" class="form__label">호텔 수용 동물<span class="txt">*</span></label>
@@ -137,7 +137,7 @@ function view(value){
 	var pet_type_sel = document.getElementById('pet_type');
 	var pet_type = pet_type_sel.options[pet_type_sel.selectedIndex].value;
 	var input = document.getElementById('pet_etctype');
-	if(pet_type == 0) {
+	if(pet_type == 2) {
 		input.classList.replace('hidden', 'show');
 	} else {
 		input.classList.replace('show', 'hidden');

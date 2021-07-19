@@ -9,9 +9,21 @@
 	<title>일반회원 마이페이지</title>
   <link rel="stylesheet" href="../style/style.css">
 	<link rel="stylesheet" href="../style/reset.css">
-	<link rel="stylesheet" href="../style/search.css">
+	<link rel="stylesheet" href="../style/mypage.css">
 </head>
-
+<%
+    String strReferer = request.getHeader("referer");
+    
+    if(strReferer == null){
+   %>
+    <script language="javascript">
+     alert("URL 주소창에 주소를 직접 입력해서 접근하셨습니다.\n\n정상적인 경로를 통해 다시 접근해 주십시오.");
+     document.location.href="../main.jsp";
+    </script>
+   <%
+     return;
+    }
+   %>
 <%
 request.setCharacterEncoding("UTF-8");
 
@@ -83,42 +95,42 @@ System.out.println(users.getUser_name());
 
 			<!-- 여기서부터 콘텐츠 화면 입니다.  -->
 			<div id="section" style="padding-left: 15%; margin-left: 40px;">
-				<h1><%=users.getUser_name()%>님의 회원정보
-				</h1>
-				<br />
-				<table>
-					<tr height=50>
-						<td width=150><h3>아이디</h3></td>
-						<td width=800><%=users.getId()%></td>
-					</tr>
-					<tr height=50>
-						<td><h3>성명</h3></td>
-						<td><%=users.getUser_name()%></td>
-					</tr>
-					<tr height=50>
-						<td><h3>전화번호</h3></td>
-						<td><%=users.getUser_phone()%></td>
-					</tr>
-					<tr height=50>
-						<td><h3>E-Mail</h3></td>
-						<td><%=users.getUser_email()%></td>
-					</tr>
-				</table>
-				<br /> <input type="button" class="t_btn" style="width: 150px; padding: 10px 0; height: auto;" value="내정보 수정" onclick="popupOpen()" />&emsp;
-				<input type="button" class="t_btn" style="width: 150px; padding: 10px 0; height: auto;" value="비밀번호 변경"
-					onclick="window.location='userModifyPwForm.jsp?id=<%=users.getId()%>'" />&emsp;
-				<input type="button" class="t_btn" style="width: 150px; padding: 10px 0; height: auto;" value="반려동물 정보수정"
-					onclick="window.location='petSelect.jsp'" />&emsp;
-				<br /> <br />
+				<div class="info_wrap">
+					<h1><%=users.getUser_name()%>님의 회원정보</h1>
+					<hr/>
+					<div class="table_wrap">
+						<div class="sub">아이디</div>
+						<div class="con"><%=users.getId()%></div>
+					</div>
+					
+					<div class="table_wrap">
+						<div class="sub">성명</div>
+						<div class="con"><%=users.getUser_name()%></div>
+					</div>
+					
+					<div class="table_wrap">
+						<div class="sub">전화번호</div>
+						<div class="con"><%=users.getUser_phone()%></div>
+					</div>
+					
+					<div class="table_wrap">
+						<div class="sub">E-Mail</div>
+						<div class="con"><%=users.getUser_email()%></div>
+					</div>
+				</div>
+				<div class="btn_wrap">
+					<input type="button" class="btn" value="내정보 수정" onclick="popupOpen()" />&emsp;
+					<input type="button" class="btn" value="비밀번호 변경" onclick="window.location='userModifyPwForm.jsp?id=<%=users.getId()%>'" />&emsp;
+					<input type="button" class="btn" value="반려동물 정보수정" onclick="window.location='petSelect.jsp'" />&emsp;
+				</div>
 			</div>
 
 		<!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->
 		<div id="footer">
 			<img src="../imgs/logo2.png" width=100px; height=50px;>
 			<p>
-				평일 10:00 - 17:00 | anitel@anitel.com <br /> <span
-					id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
-				</span> <span id="info_text_btn">1:1문의 </span> |<br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
+				평일 10:00 - 17:00 | anitel@anitel.com <br /> <span	id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
+				</span> | <span id="info_text_btn"><a href="../board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
 			</p>
 		</div>
 	</div>

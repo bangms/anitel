@@ -81,7 +81,9 @@
 	 	font-size: 13px;
 	 	margin-left : 20px;
 	 	text-align: left;
+	 	line-height:20px;
 	 }
+
 	#footer img {
 	 	float:left; 
 	 	padding: 20px;

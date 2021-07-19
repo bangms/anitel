@@ -10,9 +10,23 @@
 	<title>펫 선택</title>
 	<link rel="stylesheet" href="../style/style.css">
 	<link rel="stylesheet" href="../style/reset.css">
+	<link rel="stylesheet" href="../style/mypage.css">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%-- jquery 라이브러리 추가 --%>
 </head>
+ <%
+    String strReferer = request.getHeader("referer");
+    
+    if(strReferer == null){
+   %>
+    <script language="javascript">
+     alert("URL 주소창에 주소를 직접 입력해서 접근하셨습니다.\n\n정상적인 경로를 통해 다시 접근해 주십시오.");
+     document.location.href="../main.jsp";
+    </script>
+   <%
+     return;
+    }
+   %>
 <%	request.setCharacterEncoding("UTF-8");
 
 	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
@@ -61,42 +75,42 @@
 		</div>
 		<!-- 여기서부터 콘텐츠 화면 입니다.  -->
 		<div id="section" style="padding-left: 15%; margin-left: 40px;">
+			<div class="info_wrap" style="position: relative;">
 				<h1>내 반려동물의 정보</h1>
-				<hr align="left" width=800 color="black">
-				<br />
-				<table>
-					<tr>
-						<td width=150>
-							<h3>이름</h3>
-						</td>
-						<td><select id="pet_num" name="pet_num">
-								<%for(int i = 0; i < Petlist.size(); i++){
-								PetDTO petname = (PetDTO)Petlist.get(i);
+				<hr/>
+				
+				<div class="table_wrap">
+					<div class="sub">이름</div>
+					<div class="con">
+						<select id="pet_num" name="pet_num">
+							<%for(int i = 0; i < Petlist.size(); i++){
+									PetDTO petname = (PetDTO)Petlist.get(i);
 								%>
-								<option value="<%=petname.getPet_num()%>"><%=petname.getPet_name()%></option>
-								<%}%>
-						</select> <input type="button" id="select" value="선택" onclick="popupOpen()" />&emsp;
-
-						</td>
-					</tr>
-				</table>
-				<br /> <input type="button" value="추가하기"
-					onclick="window.location='petAddForm.jsp'" />&emsp; <input
-					type="button" value="뒤로가기"
-					onclick="window.location='userMyPage.jsp'" />&emsp; <br />
-				<br />
-			</div>
-
-			<!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->
-			<div id="footer">
-				<img src="../imgs/logo2.png" width=100px; height=50px;>
-				<p>
-					평일 10:00 - 17:00 | anitel@anitel.com <br /> 이용약관 | 취소정책 | 1:1문의 <br />
-					COPYRIGHT 콩콩이 ALL RIGHT Reserved.
-				</p>
-
+									<option value="<%=petname.getPet_num()%>"><%=petname.getPet_name()%></option>
+							<%}%>
+						</select>
+						<input type="button" id="select" value="선택" onclick="popupOpen()" />&emsp;
+						
+					</div>
+				</div>
+								
+				<div class="btn_wrap" style="position: absolute; width: 100%;">
+					<input type="button" class="btn" value="추가하기" onclick="window.location='petAddForm.jsp'" />&emsp;
+					<input type="button" class="btn" value="뒤로가기" onclick="window.location='userMyPage.jsp'" />&emsp;
+				</div>
+			
 			</div>
 		</div>
+
+  <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
+	<div id="footer">
+		<img src="../imgs/logo2.png" width=100px; height=50px;>
+		<p>
+			평일 10:00 - 17:00 | anitel@anitel.com <br /> <span	id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
+			</span> | <span id="info_text_btn"><a href="../board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
+		</p>
+	</div>
+</div>
 </body>
 <script type="text/javascript">
 function popupOpen(){

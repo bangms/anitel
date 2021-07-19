@@ -12,9 +12,21 @@
 	<title>반려동물 수정폼</title>
   <link rel="stylesheet" href="../style/style.css">
 	<link rel="stylesheet" href="../style/reset.css">
-	<link rel="stylesheet" href="../style/search.css">
+	<link rel="stylesheet" href="../style/mypage.css">
 </head>
-
+<%
+    String strReferer = request.getHeader("referer");
+    
+    if(strReferer == null){
+   %>
+    <script language="javascript">
+     alert("URL 주소창에 주소를 직접 입력해서 접근하셨습니다.\n\n정상적인 경로를 통해 다시 접근해 주십시오.");
+     document.location.href="../main.jsp";
+    </script>
+   <%
+     return;
+    }
+   %>
 <%	request.setCharacterEncoding("UTF-8");
 
 	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
@@ -92,79 +104,107 @@ function checkPetName(pet_name) {
 				</div>
 			</div>
 		</div>
-		<!-- 여기서부터 콘텐츠 화면 입니다.  -->
-		<div id="section" style="padding-left: 15%; margin-left: 40px;">
-				<h1>
-					<%=pet.getPet_name()%>의 정보
-				</h1>
-				<hr align="left" width=800 color="black">
-				<br />
-				<form name="PM" action="petinfoModifyPro.jsp" method="post"  onsubmit="return check()">
-					<input type="hidden" name="pet_num" value="<%=pet_num%>" />
-					<table>
-						<tr>
-							<td width=150><h3>이름</h3></td>
-							<td><input type="text" name="pet_name" style="width: 150px;"
-								value="<%= pet.getPet_name()%>" /></td>
-						</tr>
-						<tr>
-							<td width=150><h3>종</h3></td>
-							<td><select id="pet_type" name="pet_type">
-									<option value="" disabled selected>선택</option>
-									<option value="0" <%=0==(pet.getPet_type())? "selected":"" %>>강아지</option>
-									<option value="1" <%=1==(pet.getPet_type())? "selected":"" %>>고양이</option>
-									<option value="2" <%=2==(pet.getPet_type())? "selected":"" %>>기타동물</option>
-							</select> <input type="text" id="pet_etctype" name="pet_etctype"
-								value="<%= pet.getPet_etctype() == null ? "" : pet.getPet_etctype() %>"
-								style="height: 30px;" placeholder="기타동물 입력란" /></td>
-						</tr>
-						<tr>
-							<td><h3>반려동물 성별</h3></td>
-							<td><input type="radio" name="pet_gender" value="1"
-								<%=1==(pet.getPet_gender())? "checked":"" %>> 수컷 <input
-								type="radio" name="pet_gender" value="0"
-								<%=0==(pet.getPet_gender())? "checked":"" %>> 암컷</td>
-						</tr>
-						<tr>
-							<td width=150><h3>중성화 여부</h3></td>
-							<td><input type="radio" name="pet_operation" value="1"
-								<%=1==(pet.getPet_operation())? "checked":"" %>>예 <input
-								type="radio" name="pet_operation" value="0"
-								<%=0==(pet.getPet_operation())? "checked":"" %>>아니오</td>
-						</tr>
-						<tr>
-							<td width=150><h3>나이</h3></td>
-							<td><input type="text" name="pet_age" style="width: 300px;"
-								value="<%= pet.getPet_age() == null ? "" : pet.getPet_age() %>" />
-							</td>
-						</tr>
-						<tr>
-							<td width=150><h3>대형동물</h3></td>
-							<td><input type="checkbox" name="pet_big" value="1"
-								<%=1==(pet.getPet_big())? "checked":"" %>> 20kg 이상일 경우
-								체크해주세요.</td>
-						</tr>
-					</table>
+	<!-- 여기서부터 콘텐츠 화면 입니다.  -->
+	<div id="section" style="padding-left: 15%; margin-left: 40px;">
+		<div class="info_wrap">
+			<h1><%=pet.getPet_name()%>의 정보</h1>
+			<hr/>
+			<form name="PM" action="petinfoModifyPro.jsp" method="post"  onsubmit="return check()">
+				<input type="hidden" name="pet_num" value="<%=pet_num%>" />
+				
+				<div class="table_wrap">
+					<div class="sub">이름</div>
+					<div class="con">
+						<input type="text" name="pet_name" value="<%= pet.getPet_name()%>" />
+					</div>
+				</div>
+				
+				<div class="table_wrap">
+					<div class="sub">종</div>
+					<div class="con">
+						<select id="pet_type" name="pet_type" onChange="view(this.value)">
+							<option value="" disabled selected>선택</option>
+							<option value="0" <%=0==(pet.getPet_type())? "selected":"" %>>강아지</option>
+							<option value="1" <%=1==(pet.getPet_type())? "selected":"" %>>고양이</option>
+							<option value="2" <%=2==(pet.getPet_type())? "selected":"" %>>기타동물</option>
+						</select>
+					</div>
+				</div>
+				
+		
+					<div id="etc" class="table_wrap <%if(pet.getPet_type()==2) {%>show<%}else{ %>hidden<%} %>">
+						<div class="sub">기타동물</div>
+						<div class="con">
+							<input type="text" id="pet_etctype" name="pet_etctype" value="<%= pet.getPet_etctype() == null ? "" : pet.getPet_etctype() %>" placeholder="기타동물 입력란" />
+						</div>
+					</div>
+						
 
-					<br /> <input type="submit" value="수정하기" />&emsp; <input
-						type="button" value="삭제하기" onclick="popupOpen()" />&emsp; <input
-						type="button" value="뒤로가기"
-						onclick="window.location='petSelect.jsp'" />&emsp; <br /> <br />
-				</form>
-			</div>
-
-			<!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->
-			<div id="footer">
-				<img src="../imgs/logo2.png" width=100px; height=50px;>
-				<p>
-					평일 10:00 - 17:00 | anitel@anitel.com <br /> 이용약관 | 취소정책 | 1:1문의 <br />
-					COPYRIGHT 콩콩이 ALL RIGHT Reserved.
-				</p>
-
-			</div>
+				
+				<div class="table_wrap">
+					<div class="sub">반려동물 성별</div>
+					<div class="con">
+						<input type="radio" name="pet_gender" value="1" <%=1==(pet.getPet_gender())? "checked":"" %>> 수컷
+						<input type="radio" name="pet_gender" value="0" <%=0==(pet.getPet_gender())? "checked":"" %>> 암컷
+					</div>
+				</div>
+					
+				<div class="table_wrap">
+					<div class="sub">중성화 여부</div>
+					<div class="con">
+						<input type="radio" name="pet_operation" value="1" <%=1==(pet.getPet_operation())? "checked":"" %>>예
+						<input
+							type="radio" name="pet_operation" value="0" <%=0==(pet.getPet_operation())? "checked":"" %>>아니오
+					</div>
+				</div>	
+				
+				<div class="table_wrap">
+					<div class="sub">나이</div>
+					<div class="con">
+						<input type="text" name="pet_age" value="<%= pet.getPet_age() == null ? "" : pet.getPet_age() %>" />
+					</div>
+				</div>
+					
+				<div class="table_wrap">
+					<div class="sub">대형동물</div>
+					<div class="con">
+						<input type="checkbox" name="pet_big" value="1" <%=1==(pet.getPet_big())? "checked":"" %>>
+						 <span style="font-size:0.7em; font-weight:100;">20kg 이상일 경우 체크해주세요.</span>
+					</div>
+				</div>
+					
+				<div class="btn_wrap">
+					<input type="submit" class="btn" value="수정하기" style="margin:0"/>&emsp;
+					<input type="button" class="btn" value="삭제하기" onclick="popupOpen()" style="margin:0" />&emsp;
+					<input type="button" class="btn" value="뒤로가기" onclick="window.location='petSelect.jsp'" />&emsp;
+				</div>
+			</form>
 		</div>
-</body>
+	</div>
 
+  <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
+	<div id="footer">
+		<img src="../imgs/logo2.png" width=100px; height=50px;>
+		<p>
+			평일 10:00 - 17:00 | anitel@anitel.com <br /> <span	id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
+			</span> | <span id="info_text_btn"><a href="../board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
+		</p>
+	</div>
+</div>
+</body>
+ <%-- 반려동물 종 선택 기타 입력란 나타내는 스크립트 --%>
+ <script type="text/javascript">
+function view(value){
+	var pet_type_sel = document.getElementById('pet_type');
+	var pet_type = pet_type_sel.options[pet_type_sel.selectedIndex].value;
+	var input = document.getElementById('etc');
+	if(pet_type == 2) {
+		input.classList.replace('hidden', 'show');
+	} else {
+		input.classList.replace('show', 'hidden');
+	}
+}
+</script>
 
 <%} %>
 

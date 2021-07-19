@@ -8,11 +8,25 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+ <%
+    String strReferer = request.getHeader("referer");
+    
+    if(strReferer == null){
+   %>
+    <script language="javascript">
+     alert("URL 주소창에 주소를 직접 입력해서 접근하셨습니다.\n\n정상적인 경로를 통해 다시 접근해 주십시오.");
+     document.location.href="../main.jsp";
+    </script>
+   <%
+     return;
+    }
+   %>
 <head>
 	<meta charset="UTF-8">
 	<title>객실 수정</title>
 	<link rel="stylesheet" href="../style/style.css">
 	<link rel="stylesheet" href="../style/reset.css">
+  <link rel="stylesheet" href="../style/mypage.css">
 </head>
 <%	request.setCharacterEncoding("UTF-8");
 
@@ -173,14 +187,14 @@
      </div>
       
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
-      <div id="footer">
-      <img src="imgs/logo2.png" width=100px; height=50px;>
-      <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
-      이용약관 | 취소정책 | 1:1문의 <br/>
-      COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
-      			
-      </div>
-    </div>
+	<div id="footer">
+		<img src="../imgs/logo2.png" width=100px; height=50px;>
+		<p>
+			평일 10:00 - 17:00 | anitel@anitel.com <br /> <span	id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
+			</span> | <span id="info_text_btn"><a href="../board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
+		</p>
+	</div>
+</div>
 </body>
 <%	} %>
 </html>

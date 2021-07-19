@@ -9,6 +9,7 @@
     <title>마이페이지(사업자회원)</title>
    	<link rel="stylesheet" href="../style/style.css">
 		<link rel="stylesheet" href="../style/reset.css">
+		<link rel="stylesheet" href="../style/mypage.css">
     <style>
 		#my_modal {
 			display: none;
@@ -37,7 +38,19 @@
       	}
     </style>
   </head>
-  
+  <%
+    String strReferer = request.getHeader("referer");
+    
+    if(strReferer == null){
+   %>
+    <script language="javascript">
+     alert("URL 주소창에 주소를 직접 입력해서 접근하셨습니다.\n\n정상적인 경로를 통해 다시 접근해 주십시오.");
+     document.location.href="../main.jsp";
+    </script>
+   <%
+     return;
+    }
+   %>
 <%	request.setCharacterEncoding("UTF-8");
 	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
 	if(session.getAttribute("sid") == null){ %>
@@ -85,40 +98,45 @@
       
       <!-- 여기서부터 콘텐츠 화면 입니다.  -->
       <div id="section" style="padding-left:15%; margin-left:40px;">
-        <h1><%= member.getMember_name() %>님의 회원정보</h1>
-      	<br/>
-      	<table>
-      		<tr>
-      			<td width = 200><h3>아이디</h3></td>
-      			<td width = 800><h3><%= member.getId() %></h3></td>
-      		</tr>
-      		<tr>
-      			<td><h3>성명</h3></td>
-      			<td><h3><%= member.getMember_name() %></h3></td>
-      		</tr>
-      		<tr>
-      			<td><h3>전화번호</h3></td>
-      			<td><h3><%= member.getMember_phone() %></h3></td>
-      		</tr>
-      		<tr>
-      			<td><h3>E-Mail</h3></td>
-      			<td><h3><%= member.getMember_email() %></h3></td>
-      		</tr>
-      	</table>
-      	<br/>
-			<input type="button" value="회원정보 수정" onclick="popupOpen()"/>&emsp;
-			<input type="button" value="비밀번호 변경" onclick="window.location='memberModifyPwForm.jsp'"/>&emsp; 
-			<br/><br/>
+      	<div class="info_wrap">
+	        <h1><%= member.getMember_name() %>님의 회원정보</h1>
+	      	<hr/>
+	      	<div class="table_wrap">
+						<div class="sub">아이디</div>
+						<div class="con"><%= member.getId() %></div>
+					</div>
+					
+					<div class="table_wrap">
+						<div class="sub">성명</div>
+						<div class="con"><%=member.getMember_name()%></div>
+					</div>
+					
+					<div class="table_wrap">
+						<div class="sub">전화번호</div>
+						<div class="con"><%=member.getMember_phone()%></div>
+					</div>
+					
+					<div class="table_wrap">
+						<div class="sub">E-Mail</div>
+						<div class="con"><%=member.getMember_email()%></div>
+					</div>
+      	</div>
+      	<div class="btn_wrap">
+					<input type="button" class="btn" value="회원정보 수정" onclick="popupOpen()"/>&emsp;
+					<input type="button" class="btn" value="비밀번호 변경" onclick="window.location='memberModifyPwForm.jsp'"/>&emsp; 
+				</div>
       </div>
       
-  <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
-	<div id="footer">
-      <img src="../imgs/logo2.png" width=100px; height=50px;>
-      <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
-      	이용약관 | 취소정책 | 1:1문의 <br/>
-      	COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>  			
-    </div>
-</div>
+		<!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->
+		<div id="footer">
+			<img src="../imgs/logo2.png" width=100px; height=50px;>
+			<p>
+				평일 10:00 - 17:00 | anitel@anitel.com <br /> <span	id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
+				</span> | <span id="info_text_btn"><a href="../board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
+			</p>
+		</div>
+	</div>
+
     <div id="my_modal" align="center">
     	<h5>회원정보 변경을 위하여 비밀번호를 입력해주세요</h5>
 			<input type="password" name="member_pw" /><br/>

@@ -170,7 +170,7 @@
 			      </div>
 			      <div class="col col-9" style="flex-basis: 10.77%;" data-label="Requests">	      
 			      	<%if(hotel.getRequests() != null){%>
-			      		<input class="add" type="button" value="추가요청사항" onclick="window.open('adminReserveAddInfo.jsp?petnum=<%=hotel.getPet_num()%>','','width=500,height=500,location=no,status=no,scrollbars=no,left=800,top=250')"/>		      							
+			      		<input class="t_btn add" type="button" value="추가요청사항" onclick="window.open('adminReserveAddInfo.jsp?petnum=<%=hotel.getPet_num()%>','','width=500,height=500,location=no,status=no,scrollbars=no,left=800,top=250')"/>		      							
 					<%}else if(hotel.getRequests() == null) {%>
 					<%} %>
 			      </div>

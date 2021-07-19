@@ -9,8 +9,21 @@
 		<title>마이페이지(사업자회원) - 개인정보 수정</title>
 		<link rel="stylesheet" href="../style/style.css">
 		<link rel="stylesheet" href="../style/reset.css">
+		<link rel="stylesheet" href="../style/mypage.css">
   </head>
-  
+   <%
+    String strReferer = request.getHeader("referer");
+    
+    if(strReferer == null){
+   %>
+    <script language="javascript">
+     alert("URL 주소창에 주소를 직접 입력해서 접근하셨습니다.\n\n정상적인 경로를 통해 다시 접근해 주십시오.");
+     document.location.href="../main.jsp";
+    </script>
+   <%
+     return;
+    }
+   %>
 <%	request.setCharacterEncoding("UTF-8");
 
 	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
@@ -54,52 +67,57 @@
 					</div>
 				</div>
       </div>
-      
-      <!-- 여기서부터 콘텐츠 화면 입니다.  -->
-      <div id="section" style="padding-left:15%; margin-left:40px;">
-        <h1><%= member.getMember_name() %>님의 호텔정보 수정</h1>
-      	<hr align="left" width=800 color="black">
-      	<br/>
-      	<form action="memberModifyPro.jsp" method="post">
-      	<table>
-      		<tr height = 50>
-      			<td width = 200><h3>아이디</h3></td>
-      			<td width = 800><h3><%= member.getId() %></h3></td>
-      		</tr>
-      		<tr height = 50>
-      			<td><h3>성명</h3></td>
-      			<td>
-      				<input type="text" name="member_name" value="<%= member.getMember_name() %>" autofocus />
-      			</td>
-      		</tr>
-      		<tr height = 50>
-      			<td><h3>전화번호</h3></td>
-      			<td>
-      				<input type="text" name="member_phone" value="<%= member.getMember_phone() %>" />
-      			</td>
-      		</tr>
-      		<tr height = 50>
-      			<td><h3>E-Mail</h3></td>
-      			<td>
-      				<input type="text" name="member_email" value="<%= member.getMember_email() %>" />
-      			</td>
-      		</tr>
-      	</table>
-      	<br/>
-			<input type="submit" value="수정내용 저장"/>&emsp;
-			<input type="button" value="수정 취소" onclick="window.location='memberMyPage.jsp'"/>&emsp; 
-		<br/><br/>	
-	   </form>
-     </div>
+     
+     <!-- 여기서부터 콘텐츠 화면 입니다.  -->
+     <div id="section" style="padding-left:15%; margin-left:40px;">
+     	<div class="info_wrap" style="margin-bottom:50px;">
+				<h1><%= member.getMember_name() %>님의 회원정보수정</h1>
+				<hr/>
+				<form action="memberModifyPro.jsp" method="post">
+					<div class="table_wrap">
+						<div class="sub">아이디</div>
+						<div class="con"><%=member.getId()%></div>
+					</div>
+					
+					<div class="table_wrap">
+						<div class="sub">성명</div>
+						<div class="con">
+							<input type="text" name="member_name" value="<%= member.getMember_name() %>" autofocus />
+						</div>
+					</div>
+					
+					<div class="table_wrap">
+						<div class="sub">전화번호</div>
+						<div class="con">
+							<input type="text" name="member_phone" value="<%= member.getMember_phone() %>" />
+						</div>
+					</div>
+					
+					<div class="table_wrap">
+						<div class="sub">E-Mail</div>
+						<div class="con">
+							<input type="text" name="member_email" value="<%= member.getMember_email() %>" />
+						</div>
+					</div>
+					
+					<div class="btn_wrap">
+						<input type="submit" class="btn" value="수정내용 저장"/>&emsp;
+						<input type="button" class="btn" value="수정 취소" onclick="window.location='memberMyPage.jsp'"/>&emsp; 
+					</div>
+					
+				</form>
+			</div>
+		</div>
  
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
-      <div id="footer">
-	      <img src="../imgs/logo2.png" width=100px; height=50px;>
-	      <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
-	      이용약관 | 취소정책 | 1:1문의 <br/>
-	      COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>	
-      </div>
-    </div>
+	<div id="footer">
+		<img src="../imgs/logo2.png" width=100px; height=50px;>
+		<p>
+			평일 10:00 - 17:00 | anitel@anitel.com <br /> <span	id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
+			</span> | <span id="info_text_btn"><a href="../board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
+		</p>
+	</div>
+</div>
 </body>
 <%	} %>
 </html>

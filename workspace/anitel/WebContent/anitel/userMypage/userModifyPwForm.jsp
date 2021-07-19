@@ -11,9 +11,21 @@
 	<title>마이페이지(사업자회원) - 비밀번호 변경</title>
   <link rel="stylesheet" href="../style/style.css">
 	<link rel="stylesheet" href="../style/reset.css">
-	<link rel="stylesheet" href="../style/search.css">
+	<link rel="stylesheet" href="../style/mypage.css">
 </head>
-
+<%
+    String strReferer = request.getHeader("referer");
+    
+    if(strReferer == null){
+   %>
+    <script language="javascript">
+     alert("URL 주소창에 주소를 직접 입력해서 접근하셨습니다.\n\n정상적인 경로를 통해 다시 접근해 주십시오.");
+     document.location.href="../main.jsp";
+    </script>
+   <%
+     return;
+    }
+   %>
 <%	request.setCharacterEncoding("UTF-8");
 
 	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
@@ -70,46 +82,51 @@
 				</div>
 			</div>
 
-			<!-- 여기서부터 콘텐츠 화면 입니다.  -->
-			<div id="section" style="padding-left: 15%; margin-left: 40px;">
-				<h1><%= user.getUser_name() %>님의 회원정보 수정
-				</h1>
-				<hr align="left" width=700 color="black">
-				<br />
-				<form action="userModifyPwPro.jsp?id=<%=user.getId()%>"
-					method="post">
-					<table>
-						<tr height=50>
-							<td width=250><h3>현재 사용중인 비밀번호</h3></td>
-							<td width=750><input type="text" name="user_pw_now"
-								autofocus /></td>
-						</tr>
-						<tr height=50>
-							<td><h3>변경할 비밀번호</h3></td>
-							<td><input type="text" name="user_pw" /></td>
-						</tr>
-						<tr height=50>
-							<td><h3>변경할 비밀번호 재입력</h3></td>
-							<td><input type="text" name="user_pw2" /></td>
-						</tr>
-					</table>
-					<br /> <input type="submit" value="비밀번호 변경" />&emsp; <input
-						type="button" value="변경 취소"
-						onclick="window.location='userMyPage.jsp'" />&emsp; <br />
-					<br />
+		<!-- 여기서부터 콘텐츠 화면 입니다.  -->
+		<div id="section" style="padding-left: 15%; margin-left: 40px;">
+			<div class="info_wrap">
+				<h1><%= user.getUser_name() %>님의 비밀번호 수정</h1>
+				<hr/>
+				<form action="userModifyPwPro.jsp?id=<%=user.getId()%>" method="post">
+					
+					<div class="table_wrap">
+						<div class="sub">현재 사용중인 비밀번호</div>
+						<div class="con">
+							<input type="text" name="user_pw_now" autofocus />
+						</div>
+					</div>
+					
+					<div class="table_wrap">
+						<div class="sub">변경할 비밀번호</div>
+						<div class="con">
+							<input type="text" name="user_pw" />
+						</div>
+					</div>
+					
+					<div class="table_wrap">
+						<div class="sub">변경할 비밀번호 재입력</div>
+						<div class="con">
+							<input type="text" name="user_pw2" />
+						</div>
+					</div>
+					
+					<div class="btn_wrap">
+						<input type="submit" value="비밀번호 변경" class="btn" />&emsp;
+						<input type="button" value="변경 취소" class="btn" onclick="window.location='userMyPage.jsp'" />&emsp;
+					</div>
+					
 				</form>
 			</div>
-
+		</div>
 		<!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->
 		<div id="footer">
 			<img src="../imgs/logo2.png" width=100px; height=50px;>
 			<p>
-				평일 10:00 - 17:00 | anitel@anitel.com <br /> 이용약관 | 취소정책 | 1:1문의 <br />
-				COPYRIGHT 콩콩이 ALL RIGHT Reserved.
+				평일 10:00 - 17:00 | anitel@anitel.com <br /> <span	id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
+				</span> | <span id="info_text_btn"><a href="../board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
 			</p>
-
 		</div>
-	</div>
+  </div>
 </body>
 <%	} %>
 </html>

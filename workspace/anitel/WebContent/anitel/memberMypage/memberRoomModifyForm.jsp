@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="anitel.model.RoomDTO"%>
 <%@page import="anitel.model.RoomDAO"%>
 <%@page import="java.util.List"%>
@@ -13,7 +14,21 @@
     <title>마이페이지(사업자회원) - 호텔 객실 관리</title>
    	<link rel="stylesheet" href="../style/style.css">
 		<link rel="stylesheet" href="../style/reset.css">
+		<link rel="stylesheet" href="../style/mypage.css">
 </head>
+<%
+    String strReferer = request.getHeader("referer");
+    
+    if(strReferer == null){
+   %>
+    <script language="javascript">
+     alert("URL 주소창에 주소를 직접 입력해서 접근하셨습니다.\n\n정상적인 경로를 통해 다시 접근해 주십시오.");
+     document.location.href="../main.jsp";
+    </script>
+   <%
+     return;
+    }
+   %>
 <%	request.setCharacterEncoding("UTF-8");
 
 	// 비로그인 접근제한(마이페이지) : 일반회원 로그인 폼으로 이동
@@ -29,6 +44,8 @@
 	RoomDAO room = RoomDAO.getInstance();
 	List roomList = room.getRoomList(id);
 	SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+	DecimalFormat df = new DecimalFormat("###,###");
+	
 %>
 
 <script>
@@ -130,153 +147,117 @@
       
       <!-- 여기서부터 콘텐츠 화면 입니다.  -->
       <div id="section" style="padding-left:15%; margin-left:40px;">
-        <h1><%= member.getMember_name() %>님의 호텔 객실 관리</h1>
-      	<hr align="left" width=1000 color="black">
-      	<div>
-      		<form  action="memberRoomAddForm.jsp" name="frmUserInfo" method="post">
-      		<table>
-      			<tr>
-      				<td>객실 목록</td>
-      			</tr>
-      			<tr>
-      				<td>
-      					<table border=1>
-      						<tr align="center">
-      							<td>
-      								체크
-      							</td>
-      							<td>
-      								객실 이름
-      							</td>
-      							<td>
-      								수용 동물
-      							</td>
-      							<td>
-      								1박 이용 요금
-      							</td>
-      							<td>
-      								대형동물 수용여부
-      							</td>
-      							<td>
-      								객실 이미지
-      							</td>
-      							<td>
-      								객실 수정
-      							</td>
-      						</tr>
-<%							for(int i = 0; i < roomList.size(); i++) {
+		 		<h1><%= member.getMember_name() %>님의 호텔 객실 및 서비스 관리</h1>
+        <hr width="80%" style="margin:30px auto;">
+        
+       	<div class="table_wrap" style="width:100%;">
+       		<h2>객실 목록</h2>
+				  <ul class="responsive-table">
+				    <li class="table-header">
+				      <div class="col col-1" style="flex-basis: 3%;"></div>
+				      <div class="col col-2" style="flex-basis: 16.166%;">객실명</div>
+				      <div class="col col-3" style="flex-basis: 16.166%;">수용동물</div>
+				      <div class="col col-4" style="flex-basis: 16.166%;">이용요금</div>
+				      <div class="col col-5" style="flex-basis: 16.166%;">대형동물</div>
+				      <div class="col col-6" style="flex-basis: 16.166%;">객실이미지</div>
+				      <div class="col col-7" style="flex-basis: 16.166%;">객실수정</div>
+				    </li>                   
+        <% if(roomList == null) {%>
+        		<h3>등록된 객실이 없습니다.</h3>
+        <% } else { %>
+						<form  action="memberRoomAddForm.jsp" name="frmUserInfo" method="post">
+	<%					for(int i = 0; i < roomList.size(); i++) {
 								RoomDTO dto = (RoomDTO)roomList.get(i); %>
-      						<tr align="center">
-      							<td>
-      								<input type="checkbox" name="info" value="<%= dto.getRoom_num() %>"/></td>
-      							<td>
-      								<%= dto.getName() %>
-      							</td>
-      							<td>
-      								<% if(dto.getPet_type()==0) { %>강아지
-      								<% }else if(dto.getPet_type()==1) { %>고양이
-      								<% }else if(dto.getPet_type()==2) { %>기타
-      								<% } %>
-      							</td>
-      							<td>
-									<%= dto.getD_fee() %>
-      							</td>
-      							<td>
-      								<% if(dto.getPet_big()==1) { %>가능<% }else { %>불가능<%} %>
-      							</td>
-      							<td>
-      								<% if(dto.getImg()==null) { %>
-										이미지 없음
-									<% }else{ %>
-      									<img src="/anitel/save/<%= dto.getImg() %>" width=100/>
-      								<% } %>
-      							</td>
-      							<td>
-      								<input type="button" value="객실 정보 수정" onclick="window.location='memberRoomAddForm.jsp?room_num=<%= dto.getRoom_num() %>'"/> 
-      							</td>
-      						</tr>
-<%							} %>
-      						<tr align="left">
-      							<td colspan=7>
-      								<input type="button" value="삭제" onclick="chkUser();"/>
-      							</td>
-      						</tr>
-      					</table>
-      				</td>
-      			</tr>
-      		</table>
-      		</form>
-      	</div>
-      	<br/><br/>
-      	<div>
+								
+								<li class="table-row">
+									<div class="col col-1" style="flex-basis: 3%;"><input type="checkbox" name="info" value="<%= dto.getRoom_num() %>"/></div>
+				      		<div class="col col-2" style="flex-basis: 16.166%;"><%= dto.getName() %></div>
+						      <div class="col col-3" style="flex-basis: 16.166%;">
+						      	<% if(dto.getPet_type()==0) { %>강아지
+     								<% }else if(dto.getPet_type()==1) { %>고양이
+     								<% }else if(dto.getPet_type()==2) { %>기타
+     								<% } %></div>
+						      <div class="col col-4" style="flex-basis: 16.166%;"><%= dto.getD_fee() %></div>
+						      <div class="col col-5" style="flex-basis: 16.166%;"><% if(dto.getPet_big()==1) { %>가능<% }else { %>불가능<%} %></div>
+						      <div class="col col-6" style="flex-basis: 16.166%;">
+						      	<% if(dto.getImg()==null) { %>
+												이미지 없음
+									<% 	 }else{ %>
+      									<img src="/anitel/save/<%= dto.getImg() %>" width=100 />
+      							<% } %>
+      						</div>
+						      <div class="col col-7" style="flex-basis: 16.166%;">
+						      	<input class="t_btn" type="button" value="객실 정보 수정" onclick="window.location='memberRoomAddForm.jsp?room_num=<%= dto.getRoom_num() %>'"/>
+						      </div>
+					     	</li>
+       	<% 		} // for문 안 %>
+		     			</form>
+		<%			} // 객실 있는지 없는지 %>
+							<input class="btn" type="button" value="삭제" onclick="chkUser();"/>
+						</ul>
+					</div>	
+					
+				<div class="input_wrap">
+					<h2>객실 추가</h2>
       		<form action="memberRoomModifyPro.jsp" method="post" name="mod" onsubmit=check() enctype="multipart/form-data">
-      		<table>
-      			<tr>
-      				<td>객실 추가</td>
-      			</tr>
-      			<tr>
-      				<td>
-      					<table border=1>
-      						<tr align="center">
-      							<td>
-      								객실 이름
-      							</td>
-      							<td>
-      								수용 동물
-      							</td>
-      							<td>
-      								1박 이용 요금
-      							</td>
-      							<td>
-      								대형동물 수용여부
-      							</td>
-      							<td>
-      								객실 이미지(1장)
-      							</td>
-      						</tr>
-      						<tr align="center">
-      							<td>
-      								<input type="text" name="name" placeholder="이름을 입력해주세요"/>
-      							</td>
-      							<td>
-      								<select name="pet_type">
-      									<option value="0">강아지</option>
-      									<option value="1">고양이</option>
-      									<option value="2">기타</option>
-      								</select>
-      							</td>
-      							<td>
-      								<input type="text" name="d_fee" placeholder="숫자만 입력해주세요"/>
-      							</td>
-      							<td>
-      								<input type="checkbox" name="pet_big" value=1 />수용 가능합니다
-      							</td>
-      							<td>
-      								<input type="file" name="img"/>
-      							</td>
-      						</tr>
-      					</table>
-      				</td>
-      			</tr>
-      			<tr>
-      				<td rowspan=5 align="right">
-      					<input type="submit" value="추가하기"/>
-      				</td>
-      			</tr>
-      		</table>     		
+      			
+      			<div class="table_wrap">
+							<div class="sub">객실명</div>
+							<div class="con">
+								<input type="text" name="name" placeholder="객실명을 입력해주세요"/>
+							</div>
+						</div>
+						
+						<div class="table_wrap">
+							<div class="sub">수용동물</div>
+							<div class="con">
+								<select id="pet_type" name="pet_type">
+									<option value="0">강아지</option>
+ 									<option value="1">고양이</option>
+ 									<option value="2">기타</option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="table_wrap">
+							<div class="sub">이용요금</div>
+							<div class="con">
+								<input type="text" name="d_fee" placeholder="숫자만 입력해주세요"/>
+							</div>
+						</div>
+						
+						<div class="table_wrap">
+							<div class="sub">대형동물 수용여부</div>
+							<div class="con">
+								<input type="checkbox" name="pet_big" value=1 />
+								<span style="font-size:0.7em; font-weight:100;">수용가능합니다.</span>
+							</div>
+						</div>
+						
+						<div class="table_wrap">
+							<div class="sub">객실 이미지 올리기</div>
+							<div class="con">
+								<input type="file" name="img"/>
+							</div>
+						</div>
+						
+						<div class="btn_wrap">
+							<input class="btn" type="submit" value="추가하기"/>
+						</div>
+						
       		</form>
-      	</div>
-     </div>
+				</div>
+     	</div>
       
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
-      <div id="footer">
-      <img src="../imgs/logo2.png" width=100px; height=50px;>
-      <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
-      이용약관 | 취소정책 | 1:1문의 <br/>
-      COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
-      			
-      </div>
-    </div>
+	<div id="footer">
+		<img src="../imgs/logo2.png" width=100px; height=50px;>
+		<p>
+			평일 10:00 - 17:00 | anitel@anitel.com <br /> <span	id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
+			</span> | <span id="info_text_btn"><a href="../board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
+		</p>
+	</div>
+</div>
 </body>
 <%	} %>
 </html>
