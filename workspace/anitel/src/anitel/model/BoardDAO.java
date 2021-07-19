@@ -929,4 +929,52 @@ public class BoardDAO {
 		}
 		return id;
 	}
+	
+	//1:1문의 게시글 가져오는 메서드... 하.... 김하영.....7월20일 12:38수정.
+	public List getonebyone (int start, int end, int categ, String id) {  
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List oneList = null;
+
+		try {
+			conn = getConnection();  
+			String sql="select * from (select rownum r, board_num, id, categ, subject, pw, ctt, reg_date, reply_date, reply_content, readcount, comm "
+					+ "from (Select b.* from board b ORDER BY b.reg_date desc)where categ = ? AND id = ?) where r >= ? AND r <= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, categ);
+			pstmt.setString(2, id);
+			pstmt.setInt(3, start);
+			pstmt.setInt(4, end);
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) { // 결과가 있으면
+				oneList = new ArrayList(); // arraylist 객체 생성
+
+				do {
+					UserBoardDTO qna= new UserBoardDTO();
+					qna.setBoard_num(rs.getInt("board_num"));
+					qna.setId(rs.getString("id"));
+					qna.setCateg(rs.getInt("categ"));
+					qna.setSubject(rs.getString("subject"));
+					qna.setPw(rs.getString("pw"));
+					qna.setCtt(rs.getString("ctt"));
+					qna.setReg_date(rs.getTimestamp("reg_date"));
+					qna.setReply_date(rs.getTimestamp("reply_date"));
+					qna.setReply_content(rs.getString("reply_content"));
+					qna.setReadcount(rs.getInt("readcount"));
+					qna.setComm(rs.getInt("comm"));
+					oneList.add(qna);  
+
+				} while (rs.next()); // 없으면 null
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
+			if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
+		}   
+		return oneList;
+	}
 }// close
