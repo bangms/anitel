@@ -154,7 +154,7 @@
 			      <div class="col col-4" style="flex-basis: 15.833%;">호텔명</div>
 			      <div class="col col-5" style="flex-basis: 15.833%;">제목</div>
 			      <div class="col col-6" style="flex-basis: 15.833%;">후기등록일</div>
-			      <div class="col col-7" style="flex-basis: 15.833%;">답변여부</div>
+			      <div class="col col-7" style="flex-basis: 15.833%;">사업자답변여부</div>
 			    </li>
 			    
 				<% // 반복문으로 게시판처럼 회원의 정보를 출력함. 
@@ -176,7 +176,7 @@
 			      </div>
 			      <div class="col col-7" style="flex-basis: 15.833%;" data-label="userEmail">
 			      	<%if(review.getComm() == 0){%>
-			      		<input type="button" class="t_btn" style="width: 100px" value="답변하기" onClick="window.location='../board/replyForm.jsp?board_num=<%=review.getBoard_num()%>&categ=3'"/>						      	
+			      			<h4>답변중</h4>					      	
 					<%}else if(review.getComm() == 1){%>
 						<h4>답변완료</h4>
 					<%}%>
