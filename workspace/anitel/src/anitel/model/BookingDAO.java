@@ -363,21 +363,23 @@ public class BookingDAO {
 			PreparedStatement pstmt = null;
 			
 			try {
+				
 				conn = getConnection();
-				String sql = "insert into booking(booking_num,id,room_num,user_name,user_phone,user_email,pet_num,requests,paid_bath,paid_beauty,paid_medi,check_in,check_out,booking_time) values(booking_seq.nextVal,?,?,?,?,?,?,?,?,?,?,?,?,sysdate)";
+				String sql = "insert into booking values(booking_seq.nextVal,?,?,?,?,?,?,?,?,?,?,1,?,?,sysdate,2)";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, dto.getId());
 				pstmt.setInt(2, dto.getRoom_num());
 				pstmt.setString(3, dto.getUser_name());
 				pstmt.setString(4, dto.getUser_phone());
 				pstmt.setString(5, dto.getUser_email());
-				pstmt.setInt(6, dto.getPet_num());
-				pstmt.setString(7, dto.getRequests());
+				pstmt.setString(6, dto.getRequests());
+				pstmt.setInt(7, dto.getPet_num());
 				pstmt.setInt(8, dto.getPaid_bath());
 				pstmt.setInt(9, dto.getPaid_beauty());
 				pstmt.setInt(10, dto.getPaid_medi());
-				pstmt.setTimestamp(11, dto.getCheck_in());
-				pstmt.setTimestamp(12, dto.getCheck_out());
+				pstmt.setDate(11, dto.getCheck_in());
+				pstmt.setDate(12, dto.getCheck_out());
+				
 				
 				pstmt.executeUpdate();
 				
