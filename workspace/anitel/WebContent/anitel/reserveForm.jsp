@@ -23,7 +23,39 @@
 	  document.location.href="main.jsp";
 	 </script>
 	<%
-	  return;
+	  return;<%	check = dao.paymentUserCk(sid,reg_num); 
+	    if(check) {%>
+				<div id="review_write_wrap">
+				<%--  onclick="window.location='../anitel/board/writeForm.jsp?reg_num=<%=dto.getReg_num()%>&categ=3'" --%>
+					<button id="review_write_btn" class="t_btn" style="width:150px; padding:10px; height:auto;">리뷰쓰기</button>
+					<div id="wrtie_form" class="hidden">
+						<form method="post" enctype="multipart/form-data" id="ajaxForm">
+							<input type="hidden" name="categ" value="3"/>
+							<input type="hidden" name="reg_num" value="<%=reg_num%>"/>
+							<input type="hidden" name="id" value="<%=sid %>" />
+							<div class="row" style="margin-top:20px;">
+								<div class="sub">제목</div>
+								<div class="txt"><input type="text" name="subject" /></div>
+							</div>
+							<div class="row">
+								<div class="sub">비밀번호</div>
+								<div class="txt"><input type="password" name="pw" /></div>
+							</div>
+							<div class="row">
+								<div class="sub">파일올리기</div>
+								<div class="txt"><input type="file" name="img" /></div>
+							</div>
+							<div class="row">
+								<div class="sub">내용</div>
+								<div class="txt"><textarea name="ctt"></textarea></div>
+							</div>
+							<div class="row">
+									<div class="btn"><button id="ajax">등  록</button></div>
+							</div>
+						</form>
+					</div>
+				</div>
+		<%} %>
 	 }
 	%>
 <head>
@@ -172,7 +204,8 @@
 			<input type="hidden" name="id" value="<%=id %>" />
 			<input type="hidden" name="total_fee" value="<%= total_fee %>" />
 			
-			<div class="userInfo">예약자정보
+			<div class="userInfo">
+				<h1>예약자정보</h1>
 				<input type="checkbox" name="user_info" /> <span>가입자와 동일</span>
 			</div>
 			<p style="font-weight:100; font-size:0.8em; margin-bottom:30px;">* 는 필수 입력 사항 입니다!</p>
@@ -334,18 +367,18 @@
 		
 		<%-- 전체 결제 금액 표시 --%>
 		<div class="total_fee">
-			<p><strong>결제할 금액</strong> <%=total_fee %>원</p>
+			<p><strong>결제할 금액</strong> <%= total_fee %>원</p>
 			<button id="paymentBtn" onclick="submitForm(this)">결  제</button>
 		</div>
 	</div>
-	
 	<div id="footer">
- 		<img src="imgs/logo2.png" width=100px; height=50px;>
- 		<p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
- 		이용약관 | 취소정책 | 1:1문의 <br/>
-		COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
-	</div>
-</div>
+      <img src="../imgs/logo2.png" width=100px; height=50px;>
+     	<p>
+			평일 10:00 - 17:00 | anitel@anitel.com <br /> <span id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
+			</span> | <span id="info_text_btn"><a href="../board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
+		</p>
+    </div>
+</div>	
 </body>
 <script type="text/javascript">
 function submitForm() {

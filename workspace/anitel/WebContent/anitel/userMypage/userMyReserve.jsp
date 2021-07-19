@@ -119,7 +119,7 @@
 					<input type="hidden" class="booking_num" value="<%=reserve.getBooking_num()%>" /> 
 					<input type="hidden" class="reg_num" value="<%=reserve.getReg_num()%>" />
 
-					<li>
+					<li style="margin-bottom: 90px">
 						<div class="card_wrapper">
 							<div class="hotel_img">
 								<%if(reserve.getHotel_img() != null){%>

@@ -156,8 +156,8 @@ hr {
     padding: 10px 25px;
     border-radius: 10px;
     position: absolute;
-    bottom: -20px;
-    right: -20px;
+		bottom: -60px;
+    right: 0;
 }
 .img_box {
    overflow:hidden;
