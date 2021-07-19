@@ -24,6 +24,40 @@
 	  return;
 	 }
 	%>
+	
+<script type="text/javascript">
+//유효성검사
+function check(frm){
+	if(!checkExistData(frm.id.value, "아이디를") 
+			|| !checkExistData(frm.user_pw.value, "비밀번호를") 
+			|| !checkUserName(frm.user_name.value, "이름을")
+			|| !checkEmail(frm.user_email.value, "이메일을")
+			|| !checkExistData(frm.pet_name.value, "반려동물이름을") 
+			|| !checkExistData(frm.pet_type.value, "호텔 수용 동물") 
+			|| !checkExistData(frm.pet_gender.value, "반려동물 성별을") 
+			|| !checkExistData(frm.pet_operation.value, "반려동물 성별을") 
+			|| !checkExistData(frm.pet_age.value, "반려동물 나이를") 
+			|| !checkExistData(frm.pet_big.value, "대형동물 여부를") 
+			 
+	) return false;
+
+   return true;
+ }
+ 
+// 아이디 중복 여부 판단
+function confirmId(inputForm) { // inputForm <- this.form 객체 받음
+	if(inputForm.id.value == "" || !inputForm.id.value) {
+		alert("아이디를 입력하세요!");
+		return; // 메서드 강제 종료
+	}
+	// 팝업
+	var url = "confirmId.jsp?id=" + inputForm.id.value; // confiemId.jsp?pika
+	open(url, "confirmId",  "toolbar=no, location=no, status=no, menubar=no, scrollbars=no resizeable=no, width=300, height=200");
+	
+	
+}
+
+</script>
 <body>
 <div id="container">
 
@@ -74,9 +108,7 @@
         		<input type="text" id="pet_name" class="form__field" name="pet_name" />
         		<label for="pet_name" class="form__label">반려동물 이름 <span class="txt">*</span></label>
       		</div>
-      	
-      		<h3>반려동물 정보(선택사항)</h3>
-	
+    
       	  	<div class="form__group field" style="display:flex;">
       				<select name="pet_type" id="pet_type" onChange="view(this.value)">
 						<option value="0" selected >강아지</option>
@@ -88,7 +120,7 @@
 	      	</div>
 	      
          	<div class="form__group gender">
-             	<p>반려동물 성별</p>
+             	<p>반려동물 성별<span class="txt">*</span></p>
              	<input type="radio" name="pet_gender" id="female" value="0" />
              	<label for="female">암컷</label>
              	<input type="radio" name="pet_gender" id="male" value="1" />
@@ -96,7 +128,7 @@
            </div>
            
            <div class="form__group gender">
-             	<p>중성화 여부</p>
+             	<p>중성화 여부<span class="txt">*</span></p>
              	<input type="radio" name="pet_operation" id="op_yes" value="1" />
              	<label for="op_yes">예</label>
              	<input type="radio" name="pet_operation" id="op_no" value="0" />
@@ -105,13 +137,13 @@
           
           
           <div class="form__group age"style="margin-bottom: 50px;"> 
-       	  		<label for="pet_age" class="form__label">반려동물 나이
+       	  		<label for="pet_age" class="form__label">반려동물 나이<span class="txt">*</span>
        		 	<input type="text" id="pet_age" class="form__field" name="pet_age" />
        		 	<span class="txt"></span></label>
     	  </div>
     	  
     	  <div class="form__group pet_big" style="margin-bottom: 50px;">
-              <p>대형동물 여부</p>
+              <p>대형동물 여부<span class="txt">*</span></p>
               <div class="check_wrap">
                 <label for="pet_big" class="form__label">
                 <input type="checkbox" id="pet_big" value="1" name="pet_big" />20kg 이상일 경우 체크해주세요 
