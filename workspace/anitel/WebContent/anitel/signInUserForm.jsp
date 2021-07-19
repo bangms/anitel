@@ -30,8 +30,8 @@
 function check(frm){
 	if(!checkExistData(frm.id.value, "아이디를") 
 			|| !checkExistData(frm.user_pw.value, "비밀번호를") 
-			|| !checkUserName(frm.user_name.value, "이름을")
-			|| !checkEmail(frm.user_email.value, "이메일을")
+			|| !checkUserName(frm.user_name.value)
+			|| !checkEmail(frm.user_email.value)
 			|| !checkExistData(frm.pet_name.value, "반려동물이름을") 
 			|| !checkExistData(frm.pet_type.value, "호텔 수용 동물") 
 			|| !checkExistData(frm.pet_gender.value, "반려동물 성별을") 
@@ -176,34 +176,6 @@ function view(value){
 	}
 }
 </script>
-<script type="text/javascript">
-	//유효성검사
-function check(frm){
-		var a = $("input[name=user_tel1]").val();
-		var b = $("input[name=user_tel2]").val();
-		var c = $("input[name=user_tel3]").val();
-		
-		if(!checkExistData(frm.id.value, "아이디를") 
-				|| !checkExistData(frm.user_pw.value, "비밀번호를") 
-				|| !checkUserName(frm.user_name.value)
-				/*|| !checkPhone(a+b+c)*/
-				|| !checkEmail(frm.user_email.value)
-				|| !checkUserName(frm.pet_name.value)
-		) return false;
 
-   return true;
- }
-
-	//아이디 중복체크 
-	function confirmId(inputForm) {
-		if (inputForm.id.value == "" || !inputForm.id.value) {
-			alert("아이디를 입력하세요");
-			return;
-		}
-			var url = "confirmId.jsp?id=" + inputForm.id.value;
-			open(url, "confirmId", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
-		}
-	
-</script>
 
 </html>
