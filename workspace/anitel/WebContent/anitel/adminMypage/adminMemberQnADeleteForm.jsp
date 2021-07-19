@@ -46,8 +46,8 @@
 			</tr> 	
 			<tr>
 				<td><br/>
-					<input type="submit" value="OK" />&emsp;
-					<input type="button" value="CANCLE" onclick="window.close()"/>
+					<input type="submit" value="확인" />&emsp;
+					<input type="button" value="취소" onclick="window.close()"/>
 				</td>
 			</tr>	
 		</table>	
