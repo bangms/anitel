@@ -32,15 +32,14 @@ function check(frm){
 			|| !checkExistData(frm.user_pw.value, "비밀번호를") 
 			|| !checkUserName(frm.user_name.value)
 			|| !checkEmail(frm.user_email.value)
-			|| !checkExistData(frm.pet_name.value, "반려동물이름을") 
+			|| !checkExistData(frm.pet_name.value, "반려동물 이름을") 
 			|| !checkExistData(frm.pet_type.value, "호텔 수용 동물") 
 			|| !checkExistData(frm.pet_gender.value, "반려동물 성별을") 
-			|| !checkExistData(frm.pet_operation.value, "반려동물 성별을") 
+			|| !checkExistData(frm.pet_operation.value, "중성화 여부를") 
 			|| !checkExistData(frm.pet_age.value, "반려동물 나이를") 
 			|| !checkExistData(frm.pet_big.value, "대형동물 여부를") 
 			 
 	) return false;
-
    return true;
  }
  
