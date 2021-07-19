@@ -903,4 +903,30 @@ public class BoardDAO {
 		}   
 		return articleList;
 	}
+	
+	//보드 아이디로 일반회원 사업자 체크
+	public String getWriteId(int board_num) { 
+		String id = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			String sql = "select id from board where board_num = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				id = rs.getString(1); 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
+			if(pstmt != null) try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
+		}
+		return id;
+	}
 }// close
