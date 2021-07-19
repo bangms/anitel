@@ -11,7 +11,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>마이페이지(일반회원) - 나의 QnA 관리</title>
+<title>마이페이지(일반회원) -1:1 문의 관리 </title>
 <link rel="stylesheet" href="../style/style.css">
 <link rel="stylesheet" href="../style/reset.css">
 <link rel="stylesheet" href="../style/search.css">
@@ -112,7 +112,7 @@
 		<div id="section" style="padding-left: 15%; margin-left: 40px;">
 
 			<div class="table_wrap">
-				<h2>나의 QnA</h2>
+				<h2>1:1 문의</h2>
 				<ul class="responsive-table">
 					<%	if(count==0){ %>
 					<li class="table-header">
