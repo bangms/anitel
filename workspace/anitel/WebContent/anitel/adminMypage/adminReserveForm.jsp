@@ -196,7 +196,7 @@
 
 				<%} %>				
 				</ul>
-				<input class="btn" type="button" value="" onclick="chkUser();"/>
+				<input class="btn" type="button" value="예약취소" onclick="chkUser();"/>
 			</div>
 			<br />
 			<div class="pageNum">
