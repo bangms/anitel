@@ -48,7 +48,7 @@ String [] check = request.getParameterValues("info");
 		<tr>
 			<td><br/>
 			<input type="submit" value="확인"/>&emsp;	 
-			<input type="button" value="" onClick="window.close()"/> </td>
+			<input type="button" value="취소" onClick="window.close()"/> </td>
 		</tr>
 	</table> 
 	</form>
