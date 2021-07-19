@@ -163,7 +163,7 @@
 				      <div class="col col-7" style="flex-basis: 16.166%;">객실수정</div>
 				    </li>                   
         <% if(roomList == null) {%>
-        		<h3>등록된 객실이 없습니다.</h3>
+        		<h3 style="padding: 100px;">등록된 객실이 없습니다.</h3>
         <% } else { %>
 						<form  action="memberRoomAddForm.jsp" name="frmUserInfo" method="post">
 	<%					for(int i = 0; i < roomList.size(); i++) {

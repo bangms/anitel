@@ -107,7 +107,7 @@
 	</div>
   <!-- 여기서부터 콘텐츠 화면 입니다.  -->
 	<div id="section" style="padding-left:15%; margin-left:40px;">
-		<div class="info_wrap" style="">
+		<div class="info_wrap" >
 			<h1><%= member.getMember_name() %>님의 호텔관리</h1>
       <hr/>
       <div class="table_wrap">

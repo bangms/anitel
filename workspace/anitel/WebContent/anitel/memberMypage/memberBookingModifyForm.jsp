@@ -124,8 +124,8 @@
       <div class="table_wrap">
         <h2><%= member.getMember_name() %>님의 <%= member.getHotel_name() %> 호텔 예약 관리</h2>
 <%	if(userList==null) { %>
-		현재 예정된 예약이 없습니다.
-
+		현재 예정된 예약이 없습니다.<br/><br/>
+		<input type="button" value="지난 예약 보기" onclick="window.location='memberBookingAfterForm.jsp'" />
 <% 	}else{ %>      	
       	<form action="memberBookingModifyForm.jsp" name="frmUserInfo" method="post">
       	<ul class="responsive-table">
