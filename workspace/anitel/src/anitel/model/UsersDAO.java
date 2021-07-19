@@ -51,11 +51,11 @@ public class UsersDAO {
 	}
 	//일반유저 회원가입 (펫) - 다희수정
 	public void insertPet(PetDTO dto, String id) { 
-
 		Connection conn = null;
 		PreparedStatement pstmt = null; 
 		try {
 			conn = getConnection();
+			//if(dto.getPet_type()==null && dto.getPet_age()==null && dto.getPet_etctype()==null && dto.getPet_gender()==null && dto.getPet_operation()==null && dto.getPet_age()==null && )
 			String sql = "insert into pet values(PET_SEQ.nextVal,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);

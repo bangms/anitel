@@ -44,6 +44,18 @@ user.setUser_phone(user_phone);
 <jsp:setProperty property="*" name="user"/>
 <jsp:setProperty property="*" name="pet"/>
 
+
+<%
+System.out.println(pet.getPet_name());
+//(pet.getPet_type()==null)
+
+
+
+
+
+
+%>
+
 <%
 	// DAO 객체 생성
 	UsersDAO dao = UsersDAO.getInstance();
