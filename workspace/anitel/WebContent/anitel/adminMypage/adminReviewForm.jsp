@@ -191,33 +191,52 @@
 			
 			<% if(count > 10){
 					
-					int pageBlock = 10;
+					int pageBlock = 3;
 					int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
 					int startPage = (int)((currentPage-1)/pageBlock) * pageBlock + 1;
-					int endPage = startPage * pageBlock -1;
+					int endPage = startPage * pageBlock;
 			
 					//전체 페이지수(pageCount)가 위에서 계산한 endPage(10단위씩)보다 작으면
 					//전체 페이지수가  endPage가 된다.
 					if(endPage > pageCount) endPage = pageCount;
 					
 					//왼쪽 꺾쇄 : StartPage가 pageBlock(10)보다 크면
-					if(startPage > pageBlock){ %>
-					<a href="adminReviewForm.jsp?pageNum=<%=startPage-pageBlock %>"> &lt; </a>
-					&nbsp; &nbsp;
-				<% } 
-					
-					//페이지 번호 뿌리기
-					for(i = startPage; i <= endPage; i++){ %>
-						<a href="adminReviewForm.jsp?pageNum=<%=i%>" class="pageNums"><%=i%></a>
+					if(selected != null && search != null){
+						if(startPage > pageBlock){ %>
+						<a href="adminReviewForm.jsp?pageNum=<%=startPage-pageBlock%>&selected=<%=selected%>&search=<%=search%>"> &lt; </a>
 						&nbsp; &nbsp;
-				<%	}
-					
-					//오른쪽 꺾쇄 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막번호)보다 크면
-					if(endPage < pageCount) { %>
-						<a href="adminReviewForm.jsp?pageNum=<%=startPage+pageBlock%>"> &gt; </a>
-					&nbsp; &nbsp; 
-				<% 	}
+					<% } 
+						
+						//페이지 번호 뿌리기
+						for(i = startPage; i <= endPage; i++){ %>
+							<a href="adminReviewForm.jsp?pageNum=<%=i%>&selected=<%=selected%>&search=<%=search%>" class="pageNums"><%=i%></a>
+							&nbsp; &nbsp;
+					<%	}
+						
+						//오른쪽 꺾쇄 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막번호)보다 크면
+						if(endPage < pageCount) { %>
+							<a href="adminReviewForm.jsp?pageNum=<%=startPage+pageBlock%>&selected=<%=selected%>&search=<%=search%>"> &gt; </a>
+						&nbsp; &nbsp; 
+					<% }
+					}else{
+						if(startPage > pageBlock){ %>
+						<a href="adminReviewForm.jsp?pageNum=<%=startPage-pageBlock %>"> &lt; </a>
+						&nbsp; &nbsp;
+					<% } 
+						
+						//페이지 번호 뿌리기
+						for(i = startPage; i <= endPage; i++){ %>
+							<a href="adminReviewForm.jsp?pageNum=<%=i%>" class="pageNums"><%=i%></a>
+							&nbsp; &nbsp;
+					<%	}
+						
+						//오른쪽 꺾쇄 : 전체 페이지 개수(pageCount)가 endPage(현재 보는 페이지에서의 마지막번호)보다 크면
+						if(endPage < pageCount) { %>
+							<a href="adminReviewForm.jsp?pageNum=<%=startPage+pageBlock%>"> &gt; </a>
+						&nbsp; &nbsp; 
+					<% }
 				
+					}
 				}%>
 			</div>
 			<div class="search_wrap">
