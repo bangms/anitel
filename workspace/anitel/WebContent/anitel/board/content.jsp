@@ -161,7 +161,16 @@
 		<%}else if (dao.idCk(id) == 2){//사업자  %>
 		<input type="button" value="목록으로" onclick="window.location='../adminMypage/adminMemberQnAForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/> 
 				
-		<%} %>		
+		<%} %>	
+	
+	
+	//다희언니 요부분만 추가했습니다. 
+		<%if(member.memberMatch(id)){ //멤버마이페이지로 돌아가는 버튼 %> 
+			<button onclick="window.location='../memberMypage/member1_1.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>">목록으로</button>
+		<%}else{ //유저마이페이지로 돌아가는 버튼 %>
+			<button onclick="window.location='../userMypage/user1_1.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'">목록으로</button>
+		<%} %>
+	//다희언니 요부분까지만 추가된겁니다.
 											
 <%} else if(categ == 2){//호텔QA%>	 
 	<%if(member.memberMatch(id)){ // 해당 유저가 사업자임 %>
