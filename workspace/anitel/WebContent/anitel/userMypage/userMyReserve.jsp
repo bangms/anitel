@@ -160,9 +160,9 @@
 					     		<div class="sub">선택한 유료 서비스
 						     	</div>
 						     	<div class="con">
-							     	<%if(reserve.getPaid_bath()==1){%> V 목욕 <%}%>
-										<%if(reserve.getPaid_beauty()==1){%> V 미용 <%}%>
-										<%if(reserve.getPaid_medi()==1){%> V 병원 <%}%>
+							     	<%if(reserve.getPaid_bath()==1){%> <img src="../imgs/checked.png" width="16px" height="16px">목욕 <%}%>
+										<%if(reserve.getPaid_beauty()==1){%> <img src="../imgs/checked.png" width="16px" height="16px">미용 <%}%>
+										<%if(reserve.getPaid_medi()==1){%><img src="../imgs/checked.png" width="16px" height="16px">병원 <%}%>
 							     </div>
 					     		<span style="font-size:0.7em;font-weight:100;width:100%;text-align:left;">
 					     			(현장에서 추가 결제가 필요한 항목입니다.)
