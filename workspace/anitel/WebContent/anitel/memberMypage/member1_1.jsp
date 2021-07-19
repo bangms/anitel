@@ -14,6 +14,7 @@
 <title>마이페이지(일반회원) - 1:1문의 </title>
 <link rel="stylesheet" href="../style/style.css">
 <link rel="stylesheet" href="../style/reset.css">
+<link rel="stylesheet" href="../style/mypage.css">
 <link rel="stylesheet" href="../style/search.css">
 <script type="text/javascript">
 		function secret(board_num, pageNum, categ) {
@@ -103,6 +104,7 @@
 						    <li class="menu"><a href="memberBookingModifyForm.jsp">호텔 예약 관리</a></li>
 						    <li class="menu"><a href="memberQna.jsp">호텔 QnA 관리</a></li>
 						    <li class="menu"><a href="memberReview.jsp">호텔 후기 관리</a></li>
+					    	<li class="menu"><a href="member1_1.jsp">1:1문의</a></li>
 					    </ul>
 					  </nav>
 					</div>
@@ -110,55 +112,57 @@
       </div>
 		<!-- 여기서부터 콘텐츠 화면 입니다.  -->
 		<div id="section" style="padding-left: 15%; margin-left: 40px;">
-
-			<div class="table_wrap">
-				<h2>1:1문의 </h2>
-				<ul class="responsive-table">
-					<%	if(count==0){ %>
-					<li class="table-header">
-						<div class="col col-1">No.</div>
-						<div class="col col-2">제 목</div>
-						<div class="col col-3">날 짜</div>
-						<div class="col col-4">조회수</div>
-						<div class="col col-5">답변여부</div>
-						
-					</li>
-					<li>
-						<div style="flex-basis: 100%;">게시글이 없습니다.</div>
-					</li>
-					<%	}else{ %>
-					<li class="table-header">
-						<div class="col col-1" style="flex-basis: 5%;">No.</div>
-						<div class="col col-2" style="flex-basis: 30%;">제 목</div>
-						<div class="col col-3" style="flex-basis: 30%;">날 짜</div>
-						<div class="col col-4" style="flex-basis: 15%;">조회수</div>
-						<div class="col col-5" style="flex-basis: 20%;">답변여부</div>
-						
-					</li>
-
-					<%		for(int i=0; i< articleList.size(); i++){
-								UserBoardDTO article = (UserBoardDTO)articleList.get(i); %>
-
-					<li class="table-row">
-						<div class="col col-1" style="flex-basis: 5%;"><%= number--%></div>
-						<div class="col col-2" style="flex-basis: 30%;">
-							<a class="list_subject"
-								href="../board/content.jsp?board_num=<%= article.getBoard_num()%>&categ=<%=categ%>&pageNum=<%=pageNum%>"><%=article.getSubject() %></a>
-						</div>
-						<div class="col col-3" style="flex-basis: 30%;"><%= sdf.format(article.getReg_date()) %></div>
-						<div class="col col-4" style="flex-basis: 15%;"><%= article.getReadcount()%></div>
-						<div class="col col-5" style="flex-basis: 20%;">
-							<%if(article.getComm()==1){ %>
-								답변 완료
-							<%}else{ %>
-								답변중
-							<%} %>
-						</div>					
-					</li>
-					<%		} 
-						}%>
-				</ul>
+			<div class="info_wrap" >
+				<h1><%= member.getMember_name() %>님의 1:1 문의 </h1>
+	      <hr/>
 			</div>
+				<div class="table_wrap" style="width: 90%;">
+					<ul class="responsive-table">
+						<%	if(count==0){ %>
+						<li class="table-header">
+							<div class="col col-1">No.</div>
+							<div class="col col-2">제 목</div>
+							<div class="col col-3">날 짜</div>
+							<div class="col col-4">조회수</div>
+							<div class="col col-5">답변여부</div>
+							
+						</li>
+						<li>
+							<div style="flex-basis: 100%;padding :100px;">게시글이 없습니다.</div>
+						</li>
+						<%	}else{ %>
+						<li class="table-header">
+							<div class="col col-1" style="flex-basis: 5%;">No.</div>
+							<div class="col col-2" style="flex-basis: 30%;">제 목</div>
+							<div class="col col-3" style="flex-basis: 30%;">날 짜</div>
+							<div class="col col-4" style="flex-basis: 15%;">조회수</div>
+							<div class="col col-5" style="flex-basis: 20%;">답변여부</div>
+							
+						</li>
+	
+						<%		for(int i=0; i< articleList.size(); i++){
+									UserBoardDTO article = (UserBoardDTO)articleList.get(i); %>
+	
+						<li class="table-row">
+							<div class="col col-1" style="flex-basis: 5%;"><%= number--%></div>
+							<div class="col col-2" style="flex-basis: 30%;">
+								<a class="list_subject"
+									href="../board/content.jsp?board_num=<%= article.getBoard_num()%>&categ=<%=categ%>&pageNum=<%=pageNum%>"><%=article.getSubject() %></a>
+							</div>
+							<div class="col col-3" style="flex-basis: 30%;"><%= sdf.format(article.getReg_date()) %></div>
+							<div class="col col-4" style="flex-basis: 15%;"><%= article.getReadcount()%></div>
+							<div class="col col-5" style="flex-basis: 20%;">
+								<%if(article.getComm()==1){ %>
+									답변 완료
+								<%}else{ %>
+									답변중
+								<%} %>
+							</div>					
+						</li>
+						<%		} 
+							}%>
+					</ul>
+				</div>
 
 			<%-- 페이지 번호 --%>
 			<div align="center">

@@ -113,6 +113,7 @@
 						    <li class="menu"><a href="memberBookingModifyForm.jsp">호텔 예약 관리</a></li>
 						    <li class="menu"><a href="memberQna.jsp">호텔 QnA 관리</a></li>
 						    <li class="menu"><a href="memberReview.jsp">호텔 후기 관리</a></li>
+					    	<li class="menu"><a href="member1_1.jsp">1:1문의</a></li>
 					    </ul>
 					  </nav>
 					</div>
@@ -121,8 +122,11 @@
       
       <!-- 여기서부터 콘텐츠 화면 입니다.  -->
       <div id="section" style="padding-left:15%; margin-left:40px;">
+	      <div class="info_wrap" >
+					<h1><%= member.getMember_name() %>님의 <span style="color:#FF822B !important"><%= member.getHotel_name() %></span> 호텔 예약 관리 </h1>
+		      <hr/>
+				</div>
       <div class="table_wrap">
-        <h2><%= member.getMember_name() %>님의 <%= member.getHotel_name() %> 호텔 예약 관리</h2>
 <%	if(userList==null) { %>
 		현재 예정된 예약이 없습니다.<br/><br/>
 		<input type="button" value="지난 예약 보기" onclick="window.location='memberBookingAfterForm.jsp'" />

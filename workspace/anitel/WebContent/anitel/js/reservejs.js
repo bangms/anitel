@@ -52,7 +52,7 @@
 		$.fn.radioSelect = function(val) {
 			this.each(function() {
 				var $this = $(this);
-				if($this.val() == val)
+				$this.val() == val ? $this.attr('checked', true) : $this.attr('checked', false);
 					$this.attr('checked', true);
 			});
 			return this;

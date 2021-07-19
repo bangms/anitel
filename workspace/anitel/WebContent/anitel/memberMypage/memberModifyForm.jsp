@@ -62,6 +62,7 @@
 						    <li class="menu"><a href="memberBookingModifyForm.jsp">호텔 예약 관리</a></li>
 						    <li class="menu"><a href="memberQna.jsp">호텔 QnA 관리</a></li>
 						    <li class="menu"><a href="memberReview.jsp">호텔 후기 관리</a></li>
+					    <li class="menu"><a href="member1_1.jsp">1:1문의</a></li>
 					    </ul>
 					  </nav>
 					</div>
@@ -102,7 +103,8 @@
 					
 					<div class="btn_wrap">
 						<input type="submit" class="btn" value="수정내용 저장"/>&emsp;
-						<input type="button" class="btn" value="수정 취소" onclick="window.location='memberMyPage.jsp'"/>&emsp; 
+						<input type="button" class="btn" value="수정 취소" onclick="window.location='memberMyPage.jsp'"/>&emsp;
+						<input type="button" class="btn" value="회원 탈퇴" onclick="popupOpen()"/>&emsp; 
 					</div>
 					
 				</form>
@@ -120,4 +122,11 @@
 </div>
 </body>
 <%	} %>
+<script>
+function popupOpen(){
+	var popUrl = "../popupForm.jsp?pop=6";
+	var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";
+	window.open(popUrl,"",popOption);
+}
+</script>
 </html>

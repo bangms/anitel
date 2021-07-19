@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="../style/style.css">
 <link rel="stylesheet" href="../style/reset.css">
 <link rel="stylesheet" href="../style/search.css">
+<link rel="stylesheet" href="../style/mypage.css">
 <script type="text/javascript">
 		function secret(board_num, pageNum, categ) {
 			var url = "popCheckPw.jsp?pageNum=" + pageNum + "&board_num=" + board_num + "&categ=" + categ;
