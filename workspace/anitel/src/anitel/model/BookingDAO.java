@@ -391,20 +391,6 @@ public class BookingDAO {
 			}
 		}
 		
-	 public static Timestamp convertStringToTimestamp(String str_date) {
-		    try {
-		      DateFormat formatter;
-		      formatter = new SimpleDateFormat("yyyy-mm-dd");
-		      Date date = (Date) formatter.parse(str_date);
-		      java.sql.Timestamp timeStampDate = new Timestamp(date.getTime());
-
-		      return timeStampDate;
-		    } catch (ParseException e) {
-		      System.out.println("Exception :" + e);
-		      return null;
-		    }
-		  }
-
 
 	// 체크아웃 날짜가 현재 날짜보다 느린 경우(기간 경과) 예약상태를 종료(0)로 변경
 	public void updateBookings() {

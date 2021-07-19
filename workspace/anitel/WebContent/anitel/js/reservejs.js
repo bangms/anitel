@@ -1,7 +1,35 @@
 
 	$(document).ready(function() {		
 		var pet_num = $("#pet").val();
-		 
+		
+
+		$.fn.checkboxSelect = function(val) {
+			if(!Array.isArray(val))
+				val = [val];
+			
+			this.each(function() {
+				var $this = $(this);
+				var map = val.reduce(function(accu, v) {
+					accu[v] = true;
+					return accu;
+				}, []);
+				map[$this.val()] ? $this.attr('checked', true) : $this.attr('checked', false);
+			});
+			return this;
+		};
+		
+		$.fn.radioSelect = function(val) {
+			this.each(function() {
+				var $this = $(this);
+				
+				if($this.val() == val) {
+					$this.attr('checked', true);
+				}
+			});
+			return this;
+		};
+		
+		
 		$("#pet").change(function() {
 			pet_num = $(this).val();
 			$.ajax({
@@ -33,30 +61,6 @@
 			});
 			
 		});
-		
-		$.fn.checkboxSelect = function(val) {
-			if(!Array.isArray(val))
-				val = [val];
-			
-			this.each(function() {
-				var $this = $(this);
-				var map = val.reduce(function(accu, v) {
-					accu[v] = true;
-					return accu;
-				}, []);
-				map[$this.val()] ? $this.attr('checked', true) : $this.attr('checked', false);
-			});
-			return this;
-		};
-		
-		$.fn.radioSelect = function(val) {
-			this.each(function() {
-				var $this = $(this);
-				$this.val() == val ? $this.attr('checked', true) : $this.attr('checked', false);
-					$this.attr('checked', true);
-			});
-			return this;
-		};
 		
 	});
 	

@@ -1,4 +1,6 @@
-
+<%@page import="java.time.LocalTime"%>
+<%@page import="java.sql.Timestamp"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="anitel.model.BookingDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -25,21 +27,27 @@
 	<%
 	request.setCharacterEncoding("UTF-8");
 	String total_fee = request.getParameter("total_fee");
+	String cin = request.getParameter("in");
+	String cout = request.getParameter("out"); 
 	
-	%>
- 
-</head>
-  	<jsp:useBean id="dto" class="anitel.model.BookingDTO" />
-	<jsp:setProperty property="*" name="dto" />
-<%	request.setCharacterEncoding("UTF-8");
+	LocalTime now = LocalTime.now(); 
+	String ckIn = cin + " " + now;
+	String ckOut = cout + " " + now; 
+	
+	java.sql.Timestamp start = java.sql.Timestamp.valueOf(ckIn); 
+	java.sql.Timestamp end = java.sql.Timestamp.valueOf(ckOut); 
 
-	System.out.println("아이디" + dto.getId());
-	System.out.println("체크인" +dto.getCheck_in());
-	System.out.println("쳌아" +dto.getCheck_out());
-%>
+	%>
+</head>
+ 	<jsp:useBean id="dto" class="anitel.model.BookingDTO" />
+	<jsp:setProperty property="*" name="dto" />
 <body>
 <%
 	BookingDAO dao = BookingDAO.getInstance();
+
+	dto.setCheck_in(start);
+	dto.setCheck_out(end);
+	
 %>
  <div id="container">
 

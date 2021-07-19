@@ -1,3 +1,4 @@
+<%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="anitel.model.BoardDAO"%>
@@ -42,9 +43,8 @@
 	String room_num = request.getParameter("room_num");
 	String check_in = request.getParameter("check_in");
 	String check_out = request.getParameter("check_out");
-	
-	String id =(String)session.getAttribute("sid");
-	
+	String id = (String)session.getAttribute("sid");
+		
 	BookingDAO dao = BookingDAO.getInstance();
 	MemberDTO hotel = new MemberDTO();
 	hotel = dao.getHotelInfo(memId);
@@ -68,6 +68,7 @@
   int total_fee = day_fee * (int)diffDays;
   
   System.out.println(diffDays + "일 이용 시 총 가격 = " + total_fee);
+
 %>
 <body>
 <div id="container">
@@ -165,8 +166,8 @@
 		
 	
 		<form method="post" id="reserveForm" name="reserveForm">
-			<input type="hidden" name="check_in" value="<%=check_in %>" />
-			<input type="hidden" name="check_out" value="<%=check_out %>" /> 
+			<input type="hidden" name="in" value="<%=check_in %>" />
+			<input type="hidden" name="out" value="<%=check_out %>" /> 
 			<input type="hidden" name="room_num" value="<%=room_num %>" />
 			<input type="hidden" name="id" value="<%=id %>" />
 			<input type="hidden" name="total_fee" value="<%= total_fee %>" />
@@ -351,7 +352,7 @@ function submitForm() {
 	var cancel_agree = document.getElementById('cancel_agree').checked;
 	var reserve_agree = document.getElementById('reserve_agree').checked;
 	if(cancel_agree && reserve_agree) {
-		document.reserveForm.action = "reservePro.jsp";
+		document.reserveForm.action = "payment.jsp";
 		document.reserveForm.submit();
 	} else {
 		alert("동의해주세요!");
