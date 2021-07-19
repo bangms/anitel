@@ -155,7 +155,14 @@
 		<input type="button" value="목록으로" onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/>
 	<%} %>
 <%} else if(categ == 1){//1:1%>	
-				<button onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'">목록으로</button>
+		<%if(dao.idCk(id) == 1){//일반유저 %>
+		 <input type="button" value="목록으로" onclick="window.location='../adminMypage/adminUserQnAForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/> 
+	
+		<%}else if (dao.idCk(id) == 2){//사업자  %>
+		<input type="button" value="목록으로" onclick="window.location='../adminMypage/adminMemberQnAForm.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>'"/> 
+				
+		<%} %>		
+											
 <%} else if(categ == 2){//호텔QA%>	 
 	<%if(member.memberMatch(id)){ // 해당 유저가 사업자임 %>
 		<%if(sel != null && search != null){ // 검색해서 들어왔음 %>
@@ -220,25 +227,32 @@
 				<%}else{ // 답변 있음 %>
 					<button onclick="window.location='replyForm.jsp?board_num=<%= article.getBoard_num()%>&categ=2&amp;reg_num=<%=reg_num%>&pageNum=<%=pageNum%>'">답글수정</button>
 				<%} %>
-		<%} 
-				if(dao.idCk(id) == 1 || id.equals("admin")) {%>
+		<%}else if(dao.idCk(id) == 1){//일반유저일때  %>
 				<%if(pet_type!=null){ %>			
-				<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2&amp;reg_num=<%=reg_num%>'">삭  제</button>
+				 
 				<%}else{ %> 
-				
+				<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2&amp;reg_num=<%=reg_num%>'">삭  제</button>
+				<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2&amp;reg_num=<%=reg_num%>'">수	정</button>
 				<%} %>
-		<%} %>
+		<%}else if(id.equals("admin")){%>
+				<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=2&amp;reg_num=<%=reg_num%>'">삭  제</button>
+				<%} %>
+ 
 		
 		<%} else if(categ == 3){//후기
-					check = dao.paymentUserCk(id, reg_num);
-					if(check) { %>
-						<!-- TODO: 글쓰기, 수정은  결제고객만, 삭제는 고객, 관리자만 가능   -->
-						<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=3&amp;reg_num=<%=reg_num%>'">수  정</button>
-			<%  }
-					if(check || id.equals("admin")) { %>
-						<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=3&amp;reg_num=<%=reg_num%>&memId=<%=memId%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>'">삭  제</button>
-			<%  } %>
-		<% } %>
+				if(dao.idCk(id) == 1){%>
+					<%if(pet_type!=null){ %>
+					 
+					<%}else{ %> 
+					<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=3&amp;reg_num=<%=reg_num%>'">삭  제</button>
+					<button onclick="window.location='modifyForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=3&amp;reg_num=<%=reg_num%>'">수	정</button>
+					<%} %>
+			<%}else if(id.equals("admin")){%>
+				<button onclick="window.location='deleteForm.jsp?board_num=<%= article.getBoard_num()%>&pageNum=<%=pageNum%>&categ=3&amp;reg_num=<%=reg_num%>'">삭  제</button>	
+			<%} %>
+		
+		<%}//categ==3 %>
+	
 		
 <%} //세션 있고 없고 %>
 				 
