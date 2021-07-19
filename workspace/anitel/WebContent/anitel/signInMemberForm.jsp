@@ -202,7 +202,7 @@ function view(value){
 	var pet_type_sel = document.getElementById('pet_type');
 	var pet_type = pet_type_sel.options[pet_type_sel.selectedIndex].value;
 	var input = document.getElementById('pet_etctype');
-	if(pet_type == 0) {
+	if(pet_type == 2) {
 		input.classList.replace('hidden', 'show');
 	} else {
 		input.classList.replace('show', 'hidden');
