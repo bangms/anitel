@@ -108,22 +108,23 @@
 		if(pop.equals("6")){
 			// 사업자회원 - 회원탈퇴
 			int num = member.deleteMember(id, pw);
-			if(num == 1){%>
+			if(num == 1){
+				// 로그아웃 처리
+				session.invalidate(); // 세션 속성 전체 삭제
+				// 쿠키가 있으면 쿠키도 삭제
+				Cookie[] coos = request.getCookies();
+				if(coos != null) {
+					for(Cookie c : coos) {
+						if(c.getName().equals("autoId") || c.getName().equals("autoPw") || c.getName().equals("autoCh")){
+							c.setMaxAge(0);
+							response.addCookie(c);				
+						}
+					}		
+				}
+			%>
 				<script>
 					alert("탈퇴 처리가 완료되었습니다.");
-					// 로그아웃 처리
-					session.invalidate(); // 세션 속성 전체 삭제
-					// 쿠키가 있으면 쿠키도 삭제
-					Cookie[] coos = request.getCookies();
-					if(coos != null) {
-						for(Cookie c : coos) {
-							if(c.getName().equals("autoId") || c.getName().equals("autoPw") || c.getName().equals("autoCh")){
-								c.setMaxAge(0);
-								response.addCookie(c);				
-							}
-						}		
-					}
-					opener.document.location="main.jsp";
+					opener.document.location="/anitel/anitel/main.jsp";
 					self.close();
 				</script>
 <%			}else{%>
