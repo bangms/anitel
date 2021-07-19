@@ -115,7 +115,7 @@
 				<h1><%= user.getUser_name() %>님의 1:1 문의 </h1>
 	      <hr/>
 			</div>
-				<div class="table_wrap" style="width: 90%;">
+				<div class="table_wrap" style="width: 90%;height: auto;">
 					<ul class="responsive-table">
 						<%	if(count==0){ %>
 						<li class="table-header">
