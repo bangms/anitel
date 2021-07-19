@@ -442,7 +442,6 @@ $(document).ready(function(){
 			      	</tr>        	
 			<%}else{
 					reviewList = dao.getReviews(startRow, endRow, categ, reg_num); %>
-		 			<tr id="rs"></tr>
 	     		<tr class="_sub">
 	        	<td>작성자</td>
 	        	<td>제 목</td>
@@ -455,9 +454,9 @@ $(document).ready(function(){
 	        	<td>익명</td>
 	         	<td><%= article.getSubject() %></td>
 	      	</tr>
-	      	<tr class="review_content"></tr>
- 			<%	}  	
-	    }%>  
+ 			<%	}  	%>
+      	<div class="rs"></div>
+	<%   }%>  
 	    </table>
 	   
 	    <button class="t_btn" style="width:150px;height:auto;padding:10px 0;margin:20px 0 50px;" onclick="window.location='hotelDetailReview.jsp?memId=<%=memId%>&amp;reg_num=<%=reg_num%>&hotel_name=<%=dto.getHotel_name()%>&check_in=<%=check_in%>&check_out=<%=check_out%>&pet_type=<%=pet_type%>'">전체후기보기</button>

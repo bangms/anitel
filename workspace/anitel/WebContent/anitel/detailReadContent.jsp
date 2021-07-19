@@ -41,7 +41,6 @@
 	obj.put("reg_date", content.getComm());
 	obj.put("reg_date", content.getHidden_content());
 	
-	System.out.println(obj.toJSONString());
 	String result = obj.toJSONString();
 	System.out.println(result);	
 	response.setContentType("application/json; charset=UTF-8");

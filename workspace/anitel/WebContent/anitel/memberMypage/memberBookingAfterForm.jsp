@@ -12,6 +12,8 @@
 	<title>지난 예약 목록</title>
  	<link rel="stylesheet" href="../style/style.css">
 	<link rel="stylesheet" href="../style/reset.css">
+	<link rel="stylesheet" href="../style/search.css">
+	<link rel="stylesheet" href="../style/mypage.css">
 </head>
 <%	request.setCharacterEncoding("UTF-8");
 
@@ -92,11 +94,14 @@
 					</div>
 				</div>
       </div>
-      
-      <!-- 여기서부터 콘텐츠 화면 입니다.  -->
-      <div id="section" style="padding-left:15%; margin-left:40px;">
-    	<div class="table_wrap">
-	      <h2><%= member.getMember_name() %>님의 <%= member.getHotel_name() %> 호텔 예약 관리</h2>
+   
+   <!-- 여기서부터 콘텐츠 화면 입니다.  -->
+   <div id="section" style="padding-left:15%; margin-left:40px;">
+      <div class="info_wrap" >
+	      <h1><%= member.getMember_name() %>님의 <%= member.getHotel_name() %> 호텔 예약 관리</h1>
+	      <hr/>
+      </div>
+    	<div class="table_wrap" style="width:90%; height: auto;">
 		<% if(count == 0) { %>
 			<h3 align="center">표시할 내용이 없습니다.</h3>
 		<%}else {%>
@@ -124,7 +129,7 @@
       		<div class="col col-5" style="flex-basis: 10%;"><%= dto.getUser_name() %></div>
       		<div class="col col-6" style="flex-basis: 15%;"><%= dto.getUser_phone() %></div>
       		<div class="col col-7" style="flex-basis: 10%;"><%= dto.getPet_name() %></div>
-      		<div class="col col-8" style="flex-basis: 20%;">
+      		<div class="col col-8" style="flex-basis: 20%;overflow: hidden;">
       			<%if(dto.getRequests()==null){ %>
       				-
       			<%}else{ %>
@@ -177,27 +182,43 @@
 					<%}%>
 				<%} %>
 			</div>
-			<br />	
-			<div>		
-				<select name="sel">
-					<option value="b.user_name">예약자명</option>
-					<option value="b.user_phone">예약자 연락처</option>		
-				</select>
-				<input type="hidden" name="blank" />
-				<input type="text" name="search" />
-				<input type="submit" value="검색" />
+			
+			<div class="search_wrap">
+				<div id="sel" class="select-box">
+				  <div class="select-box_current" tabindex="1">
+				    <div class="select-box_value">
+				      <input class="select-box_input" type="radio" id="b.user_name" value="b.user_name" name="selected" checked="checked"/>
+				      <p class="select-box_input-text">예약자명</p>
+				    </div>
+				    <div class="select-box_value">
+				      <input class="select-box_input" type="radio" id="b.user_phone" value="b.user_phone" name="selected"/>
+				      <p class="select-box_input-text">예약자 연락처</p>
+				    </div>
+				    <img class="select-box_icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
+				  </div>
+				  <ul class="select-box_list" style="height: 100px; overflow: scroll;">
+				    <li>
+				      <label class="select-box_option" for="b.user_name" aria-hidden="aria-hidden">예약자명</label>
+				    </li>
+				    <li>
+				      <label class="select-box_option" for="b.user_phone" aria-hidden="aria-hidden">예약자 연락처</label>
+				    </li>
+				  </ul>
+				</div>
+				<input class="search" type="text" name="search"/>
+				<input class="btn" type="submit" value="검색" />
 				<input type="button" value="원래대로" onclick="window.location='memberBookingAfterForm.jsp'"/>
 				<input type="button" value="현재 예약 보기" onclick="window.location='memberBookingModifyForm.jsp'" />
-				<br/><br/><h3 style="color:black">현재 페이지 : <%=pageNum%></h3>
 			</div>
 		</form>
 	<%} %>
 	</div>
 	<div id="footer">
       <img src="../imgs/logo2.png" width=100px; height=50px;>
-      <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
-      	이용약관 | 취소정책 | 1:1문의 <br/>
-      	COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>  			
+     	<p>
+			평일 10:00 - 17:00 | anitel@anitel.com <br /> <span id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
+			</span> | <span id="info_text_btn"><a href="../board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
+		</p>
     </div>
 </div>		
 </body>

@@ -524,6 +524,7 @@
   /* box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1); */
   border-bottom: 1px solid #ccc;
   text-align: center;
+  overflow:hidden;
 }
 .responsive-table .col-1 {
   flex-basis: 10%;
@@ -614,4 +615,29 @@
  	
  	.currentPage {
  		margin-bottom: 100px;
+ 	}
+ 	.add_room  {
+ 		padding-top: 80px; 
+ 		width:80%; 
+ 		margin:0 auto;
+ 		position:relative;
+ 	}
+ 	.add_room .table_wrap {
+ 		margin: 0;
+ 		width:100%;
+ 		height: auto;
+ 	}
+ 	.add_room .btn {
+    border: none;
+    border-radius: 6px;
+    height: 40px;
+    font-size: 0.8em;
+    font-weight: 500;
+    cursor: pointer;
+    color: #fff;
+    margin-right: 10px;
+    background-color: #FFA742;
+    margin:50px auto;
+    width: 50%;
+    padding: 0 20px;
  	}

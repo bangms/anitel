@@ -27,7 +27,7 @@ $(document).ready(function(){
 		
 	});
 	
-	$(".review tr#review_article").click(function(){
+	$(".review tr.review_article").click(function(){
 		var board_num = $(this).children(".board_num").val();
 		
 		$.ajax({
@@ -39,7 +39,7 @@ $(document).ready(function(){
 					var list = 
 						"<table  border ='1' rules='none'>"+
 							"<tr>"+
-								"<td>"+data.reg_date+"</td>"+
+								"<td>제목 : "+data.subject+"</td>"+
 							"</tr>"+
 							"<tr>"+
 								"<td>"+data.ctt+"</td>"+
@@ -48,15 +48,12 @@ $(document).ready(function(){
 								"<td><img src='../save/"+data.img+"' /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>제목 : "+data.subject+"</td>"+
-							"</tr>"+
-							"<tr>"+
 								"<td>익명</td>"+
 							"</tr>"+
 						"</table>";
-					$("#rs").empty();
-					$("#rs").append(list);
-					$("#rs").show();	
+					$(".rs").empty();
+					$(".rs").append(list);
+					$(".rs").show();	
 			},
 			error : function(request,status,error){
 				        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

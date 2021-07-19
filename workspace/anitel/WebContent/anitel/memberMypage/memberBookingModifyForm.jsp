@@ -13,6 +13,7 @@
    	<link rel="stylesheet" href="../style/style.css">
 		<link rel="stylesheet" href="../style/reset.css">
 		<link rel="stylesheet" href="../style/search.css">
+		<link rel="stylesheet" href="../style/mypage.css">
   </head>
 
 <%	request.setCharacterEncoding("UTF-8");
@@ -126,11 +127,13 @@
 					<h1><%= member.getMember_name() %>님의 <span style="color:#FF822B !important"><%= member.getHotel_name() %></span> 호텔 예약 관리 </h1>
 		      <hr/>
 				</div>
-      <div class="table_wrap">
-<%	if(userList==null) { %>
-		현재 예정된 예약이 없습니다.<br/><br/>
-		<input type="button" value="지난 예약 보기" onclick="window.location='memberBookingAfterForm.jsp'" />
-<% 	}else{ %>      	
+      <div class="table_wrap" >
+		<%	if(userList==null) { %>
+					<p style="padding:100px 0">현재 예정된 예약이 없습니다.</p>
+				<div class="btn_wrap">
+					<input type="button" value="지난 예약 보기" onclick="window.location='memberBookingAfterForm.jsp'" style="padding: 20px 30px; font-size: 1em; border-radius: 10px;" />
+				</div>
+		<% 	}else{ %>      	
       	<form action="memberBookingModifyForm.jsp" name="frmUserInfo" method="post">
       	<ul class="responsive-table">
       		<li class="table-header">
@@ -170,7 +173,7 @@
       				<td align="left" width=400><input type="button" value="선택예약 취소" onclick="chkUser();"/></td>
       			</tr>
       		</table>
-	</div>
+			</div>
 
 	<br/>
 	<div>
@@ -209,16 +212,35 @@
 			</div>
 			<br />	
 			<div>		
-				<select name="sel">
-					<option value="b.user_name">예약자명</option>
-					<option value="b.user_phone">예약자 연락처</option>		
-				</select>
-				<input type="hidden" name="blank" />
-				<input type="text" name="search" />
-				<input type="submit" value="검색" />
+			<div class="search_wrap">
+				<div id="sel" class="select-box">
+				  <div class="select-box_current" tabindex="1">
+				    <div class="select-box_value">
+				      <input class="select-box_input" type="radio" id="b.user_name" value="b.user_name" name="selected" checked="checked"/>
+				      <p class="select-box_input-text">예약자명</p>
+				    </div>
+				    <div class="select-box_value">
+				      <input class="select-box_input" type="radio" id="b.user_phone" value="b.user_phone" name="selected"/>
+				      <p class="select-box_input-text">예약자 연락처</p>
+				    </div>
+				    <img class="select-box_icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
+				  </div>
+				  <ul class="select-box_list" style="height: 100px; overflow: scroll;">
+				    <li>
+				      <label class="select-box_option" for="b.user_name" aria-hidden="aria-hidden">예약자명</label>
+				    </li>
+				    <li>
+				      <label class="select-box_option" for="b.user_phone" aria-hidden="aria-hidden">예약자 연락처</label>
+				    </li>
+				  </ul>
+				</div>
+				<input class="search" type="text" name="search"/>
+				<input class="btn" type="submit" value="검색" />
 				<input type="button" value="원래대로" onclick="window.location='memberBookingModifyForm.jsp'"/>
 				<input type="button" value="지난 예약 보기" onclick="window.location='memberBookingAfterForm.jsp'" />
-				<br/><br/><h3 style="color:black">현재 페이지 : <%=pageNum%></h3>
+			</div>
+			
+				<h3 style="color:black">현재 페이지 : <%=pageNum%></h3>
 			</div>
 		</form>
 	<%	} %>

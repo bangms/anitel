@@ -148,11 +148,10 @@
       
       <!-- 여기서부터 콘텐츠 화면 입니다.  -->
       <div id="section" style="padding-left:15%; margin-left:40px;">
-		 		<h1><%= member.getMember_name() %>님의 호텔 객실 및 서비스 관리</h1>
+		 		<h1 style="padding: 20px 0; font-weight: 700; font-size: 1.4em;"><%= member.getMember_name() %>님의 호텔 객실 및 서비스 관리</h1>
         <hr width="80%" style="margin:30px auto;">
         
-       	<div class="table_wrap" style="width:100%;">
-       		<h2>객실 목록</h2>
+       	<div class="table_wrap" style="width:100%; height: auto;">
 				  <ul class="responsive-table">
 				    <li class="table-header">
 				      <div class="col col-1" style="flex-basis: 3%;"></div>
@@ -198,7 +197,7 @@
 						</ul>
 					</div>	
 					
-				<div class="input_wrap">
+				<div class="add_room">
 					<h2>객실 추가</h2>
       		<form action="memberRoomModifyPro.jsp" method="post" name="mod" onsubmit=check() enctype="multipart/form-data">
       			
@@ -242,9 +241,7 @@
 							</div>
 						</div>
 						
-						<div class="btn_wrap">
-							<input class="btn" type="submit" value="추가하기"/>
-						</div>
+						<input class="btn" type="submit" value="추가하기"/>
 						
       		</form>
 				</div>
