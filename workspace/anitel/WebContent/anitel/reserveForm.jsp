@@ -64,6 +64,8 @@
 	
 	Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(check_in);
 	Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(check_out);
+	
+	System.out.println("date" + date1);
 	long diffSec = (date2.getTime()-date1.getTime()) / 1000; //초 차이
   long diffDays = diffSec / (24*60*60); //일자수 차이
   
@@ -167,8 +169,8 @@
 		
 	
 		<form method="post" id="reserveForm" name="reserveForm">
-			<input type="hidden" name="checkIn" value="<%=check_in %>" />
-			<input type="hidden" name="checkOut" value="<%=check_out %>" /> 
+			<input type="hidden" name="checkIn" value="<%=date1 %>" />
+			<input type="hidden" name="checkOut" value="<%=date2 %>" /> 
 			<input type="hidden" name="room_num" value="<%=room_num %>" />
 			<input type="hidden" name="id" value="<%=id %>" />
 			<input type="hidden" name="total_fee" value="<%= total_fee %>" />
@@ -217,9 +219,9 @@
 		        }else{
 	            console.log("체크박스 체크 해제!");
 	            $("input[name=user_name]").val('');
-		        	$("input[name=user_email]").val('');
-		        	$("input[name=user_phone]").val('');
-		        	$("#pet").val('');
+	        	$("input[name=user_email]").val('');
+	        	$("input[name=user_phone]").val('');
+	        	$("#pet").val('');
 		        }
 		    });
 			</script>
@@ -235,13 +237,13 @@
 			</div>
 			
 			<div class="group">
-				<label id="pet_etctype" class="hidden"> 기타동물 입력<span class="red">*</span>
+				<label id="pet_etctype" class="hidden"> 기타동물 입력
 					<input type="text" class="form__field" name="pet_etctype" />
 				</label>
 			</div>
 			
 			<div class="group gender">
-				<p class="sub">반려동물 성별 <span class="red">*</span></p>
+				<p class="sub">반려동물 성별 </p>
 				<div class="input_wrap">
 			    <label for="male" class="form__label"> 수컷
 			        <input type="radio" id="male" value="1" name="pet_gender" /> 
@@ -341,13 +343,11 @@
 		</div>
 	</div>
 	
-  <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
 	<div id="footer">
-		<img src="imgs/logo2.png" width=100px; height=50px;>
-		<p>
-			평일 10:00 - 17:00 | anitel@anitel.com <br /> <span	id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
-			</span> | <span id="info_text_btn"><a href="board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
-		</p>
+ 		<img src="imgs/logo2.png" width=100px; height=50px;>
+ 		<p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
+ 		이용약관 | 취소정책 | 1:1문의 <br/>
+		COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
 	</div>
 </div>
 </body>
