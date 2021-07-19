@@ -59,7 +59,7 @@
 	//게시판 글가져오기
 	BoardDAO bdao = BoardDAO.getInstance(); 
 		
-	List articleList = null;							// 전체(or검색된) 게시글들을 담을 list변수
+	List oneList = null;							// 전체(or검색된) 게시글들을 담을 list변수
 	int count = 0;										// DB에 저장되어 있는 전체(or검색된) 글의 개수 보관
 	int number = 0;										// 게시판 목록에 뿌려줄 가상의 글 번호
 		
@@ -69,7 +69,7 @@
 		System.out.println("list.jsp - 등록된 총 게시글 수(count변수) : " + count + "개");
 		// 게시글이 하나라도 잇으면 글을 가져오기
 		if(count>0){										// 글 갯수가 0보다 크다면 글 번호 받기
-			articleList = bdao.getuserQna(startRow, endRow, categ, member.getId()); 
+			oneList = bdao.getonebyone(startRow, endRow, categ, member.getId()); 
 		}
 		number = count - (currentPage - 1) * pageSize;		// 가상의 글 번호 받기
 	
@@ -139,10 +139,9 @@
 							<div class="col col-5" style="flex-basis: 20%;">답변여부</div>
 							
 						</li>
-	
-						<%		for(int i=0; i< articleList.size(); i++){
-									UserBoardDTO article = (UserBoardDTO)articleList.get(i); %>
-	
+						<%		for(int i=0; i< oneList.size(); i++){
+								UserBoardDTO article = (UserBoardDTO)oneList.get(i); %>
+
 						<li class="table-row">
 							<div class="col col-1" style="flex-basis: 5%;"><%= number--%></div>
 							<div class="col col-2" style="flex-basis: 30%;">
