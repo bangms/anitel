@@ -35,7 +35,7 @@
 %>		
 </head>
 <script>
-	opener.parent.location='/anitel/anitel/adminMypage/adminUserForm.jsp';
+	opener.parent.location='/anitel/anitel/adminMypage/adminReserveForm.jsp';
 </script>
 <body>
 	<br/><br/><br/><br/>
