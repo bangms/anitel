@@ -45,7 +45,7 @@
 		<tr>
 			<td><br/>
 			<input type="submit" value="확인"/>&emsp;	 
-			<input type="button" value="CANCEL" onClick="window.close()"/>
+			<input type="button" value="취소" onClick="window.close()"/>
 			 </td>
 		</tr>
 	</table> 
