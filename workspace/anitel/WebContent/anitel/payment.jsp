@@ -25,15 +25,21 @@
 	<%
 	request.setCharacterEncoding("UTF-8");
 	String total_fee = request.getParameter("total_fee");
+	
 	%>
+ 
 </head>
-	<jsp:useBean id="dto" class="anitel.model.BookingDTO" />
+  	<jsp:useBean id="dto" class="anitel.model.BookingDTO" />
 	<jsp:setProperty property="*" name="dto" />
-  
+<%	request.setCharacterEncoding("UTF-8");
+
+	System.out.println("아이디" + dto.getId());
+	System.out.println("체크인" +dto.getCheck_in());
+	System.out.println("쳌아" +dto.getCheck_out());
+%>
 <body>
 <%
 	BookingDAO dao = BookingDAO.getInstance();
-
 %>
  <div id="container">
 
