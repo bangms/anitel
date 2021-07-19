@@ -365,7 +365,7 @@ $(document).ready(function(){
  <div class="review_wrap board">
 	    <p>후기게시판</p>
 	    <table class="review">
-	      <tr>
+	      <tr class="_sub">
 	        <td>작성자</td>
 	        <td>내용</td>
 	      </tr>
@@ -377,7 +377,7 @@ $(document).ready(function(){
 	  <div class="qna_wrap board" style="margin-bottom: 50px">
 	    <p>Q&A 게시판</p>
 	    <table class="qna">
-	      <tr>
+	      <tr class="_sub">
 	        <td>작성자</td>
 	        <td>내용</td>
 	      </tr>
@@ -433,8 +433,8 @@ $(document).ready(function(){
 	    <p>후기게시판</p>
 	    <table class="review">
 			<% if(count == 0){ %>
-			     	 <tr>
-			      	  	<td>작성자</td>
+			     	 <tr class="_sub">
+		      	  	<td>작성자</td>
 			       	 	<td>내용</td>
 			      	</tr>
 			      	<tr>
@@ -443,14 +443,14 @@ $(document).ready(function(){
 			<%}else{
 					reviewList = dao.getReviews(startRow, endRow, categ, reg_num); %>
 		 			<tr id="rs"></tr>
-	     		<tr>
+	     		<tr class="_sub">
 	        	<td>작성자</td>
 	        	<td>제 목</td>
 	      	</tr>
 			<% for(int i = 0; i < reviewList.size(); i++) {
 					DetailDTO article = (DetailDTO)reviewList.get(i);
 	%>
-					<tr id="review_article">
+					<tr class="review_article">
 		   	 		<input type="hidden" class="board_num" name="board_num" value="<%= article.getBoard_num()%>" />
 	        	<td>익명</td>
 	         	<td><%= article.getSubject() %></td>
@@ -473,7 +473,7 @@ $(document).ready(function(){
 		 	<p>Q&A 게시판</p>
 		 	<table class="qna">
     <% if(count == 0){ %>
-		      		<tr>
+		      		<tr class="_sub">
 		        		<td>작성자</td>
 		        		<td>내용</td>
 		      		</tr>
@@ -482,7 +482,7 @@ $(document).ready(function(){
 		      		</tr>
      <%}else{
     	 	reviewList = dao.getReviews (startRow, endRow, categ, reg_num); %>
-		     		 <tr>
+		     		 <tr class="_sub">
 		        		<td>작성자</td>
 		        		<td>제 목</td>
 		      		</tr>
@@ -497,7 +497,7 @@ $(document).ready(function(){
 	            window.open(url,"checkPw","toolbar=no, location=no, status=no, menubar=no, scrollbars=no resizeable=no, width=300, height=200");
 	         }
 			</script>
-		     		<tr>
+		     		<tr class="review_article">
 		         		<td><%=article.getId() %></td>
 		         		
 		         		<%if(sid == null) { // 팝업 - 로그인이 필요한 페이지 입니다. %> 
@@ -523,11 +523,14 @@ $(document).ready(function(){
 	  </div>
 	  
 <%} %>
- 	<div id="footer">
-	 <img src="imgs/logo2.png" width=100px; height=50px;>
-	 <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
-	 이용약관 | 취소정책 | 1:1문의 <br/>
-		COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
- </div>
+   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
+	<div id="footer">
+		<img src="imgs/logo2.png" width=100px; height=50px;>
+		<p>
+			평일 10:00 - 17:00 | anitel@anitel.com <br /> <span	id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
+			</span> | <span id="info_text_btn"><a href="board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
+		</p>
+	</div>
+</div>
 </body>
 </html>
