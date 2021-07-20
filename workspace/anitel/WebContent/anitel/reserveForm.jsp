@@ -34,6 +34,7 @@
 	<link rel="stylesheet" href="style/reserve.css">
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="js/reservejs.js"></script>
+	<script type="text/javascript" src="js/valCheck.js"></script>
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -165,14 +166,15 @@
 		
 		
 	
-		<form method="post" id="reserveForm" name="reserveForm">
+		<form method="post" id="reserveForm" name="reserveForm" >
 			<input type="hidden" name="in" value="<%=check_in %>" />
 			<input type="hidden" name="out" value="<%=check_out %>" /> 
 			<input type="hidden" name="room_num" value="<%=room_num %>" />
 			<input type="hidden" name="id" value="<%=id %>" />
 			<input type="hidden" name="total_fee" value="<%= total_fee %>" />
 			
-			<div class="userInfo">예약자정보
+			<div class="userInfo">
+				<div class="sub">예약자정보</div>
 				<input type="checkbox" name="user_info" /> <span>가입자와 동일</span>
 			</div>
 			<p style="font-weight:100; font-size:0.8em; margin-bottom:30px;">* 는 필수 입력 사항 입니다!</p>
@@ -193,7 +195,7 @@
 			
 			<%-- 반려동물은 id에 등록되어 있는 아이들만 가능하게 --%>
 			<div class="group">
-				<label for="user_name">반려동물 이름<span class="red">*</span></label>
+				<label for="pet">반려동물 이름<span class="red">*</span></label>
 				<select name="pet_num" id="pet">
 					<option>반려동물 선택</option>
 					<%for(int i = 0; i < petInfo.size(); i++){ 
@@ -239,7 +241,7 @@
 			</div>
 			
 			<div class="group gender">
-				<p class="sub">반려동물 성별 </p>
+				<p class="sub">반려동물 성별<span class="red">*</span> </p>
 				<div class="input_wrap">
 			    <label for="male" class="form__label"> 수컷
 			        <input type="radio" id="male" value="1" name="pet_gender" /> 
@@ -252,16 +254,17 @@
 			
 			<div class="group">
 				<input type="text" name="pet_age" id="pet_age"/>
-				<label for="pet_age">반려동물 나이</label>
+				<label for="pet_age">반려동물 나이<span class="red">*</span></label>
 			</div>
 			
 			<div class="group">
-				<label for="pet_big">대형견 여부</label>
+				<p class="sub"><label for="pet_big">대형견 여부</label></p>
 				<input type="checkbox" name="pet_big" id="pet_big" value="1" />
+				
 			</div>
 			
 			<div class="group">
-				<p class="sub">중성화 여부</p>
+				<p class="sub">중성화 여부<span class="red">*</span></p>
 				<input type="radio" id="N" name="pet_operation" value="0"/>
 				<label for="N" style="font-weight:100">아니오</label>
 				<input type="radio" id="Y" name="pet_operation" value="1"/>
@@ -335,30 +338,46 @@
 		<%-- 전체 결제 금액 표시 --%>
 		<div class="total_fee">
 			<p><strong>결제할 금액</strong> <%=total_fee %>원</p>
-			<button id="paymentBtn" onclick="submitForm(this)">결  제</button>
+			<button id="paymentBtn" onclick="check(this)">결  제</button>
 		</div>
 	</div>
 	<div id="footer">
-      <img src="../imgs/logo2.png" width=100px; height=50px;>
+      <img src="imgs/logo2.png" width=100px; height=50px;>
      	<p>
 			평일 10:00 - 17:00 | anitel@anitel.com <br /> <span id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
-			</span> | <span id="info_text_btn"><a href="../board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
+			</span> | <span id="info_text_btn"><a href="board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
 		</p>
     </div>
 </div>	
 </body>
 <script type="text/javascript">
-function submitForm() {
-	var cancel_agree = document.getElementById('cancel_agree').checked;
-	var reserve_agree = document.getElementById('reserve_agree').checked;
-	if(cancel_agree && reserve_agree) {
-		document.reserveForm.action = "payment.jsp";
-		document.reserveForm.submit();
-	} else {
-		alert("동의해주세요!");
-		return false;
-	}
+
+function check(){
+	var frm = document.reserveForm;
+	if(!checkUserName(frm.user_name.value)
+			|| !checkEmail(frm.user_email.value)
+			|| !checkPhone(frm.user_phone.value) 
+			|| !checkExistData(frm.pet_num.value, "반려동물 이름을") 
+			|| !checkExistData(frm.pet_gender.value, "반려동물 성별을") 
+			|| !checkExistData(frm.pet_age.value, "반려동물 나이를") 
+			|| !checkExistData(frm.pet_operation.value, "중성화 여부를") 
+	) return false;
+	submitForm();
+
 	
 }
+	function submitForm() {
+		var cancel_agree = document.getElementById('cancel_agree').checked;
+		var reserve_agree = document.getElementById('reserve_agree').checked;
+		if(cancel_agree && reserve_agree) {
+			document.reserveForm.action = "payment.jsp";
+			document.reserveForm.submit();
+		} else {
+			alert("동의해주세요!");
+			return false;
+		}
+   return true;
+ }
+
 </script>
 </html>

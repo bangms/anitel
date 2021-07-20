@@ -31,11 +31,12 @@ function checkEmail(user_email) {
 }
 
 function checkPhone(user_phone) {
-    if (!checkExistData(user_phone, "1전화번호를"))
+    if (!checkExistData(user_phone, "전화번호를"))
         return false;
-    var phoneRegExp = /^\d{2,3}-\d{3,4}-\d{4}$/;
+
+    var phoneRegExp = /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/;
     if (!phoneRegExp.test(user_phone)) {
-        alert("1전화번호는 숫자만 가능합니다!");
+        alert("전화번호는 숫자만 가능합니다!");
         return false;
     }
     return true; //확인이 완료되었을 때
