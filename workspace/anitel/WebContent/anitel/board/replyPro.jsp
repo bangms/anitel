@@ -62,7 +62,11 @@
 	int checkID = dao.idCk(id);
 	
 	if(session.getAttribute("sid").equals("admin")){
-		response.sendRedirect("../adminMypage/adminUserQnAForm.jsp?categ=" + categ);
+		if(dao.idCk(writeId) == 1){//일반유저의 글 
+			response.sendRedirect("../adminMypage/adminUserQnAForm.jsp?categ=1");	 
+		}else if (dao.idCk(writeId) == 2){//사업자의 글 
+			response.sendRedirect("../adminMypage/adminMemberQnAForm.jsp?categ=1");
+		}
 	}else {
 		response.sendRedirect("content.jsp?board_num=" + article.getBoard_num() + "&pageNum=" + pageNum + "&categ=" + categ + "&reg_num=" + reg_num);
 	}
