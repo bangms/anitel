@@ -57,22 +57,17 @@
 	
 	//response.sendRedirect("content.jsp?board_num=" + article.getBoard_num() + "&pageNum=" + pageNum + "&categ=" + categ + "&reg_num=" + reg_num);
  	
+ 	
 	MemberDAO member = MemberDAO.getInstance(); 
 	int checkID = dao.idCk(id);
 	
-	if(dao.idCk(writeId) == 1){//일반유저
-		response.sendRedirect("../adminMypage/adminUserQnAForm.jsp?categ=" + categ);	 
-	}else if (dao.idCk(writeId) == 2){//사업자
-		if(reg_num.equals(null)){
-			response.sendRedirect("../adminMypage/adminMemberQnAForm.jsp?categ=" + categ);	
-		}else{
-			response.sendRedirect("content.jsp?board_num=" + article.getBoard_num() + "&pageNum=" + pageNum + "&categ=" + categ + "&reg_num=" + reg_num);
-		}
-		
+	if(session.getAttribute("sid").equals("admin")){
+		response.sendRedirect("../adminMypage/adminUserQnAForm.jsp?categ=" + categ);
+	}else {
+		response.sendRedirect("content.jsp?board_num=" + article.getBoard_num() + "&pageNum=" + pageNum + "&categ=" + categ + "&reg_num=" + reg_num);
 	}
-		
+	
  
-
 %>
 <body>
 
