@@ -313,9 +313,13 @@
 <%				} %>
 			</div>
 			<div class="img_wrap">
-     		<img src="/anitel/save/<%=room.getImg()%>" class="room_img" alt="room_img"/>
+			<%if(room.getImg() == null) { %>
+				<div style="background:#fff; padding : 50px 0;">객실 세부 사진이 없습니다.</div>
+			<%} else { %>
+     		<img src="save/<%=room.getImg()%>" class="room_img" alt="room_img"/>
+     	<%} %>
      	</div>
-     	<p><%=room.getName() %></p>
+     	<p>객실 이름 : <span style="font-weight:500; font-size: 1em;"><%=room.getName() %></span></p>
 <%		if (room.getPet_big() == 1) { %> 
      		<p>대형동물 전용방</p>
 <%		} %>
