@@ -13,7 +13,7 @@
 					accu[v] = true;
 					return accu;
 				}, []);
-				map[$this.val()] ? $this.attr('checked', true) : $this.attr('checked', false);
+				map[$this.val()] ? $this.prop('checked', true) : $this.prop('checked', false);
 			});
 			return this;
 		};
@@ -23,7 +23,7 @@
 				var $this = $(this);
 				
 				if($this.val() == val) {
-					$this.attr('checked', true);
+					$this.prop('checked', true);
 				}
 			});
 			return this;
@@ -51,9 +51,9 @@
 						document.getElementById('pet_etctype').classList.replace('show', 'hidden');
 					}
 											
-					$("input[name=pet_etctype]").attr("value",data.pet_etctype);
-					$("input[name=pet_name]").attr("value",data.pet_name);
-					$("input[name=pet_age]").attr("value",data.pet_age);
+					$("input[name=pet_etctype]").prop("value",data.pet_etctype);
+					$("input[name=pet_name]").prop("value",data.pet_name);
+					$("input[name=pet_age]").prop("value",data.pet_age);
 				},
 				error : function(request,status,error){
 					        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

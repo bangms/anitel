@@ -183,8 +183,8 @@ input[type="checkbox"], input[type="radio"] {
 }
 .img_wrap {
    margin-top: 120px;
-   width: 200px;
-   height:200px;
+   width: 100%;
+   height:auto;
    background: #eee;
 }
 
