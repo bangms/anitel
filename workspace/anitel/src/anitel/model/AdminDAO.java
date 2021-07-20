@@ -585,16 +585,16 @@ public class AdminDAO {
 	} //getUserQnASearch()
 	
 	// 1:1문의 일반회원 문의글 삭제 메서드
-	public int deleteUserQna(String id) {
+	public int deleteUserQna(String num) {
 		int result = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			conn = getConnection();			
-			String sql = "delete from board where exists(select * from users where board.id = users.id AND board.categ=1 and board.id = ?)";
+			conn = getConnection();		
+			String sql = "delete from board where board_num = ? and categ = 1";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setString(1, num);
 			result = pstmt.executeUpdate();
 
 		}catch(Exception e) {
@@ -737,16 +737,16 @@ public class AdminDAO {
 		} //getMemberQnASearch()
 	
 		// 1:1문의 사업자회원 문의글 삭제 메서드
-		public int deleteMemberQna(String id) {
+		public int deleteMemberQna(String num) {
 			int result = 0;
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			
 			try {
 				conn = getConnection();			
-				String sql = "delete from board where exists(select * from member where board.id = member.id AND board.categ=1 and board.id = ?)";
+				String sql = "delete from board where board_num = ? and categ = 1";
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, id);
+				pstmt.setString(1, num);
 				result = pstmt.executeUpdate();
 
 			}catch(Exception e) {

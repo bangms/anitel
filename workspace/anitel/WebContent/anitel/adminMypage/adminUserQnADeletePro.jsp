@@ -11,9 +11,9 @@
 	int result = 0;
 	
 	for(int i = 0 ; i < check.length; i++){
-		String id = check[i];
+		String num = (String)check[i];
 		AdminDAO dao = AdminDAO.getInstance();
-		result = dao.deleteUserQna(id);		 
+		result = dao.deleteUserQna(num);		 
 	}
 
 	if(result == 1) {%> 

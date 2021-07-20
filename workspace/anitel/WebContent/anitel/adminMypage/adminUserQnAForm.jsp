@@ -145,7 +145,7 @@
 				%>
 				
 				<li class="table-row">
-			      <div class="col col-1" style="flex-basis: 5%;" data-label="checkbox"><input type="checkbox" name="info" value="<%=user.getId()%>" /></div>
+			      <div class="col col-1" style="flex-basis: 5%;" data-label="checkbox"><input type="checkbox" name="info" value="<%=user.getBoard_num()%>" /></div>
 			      <div class="col col-2" style="flex-basis: 17%;" data-label="reg_date"><%=sdf.format(user.getReg_date()) %></div>
 			      <div class="col col-3" style="flex-basis: 17%;" data-label="memberId"><%=user.getId() %></div>
 			      <div class="col col-4" style="flex-basis: 17%;" data-label="subject"><a class="list_subject" href="../board/content.jsp?board_num=<%=user.getBoard_num()%>&categ=1&pageNum=<%=pageNum%>"><%=user.getSubject() %></a></div>
