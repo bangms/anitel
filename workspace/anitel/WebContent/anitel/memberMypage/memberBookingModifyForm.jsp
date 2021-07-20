@@ -127,7 +127,7 @@
 					<h1><%= member.getMember_name() %>님의 <span style="color:#FF822B !important"><%= member.getHotel_name() %></span> 호텔 예약 관리 </h1>
 		      <hr/>
 				</div>
-      <div class="table_wrap" >
+      <div class="table_wrap" style="width:90%;">
 		<%	if(userList==null) { %>
 					<p style="padding:100px 0">현재 예정된 예약이 없습니다.</p>
 				<div class="btn_wrap">
@@ -170,7 +170,7 @@
       	</ul>
       		<table>
       			<tr>
-      				<td align="left" width=400><input type="button" value="선택예약 취소" onclick="chkUser();"/></td>
+      				<td align="left" width=400><input style="padding:10px 20px; border-radius:6px;" type="button" value="선택예약 취소" onclick="chkUser();"/></td>
       			</tr>
       		</table>
 			</div>
@@ -212,7 +212,7 @@
 			</div>
 			<br />	
 			<div>		
-			<div class="search_wrap">
+			<div class="search_wrap" style="padding:40px 0">
 				<div id="sel" class="select-box">
 				  <div class="select-box_current" tabindex="1">
 				    <div class="select-box_value">
@@ -236,11 +236,11 @@
 				</div>
 				<input class="search" type="text" name="search"/>
 				<input class="btn" type="submit" value="검색" />
-				<input type="button" value="원래대로" onclick="window.location='memberBookingModifyForm.jsp'"/>
+				<input type="button" value="원래대로" onclick="window.location='memberBookingModifyForm.jsp'" style="margin-right: 5px;"/>
 				<input type="button" value="지난 예약 보기" onclick="window.location='memberBookingAfterForm.jsp'" />
 			</div>
 			
-				<h3 style="color:black">현재 페이지 : <%=pageNum%></h3>
+				<h3 style="color:black; padding-bottom:100px;">현재 페이지 : <%=pageNum%></h3>
 			</div>
 		</form>
 	<%	} %>

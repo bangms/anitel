@@ -7,7 +7,7 @@
 	<title>게시판</title>
 	<link rel="stylesheet" href="../style/style.css">
 	<link rel="stylesheet" href="../style/reset.css">
-	<link rel="stylesheet" href="../style/init.css">	
+	<link rel="stylesheet" href="../style/board.css">
 </head>
 <%
     String strReferer = request.getHeader("referer");
@@ -119,6 +119,7 @@
 					<h1> 후기 </h1>
 		<% } %>
  	</div>
+ 	<hr>
  	<div align="center">
 		<form action="writePro.jsp" method="post" enctype="multipart/form-data" name="inputForm" onsubmit="return check()">
 			<%-- 글에 대한 속성값 노출 없이 전송 --%>
@@ -131,8 +132,40 @@
 			<input type="hidden" name="check_out" value="<%=check_out%>"/>
 			<input type="hidden" name="pet_type" value="<%=pet_type%>"/>
 			 
-	 
-			<table align="center" style="margin:  0 auto;">
+	 		<div class="wrap">
+	 			<ul>
+	 				<li>
+	 					<div class="sub">제목</div>
+	 					<input size="60%" type="text" name="subject" placeholder="제목입력" autofocus/> 
+	 				</li>
+	 				
+	 				<li>
+	 					<div class="sub">비밀번호</div>
+	 					<input type="password" name="pw" placeholder="비밀번호" />
+	 				</li>
+	 				
+	 				<li>
+	 					<div class="sub">이미지 파일 업로드</div>
+	 					<input type="file" name="img" />
+	 				</li>
+	 				
+	 				<li>
+	 					<div class="sub">내용 입력</div>
+	 					<textarea rows="20" cols="60" name="ctt"></textarea>
+	 				</li>
+	 			</ul>
+	 			<div class="btn_wrap">
+	 				<input type="submit" value="등 록" />	
+					<%if(categ == 0 || categ == 1){%>
+					 	<input type="button" value="취 소" onclick="window.location='list.jsp?&categ=<%=categ %>&amp;reg_num=<%=reg_num%>'" />            
+					<%}else if(categ == 2 || categ == 3){%>
+						<input type="button" value="취 소" onclick="history.back(-2)"/>
+					<%}%>		
+	 			</div>
+	 		</div>
+		
+		
+<!-- 			<table align="center" style="margin:  0 auto;">
 				<tr>
 					<td><input size="60%" type="text" name="subject" placeholder="제목입력" autofocus/></td>
 				</tr>
@@ -147,7 +180,7 @@
 					<td><textarea rows="20" cols="60" name="ctt"></textarea></td>
 				</tr> 
 				<tr>
-					<td>
+					<td> 
 						<input type="submit" value="등 록" />	
 						<%if(categ == 0 || categ == 1){%>
 						 	<input type="button" value="취 소" onclick="window.location='list.jsp?&categ=<%=categ %>&amp;reg_num=<%=reg_num%>'" />            
@@ -156,17 +189,18 @@
 						<%}%>				 
 					</td>
 				</tr>
-			</table>
+			</table>-->
 		</form>
 	</div>
 </div>
   <!-- 여기서부터 푸터입니다. 일단  DON't Touch !!!!!  -->     
-		<div id="footer">
-			 <img src="../imgs/logo2.png" width=100px; height=50px;>
-			 <p> 평일 10:00 - 17:00 | anitel@anitel.com <br/>
-			 이용약관 | 취소정책 | 1:1문의 <br/>
-				COPYRIGHT 콩콩이 ALL RIGHT Reserved.</p>
-			</div>
-  </div>
+	<div id="footer">
+		<img src="../imgs/logo2.png" width=100px; height=50px;>
+		<p>
+			평일 10:00 - 17:00 | anitel@anitel.com <br /> <span	id="info_text_btn">이용약관 </span> | <span id="tos_text_btn">취소정책
+			</span> | <span id="info_text_btn"><a href="../board/list.jsp?categ=1" style="color:#fff;">1:1문의 </a></span><br> COPYRIGHT 콩콩이 ALLRIGHT Reserved.
+		</p>
+	</div>
+</div>
 </body>
 </html>

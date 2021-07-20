@@ -1,0 +1,42 @@
+#section {
+	width: 80%;
+	margin:0 auto;
+}
+hr {
+	margin: 40px 0;
+}
+#boardName {
+    padding: 20px 0;
+    font-weight: 700;
+    font-size: 1.4em;
+}
+
+.wrap {
+	position:relative;
+	width: 100%;
+	height: auto;
+}
+
+.wrap ul {
+	height: auto;
+}
+.wrap li {
+	width: 100%;
+	height: 54px;
+	margin-bottom: 10px;
+}
+
+.wrap li .sub {
+	width: 45%;
+	height: 54px;
+	float:left;
+}
+.wrap li input {
+	border:1px solid;
+	width: 50%;
+	height:50px;
+	float:right;
+}
+.sub {
+	line-height: 50px;
+}
