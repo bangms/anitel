@@ -149,12 +149,12 @@
 	 					<input type="file" name="img" />
 	 				</li>
 	 				
-	 				<li>
+	 				<li class="text">
 	 					<div class="sub">내용 입력</div>
 	 					<textarea rows="20" cols="60" name="ctt"></textarea>
 	 				</li>
 	 			</ul>
-	 			<div class="btn_wrap">
+	 			<div class="btn">
 	 				<input type="submit" value="등 록" />	
 					<%if(categ == 0 || categ == 1){%>
 					 	<input type="button" value="취 소" onclick="window.location='list.jsp?&categ=<%=categ %>&amp;reg_num=<%=reg_num%>'" />            
@@ -164,32 +164,6 @@
 	 			</div>
 	 		</div>
 		
-		
-<!-- 			<table align="center" style="margin:  0 auto;">
-				<tr>
-					<td><input size="60%" type="text" name="subject" placeholder="제목입력" autofocus/></td>
-				</tr>
-				<tr>
-					<td><input type="password" name="pw" placeholder="비밀번호" /></td>
-				</tr>
-				<tr>
-					<td><input type="file" name="img" /></td>
-					
-				</tr>
-				<tr>
-					<td><textarea rows="20" cols="60" name="ctt"></textarea></td>
-				</tr> 
-				<tr>
-					<td> 
-						<input type="submit" value="등 록" />	
-						<%if(categ == 0 || categ == 1){%>
-						 	<input type="button" value="취 소" onclick="window.location='list.jsp?&categ=<%=categ %>&amp;reg_num=<%=reg_num%>'" />            
-						<%}else if(categ == 2 || categ == 3){%>
-							<input type="button" value="취 소" onclick="history.back(-2)"/>
-						<%}%>				 
-					</td>
-				</tr>
-			</table>-->
 		</form>
 	</div>
 </div>

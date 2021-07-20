@@ -11,6 +11,7 @@
 	<title>글조회</title>
  	<link rel="stylesheet" href="../style/style.css">
  	<link rel="stylesheet" href="../style/reset.css">
+ 	<link rel="stylesheet" href="../style/board.css">
 </head>
 <%
 	 String strReferer = request.getHeader("referer");
@@ -75,7 +76,7 @@
 	String search = request.getParameter("search");
 %>
 <body>
-<div id="container" align="center"> 
+<div id="container" align="center" style="padding :0"> 
 	<div id="header">
 		<div id="logo" onclick="window.location='../main.jsp'">
 			<img src="../imgs/logo.jpg" width="200px" height="100px" alt="logo">
@@ -105,7 +106,7 @@
 		</div>
 	</div>	
 	 <div id="section" align="center">
-		<div id = "boardName" style="font-size:20px; font-weight: bold; color:black; padding:10px;">
+		<div id = "boardName">
 		<!-- 게시판 이름 분기처리  -->
 	 		<% if (categ == 0){ %>
 						<h1 align="center" > 공지사항 </h1>
@@ -117,7 +118,51 @@
 						<h1 align="center" > 후기 </h1>
 			<% } %>
 		</div>
-		<div id="content" align= "center">
+		<hr>
+		<div class="wrap">
+	 			<ul>
+	 				<li class="content">
+	 					<div class="sub" style="height:30px;line-height:30px;">제목</div>
+	 					<div class="con"><%= article.getSubject()%></div>
+	 				</li>
+	 				
+	 				<li class="reg_date content">
+	 					<div class="sub">작성일</div>
+	 					<div class="con"><%= sdf.format(article.getReg_date()) %> </div>
+	 				</li>
+					
+					<li class="readcount content">
+						<div class="sub">조회수</div>
+	 					<div class="con"><%= article.getReadcount() %> viewed</div>
+					</li>
+	 				
+	 				<li class="img">
+	 					<div style="width:100%;">
+	 						<%if(article.getImg() != null){%>
+								<td colspan="2" height="100"><img src="<%=request.getContextPath()%>/save/<%=article.getImg()%>" style="max-width: 80%" /> </td>	
+							<%}else{ %>
+								<td colspan="2" height="100"><img src="../save/default.png"/></td>
+							<%} %>
+	 					</div>
+	 				</li>
+	 				
+	 				<li class="text">
+	 					<div class="sub" style="text-align: left;">내용 입력</div>
+	 					<div class="con" style=" float: left; width: 100%; height: 300px;"><%= article.getCtt() %></div>
+	 				</li>
+	 				
+	 				
+	 				<%if(article.getReply_content() != null){ %> 
+	 					<li>
+	 						<div class="sub" style="text-align:left;">답 변</div>
+	 						<div class="con" style=" float: left; width: 100%; height: 300px;"><%= article.getReply_content()%></div>
+	 					</li>
+					<%} %>
+	 				
+	 			</ul>
+	 			<div class="btn">
+	 					
+	<%-- 	<div id="content" align= "center">
 		<div class="table_wrap">
 	 		<table align="center" style="margin:  0 auto;" >
 			<tr>
@@ -146,7 +191,8 @@
 			 
 		</table>
 		</div>
-		</br></br></br>
+		</br></br></br> --%>
+		
 <% if (categ == 0){//공지%>
 	<%if(sel != null && search != null){ // 검색해서 들어왔음 %>
 		<input type="button" value="목록으로" onclick="window.location='list.jsp?categ=<%=categ%>&pageNum=<%=pageNum%>&sel=<%=sel%>&search=<%=search%>'"/>
@@ -209,7 +255,6 @@
 	<%} %>
 <%}%>
 
-
  
 <%if(id== null){ %>
 	<%-- 버튼 안보임  --%>
@@ -264,7 +309,7 @@
 		
 		<%}//categ==3 %>
 	
-		
+		</div>
 <%} //세션 있고 없고 %>
 				 
 		</div>	
