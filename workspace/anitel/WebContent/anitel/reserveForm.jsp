@@ -1,4 +1,4 @@
-<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="anitel.model.BoardDAO"%>
@@ -59,16 +59,21 @@
 	RoomDTO room = new RoomDTO();
 	room = dao.getRoomInfo(room_num);
 	
-	int day_fee = Integer.parseInt(room.getD_fee());
+
+	String day_fee = room.getD_fee();
 	
 	Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(check_in);
 	Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(check_out);
 	long diffSec = (date2.getTime()-date1.getTime()) / 1000; //초 차이
   long diffDays = diffSec / (24*60*60); //일자수 차이
   
-  int total_fee = day_fee * (int)diffDays;
+  int total_fee = Integer.parseInt(day_fee) * (int)diffDays;
+   
+  DecimalFormat decFormat = new DecimalFormat("###,###"); 
+
+  String total = decFormat.format(total_fee);
   
-  System.out.println(diffDays + "일 이용 시 총 가격 = " + total_fee);
+  System.out.println(diffDays + "일 이용 시 총 가격 = " + total);
 
 %>
 <body>
@@ -341,7 +346,7 @@
 		
 		<%-- 전체 결제 금액 표시 --%>
 		<div class="total_fee">
-			<p><strong>결제할 금액</strong> <%=total_fee %>원</p>
+			<p><strong>결제할 금액</strong> <%=total %>원</p>
 			<button id="paymentBtn" onclick="check(this)">결  제</button>
 		</div>
 	</div>

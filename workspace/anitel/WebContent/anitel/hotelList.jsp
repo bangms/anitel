@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="anitel.model.BoardDAO"%>
 <%@page import="anitel.model.HotelDTO"%> 
 <%@page import="java.util.List"%>
@@ -110,6 +111,8 @@ if(sub != null) { // 검색 한 경우
 		hotelList = dao.getHotels(startRow, endRow, hotel);  
 	}
 }
+
+DecimalFormat decFormat = new DecimalFormat("###,###"); 
 %>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -306,9 +309,9 @@ $(document).ready(function(){
 						<div class="card_wrapper">
 					    <div class="product-img">
 					      <%if(article.getImg() != null){%>
-										<img src="../anitel/save/<%=article.getImg()%>" width="50%"/>
+										<img src="save/<%=article.getImg()%>" width="50%"/>
 								<%}else{ %>
-										<img src="../anitel/save/default.png"/>
+										<img src="save/default.png"/>
 								<%} %>
 					    </div>
 					    <div class="hotel_info">
@@ -360,7 +363,8 @@ $(document).ready(function(){
 									대형견 : <%=article.getPet_big() %><br /> --%>
 								
 					      <div class="product-price">
-					        <p>1 day <span><%=article.getD_fee() %></span>won</p>
+					      <% String d_fee = article.getD_fee(); %>
+					        <p>1 day <span><%= decFormat.format(Integer.parseInt(d_fee)) %></span>won</p>
 					      </div>
 				        <div class="btn">
 									<button onclick="window.location='hotelDetail.jsp?memId=<%=article.getId()%>&hotel_area=<%=hotel.getHotel_area()%>&check_in=<%=hotel.getCheck_in()%>&check_out=<%=hotel.getCheck_out()%>&pet_type=<%=hotel.getPet_type()%>'">예약하기</button>

@@ -36,6 +36,12 @@ $(document).ready(function(){
 			data : "board_num=" + board_num,
 			dataType: "json",
 			success : function(data){
+				var img = "";
+				if(data.img == null) {
+					img = "default.png";
+				} else {
+					img = data.img
+				}
 					var list = 
 						"<table  border ='1' rules='none'>"+
 							"<tr>"+
@@ -45,7 +51,7 @@ $(document).ready(function(){
 								"<td>"+data.ctt+"</td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td><img src='../save/"+data.img+"' /></td>"+
+								"<td><img src='save/"+img+"' /></td>"+
 							"</tr>"+
 							"<tr>"+
 								"<td>익명</td>"+

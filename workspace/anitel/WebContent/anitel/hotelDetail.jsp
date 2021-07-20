@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="anitel.model.BoardDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="anitel.model.DetailDTO"%>
@@ -77,7 +78,9 @@ int pet_type = Integer.parseInt(request.getParameter("pet_type"));
 // 로그인 체크 부분 (헤더 버튼 부분과 룸 예약하기 버튼에서 사용)
 BoardDAO board = BoardDAO.getInstance();  
 int checkID = board.idCk(sid);
- 
+
+DecimalFormat decFormat = new DecimalFormat("###,###"); 
+
 %>
 
 <jsp:useBean id="board_dto" class="anitel.model.BoardDTO" />
@@ -330,7 +333,11 @@ $(document).ready(function(){
 					
 	      <li class="room_list">
 	      	<div class="img_wrap">
-	      		<img src="/anitel/save/<%=room.getImg()%>" class="room_img" alt="room_img"/>
+	      		<%if(room.getImg() != null){%>
+	      			<img src="save/<%=room.getImg()%>" class="room_img" alt="room_img"/>
+	      		<%}else{ %>
+								<img src="save/default.png"/>
+						<%} %>
 	      	</div>
 	      	<div class="txt_wrap">
 		      	<div class="room_name"_><%=room.getName()%></div>
@@ -339,7 +346,7 @@ $(document).ready(function(){
 		      				대형견 전용
 		      		<% } %>
 		      	</div>
-		      	<div class="room_fee"_><%=room.getD_fee()%> 원</div>
+		      	<div class="room_fee"_><%=decFormat.format(Integer.parseInt(room.getD_fee()))%> 원</div>
 	      	</div>
 	     <% if(sid != null){ // 로그인 되어있을 때
 				     if(checkID == 1) { // 일반 회원일 경우
